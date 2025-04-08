@@ -1,0 +1,21 @@
+{
+  "format_version": "1.21.20",
+  "minecraft:block": {
+    "description": {
+      "identifier": "cz:silver_brick_concrete",
+      "menu_category": {
+        "category": "construction"
+      }
+    },
+    "components": {
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 2.0
+      },
+      "minecraft:map_color": "#7D7D73",
+      "minecraft:flammable": false,
+      "minecraft:loot": "loot_tables/block/concrete/brick/silver.json",
+      "tag:stone": {}
+    },
+    "events": {}
+  }
+}

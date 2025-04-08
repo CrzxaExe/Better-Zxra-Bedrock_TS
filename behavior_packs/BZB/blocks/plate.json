@@ -1,0 +1,53 @@
+{
+  "format_version": "1.21.20",
+  "minecraft:block": {
+    "description": {
+      "identifier": "cz:plate",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:friction": 0.6,
+      "minecraft:map_color": "#8c760b",
+      "minecraft:flammable": true,
+      "minecraft:loot": "loot_tables/block/plate.json",
+      "tag:wood": {},
+      "minecraft:geometry": "geometry.plate",
+      "minecraft:collision_box": {
+        "origin": [
+          -7.0,
+          0.0,
+          -7.0
+        ],
+        "size": [
+          14.0,
+          1.0,
+          14.0
+        ]
+      },
+      "minecraft:selection_box": {
+        "origin": [
+          -7.0,
+          0.0,
+          -7.0
+        ],
+        "size": [
+          14.0,
+          3.0,
+          14.0
+        ]
+      },
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "wood_oak",
+          "render_method": "opaque"
+        }
+      },
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 0.8
+      }
+    },
+    "events": {}
+  }
+}

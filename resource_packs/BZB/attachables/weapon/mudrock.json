@@ -1,0 +1,36 @@
+{
+  "format_version": "1.19.0",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "cz:mudrock",
+      "materials": {
+        "default": "entity_alphatest",
+        "enchanted": "entity_alphatest_glint"
+      },
+      "textures": {
+        "default": "textures/items/weapon/mudrock_entity",
+        "enchanted": "textures/misc/enchanted_item_glint"
+      },
+      "geometry": {
+        "default": "geometry.mudrock"
+      },
+      "animations": {
+        "player": "animation.mudrock.key",
+        "fpp": "animation.mudrock.fpp"
+      },
+      "scripts": {
+        "animate": [
+          {
+            "player": "!c.is_first_person"
+          },
+          {
+            "fpp": "c.is_first_person"
+          }
+        ]
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ]
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "format_version": "1.21.10",
+  "minecraft:item": {
+    "description": {
+      "identifier": "cz:plasma_axe",
+      "menu_category": {
+        "category": "equipment",
+        "group": "itemGroup.name.axe",
+        "is_hidden_in_commands": false
+      }
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "item.plasma_axe.name"
+      },
+      "minecraft:icon": "plasma_axe",
+      "minecraft:max_stack_size": 1,
+      "minecraft:hand_equipped": true,
+      "minecraft:durability": {
+        "max_durability": 5650
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "cz:plasma_ingot",
+              "cz:plasma_axe"
+            ],
+            "repair_amount": "q.max_durability * 0.25"
+          }
+        ]
+      },
+      "minecraft:mining_speed": 1.7,
+      "minecraft:damage": 12,
+      "minecraft:enchantable": {
+        "value": 24,
+        "slot": "axe"
+      },
+      "minecraft:digger": {
+        "use_efficiency": true,
+        "destroy_speeds": [
+          {
+            "block": {
+              "tags": "q.any_tag('wood', 'pumpkin', 'plant')"
+            },
+            "speed": 14
+          },
+          {
+            "block": "minecraft:chest",
+            "speed": 9
+          },
+          {
+            "block": "minecraft:melon_block",
+            "speed": 9
+          }
+        ]
+      },
+      "minecraft:custom_compoments": ["cz:durability"]
+    }
+  }
+}

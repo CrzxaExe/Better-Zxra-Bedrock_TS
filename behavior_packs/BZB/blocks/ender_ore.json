@@ -1,0 +1,23 @@
+{
+  "format_version": "1.21.20",
+  "minecraft:block": {
+    "description": {
+      "identifier": "cz:ender_ore",
+      "menu_category": {
+        "category": "nature",
+        "group": "itemGroup.name.ore"
+      }
+    },
+    "components": {
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 5.5
+      },
+      "minecraft:map_color": "#531E4F",
+      "minecraft:flammable": false,
+      "tag:tier_1": {},
+      "minecraft:loot": "loot_tables/block/ender.json",
+      "minecraft:custom_components": ["cz:ore_xp"]
+    },
+    "events": {}
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "format_version": "1.21.20",
+  "minecraft:block": {
+    "description": {
+      "identifier": "cz:minarite_block",
+      "menu_category": {
+        "category": "construction"
+      }
+    },
+    "components": {
+      "minecraft:map_color": "#1763bf",
+      "minecraft:flammable": false,
+      "tag:heavy_ingot_block": {},
+      "minecraft:loot": "loot_tables/block/minarite_block.json",
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 22.0
+      }
+    },
+    "events": {}
+  }
+}

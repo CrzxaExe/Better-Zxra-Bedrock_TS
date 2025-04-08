@@ -1,0 +1,50 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "cz:elite_evoker",
+      "min_engine_version": "1.8.0",
+      "materials": {
+        "default": "evoker"
+      },
+      "textures": {
+        "default": "textures/entity/elite_evoker"
+      },
+      "geometry": {
+        "default": "geometry.elite_evoker"
+      },
+      "scripts": {
+        "scale": "0.9375",
+        "animate": [
+          "controller_general",
+          "controller_move"
+        ],
+        "pre_animation": [
+          "variable.tcos0 = (Math.cos(query.modified_distance_moved * 38.17) * query.modified_move_speed / variable.gliding_speed_value) * 57.3;"
+        ]
+      },
+      "animations": {
+        "general": "animation.humanoid.base_pose",
+        "casting": "animation.evoker.casting",
+        "look_at_target": "animation.common.look_at_target",
+        "move": "animation.humanoid.move",
+        "celebrating": "animation.humanoid.celebrating",
+        "controller_general": "controller.animation.evoker.general",
+        "controller_move": "controller.animation.humanoid.move",
+        "controller_riding": "controller.animation.humanoid.riding",
+        "riding.arms": "animation.humanoid.riding.arms",
+        "riding.legs": "animation.humanoid.riding.legs"
+      },
+      "particle_effects": {
+        "spell": "minecraft:evoker_spell"
+      },
+      "render_controllers": [
+        "controller.render.elite_evoker"
+      ],
+      "spawn_egg": {
+        "texture": "spawn_egg",
+        "texture_index": 40
+      }
+    }
+  }
+}

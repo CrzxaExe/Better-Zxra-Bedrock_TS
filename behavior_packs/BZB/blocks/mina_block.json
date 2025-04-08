@@ -1,0 +1,22 @@
+{
+  "format_version": "1.21.20",
+  "minecraft:block": {
+    "description": {
+      "identifier": "cz:mina_block",
+      "menu_category": {
+        "category": "construction"
+      }
+    },
+    "components": {
+      "minecraft:map_color": "#4AE4E4",
+      "minecraft:flammable": false,
+      "tag:heavy_ingot_block": {},
+      "tag:heavy_ingot_block1": {},
+      "minecraft:loot": "loot_tables/block/mina_block.json",
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 20.0
+      }
+    },
+    "events": {}
+  }
+}
