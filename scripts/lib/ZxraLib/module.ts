@@ -10,10 +10,18 @@ export const ZxraLib: { packVersion: string; version: string } = {
 };
 
 // Class export
+export { Chat } from "./class/Chat";
 export { Command, Modifier, Script, SpecialItem, Weapon } from "./class/DataClass";
 export { Terra } from "./class/Terra";
 
+// Data export
+export { settings } from "./data/setting";
+
+// Types export
 export type {
+  CommandData,
+  ItemSpecial,
+  ModifierData,
   PasifData,
   PasifHit,
   PasifHited,
@@ -21,6 +29,7 @@ export type {
   PlayerFinder,
   RedeemData,
   RedeemRewards,
+  Scripts,
   Setting,
   SettingRules,
   WeaponSkill,

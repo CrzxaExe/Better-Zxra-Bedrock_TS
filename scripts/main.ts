@@ -10,7 +10,11 @@ import "./lib/event/worldInitialize";
 console.warn(`Using Better Zxra Bedrock v${ZxraLib.packVersion}
 ZxraLib v${ZxraLib.version}`);
 
+Terra.getWorldProperty();
+
+if (Terra.world.setting?.debug) console.warn(Terra.world);
+
 // Main Ticking
-system.runInterval(() => {
-  console.warn(JSON.stringify(Terra.players));
-}, 10);
+// system.runInterval(() => {
+//   console.warn(JSON.stringify(Terra.players));
+// }, 10);

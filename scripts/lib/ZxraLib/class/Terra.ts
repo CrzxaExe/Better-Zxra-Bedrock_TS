@@ -1,5 +1,5 @@
-import { Player, world } from "@minecraft/server";
-import { PlayerFinder, WorldData } from "../module";
+import { Dimension, Player, system, world } from "@minecraft/server";
+import { PlayerFinder, settings, WorldData } from "../module";
 
 class Terra {
   // World data cache
@@ -7,18 +7,45 @@ class Terra {
 
   // World Property Methods
   static getWorldProperty(): WorldData | Object | undefined {
-    const result = world.getDynamicProperty("world") || "{}";
-    return JSON.parse(typeof result === "string" ? result : "{}");
+    try {
+      system.run(() => {
+        const result = world.getDynamicProperty("world") || JSON.stringify(settings);
+        return JSON.parse(typeof result === "string" ? result : JSON.stringify(settings));
+      });
+    } catch (err: Error | any) {
+      console.warn(err.message);
+      return;
+    }
   }
   static setWorldProperty(): void {
     if (!this.world) throw new Error("Invalid Terra world data");
     if (typeof this.world !== "object" && !Array.isArray(this.world)) throw new Error("World data must be object");
 
     try {
-      world.setDynamicProperty("world", JSON.stringify(this.world));
+      system.run(() => world.setDynamicProperty("world", JSON.stringify(this.world)));
     } catch (error: { message: string } | any) {
       throw new Error("Error on save data: " + error.message);
     }
+  }
+
+  // World Data methods
+  static getWorldData(): WorldData {
+    return this.world;
+  }
+  static setWorldData(data: WorldData): void {
+    this.world = data;
+  }
+
+  // World Other methods
+  static getActiveDimension(): Array<Dimension> {
+    const dimension: Array<Dimension> = this.players.reduce((all: Array<Dimension>, cur: Player) => {
+      if ([...all.map((e) => e.id)].includes(cur.dimension.id)) {
+        all.push(cur.dimension);
+      }
+      return all;
+    }, []);
+
+    return dimension;
   }
 
   // Player data cache

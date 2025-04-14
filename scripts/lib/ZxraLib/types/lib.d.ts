@@ -1,3 +1,21 @@
+// Command interface
+interface CommandData {
+  name: string;
+  callback: Function | undefined;
+}
+
+interface ItemSpecial {
+  item: string;
+  callback: Function;
+}
+
+// Modifier interface
+interface ModifierData {
+  name: string;
+  type: string;
+  callback: Function;
+}
+
 // Pasif interface
 interface PasifData {
   hit: Array<PasifHit>;
@@ -33,6 +51,12 @@ interface RedeemRewards {
   type: string;
   item?: string;
   amount: number;
+}
+
+// Script interface
+interface Scripts {
+  namespace: string;
+  callback: Function;
 }
 
 // Setting interface
@@ -78,6 +102,9 @@ interface WorldData {
 }
 
 export type {
+  CommandData,
+  ItemSpecial,
+  ModifierData,
   PasifData,
   PasifHit,
   PasifHited,
@@ -85,6 +112,7 @@ export type {
   PlayerFinder,
   RedeemData,
   RedeemRewards,
+  Scripts,
   Setting,
   SettingRules,
   WeaponSkill,

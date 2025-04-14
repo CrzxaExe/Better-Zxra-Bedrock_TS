@@ -1,7 +1,10 @@
-import { ChatSendAfterEvent, world } from "@minecraft/server";
+import { ChatSendAfterEvent, ChatSendBeforeEvent, world } from "@minecraft/server";
+import { Chat } from "../ZxraLib/module";
 
-world.beforeEvents.chatSend.subscribe((event: ChatSendAfterEvent) => {
+world.beforeEvents.chatSend.subscribe((event: ChatSendBeforeEvent) => {
   const { sender, message, targets } = event;
 
-  console.warn(sender, message, targets);
+  event.cancel = true;
+  Chat.globalMessage(sender, message);
+  console.warn(sender.name, message, targets);
 });
