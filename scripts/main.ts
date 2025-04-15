@@ -7,12 +7,13 @@ import "./lib/event/playerJoinAndLeave";
 import "./lib/event/worldInitialize";
 
 // Info Version
-console.warn(`Using Better Zxra Bedrock v${ZxraLib.packVersion}
+console.warn(`
+Using Better Zxra Bedrock v${ZxraLib.packVersion}
 ZxraLib v${ZxraLib.version}`);
 
-Terra.getWorldProperty();
+Terra.setup();
 
-if (Terra.world.setting?.debug) console.warn(Terra.world);
+if (Terra.world.setting?.debug) console.warn(JSON.stringify(Terra.world));
 
 // Main Ticking
 // system.runInterval(() => {

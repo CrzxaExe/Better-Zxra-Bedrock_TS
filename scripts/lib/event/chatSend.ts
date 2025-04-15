@@ -6,5 +6,4 @@ world.beforeEvents.chatSend.subscribe((event: ChatSendBeforeEvent) => {
 
   event.cancel = true;
   Chat.globalMessage(sender, message);
-  console.warn(sender.name, message, targets);
 });

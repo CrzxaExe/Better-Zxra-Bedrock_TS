@@ -1,31 +1,35 @@
 import { Dimension, Player, system, world } from "@minecraft/server";
-import { PlayerFinder, settings, WorldData } from "../module";
+import { EntityData, PlayerFinder, settings, WorldData } from "../module";
 
 class Terra {
   // World data cache
   static world: WorldData = {};
 
-  // World Property Methods
-  static getWorldProperty(): WorldData | Object | undefined {
+  // Property Methods
+  static getProperty(namespace: string = "world", def: string = "{}"): any {
     try {
       system.run(() => {
-        const result = world.getDynamicProperty("world") || JSON.stringify(settings);
-        return JSON.parse(typeof result === "string" ? result : JSON.stringify(settings));
+        const result = world.getDynamicProperty(namespace) || JSON.stringify(settings);
+        return JSON.parse(typeof result === "string" ? result : def);
       });
     } catch (err: Error | any) {
       console.warn(err.message);
       return;
     }
   }
-  static setWorldProperty(): void {
-    if (!this.world) throw new Error("Invalid Terra world data");
-    if (typeof this.world !== "object" && !Array.isArray(this.world)) throw new Error("World data must be object");
+  static setProperty(namespace: string = "world", data: EntityData[] | WorldData): void {
+    if (!namespace || !data) throw new Error("Missing namespace or data");
 
     try {
-      system.run(() => world.setDynamicProperty("world", JSON.stringify(this.world)));
+      system.run(() => world.setDynamicProperty(namespace, JSON.stringify(data)));
     } catch (error: { message: string } | any) {
       throw new Error("Error on save data: " + error.message);
     }
+  }
+
+  static setup(): void {
+    this.world = this.getProperty();
+    this.entities = this.getProperty("entities");
   }
 
   // World Data methods
@@ -37,8 +41,8 @@ class Terra {
   }
 
   // World Other methods
-  static getActiveDimension(): Array<Dimension> {
-    const dimension: Array<Dimension> = this.players.reduce((all: Array<Dimension>, cur: Player) => {
+  static getActiveDimension(): Dimension[] {
+    const dimension: Dimension[] = this.players.reduce((all: Dimension[], cur: Player) => {
       if ([...all.map((e) => e.id)].includes(cur.dimension.id)) {
         all.push(cur.dimension);
       }
@@ -49,7 +53,7 @@ class Terra {
   }
 
   // Player data cache
-  static players: Array<Player> = [];
+  static players: Player[] = [];
 
   // Player Methods with World
   static getWorldPlayerByName(name: string): Player[] | undefined {
@@ -93,13 +97,31 @@ class Terra {
     return this.players.splice(index, 1);
   }
 
-  static setPlayer(players: Array<Player> | undefined): void {
+  static setPlayer(players: Player[] | undefined): void {
     if (!players) throw new Error("Missing players");
 
     this.players = players;
   }
 
+  // Specialist data cache
   static specialist = [];
+
+  // Entity data cache
+  static entities: EntityData[] = [];
+
+  static addDataEntity(data: EntityData): void {
+    if (!data) throw new Error("Missing data");
+    this.entities.push(data);
+  }
+  static getDataEntity(id: string): EntityData | undefined {
+    return this.entities.find((e) => e.id === id);
+  }
+  static setDataEntity(id: string, data: EntityData): void {
+    if (!id || !data) throw new Error("Missing on id or data");
+
+    const find = this.entities.findIndex((e) => e.id === id);
+    if (find === -1) throw new Error("Cannot found id");
+  }
 }
 
 export { Terra };

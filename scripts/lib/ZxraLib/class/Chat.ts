@@ -2,7 +2,7 @@ import { Player, world } from "@minecraft/server";
 import { Terra, settings } from "../module";
 
 class Chat {
-  static privateMessage(sender: Player, message: string, targets: Array<Player>): void {
+  static privateMessage(sender: Player, message: string, targets: Player[]): void {
     if (message === "") return;
 
     const format: string = "%name -> %msg";

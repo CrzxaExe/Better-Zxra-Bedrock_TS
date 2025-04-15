@@ -4,6 +4,21 @@ interface CommandData {
   callback: Function | undefined;
 }
 
+// Effect interface
+interface EffectCreate {
+  name: string;
+  duration: number;
+  amplifier: number;
+  showParticles: boolean;
+}
+
+// Entity interface
+interface EntityData {
+  id: string;
+  status: StatusData[];
+}
+
+// Item interface
 interface ItemSpecial {
   item: string;
   callback: Function;
@@ -16,11 +31,32 @@ interface ModifierData {
   callback: Function;
 }
 
+// Quest interface
+interface QuestConst {
+  player: Player;
+  sp?: any;
+}
+interface QuestData {
+  title: string;
+  rep: number;
+  task: QuestTask[];
+  reward: QuestRewards[];
+}
+interface QuestRewards {
+  type: string;
+  amount: number;
+}
+interface QuestTask {
+  act: string;
+  target: string;
+  amount: number;
+}
+
 // Pasif interface
 interface PasifData {
-  hit: Array<PasifHit>;
-  hited: Array<PasifHited>;
-  kill: Array<PasifKill>;
+  hit: PasifHit[];
+  hited: PasifHited[];
+  kill: PasifKill[];
 }
 interface PasifHit {
   name: string;
@@ -45,7 +81,7 @@ interface PlayerFinder {
 interface RedeemData {
   id: string;
   key: string;
-  rewards: Array<RedeemRewards>;
+  rewards: RedeemRewards[];
 }
 interface RedeemRewards {
   type: string;
@@ -89,6 +125,16 @@ interface SettingRules {
   spawnradius: number;
 }
 
+// Status interface
+interface StatusData {
+  name: string;
+  duration: number;
+  lvl: number;
+  type: string;
+  stack: boolean;
+  decay: string;
+}
+
 // Weapon Skill interface
 interface WeaponSkill {
   name: string;
@@ -97,14 +143,20 @@ interface WeaponSkill {
 
 // World interface
 interface WorldData {
-  redeem?: Array<RedeemData>;
+  redeem?: RedeemData[];
   setting?: Setting;
 }
 
 export type {
   CommandData,
+  EffectCreate,
+  EntityData,
   ItemSpecial,
   ModifierData,
+  QuestConst,
+  QuestData,
+  QuestRewards,
+  QuestTask,
   PasifData,
   PasifHit,
   PasifHited,
@@ -115,6 +167,7 @@ export type {
   Scripts,
   Setting,
   SettingRules,
+  StatusData,
   WeaponSkill,
   WorldData,
 };
