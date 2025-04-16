@@ -14,6 +14,7 @@ export { Chat } from "./class/Chat";
 export { Command, Modifier, Script, SpecialItem, Weapon } from "./class/DataClass";
 export { Entity } from "./class/Entity";
 export { Quest } from "./class/Quest";
+export { Specialist } from "./class/Specialist";
 export { Status } from "./class/Status";
 export { Terra } from "./class/Terra";
 
@@ -42,6 +43,9 @@ export type {
   Scripts,
   Setting,
   SettingRules,
+  SkillLib,
+  SpecialistData,
+  SpecialistLvl,
   StatusData,
   WeaponSkill,
   WorldData,

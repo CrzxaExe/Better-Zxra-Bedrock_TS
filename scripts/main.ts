@@ -4,6 +4,7 @@ import { Terra, ZxraLib } from "./lib/ZxraLib/module";
 // Event imports
 import "./lib/event/chatSend";
 import "./lib/event/playerJoinAndLeave";
+import "./lib/event/skill";
 import "./lib/event/worldInitialize";
 
 // Info Version

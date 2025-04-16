@@ -89,7 +89,8 @@ class Weapon {
   static registerSkill(name: string, callback: Function): void {
     this.Skill.push({ name, callback });
   }
-  static getSkill(name: string): WeaponSkill | undefined {
+  static getSkill(name: string | undefined): WeaponSkill | undefined {
+    if (!name) return;
     return this.Skill.find((e) => e.name === name);
   }
 

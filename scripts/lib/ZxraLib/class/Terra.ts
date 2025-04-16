@@ -1,21 +1,23 @@
 import { Dimension, Player, system, world } from "@minecraft/server";
-import { EntityData, PlayerFinder, settings, WorldData } from "../module";
+import { Entity, EntityData, PlayerFinder, settings, Specialist, SpecialistData, WorldData } from "../module";
 
 class Terra {
   // World data cache
   static world: WorldData = {};
 
   // Property Methods
-  static getProperty(namespace: string = "world", def: string = "{}"): any {
+  static getProperty(namespace: string = "world", def: Object = {}): any {
+    let result = def;
     try {
       system.run(() => {
-        const result = world.getDynamicProperty(namespace) || JSON.stringify(settings);
-        return JSON.parse(typeof result === "string" ? result : def);
+        result = world.getDynamicProperty(namespace) || JSON.stringify(def);
       });
     } catch (err: Error | any) {
       console.warn(err.message);
       return;
     }
+
+    return result;
   }
   static setProperty(namespace: string = "world", data: EntityData[] | WorldData): void {
     if (!namespace || !data) throw new Error("Missing namespace or data");
@@ -28,8 +30,9 @@ class Terra {
   }
 
   static setup(): void {
-    this.world = this.getProperty();
-    this.entities = this.getProperty("entities");
+    this.world.setting = this.getProperty("setting", settings);
+    this.world.redeem = this.getProperty("redeem", []);
+    this.entities = this.getProperty("entities", []);
   }
 
   // World Data methods
@@ -89,12 +92,10 @@ class Terra {
 
   static delPlayer(id: string | undefined): Player[] | void {
     if (!id) throw new Error("Missing id");
+    const find = this.players.findIndex((e) => e.id === id);
 
-    const index = this.players.findIndex((e) => e.id === id);
-
-    if (index === -1) return;
-
-    return this.players.splice(index, 1);
+    if (find === -1) return;
+    return this.players.splice(find, 1);
   }
 
   static setPlayer(players: Player[] | undefined): void {
@@ -104,10 +105,27 @@ class Terra {
   }
 
   // Specialist data cache
-  static specialist = [];
+  static specialist: SpecialistData[] = [];
+  static specialistCache: Specialist[] = [];
+
+  static addSpecialist(data: SpecialistData): void {
+    if (!data) throw new Error("Missing data");
+    this.specialist.push(data);
+  }
+  static getSpecialist(id: string): SpecialistData | undefined {
+    return this.specialist.find((e) => e.id === id);
+  }
+  static remSpecialist(id: string): SpecialistData[] | SpecialistData | undefined {
+    if (!id) throw new Error("Missing id");
+    const find = this.specialist.findIndex((e) => e.id === id);
+
+    if (find === -1) return;
+    return this.specialist.splice(find, 1);
+  }
 
   // Entity data cache
   static entities: EntityData[] = [];
+  static entitiCaches: Entity[] = [];
 
   static addDataEntity(data: EntityData): void {
     if (!data) throw new Error("Missing data");
@@ -121,6 +139,14 @@ class Terra {
 
     const find = this.entities.findIndex((e) => e.id === id);
     if (find === -1) throw new Error("Cannot found id");
+
+    this.entities[find] = data;
+  }
+  static remDataEntity(id: string): EntityData[] | EntityData | undefined {
+    const find = this.entities.findIndex((e) => e.id === id);
+
+    if (find === -1) throw new Error("Cannot found id");
+    return this.entities.splice(find, 1);
   }
 }
 

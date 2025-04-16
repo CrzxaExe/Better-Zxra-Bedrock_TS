@@ -1,3 +1,5 @@
+import { Specialist } from "../module";
+
 // Command interface
 interface CommandData {
   name: string;
@@ -125,6 +127,22 @@ interface SettingRules {
   spawnradius: number;
 }
 
+// Skill interface
+interface SkillLib {
+  useDuration?: number;
+  sp?: Specialist;
+}
+
+// Specialist interface
+interface SpecialistData {
+  id: string;
+  level?: SpecialistLvl;
+}
+interface SpecialistLvl {
+  current: number;
+  xp: number;
+}
+
 // Status interface
 interface StatusData {
   name: string;
@@ -167,6 +185,9 @@ export type {
   Scripts,
   Setting,
   SettingRules,
+  SkillLib,
+  SpecialistData,
+  SpecialistLvl,
   StatusData,
   WeaponSkill,
   WorldData,
