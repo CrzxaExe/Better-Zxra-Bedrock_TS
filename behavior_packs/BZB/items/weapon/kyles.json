@@ -25,13 +25,11 @@
       },
       "minecraft:hover_text_color": "cyan",
       "minecraft:use_modifiers": {
-        "use_duration": 30,
-        "movement_modifier": 0.6
+        "use_duration": 10,
+        "movement_modifier": 0.75
       },
       "minecraft:tags": {
-        "tags": [
-          "slayer"
-        ]
+        "tags": ["slayer"]
       }
     }
   }

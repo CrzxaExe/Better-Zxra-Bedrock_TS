@@ -33,6 +33,11 @@ class Terra {
     this.world.setting = this.getProperty("setting", settings);
     this.world.redeem = this.getProperty("redeem", []);
     this.entities = this.getProperty("entities", []);
+
+    system.run(() => this.setPlayer(world.getAllPlayers()));
+  }
+  static save(): void {
+    console.warn("saving");
   }
 
   // World Data methods

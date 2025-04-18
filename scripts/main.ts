@@ -1,5 +1,5 @@
-import { system } from "@minecraft/server";
-import { Terra, ZxraLib } from "./lib/ZxraLib/module";
+import { Player, system, world } from "@minecraft/server";
+import { Specialist, Terra, ZxraLib } from "./lib/ZxraLib/module";
 
 // Event imports
 import "./lib/event/chatSend";
@@ -17,6 +17,27 @@ Terra.setup();
 if (Terra.world.setting?.debug) console.warn(JSON.stringify(Terra.world));
 
 // Main Ticking
-// system.runInterval(() => {
-//   console.warn(JSON.stringify(Terra.players));
-// }, 10);
+function mainTick(): void {
+  try {
+    //  Activity tick
+    if (system.currentTick % 5 === 0) {
+      Terra.players.forEach((player: Player) => {
+        const sp = new Specialist(player);
+
+        sp.controllerUI();
+      });
+    }
+
+    // Save tick
+    if (system.currentTick % (Terra.world.setting?.saveInterval || 400) /* 20 sec */ === 0) {
+      Terra.save();
+      Terra.setPlayer(world.getAllPlayers());
+    }
+  } catch (err: { message: string } | any) {
+    console.warn("[Tick] Error on: ", err.message);
+  }
+
+  system.run(mainTick);
+}
+
+system.run(mainTick);

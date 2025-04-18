@@ -11,6 +11,7 @@ export const ZxraLib: { packVersion: string; version: string } = {
 
 // Class export
 export { Chat } from "./class/Chat";
+export { Cooldown } from "./class/Cooldown";
 export { Command, Modifier, Script, SpecialItem, Weapon } from "./class/DataClass";
 export { Entity } from "./class/Entity";
 export { Quest } from "./class/Quest";
@@ -33,6 +34,7 @@ export type {
   QuestData,
   QuestRewards,
   QuestTask,
+  Particle,
   PasifData,
   PasifHit,
   PasifHited,

@@ -8,4 +8,6 @@ export const settings: Setting = {
   damageIndicator: true,
   // if true, debuging mode will active
   debug: true,
+  // interval between saving data
+  saveInterval: 400,
 };

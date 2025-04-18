@@ -1,3 +1,4 @@
+import { MolangVariableMap, Vector3 } from "@minecraft/server";
 import { Specialist } from "../module";
 
 // Command interface
@@ -54,6 +55,13 @@ interface QuestTask {
   amount: number;
 }
 
+// Particle interface
+interface Particle {
+  particle: string;
+  location: Vector3;
+  molang: MolangVariableMap;
+}
+
 // Pasif interface
 interface PasifData {
   hit: PasifHit[];
@@ -105,6 +113,7 @@ interface Setting {
   damageIndicator?: boolean;
   deathLocation?: boolean;
   debug?: boolean;
+  saveInterval?: number;
   shopMultiplier?: number;
   staminaAction?: number;
   staminaCooldown?: boolean;
@@ -175,6 +184,7 @@ export type {
   QuestData,
   QuestRewards,
   QuestTask,
+  Particle,
   PasifData,
   PasifHit,
   PasifHited,

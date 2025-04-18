@@ -1,5 +1,5 @@
-import { Effect, EffectTypes, EntityTypeFamilyComponent } from "@minecraft/server";
-import { EffectCreate, EntityData, Status, Terra } from "../module";
+import { Effect, EffectTypes, EntityTypeFamilyComponent, MolangVariableMap, system, Vector3 } from "@minecraft/server";
+import { EffectCreate, EntityData, Particle, Status, Terra } from "../module";
 
 interface Entity {
   source: any;
@@ -138,8 +138,107 @@ class Entity {
 
     cmd.forEach((e) => this.source.runCommand(e));
   }
+
   setOnFire(duration: number): void {
     this.source.setOnFire(duration);
+  }
+
+  addTag(tags: string[] | string): void {
+    if (!tags) throw new Error("Missing tags");
+    system.run(() => {
+      if (typeof tags === "string") {
+        this.source.addTag(tags);
+        return;
+      }
+
+      if (!Array.isArray(tags)) throw new Error("Invalid parameter: tags must be string[] or string");
+
+      tags.forEach((tag: string) => this.source.addTag(tag));
+    });
+  }
+  getTag(finder: { tag: string }): string[] {
+    const tags = this.source.getTags();
+
+    if (!finder) return tags;
+    return tags.filter((e: string) => finder.tag === e);
+  }
+  hasTag(tags: string[] | string, combined: boolean = false): boolean[] | boolean {
+    if (!tags) throw new Error("Missing tags");
+
+    if (typeof tags === "string") return this.source.hasTag(tags);
+
+    if (!Array.isArray(tags)) return false;
+    const res = tags.map((e) => this.source.hasTag(e));
+
+    return combined ? res.every((e) => e === true) : res;
+  }
+  remTag(tags: string[] | string): void {
+    system.run(() => {
+      if (!tags) return;
+
+      if (typeof tags === "string") {
+        this.source.removeTag(tags);
+        return;
+      }
+
+      if (!Array.isArray(tags)) throw new Error("Invalid paramater: tags must be string[] or string");
+      tags.forEach((e: string) => this.source.removeTag(e));
+    });
+  }
+
+  // Particle Methods
+  selfParticle(
+    particle: string,
+    location: Vector3 = this.source.location,
+    molang: MolangVariableMap = new MolangVariableMap()
+  ): void {
+    if (!particle) throw new Error("Missing particle");
+    this.source.dimension.spawnParticle(particle, location, molang);
+  }
+  particles(particles: Particle[] | Particle | string[] | string): void {
+    if (typeof particles === "string") {
+      this.selfParticle(particles);
+      return;
+    }
+
+    if (particles instanceof Object && !Array.isArray(particles)) {
+      const { particle, location, molang }: Particle = particles;
+      this.selfParticle(particle, location, molang);
+      return;
+    }
+
+    if (!Array.isArray(particles))
+      throw new Error("Invalid paramter: particles must be Particle[] or Particle or string");
+    particles.forEach((e) => {
+      if (typeof e === "string") {
+        this.selfParticle(e);
+        return;
+      }
+
+      if (!(e instanceof Object)) throw new Error("Array of particles must be Object or string");
+      const { particle, location, molang }: Particle = e;
+      this.selfParticle(particle, location, molang);
+    });
+  }
+  impactParticle(): void {
+    if (!this.source.onGround) return;
+    this.particles(["cz:impact_up", "cz:impact_p"]);
+  }
+
+  // Movement Methods
+  knockback(velocity: Vector3, horizontal: number = 0, vertical: number = 0): void {
+    if (!velocity) throw new Error("Missing velocity");
+
+    this.source.applyKnockback(velocity.x, velocity.z, horizontal, vertical);
+  }
+  bind(duration: number): void {
+    this.addEffect({ name: "slowness", duration, amplifier: 254, showParticles: false });
+    this.selfParticle("cz:bind", { ...this.source.location, y: this.source.location.y + 2.3 });
+  }
+
+  // Refresh Methods
+  refreshEntity(): void {
+    this.remTag(["silent_target", "liberator_target", "silence", "lectaze_target", "fireing_zone", "catlye_ult"]);
   }
 }
 
