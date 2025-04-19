@@ -1,0 +1,16 @@
+export declare enum WeaponTypes {
+  Artsword = "artsword",
+  Briefcase = "briefcase",
+  Century = "century",
+  Dagger = "dagger",
+  Flute = "flute",
+  Greatsword = "greatsword",
+  Gun = "gun",
+  Hammer = "hammer",
+  Katana = "katana",
+  Lance = "lance",
+  Reaper = "reaper",
+  Slayer = "slayer",
+  Spear = "spear",
+  Staff = "staff",
+}

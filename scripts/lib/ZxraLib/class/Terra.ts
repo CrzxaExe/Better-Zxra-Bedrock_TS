@@ -1,5 +1,16 @@
 import { Dimension, Player, system, world } from "@minecraft/server";
-import { Entity, EntityData, PlayerFinder, settings, Specialist, SpecialistData, WorldData } from "../module";
+import {
+  Entity,
+  EntityData,
+  Guild,
+  GuildData,
+  Leaderboard,
+  PlayerFinder,
+  settings,
+  Specialist,
+  SpecialistData,
+  WorldData,
+} from "../module";
 
 class Terra {
   // World data cache
@@ -33,6 +44,8 @@ class Terra {
     this.world.setting = this.getProperty("setting", settings);
     this.world.redeem = this.getProperty("redeem", []);
     this.entities = this.getProperty("entities", []);
+    this.leaderboard = this.getProperty("leaderboard", { chat: {}, deaths: {}, kills: {} });
+    this.guild = this.getProperty("guild", []);
 
     system.run(() => this.setPlayer(world.getAllPlayers()));
   }
@@ -152,6 +165,17 @@ class Terra {
 
     if (find === -1) throw new Error("Cannot found id");
     return this.entities.splice(find, 1);
+  }
+
+  static leaderboard = new Leaderboard(this);
+
+  // Guild instance
+  static guild = new Guild();
+
+  static setDataGuild(data: GuildData[]): void {
+    if (!data) throw new Error("Missing data");
+
+    this.world.guilds = data;
   }
 }
 

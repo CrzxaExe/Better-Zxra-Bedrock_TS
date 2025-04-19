@@ -21,10 +21,31 @@ interface EntityData {
   status: StatusData[];
 }
 
+// Guild interface
+interface GuildData {
+  id: string;
+  name: string;
+  maxMember: number;
+  members: GuildMember[];
+  applier: GuildMember[];
+  token: number;
+}
+interface GuildMember {
+  id: string;
+  name: string;
+}
+
 // Item interface
 interface ItemSpecial {
   item: string;
   callback: Function;
+}
+
+// Leaderboard interface
+interface LeaderboardData {
+  chat: Object;
+  deaths: Object;
+  kills: Object;
 }
 
 // Modifier interface
@@ -99,6 +120,39 @@ interface RedeemRewards {
   amount: number;
 }
 
+// Rune Stats interface
+interface RuneStats {
+  atk?: number;
+  atkFlat?: number;
+
+  critChance?: number;
+  critDamage?: number;
+
+  healingEffectifity?: number;
+
+  moneyDrop?: number;
+
+  skill?: number;
+  skillDamageReduction?: number;
+  skillDamageReductionFlat?: number;
+  skillDodge?: number;
+  skillFlat?: number;
+
+  staminaReduction?: number;
+
+  // Fragility
+  artFragile?: number;
+  fireFragile?: number;
+  fragile?: number;
+
+  // Action Effect
+  onAttacked?: Function;
+  onCrit?: Function;
+  onDodge?: Function;
+  onHit?: Function;
+  onKill?: Function;
+}
+
 // Script interface
 interface Scripts {
   namespace: string;
@@ -146,6 +200,9 @@ interface SkillLib {
 interface SpecialistData {
   id: string;
   level?: SpecialistLvl;
+  money: number;
+  voxn: number;
+  rep: number;
 }
 interface SpecialistLvl {
   current: number;
@@ -161,6 +218,11 @@ interface StatusData {
   stack: boolean;
   decay: string;
 }
+interface StatusFinder {
+  name?: string;
+  type?: StatusTypes;
+  decay?: StatusDecay;
+}
 
 // Weapon Skill interface
 interface WeaponSkill {
@@ -172,13 +234,18 @@ interface WeaponSkill {
 interface WorldData {
   redeem?: RedeemData[];
   setting?: Setting;
+  leaderboard?: LeaderboardData;
+  guilds?: GuildData[];
 }
 
 export type {
   CommandData,
   EffectCreate,
   EntityData,
+  GuildData,
+  GuildMember,
   ItemSpecial,
+  LeaderboardData,
   ModifierData,
   QuestConst,
   QuestData,
@@ -192,6 +259,7 @@ export type {
   PlayerFinder,
   RedeemData,
   RedeemRewards,
+  RuneStats,
   Scripts,
   Setting,
   SettingRules,
@@ -199,6 +267,7 @@ export type {
   SpecialistData,
   SpecialistLvl,
   StatusData,
+  StatusFinder,
   WeaponSkill,
   WorldData,
 };

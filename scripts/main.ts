@@ -21,6 +21,8 @@ function mainTick(): void {
   try {
     //  Activity tick
     if (system.currentTick % 5 === 0) {
+      Terra.getActiveDimension().forEach((e) => {});
+
       Terra.players.forEach((player: Player) => {
         const sp = new Specialist(player);
 
@@ -28,7 +30,7 @@ function mainTick(): void {
       });
     }
 
-    // Save tick
+    // Save Intervals
     if (system.currentTick % (Terra.world.setting?.saveInterval || 400) /* 20 sec */ === 0) {
       Terra.save();
       Terra.setPlayer(world.getAllPlayers());
