@@ -41,13 +41,17 @@ class Terra {
   }
 
   static setup(): void {
+    this.world.guilds = this.getProperty("guild", []);
+    this.world.leaderboards = this.getProperty("leaderboard", { chat: {}, deaths: {}, kills: {} });
     this.world.setting = this.getProperty("setting", settings);
     this.world.redeem = this.getProperty("redeem", []);
     this.entities = this.getProperty("entities", []);
-    this.leaderboard = this.getProperty("leaderboard", { chat: {}, deaths: {}, kills: {} });
-    this.guild = this.getProperty("guild", []);
+
+    this.guild = new Guild();
+    this.leaderboard = new Leaderboard();
 
     system.run(() => this.setPlayer(world.getAllPlayers()));
+    this.createSpecialistCache();
   }
   static save(): void {
     console.warn("saving");
@@ -126,12 +130,38 @@ class Terra {
   static specialist: SpecialistData[] = [];
   static specialistCache: Specialist[] = [];
 
+  static createSpecialistCache(): void {
+    this.specialistCache = this.players.map((player: Player) => new Specialist(player));
+  }
+  static getSpecialistCache(id: string): Specialist | undefined {
+    return (
+      this.specialistCache.find((e) => e.id === id) ||
+      (() => {
+        const player = world.getAllPlayers().find((e) => e.id === id);
+        if (!player) throw new Error(`Player with id ${id} not found`);
+        return new Specialist(player);
+      })()
+    );
+  }
+
   static addSpecialist(data: SpecialistData): void {
     if (!data) throw new Error("Missing data");
     this.specialist.push(data);
   }
   static getSpecialist(id: string): SpecialistData | undefined {
     return this.specialist.find((e) => e.id === id);
+  }
+  static setSpecialist(newData: SpecialistData): void {
+    if (!newData) throw new Error("Missing data");
+
+    const data = this.specialist,
+      find = data.findIndex((e) => e.id === newData.id);
+
+    if (find === -1) {
+      data.push(newData);
+      return;
+    }
+    data[find] = newData;
   }
   static remSpecialist(id: string): SpecialistData[] | SpecialistData | undefined {
     if (!id) throw new Error("Missing id");
@@ -167,10 +197,10 @@ class Terra {
     return this.entities.splice(find, 1);
   }
 
-  static leaderboard = new Leaderboard(this);
+  static leaderboard: Leaderboard;
 
   // Guild instance
-  static guild = new Guild();
+  static guild: Guild;
 
   static setDataGuild(data: GuildData[]): void {
     if (!data) throw new Error("Missing data");

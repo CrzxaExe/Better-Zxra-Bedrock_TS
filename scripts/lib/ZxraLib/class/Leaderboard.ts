@@ -1,14 +1,9 @@
-import { Terra } from "./Terra";
-
-interface Leaderboard {
-  terra: Terra;
-}
+// import { Terra } from "./Terra";
 
 class Leaderboard {
-  constructor(terra: Terra) {
-    if (!terra) throw new Error("Missing Terra");
-
-    this.terra = terra;
+  constructor() {}
+  getData(): string {
+    return "test";
   }
 }
 

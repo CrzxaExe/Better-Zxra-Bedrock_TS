@@ -4,7 +4,7 @@ import { Terra } from "./Terra";
 
 class Guild {
   getData(finder?: { id?: string; name?: string }): GuildData[] {
-    const data = Array.isArray(Terra.guild) ? Terra.guild : [];
+    const data = Array.isArray(Terra.world.guilds) ? Terra.world.guilds : [];
 
     if (finder) {
       data.filter((e) => {

@@ -1,5 +1,5 @@
 import { Player, world } from "@minecraft/server";
-import { Terra, settings } from "../module";
+import { Specialist, Terra, settings } from "../module";
 
 class Chat {
   static privateMessage(sender: Player, message: string, targets: Player[]): void {
@@ -7,7 +7,7 @@ class Chat {
 
     const format: string = "%name -> %msg";
 
-    targets.forEach((player) =>
+    targets.forEach((player: Player) =>
       player.sendMessage({ text: format.replace("%msg", message).replace("%name", sender.name) })
     );
   }
@@ -18,8 +18,16 @@ class Chat {
     if (message === "") return;
 
     const format: string = Terra.world.setting?.customChatPrefix || settings.customChatPrefix || "%name > %msg";
+    const sp = new Specialist(sender),
+      data = sp.getSp();
 
-    world.sendMessage({ text: format.replace("%msg", message).replace("%name", sender.name) });
+    world.sendMessage({
+      text: format
+        .replace("%msg", message)
+        .replace("%name", sender.name)
+        .replace("%lvl", String(sender.level))
+        .replace("%splvl", String(data.level.current)),
+    });
   }
 }
 

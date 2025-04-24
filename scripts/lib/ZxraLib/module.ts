@@ -10,10 +10,13 @@ export const ZxraLib: { packVersion: string; version: string } = {
 };
 
 // Class export
+export { Calc } from "./class/Calc";
 export { Chat } from "./class/Chat";
 export { Cooldown } from "./class/Cooldown";
+export { CreateObject } from "./class/CreateDefault";
 export { Command, Modifier, Script, SpecialItem, Weapon } from "./class/DataClass";
 export { Entity } from "./class/Entity";
+export { Formater } from "./class/Formater";
 export { Gacha } from "./class/Gacha";
 export { Guild } from "./class/Guild";
 export { Leaderboard } from "./class/Leaderboard";
@@ -37,6 +40,7 @@ export { WeaponTypes } from "./enum/weaponTypes";
 
 // Types export
 export type {
+  CooldownData,
   CommandData,
   EffectCreate,
   EntityData,
@@ -64,6 +68,8 @@ export type {
   SkillLib,
   SpecialistData,
   SpecialistLvl,
+  SpecialistStamina,
+  SpecialistThirst,
   StatusData,
   StatusFinder,
   WeaponSkill,

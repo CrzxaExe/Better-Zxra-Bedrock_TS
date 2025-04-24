@@ -1,8 +1,10 @@
-import { Player, system, world } from "@minecraft/server";
-import { Specialist, Terra, ZxraLib } from "./lib/ZxraLib/module";
+import { Dimension, Player, system, world } from "@minecraft/server";
+import { Entity, NOT_ALLOWED_ENTITY_TICK, Specialist, Terra, ZxraLib } from "./lib/ZxraLib/module";
 
 // Event imports
 import "./lib/event/chatSend";
+import "./lib/event/entityAction";
+import "./lib/event/entityActivity";
 import "./lib/event/playerJoinAndLeave";
 import "./lib/event/skill";
 import "./lib/event/worldInitialize";
@@ -21,12 +23,17 @@ function mainTick(): void {
   try {
     //  Activity tick
     if (system.currentTick % 5 === 0) {
-      Terra.getActiveDimension().forEach((e) => {});
-
       Terra.players.forEach((player: Player) => {
         const sp = new Specialist(player);
-
+        sp.controllerStamina();
         sp.controllerUI();
+        sp.controllerCooldown();
+      });
+
+      Terra.getActiveDimension().forEach((dimension: Dimension) => {
+        dimension.getEntities({ excludeTypes: NOT_ALLOWED_ENTITY_TICK }).forEach((e) => {
+          new Entity(e).controllerStatus();
+        });
       });
     }
 

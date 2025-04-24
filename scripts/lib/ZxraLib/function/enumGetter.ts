@@ -1,3 +1,5 @@
-const getEnum = (name: string) => {};
+const getEnum = (name: string) => {
+  return name;
+};
 
 export { getEnum };

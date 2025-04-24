@@ -1,5 +1,24 @@
-import { Effect, EffectTypes, EntityTypeFamilyComponent, MolangVariableMap, system, Vector3 } from "@minecraft/server";
-import { EffectCreate, EntityData, Particle, Status, Terra } from "../module";
+import {
+  Effect,
+  EffectTypes,
+  EntityHealthComponent,
+  EntityTypeFamilyComponent,
+  MolangVariableMap,
+  Player,
+  system,
+  Vector3,
+} from "@minecraft/server";
+import {
+  defaultRuneStat,
+  EffectCreate,
+  EntityData,
+  Particle,
+  RuneStats,
+  Specialist,
+  Status,
+  StatusDecay,
+  Terra,
+} from "../module";
 
 interface Entity {
   source: any;
@@ -28,6 +47,14 @@ class Entity {
   }
   clearEnt(): void {
     this.setEnt({ id: this.id, status: [] });
+  }
+
+  // Controller
+  controllerStatus(): void {
+    this.status
+      .getData()
+      .filter((e) => e.type === StatusDecay.Time)
+      .forEach((e) => this.status.minStatus(e.name, 0.25));
   }
 
   // Validation Methods
@@ -59,6 +86,79 @@ class Entity {
   // NPC Methods
   npc() {
     if (!this.hasFamily("npc")) throw new Error("This entity is not npc");
+  }
+
+  // Combat Methods
+  addDamage(
+    damage: number = 1,
+    options: { cause: string; damagingEntity: any; rune?: RuneStats; isSkill?: boolean } = {
+      cause: "entityAttack",
+      damagingEntity: this.source,
+      rune: defaultRuneStat,
+      isSkill: false,
+    },
+    velocity: { vel: Vector3; ver: number; hor: number } = { vel: this.source.getVelocity(), ver: 0, hor: 0 }
+  ): void {
+    if (damage < 0) damage = 1;
+    let multiplier = 1 + (options.rune?.atk || 0) + (options.isSkill ? options.rune?.skill || 0 : 0);
+
+    // this user rune
+    let actorRune = defaultRuneStat;
+    if (this.source instanceof Player) {
+      actorRune = (Terra.getSpecialistCache(this.source.id) || new Specialist(this.source)).rune.getRuneStat();
+    }
+
+    // Dodge chance
+    if ((actorRune.skillDodge || 0) > 0 && options.isSkill) {
+      if (Math.floor(Math.random() * 100) > 100) return;
+    }
+
+    damage += options.rune?.atkFlat || 0;
+    if (options.isSkill) damage += options.rune?.skillFlat || 0 - (actorRune.skillDamageReductionFlat || 0);
+
+    const fragility =
+      {
+        entityAttack: "fragile",
+        fire: "fire_fragile",
+        lighting: "lighting_fragile",
+        magic: "art_fragile",
+      }[options.cause] || "";
+
+    if (fragility !== "") multiplier += this.status.decimalCalcStatus({ type: fragility }, 0, 0.01, true);
+    if (["fire", "lighting"].includes(options.cause))
+      multiplier += this.status.decimalCalcStatus({ type: "elemental_fragile" }, 0, 0.01, true);
+
+    if (options.isSkill) damage *= 1 - (actorRune.skillDamageReduction || 0);
+
+    damage *= multiplier;
+
+    // Crit chance
+    if ((options.rune?.critChance || 0) > 0) {
+      if (Math.floor(Math.random() * 100) > 100 * (1 - (options.rune?.critChance || 0)))
+        damage *= options.rune?.critDamage || 1;
+    }
+
+    this.source.applyDamage(Math.round(damage), {
+      cause: options.cause,
+      damagingEntity: options.damagingEntity,
+    });
+
+    if (!velocity) return;
+    this.knockback(velocity.vel, velocity.ver, velocity.hor);
+  }
+  heal(amount: number): void {
+    const hp: EntityHealthComponent = this.source.getComponent("health");
+
+    // user rune
+    let rune = defaultRuneStat;
+
+    amount *= 1 + (rune.healingEffectifity || 0);
+
+    if (hp.currentValue + amount > hp.effectiveMax) {
+      hp.setCurrentValue(hp.effectiveMax);
+      return;
+    }
+    hp.setCurrentValue(Math.round(hp.currentValue + Math.abs(amount)));
   }
 
   // Effect Methods

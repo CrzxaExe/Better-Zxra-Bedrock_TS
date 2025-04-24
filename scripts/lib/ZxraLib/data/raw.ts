@@ -40,7 +40,10 @@ export const defaultRuneStat: RuneStats = {
 export const defaultSpecialist: SpecialistData = {
   id: "",
   level: { current: 0, xp: 0 },
+  stamina: { current: 100, max: 100, additional: 0, rune: 0 },
+  thirst: { current: 100, max: 100, temp: 0 },
   money: 0,
   voxn: 0,
   rep: 0,
+  cd: [],
 };

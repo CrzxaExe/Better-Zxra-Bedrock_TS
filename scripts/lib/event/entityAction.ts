@@ -1,4 +1,4 @@
-import { EntityDieAfterEvent, EntityHurtAfterEvent, Player, world } from "@minecraft/server";
+import { EntityDieAfterEvent, EntityHitBlockAfterEvent, EntityHurtAfterEvent, Player, world } from "@minecraft/server";
 import { damageColor, Terra } from "../ZxraLib/module";
 
 // Entity Killed event
@@ -34,4 +34,8 @@ world.afterEvents.entityHurt.subscribe(({ hurtEntity, damage, damageSource: { ca
     if (!Terra.world.setting?.debug) return;
     console.warn(error);
   }
+});
+
+world.afterEvents.entityHitBlock.subscribe(({ hitBlock }: EntityHitBlockAfterEvent) => {
+  console.warn(hitBlock.typeId);
 });

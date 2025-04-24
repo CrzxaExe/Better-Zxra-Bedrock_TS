@@ -1,6 +1,12 @@
 import { MolangVariableMap, Vector3 } from "@minecraft/server";
 import { Specialist } from "../module";
 
+// Cooldown interface
+interface CooldownData {
+  name: string;
+  duration: number;
+}
+
 // Command interface
 interface CommandData {
   name: string;
@@ -181,6 +187,7 @@ interface Setting {
   thirstRun?: number;
   uiLevelRequirement?: boolean;
   useBzbRules?: boolean;
+  whatSeeDistance?: number;
   xpMultiplier?: number;
 }
 interface SettingRules {
@@ -199,14 +206,28 @@ interface SkillLib {
 // Specialist interface
 interface SpecialistData {
   id: string;
-  level?: SpecialistLvl;
+  level: SpecialistLvl;
+  stamina: SpecialistStamina;
+  thirst: SpecialistThirst;
   money: number;
   voxn: number;
   rep: number;
+  cd: CooldownData[];
 }
 interface SpecialistLvl {
   current: number;
   xp: number;
+}
+interface SpecialistStamina {
+  current: number;
+  max: number;
+  additional: number;
+  rune: number;
+}
+interface SpecialistThirst {
+  current: number;
+  max: number;
+  temp: number;
 }
 
 // Status interface
@@ -234,11 +255,12 @@ interface WeaponSkill {
 interface WorldData {
   redeem?: RedeemData[];
   setting?: Setting;
-  leaderboard?: LeaderboardData;
+  leaderboards?: LeaderboardData;
   guilds?: GuildData[];
 }
 
 export type {
+  CooldownData,
   CommandData,
   EffectCreate,
   EntityData,
@@ -266,6 +288,8 @@ export type {
   SkillLib,
   SpecialistData,
   SpecialistLvl,
+  SpecialistStamina,
+  SpecialistThirst,
   StatusData,
   StatusFinder,
   WeaponSkill,
