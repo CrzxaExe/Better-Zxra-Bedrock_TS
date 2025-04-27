@@ -2,6 +2,7 @@
   // Alphabetical order please :)
   "ui_defs": [
     "ui/cz/anims.json",
+    "ui/cz/commons.json",
     "ui/cz/cz_alchemy.json",
     "ui/cz/cz_altar.json",
     "ui/cz/cz_common.json",
@@ -9,7 +10,7 @@
     "ui/cz/cz_start.json",
     "ui/cz/cz_workbench.json",
     "ui/cz/cz_world.json",
-  
+
     "ui/achievement_screen.json",
     "ui/add_external_server_screen.json",
     "ui/adhoc_inprogess_screen.json",

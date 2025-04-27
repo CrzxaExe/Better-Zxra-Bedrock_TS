@@ -1,5 +1,4 @@
 {
-  // Ngapain bang?
   "namespace": "cz_common",
 
   "inventory_mappings": {
@@ -16,11 +15,11 @@
       }
     ]
   },
-  
+
   "standard_title_label": {
     "type": "label",
-    "size": [ "default", 10 ],
-    "color": [ 1, 1, 1 ],
+    "size": ["default", 10],
+    "color": [1, 1, 1],
     "text": "$text_name",
     "layer": 4,
     "shadow": false,
@@ -50,9 +49,9 @@
     "type": "panel",
     "anchor_from": "top_middle",
     "anchor_to": "top_middle",
-    "$title_size|default": [ "100%c", 10 ],
+    "$title_size|default": ["100%c", 10],
     "size": "$title_size",
-    "$title_offset|default": [ 0, 9 ],
+    "$title_offset|default": [0, 9],
     "offset": "$title_offset",
     "$use_custom_title_control|default": false,
     "$custom_title_label|default": "common.empty_panel",
@@ -71,13 +70,13 @@
       }
     ]
   },
-  
+
   "main_panel_no_buttons@common_dialogs.main_panel_no_buttons": {
     "type": "panel",
     "anchor_from": "center",
     "anchor_to": "center",
     "$text_name|default": "",
-    "$panel_indent_size|default": [ "100% - 16px", "100% - 31px" ],
+    "$panel_indent_size|default": ["100% - 16px", "100% - 31px"],
     "$custom_background|default": "cz_common.dialog_background",
     "controls": [
       {
@@ -90,23 +89,21 @@
         "panel_indent": {
           "type": "panel",
           "size": "$panel_indent_size",
-          "offset": [ 0, 23 ],
+          "offset": [0, 23],
           "anchor_from": "top_middle",
           "anchor_to": "top_middle",
-          "controls": [
-            { "inside_header_panel@$child_control": {} }
-          ]
+          "controls": [{ "inside_header_panel@$child_control": {} }]
         }
       }
     ]
   },
-  
+
   "full_panel_no_buttons@common_dialogs.main_panel_no_buttons": {
     "type": "panel",
     "anchor_from": "center",
     "anchor_to": "center",
     "$text_name|default": "",
-    "$panel_indent_size|default": [ "100% - 16px", "100% - 31px" ],
+    "$panel_indent_size|default": ["100% - 16px", "100% - 31px"],
     "$custom_background|default": "cz_common.dialog_full_background",
     "controls": [
       {
@@ -119,17 +116,15 @@
         "panel_indent": {
           "type": "panel",
           "size": "$panel_indent_size",
-          "offset": [ 0, 23 ],
+          "offset": [0, 23],
           "anchor_from": "top_middle",
           "anchor_to": "top_middle",
-          "controls": [
-            { "inside_header_panel@$child_control": {} }
-          ]
+          "controls": [{ "inside_header_panel@$child_control": {} }]
         }
       }
     ]
   },
-  
+
   "yuri_panel_ui": {
     "type": "panel",
     "size": ["100%", "100%"],
@@ -138,7 +133,7 @@
     "offset": [0, "40.7%x - 20px"],
     "$display|default": "textures/cz/art/yuri/skin/normal",
     "$text_name|default": "",
-    "$panel_indent_size|default": [ "90% - 16px", "90% - 21px" ],
+    "$panel_indent_size|default": ["90% - 16px", "90% - 21px"],
     "$custom_background|default": "dialog_background_hollow_3",
     "controls": [
       {
@@ -146,7 +141,7 @@
           "type": "panel",
           "size": ["320%", "320%"],
           "max_size": [590, 400],
-          "offset": ["60% + 12px","-30%"],
+          "offset": ["60% + 12px", "-30%"],
           "layer": -1,
           "controls": [
             {
@@ -168,24 +163,22 @@
       },
       {
         "title_label@common_dialogs.title_label": {
-        "offset": [-30, "27.5% + 12px"]
+          "offset": [-30, "27.5% + 12px"]
         }
       },
       {
         "panel_indent": {
           "type": "panel",
           "size": "$panel_indent_size",
-          "offset": [ -30, "33.5%" ],
+          "offset": [-30, "33.5%"],
           "anchor_from": "top_middle",
           "anchor_to": "top_middle",
-          "controls": [
-            { "inside_header_panel@$child_control": {} }
-          ]
+          "controls": [{ "inside_header_panel@$child_control": {} }]
         }
       }
     ]
   },
-  
+
   "npc_panel_ui": {
     "type": "panel",
     "size": ["100%", "100%"],
@@ -193,35 +186,9 @@
     "anchor_to": "bottom_middle",
     "offset": [0, "47.2%x - 20px"],
     "$text_name|default": "",
-    "$panel_indent_size|default": [ "100% - 15px", "100% - 20px" ],
+    "$panel_indent_size|default": ["100% - 15px", "100% - 20px"],
     "$custom_background|default": "cz_common.dialog_action",
     "controls": [
-      /*{
-        "yuri_pnl": {
-          "type": "panel",
-          "size": [290, 290],
-          "offset": ["69% + 12px","-25%"],
-          "layer": 0,
-          "controls": [
-            {
-              "face": {
-                "type": "image",
-                "texture": "$display",
-                "size": [290, 290],
-                "layer": 1
-              }
-            },
-            {
-              "base": {
-                "type": "image",
-                "texture": "textures/cz/art/yuri/base",
-                "size": [290, 290],
-                "layer": 0
-              }
-            }
-          ]
-        }
-      },*/
       {
         "common_panel@common.common_panel": {
           "$dialog_background": "$custom_background",
@@ -231,7 +198,7 @@
       },
       {
         "title_label@common_dialogs.title_label": {
-          "$title_text_color": [ 85, 25, 35 ],
+          "$title_text_color": [85, 25, 35],
           "offset": [0, "1% + 12px"]
         }
       },
@@ -239,34 +206,32 @@
         "panel_indent": {
           "type": "panel",
           "size": "$panel_indent_size",
-          "offset": [ 0, "6.5%" ],
+          "offset": [0, "6.5%"],
           "anchor_from": "top_middle",
           "anchor_to": "top_middle",
-          "controls": [
-            { "inside_header_panel@$child_control": {} }
-          ]
+          "controls": [{ "inside_header_panel@$child_control": {} }]
         }
       }
     ]
   },
 
   "dialog_background@common_dialogs.dialog_background_common": {
-    "size": [ "100%", "90% + 31px" ],
+    "size": ["100%", "90% + 31px"],
     "texture": "textures/ui/cz_dialog_background_1"
   },
 
   "dialog_full_background@common_dialogs.dialog_background_common": {
-    "size": [ "1000%", "500%" ],
+    "size": ["1000%", "500%"],
     "alpha": 0.7,
     "texture": "textures/ui/Black"
   },
-  
+
   "dialog_action@common_dialogs.dialog_background_common": {
-    "size": [ "1000%", 144 ],
+    "size": ["1000%", 144],
     "alpha": 0.4,
     "texture": "textures/ui/Black"
   },
-  
+
   "new_ui_binding_button_label": {
     "type": "label",
     "$text_layer|default": 2,
@@ -285,9 +250,9 @@
     "anchor_from": "$anchor",
     "anchor_to": "$anchor",
     "shadow": false,
-    "$button_text_size|default": [ "default", "default" ],
+    "$button_text_size|default": ["default", "default"],
     "size": "$button_text_size",
-    "$button_text_max_size|default": [ "100%", 10 ], // Per design buttons are single line text only
+    "$button_text_max_size|default": ["100%", 10],
     "max_size": "$button_text_max_size",
     "$text_alignment|default": "center",
     "text_alignment": "$text_alignment",
@@ -311,7 +276,6 @@
     ]
   },
 
-  // Button
   "cz_dark_button_assets@common.button": {
     "$default_button_texture|default": "textures/cz/button/button_dark",
     "$default_content_alpha|default": 1,
@@ -325,14 +289,8 @@
     "$locked_alpha": 1
   },
   "cz_dark_button@cz_dark_button_assets": {
-    "$button_offset|default": [
-      0,
-      0
-    ],
-    "$button_pressed_offset|default": [
-      0,
-      1
-    ],
+    "$button_offset|default": [0, 0],
+    "$button_pressed_offset|default": [0, 1],
     "$button_text|default": "",
     "$button_font_size|default": "normal",
     "$button_font_scale_factor|default": 1.0,
@@ -340,10 +298,7 @@
     "$default_button_alpha|default": 1,
     "$default_hover_alpha|default": 1,
     "$default_pressed_alpha|default": 1,
-    "$default_button_pressed_offset|default": [
-      0,
-      1
-    ],
+    "$default_button_pressed_offset|default": [0, 1],
     "$default_text_color|default": "$light_button_default_text_color",
     "$hover_text_color|default": "$light_button_hover_text_color",
     "$pressed_text_color|default": "$light_button_pressed_text_color",
@@ -422,14 +377,8 @@
     ]
   },
   "cz_dark_content_button@cz_dark_button_assets": {
-    "$button_offset|default": [
-      0,
-      0
-    ],
-    "$button_pressed_offset|default": [
-      0,
-      1
-    ],
+    "$button_offset|default": [0, 0],
+    "$button_pressed_offset|default": [0, 1],
     "$pressed_alpha|default": 1,
     "$button_type_panel|default": "common_buttons.button_content_panel",
     "$button_content|default": "common.empty_panel",
@@ -517,43 +466,22 @@
     ]
   },
   "cz_content_button_fitting@cz_common.cz_dark_content_button": {
-    "size": [
-      "100%c",
-      "20px"
-    ],
+    "size": ["100%c", "20px"],
     "$button_state_panel|default": "common_buttons.new_ui_form_fitting_button_panel",
     "$anchor": "top_left",
-    "$button_offset|default": [
-      3,
-      3
-    ],
-    "$button_pressed_offset|default": [
-      3,
-      4
-    ],
+    "$button_offset|default": [3, 3],
+    "$button_pressed_offset|default": [3, 4],
     "$button_type_panel": "common_buttons.horizontal_form_fitting"
   },
   "cz_text_button_fitting@cz_common.cz_dark_button": {
-    "size": [
-      "100%c",
-      "100%c"
-    ],
+    "size": ["100%c", "100%c"],
     "$button_state_panel|default": "common_buttons.new_ui_form_fitting_button_panel",
     "$anchor": "top_left",
-    "$button_offset|default": [
-      3,
-      3
-    ],
-    "$button_pressed_offset|default": [
-      3,
-      4
-    ],
-    "$button_text_max_size": [
-      "100%c",
-      10
-    ]
+    "$button_offset|default": [3, 3],
+    "$button_pressed_offset|default": [3, 4],
+    "$button_text_max_size": ["100%c", 10]
   },
-  
+
   "cz_clear_button_assets@common.button": {
     "$default_button_texture|default": "textures/cz/button/button_clear",
     "$default_content_alpha|default": 0.2,
@@ -567,14 +495,8 @@
     "$locked_alpha": 0.2
   },
   "cz_clear_button@cz_clear_button_assets": {
-    "$button_offset|default": [
-      0,
-      0
-    ],
-    "$button_pressed_offset|default": [
-      0,
-      1
-    ],
+    "$button_offset|default": [0, 0],
+    "$button_pressed_offset|default": [0, 1],
     "$button_text|default": "",
     "$button_font_size|default": "normal",
     "$button_font_scale_factor|default": 1.0,
@@ -582,10 +504,7 @@
     "$default_button_alpha|default": 0.4,
     "$default_hover_alpha|default": 0.4,
     "$default_pressed_alpha|default": 0.4,
-    "$default_button_pressed_offset|default": [
-      0,
-      1
-    ],
+    "$default_button_pressed_offset|default": [0, 1],
     "$default_text_color|default": "$light_button_default_text_color",
     "$hover_text_color|default": "$light_button_hover_text_color",
     "$pressed_text_color|default": "$light_button_pressed_text_color",
@@ -664,14 +583,8 @@
     ]
   },
   "cz_clear_content_button@cz_clear_button_assets": {
-    "$button_offset|default": [
-      0,
-      0
-    ],
-    "$button_pressed_offset|default": [
-      0,
-      1
-    ],
+    "$button_offset|default": [0, 0],
+    "$button_pressed_offset|default": [0, 1],
     "$pressed_alpha|default": 1,
     "$button_type_panel|default": "common_buttons.button_content_panel",
     "$button_content|default": "common.empty_panel",
@@ -759,41 +672,20 @@
     ]
   },
   "cz_clear_content_button_fitting@cz_common.cz_clear_content_button": {
-    "size": [
-      "100%c",
-      "20px"
-    ],
+    "size": ["100%c", "20px"],
     "$button_state_panel|default": "common_buttons.new_ui_form_fitting_button_panel",
     "$anchor": "top_left",
-    "$button_offset|default": [
-      3,
-      3
-    ],
-    "$button_pressed_offset|default": [
-      3,
-      4
-    ],
+    "$button_offset|default": [3, 3],
+    "$button_pressed_offset|default": [3, 4],
     "$button_type_panel": "common_buttons.horizontal_form_fitting"
   },
   "cz_clear_text_button_fitting@cz_common.cz_clear_button": {
-    "size": [
-      "100%c",
-      "100%c"
-    ],
+    "size": ["100%c", "100%c"],
     "$button_state_panel|default": "common_buttons.new_ui_form_fitting_button_panel",
     "$anchor": "top_left",
-    "$button_offset|default": [
-      3,
-      3
-    ],
-    "$button_pressed_offset|default": [
-      3,
-      4
-    ],
-    "$button_text_max_size": [
-      "100%c",
-      10
-    ]
+    "$button_offset|default": [3, 3],
+    "$button_pressed_offset|default": [3, 4],
+    "$button_text_max_size": ["100%c", 10]
   },
   "cz_invisible_button_assets@common.button": {
     "$default_button_texture|default": "textures/cz/button/button_invisible",
@@ -808,14 +700,8 @@
     "$locked_alpha": 1
   },
   "cz_invisible_button@cz_invisible_button_assets": {
-    "$button_offset|default": [
-      0,
-      0
-    ],
-    "$button_pressed_offset|default": [
-      0,
-      1
-    ],
+    "$button_offset|default": [0, 0],
+    "$button_pressed_offset|default": [0, 1],
     "$button_text|default": "",
     "$button_font_size|default": "normal",
     "$button_font_scale_factor|default": 1.0,
@@ -823,10 +709,7 @@
     "$default_button_alpha|default": 1,
     "$default_hover_alpha|default": 1,
     "$default_pressed_alpha|default": 1,
-    "$default_button_pressed_offset|default": [
-      0,
-      1
-    ],
+    "$default_button_pressed_offset|default": [0, 1],
     "$default_text_color|default": "$light_button_default_text_color",
     "$hover_text_color|default": "$light_button_hover_text_color",
     "$pressed_text_color|default": "$light_button_pressed_text_color",
@@ -910,7 +793,7 @@
     "$texture|default": "textures/cz/gray",
     "$text_button|default": "",
     "$btn_func|default": "",
-    "controls":[
+    "controls": [
       {
         "panel_name": {
           "type": "panel",
@@ -921,7 +804,7 @@
                 "type": "image",
                 "texture": "$texture",
                 "layer": 5,
-                "anchor_from": "middle_left",
+                "anchor_from": "left",
                 "size": [30, 30],
                 "alpha": 0.7,
                 "offset": ["-55%", 0]
@@ -931,9 +814,9 @@
               "text": {
                 "type": "image",
                 "texture": "textures/ui/Black",
-                "size": [ "100%c", "100%c" ],
+                "size": ["100%c", "100%c"],
                 "anchor_from": "center",
-                "offset": ["20%","0%"],
+                "offset": ["20%", "0%"],
                 "layer": 6,
                 "alpha": 0.6,
                 "controls": [
@@ -942,7 +825,7 @@
                       "type": "label",
                       "text": "$text_button",
                       "text_alignment": "center",
-                      "color": [1,1,1],
+                      "color": [1, 1, 1],
                       "layer": 7
                     }
                   }
@@ -957,10 +840,10 @@
           "$pressed_button_name": "$btn_func",
           "anchor_from": "top_left",
           "anchor_to": "top_left",
-          "size": [ "100%", "100%" ],
+          "size": ["100%", "100%"],
           "offset": ["0%", 0],
           "$button_text": "",
-          "$button_text_max_size": [ "100%", 20 ]
+          "$button_text_max_size": ["100%", 20]
         }
       }
     ]

@@ -1,7 +1,6 @@
 {
   "namespace": "start",
-  // Waduh ngapain bang
-  
+
   "start_cz": {
     "type": "panel",
     "controls": [
@@ -20,15 +19,16 @@
           "texture": "textures/ui/zxra.png",
           "layer": 70,
           "alpha": "@cz_anim.logo_cz",
-          "size": [ 120, 120 ]
+          "size": [120, 120]
         }
       },
       {
         "zxra_creation": {
           "type": "label",
           "text": "cz.comp",
-          "size": [ "default", "default" ],
-          "offset": [ 0, 26 ],
+          "size": ["default", "default"],
+          "offset": [0, 26],
+          "font_type": "smooth",
           "font_scale_factor": 1.7,
           "shadow": true,
           "alpha": "@cz_anim.logo_cz",
@@ -39,8 +39,8 @@
         "version_cz": {
           "type": "label",
           "text": "cz.version",
-          "size": [ "default", "default" ],
-          "offset": [ 0, 40 ],
+          "size": ["default", "default"],
+          "offset": [0, 40],
           "shadow": true,
           "alpha": "@cz_anim.logo_cz",
           "layer": 70
@@ -48,19 +48,17 @@
       }
     ]
   },
-  
+
   "start_screen_content": {
     "modifications": [
       {
         "array_name": "controls",
         "operation": "insert_front",
-        "value": [
-          { "start_cz@start.start_cz": {} }
-        ]
+        "value": [{ "start_cz@start.start_cz": {} }]
       }
     ]
   },
-  
+
   "start_screen@common.base_screen": {
     "button_mappings": [
       {
@@ -89,9 +87,9 @@
       }
     ],
     "$screen_bg_content": "cz_start.background",
-    "$screen_content": "cz_start.cz_new_start_screen_content",
-	"$screen_animations": [
-	  "@common.screen_exit_animation_push_fade",
+    "$screen_content": "cz_start.simple_start_screen_content",
+    "$screen_animations": [
+      "@common.screen_exit_animation_push_fade",
       "@common.screen_exit_animation_pop_fade",
       "@common.screen_entrance_animation_push_fade",
       "@common.screen_entrance_animation_pop_fade"
