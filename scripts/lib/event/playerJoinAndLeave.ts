@@ -5,7 +5,7 @@ import {
   PlayerSpawnAfterEvent,
   world,
 } from "@minecraft/server";
-import { Terra } from "../ZxraLib/module";
+import { Specialist, Terra } from "../ZxraLib/module";
 
 // Join event
 world.afterEvents.playerJoin.subscribe((event: PlayerJoinAfterEvent) => {});
@@ -16,6 +16,10 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }: PlayerSpawnAf
     Terra.setPlayer(world.getAllPlayers());
     Terra.createSpecialistCache();
   }
+
+  const sp = new Specialist(player);
+
+  sp.resetToMaxStamina();
 });
 
 // Leave event

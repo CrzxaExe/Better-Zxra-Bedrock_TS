@@ -1,5 +1,5 @@
 import { Player, world } from "@minecraft/server";
-import { Specialist, Terra, settings } from "../module";
+import { Formater, Specialist, Terra, settings } from "../module";
 
 class Chat {
   static privateMessage(sender: Player, message: string, targets: Player[]): void {
@@ -12,7 +12,27 @@ class Chat {
     );
   }
 
-  static guildMessage(sender: Player, message: string): void {}
+  static guildMessage(sender: Player, message: string): void {
+    const guild = Terra.guild.getGuildByPlayer(sender);
+
+    const format: string = "%guild%-> %name > %msg";
+
+    if (!guild) {
+      sender.sendMessage({ translate: "system.notHave.guild" });
+      return;
+    }
+
+    guild.members.forEach((e) => {
+      const player = Terra.getWorldPlayerById(e.id);
+      if (!player) return;
+      player.sendMessage({
+        text: format
+          .replace("%guild", Formater.formatGuild(guild))
+          .replace("%name", sender.name)
+          .replace("%msg", message),
+      });
+    });
+  }
 
   static globalMessage(sender: Player, message: string): void {
     if (message === "") return;
@@ -26,6 +46,7 @@ class Chat {
         .replace("%msg", message)
         .replace("%name", sender.name)
         .replace("%lvl", String(sender.level))
+        .replace("%guild", Formater.formatGuild(Terra.guild.getGuildByPlayer(sender)))
         .replace("%splvl", String(data.level.current)),
     });
   }

@@ -25,7 +25,10 @@ function mainTick(): void {
     if (system.currentTick % 5 === 0) {
       Terra.players.forEach((player: Player) => {
         const sp = new Specialist(player);
+
+        sp.controllerActionBar();
         sp.controllerStamina();
+        sp.controllerThirst();
         sp.controllerUI();
         sp.controllerCooldown();
       });
@@ -39,7 +42,7 @@ function mainTick(): void {
 
     // Save Intervals
     if (system.currentTick % (Terra.world.setting?.saveInterval || 400) /* 20 sec */ === 0) {
-      Terra.save();
+      Terra.save(false);
       Terra.setPlayer(world.getAllPlayers());
     }
   } catch (err: { message: string } | any) {

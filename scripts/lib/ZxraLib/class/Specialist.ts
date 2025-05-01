@@ -30,6 +30,13 @@ class Specialist extends Entity {
   }
 
   // Controller
+  controllerActionBar(): void {
+    const content: string[] = [];
+
+    if (content.length < 1) return;
+
+    this.source.onScreenDisplay.setActionBar({ text: content.join(" | ") });
+  }
   controllerCooldown(): void {
     this.cooldown.getData().forEach((e) => this.cooldown.minCd(e.name, 0.25));
   }
@@ -37,12 +44,8 @@ class Specialist extends Entity {
     const data = this.getSp(),
       max: number = data.stamina.max + data.stamina.additional + data.stamina.rune;
 
-    if (data.stamina.current <= 10) {
-      this.addEffectOne("slowness", 2, 1);
-    }
-    if (data.stamina.current <= 1) {
-      this.cooldown.addCd("tired", 12);
-    }
+    if (data.stamina.current <= 10) this.addEffectOne("slowness", 2, 1);
+    if (data.stamina.current <= 1) this.cooldown.addCd("tired", 12);
 
     const setting = Terra.world.setting || settings;
     if (this.source.isSprinting) {
@@ -64,6 +67,22 @@ class Specialist extends Entity {
     if (recovery <= 0) return;
     this.addStamina(recovery);
   }
+  controllerThirst(): void {
+    const { current } = this.getThirst();
+    let down = 0.01 - this.status.decimalCalcStatus({ type: "thirst_recovery" }, 0, 0.01);
+
+    if (current < 15) this.addEffectOne("nausea", 3, 0, false);
+    if (current <= 0) {
+      this.addEffectOne("poison", 3, 0, false);
+      return;
+    }
+
+    if (this.source.dimension.id === "nether") down += 0.04;
+
+    if (down < 0) return;
+
+    this.minThirst(down);
+  }
   controllerUI(): void {
     const { cd: cols, level, rep, stamina, thirst, money, voxn } = this.getSp();
 
@@ -74,9 +93,9 @@ class Specialist extends Entity {
 
     this.source.onScreenDisplay.setTitle(
       `cz:ui ${this.source.name}
-(${((level.xp / Calc.specialistLevelUp(level.current)) * 100).toFixed(1)}) ${level.xp} XP ${level.current} < [SP]
+(${((level.xp / Calc.specialistLevelUp(level.current || 0)) * 100).toFixed(1)}) ${level.xp} XP ${level.current} < [SP]
 
-§a$${money}§r§f §b${voxn} Voxn§r§f
+§a$${money}§r§f | §b§l${voxn} Voxn§r§f
  
 §eS ${((stamina.current / Math.floor(stamina.max + stamina.additional + stamina.rune)) * 100).toFixed(
         0
@@ -108,7 +127,13 @@ ${
     return this.getSp().stamina;
   }
   addStamina(amount: number = 1): void {
-    const data = this.getSp();
+    const data = this.getSp(),
+      max = data.stamina.max + data.stamina.additional + data.stamina.rune;
+
+    if (data.stamina.current + amount > max) {
+      this.setStamina(max);
+      return;
+    }
 
     if (data.stamina.current + amount <= 0) {
       this.setStamina(0);
@@ -151,6 +176,9 @@ ${
     const data = this.getSp();
 
     data.thirst.current = parseInt((data.thirst.current + amount).toFixed(3));
+
+    if (data.thirst.current >= (data.thirst.max + data.thirst.temp) * 1.1)
+      data.thirst.current = (data.thirst.max + data.thirst.temp) * 1.1;
     this.setSp(data);
   }
   minThirst(amount: number): void {
@@ -190,6 +218,46 @@ ${
     const data = this.getSp();
 
     data.money = parseInt(value.toFixed(2));
+    this.setSp(data);
+  }
+
+  // Reputation methods
+  getRep(): number {
+    return this.getSp().rep;
+  }
+  addRep(amount: number = 1): void {
+    const data = this.getSp();
+
+    data.rep = +amount;
+    this.setSp(data);
+  }
+  minRep(amount: number = 1): void {
+    this.addRep(-amount);
+  }
+  setRep(value: number = 0): void {
+    const data = this.getSp();
+
+    data.rep = value;
+    this.setSp(data);
+  }
+
+  // Voxn methods
+  getVoxn(): number {
+    return this.getSp().voxn;
+  }
+  addVoxn(amount: number = 1): void {
+    const data = this.getSp();
+
+    data.voxn += amount;
+    this.setSp(data);
+  }
+  minVoxn(amount: number = 1): void {
+    this.addVoxn(-amount);
+  }
+  setVoxn(value: number = 0): void {
+    const data = this.getSp();
+
+    data.voxn = value;
     this.setSp(data);
   }
 }

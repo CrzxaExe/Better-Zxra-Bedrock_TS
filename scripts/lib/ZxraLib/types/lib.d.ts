@@ -31,15 +31,24 @@ interface EntityData {
 interface GuildData {
   id: string;
   name: string;
+  level: GuildLevel;
+  des: string;
   maxMember: number;
+  approval: boolean;
   members: GuildMember[];
   applier: GuildMember[];
   token: number;
 }
+interface GuildLevel {
+  lvl: number;
+  xp: number;
+}
 interface GuildMember {
   id: string;
   name: string;
+  role?: GuildRole;
 }
+type GuildRole = "superadmin" | "admin" | "member";
 
 // Item interface
 interface ItemSpecial {
@@ -72,9 +81,17 @@ interface QuestData {
   task: QuestTask[];
   reward: QuestRewards[];
 }
+interface QuestFind {
+  id: number;
+  quest: QuestData;
+}
 interface QuestRewards {
   type: string;
   amount: number;
+}
+interface QuestPlayer {
+  id: number;
+  progress: number[];
 }
 interface QuestTask {
   act: string;
@@ -134,7 +151,7 @@ interface RuneStats {
   critChance?: number;
   critDamage?: number;
 
-  healingEffectifity?: number;
+  healingEffectivity?: number;
 
   moneyDrop?: number;
 
@@ -187,6 +204,7 @@ interface Setting {
   thirstRun?: number;
   uiLevelRequirement?: boolean;
   useBzbRules?: boolean;
+  uuidLength?: number;
   whatSeeDistance?: number;
   xpMultiplier?: number;
 }
@@ -213,6 +231,7 @@ interface SpecialistData {
   voxn: number;
   rep: number;
   cd: CooldownData[];
+  quest?: QuestPlayer;
 }
 interface SpecialistLvl {
   current: number;
@@ -265,12 +284,16 @@ export type {
   EffectCreate,
   EntityData,
   GuildData,
+  GuildLevel,
   GuildMember,
+  GuildRole,
   ItemSpecial,
   LeaderboardData,
   ModifierData,
   QuestConst,
   QuestData,
+  QuestFind,
+  QuestPlayer,
   QuestRewards,
   QuestTask,
   Particle,

@@ -16,7 +16,7 @@ export const defaultRuneStat: RuneStats = {
   critDamage: 1.2,
 
   // Healing Effectifity stat: increase heal provide
-  healingEffectifity: 1,
+  healingEffectivity: 1,
 
   // Money Drop: kill will gain money
   moneyDrop: 0,

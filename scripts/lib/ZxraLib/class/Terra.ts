@@ -6,6 +6,7 @@ import {
   GuildData,
   Leaderboard,
   PlayerFinder,
+  QuestConst,
   settings,
   Specialist,
   SpecialistData,
@@ -30,7 +31,7 @@ class Terra {
 
     return result;
   }
-  static setProperty(namespace: string = "world", data: EntityData[] | WorldData): void {
+  static setProperty(namespace: string = "world", data: any): void {
     if (!namespace || !data) throw new Error("Missing namespace or data");
 
     try {
@@ -53,8 +54,15 @@ class Terra {
     system.run(() => this.setPlayer(world.getAllPlayers()));
     this.createSpecialistCache();
   }
-  static save(): void {
-    console.warn("saving");
+  static save(isEnable: boolean = true): void {
+    console.warn("[System] Saving data");
+
+    if (!isEnable) return;
+    this.setProperty("guild", this.world.guilds);
+    this.setProperty("leaderboard", this.world.leaderboards);
+    this.setProperty("setting", this.world.setting);
+    this.setProperty("redeem", this.world.redeem);
+    this.setProperty("entities", this.entities);
   }
 
   // World Data methods
@@ -94,7 +102,7 @@ class Terra {
   }
 
   // Player Methods
-  static getPlayer(finder: PlayerFinder | undefined) {
+  static getPlayer(finder: PlayerFinder | undefined): Player[] | Player | undefined {
     if (!finder) {
       return this.players;
     }
@@ -207,6 +215,8 @@ class Terra {
 
     this.world.guilds = data;
   }
+
+  static quest: QuestConst[] = [];
 }
 
 export { Terra };

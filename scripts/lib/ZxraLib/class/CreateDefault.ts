@@ -15,6 +15,14 @@ class CreateObject {
     const data: SpecialistData = { ...defaultSpecialist, id: player.id };
     return data;
   }
+
+  static createUUID(length: number = 10): string {
+    const chars: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+
+    let result: string = "";
+    for (let i = 0; i <= length; i++) result += chars.charAt(Math.floor(Math.random() * chars.length));
+    return result;
+  }
 }
 
 export { CreateObject };

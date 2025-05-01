@@ -5,6 +5,7 @@ export const settings: Setting = {
   customChat: true,
   /* placeholder for custom chat prefix
       %lvl      = player level
+      %guild    = guild name
       %msg      = message content
       %name     = player username
       %splvl    = specialist level
@@ -15,7 +16,7 @@ export const settings: Setting = {
   // if true, debuging mode will active
   debug: true,
   // interval between saving data on minecraft tick, 1s rl is 20 tick
-  saveInterval: 1800, // 90 sec
+  saveInterval: 24000, // 120 sec
   // Amount of stamina that will decrease while do some activity
   staminaAction: 5,
   // After some activity, it will stop regen the stamina after some minutes
@@ -28,6 +29,8 @@ export const settings: Setting = {
   staminaRecovery: 2,
   // Amount of stamina that decrease while running
   staminaRun: 2.5,
+  // Length of UUID
+  uuidLength: 12,
   // distance player seen block id
   whatSeeDistance: 7,
 };

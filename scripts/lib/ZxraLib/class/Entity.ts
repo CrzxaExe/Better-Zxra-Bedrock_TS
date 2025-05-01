@@ -151,8 +151,11 @@ class Entity {
 
     // user rune
     let rune = defaultRuneStat;
+    if (this.source instanceof Player) {
+      rune = new Specialist(this.source).rune.getRuneStat();
+    }
 
-    amount *= 1 + (rune.healingEffectifity || 0);
+    amount *= 1 + (rune.healingEffectivity || 0);
 
     if (hp.currentValue + amount > hp.effectiveMax) {
       hp.setCurrentValue(hp.effectiveMax);
