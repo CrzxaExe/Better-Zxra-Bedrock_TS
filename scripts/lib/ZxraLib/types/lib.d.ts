@@ -1,4 +1,4 @@
-import { MolangVariableMap, Vector3 } from "@minecraft/server";
+import { Block, Entity, MolangVariableMap, Vector3 } from "@minecraft/server";
 import { Specialist } from "../module";
 
 // Cooldown interface
@@ -75,6 +75,11 @@ interface QuestConst {
   player: Player;
   sp?: any;
 }
+interface QuestController {
+  act: string;
+  target: Entity | Block;
+  amount: number;
+}
 interface QuestData {
   title: string;
   rep: number;
@@ -123,6 +128,16 @@ interface PasifHited {
 interface PasifKill {
   name: string;
   callback: Function;
+}
+
+// Pity interface
+interface PityPlayer {
+  id: string;
+  pity: {
+    unique: number;
+    featured: number;
+    limited: number;
+  };
 }
 
 // Player interface
@@ -200,7 +215,7 @@ interface Setting {
   staminaRun?: number;
   staterItem?: boolean;
   starterItemMessage?: string;
-  starterItems?: string;
+  starterItems?: SettingStarterItem[];
   thirstRun?: number;
   uiLevelRequirement?: boolean;
   useBzbRules?: boolean;
@@ -210,43 +225,19 @@ interface Setting {
 }
 interface SettingRules {
   naturalregeneration: boolean;
-  recipeunlock: boolean;
+  recipesunlock: boolean;
   showcoordinates: boolean;
   spawnradius: number;
+}
+interface SettingStarterItem {
+  item: string;
+  amount: number;
 }
 
 // Skill interface
 interface SkillLib {
   useDuration?: number;
   sp?: Specialist;
-}
-
-// Specialist interface
-interface SpecialistData {
-  id: string;
-  level: SpecialistLvl;
-  stamina: SpecialistStamina;
-  thirst: SpecialistThirst;
-  money: number;
-  voxn: number;
-  rep: number;
-  cd: CooldownData[];
-  quest?: QuestPlayer;
-}
-interface SpecialistLvl {
-  current: number;
-  xp: number;
-}
-interface SpecialistStamina {
-  current: number;
-  max: number;
-  additional: number;
-  rune: number;
-}
-interface SpecialistThirst {
-  current: number;
-  max: number;
-  temp: number;
 }
 
 // Status interface
@@ -264,10 +255,40 @@ interface StatusFinder {
   decay?: StatusDecay;
 }
 
+// Story interface
+interface StoryData {
+  storyId: number;
+  progress: StoryProgress[];
+}
+interface StoryProgress {
+  name: string;
+  value: number | Vector3;
+}
+
 // Weapon Skill interface
+interface WeaponComponent {
+  id: string;
+  components: WeaponComponentData[];
+}
+interface WeaponComponentData {
+  name: string;
+  value: Vector3 | number | string;
+}
+interface WeaponPasifStat {
+  pasif: number;
+  stat: WeaponStat[];
+}
 interface WeaponSkill {
   name: string;
   callback: Function;
+}
+interface WeaponSkillStat {
+  skill: string | number;
+  stat: WeapomStat[];
+}
+interface WeaponStat {
+  name: string;
+  value: string;
 }
 
 // World interface
@@ -291,6 +312,7 @@ export type {
   LeaderboardData,
   ModifierData,
   QuestConst,
+  QuestController,
   QuestData,
   QuestFind,
   QuestPlayer,
@@ -301,6 +323,7 @@ export type {
   PasifHit,
   PasifHited,
   PasifKill,
+  PityPlayer,
   PlayerFinder,
   RedeemData,
   RedeemRewards,
@@ -308,13 +331,17 @@ export type {
   Scripts,
   Setting,
   SettingRules,
+  SettingStarterItem,
   SkillLib,
-  SpecialistData,
-  SpecialistLvl,
-  SpecialistStamina,
-  SpecialistThirst,
   StatusData,
   StatusFinder,
+  StoryData,
+  StoryProgress,
+  WeaponComponent,
+  WeaponComponentData,
+  WeaponPasifStat,
   WeaponSkill,
+  WeaponSkillStat,
+  WeaponStat,
   WorldData,
 };

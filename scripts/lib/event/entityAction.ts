@@ -1,10 +1,24 @@
 import { EntityDieAfterEvent, EntityHitBlockAfterEvent, EntityHurtAfterEvent, Player, world } from "@minecraft/server";
-import { damageColor, Terra } from "../ZxraLib/module";
+import { damageColor, Formater, Terra } from "../ZxraLib/module";
 
 // Entity Killed event
 world.afterEvents.entityDie.subscribe(
   ({ damageSource: { cause, damagingEntity, damagingProjectile }, deadEntity }: EntityDieAfterEvent) => {
-    if (deadEntity instanceof Player) {
+    try {
+      if (deadEntity instanceof Player) {
+        if (Terra.world.setting?.deathLocation)
+          deadEntity.sendMessage({
+            translate: "system.youDie",
+            with: [`§2${Formater.formatVector3(deadEntity.location)}§r§f`],
+          });
+
+        const sp = Terra.getSpecialistCache(deadEntity);
+
+        sp.setToMaxThirst();
+        sp.resetToMaxStamina();
+      }
+    } catch (error: { message: string } | any) {
+      console.warn("[System] Error on Event EntityDie: " + error.message);
     }
   }
 );
@@ -32,7 +46,7 @@ world.afterEvents.entityHurt.subscribe(({ hurtEntity, damage, damageSource: { ca
     )}`;
   } catch (error: { message: string } | any) {
     if (!Terra.world.setting?.debug) return;
-    console.warn(error);
+    console.warn("[System] Error on EventHurt: " + error.message);
   }
 });
 

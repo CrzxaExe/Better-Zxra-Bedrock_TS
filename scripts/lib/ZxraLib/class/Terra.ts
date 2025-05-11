@@ -5,11 +5,13 @@ import {
   Guild,
   GuildData,
   Leaderboard,
+  PityPlayer,
   PlayerFinder,
-  QuestConst,
   settings,
   Specialist,
   SpecialistData,
+  StoryData,
+  WeaponComponent,
   WorldData,
 } from "../module";
 
@@ -141,15 +143,15 @@ class Terra {
   static createSpecialistCache(): void {
     this.specialistCache = this.players.map((player: Player) => new Specialist(player));
   }
-  static getSpecialistCache(id: string): Specialist | undefined {
-    return (
-      this.specialistCache.find((e) => e.id === id) ||
-      (() => {
-        const player = world.getAllPlayers().find((e) => e.id === id);
-        if (!player) throw new Error(`Player with id ${id} not found`);
-        return new Specialist(player);
-      })()
-    );
+  static getSpecialistCache(player: Player): Specialist {
+    const sp = this.specialistCache.find((e) => e.id === player.id);
+
+    if (!sp) {
+      this.createSpecialistCache();
+      return new Specialist(player);
+    }
+
+    return sp;
   }
 
   static addSpecialist(data: SpecialistData): void {
@@ -215,8 +217,31 @@ class Terra {
 
     this.world.guilds = data;
   }
+  static getListedGuild(): string[] {
+    return (
+      this.world.guilds?.map((e: GuildData) => {
+        return `${e.name}§r§f
 
-  static quest: QuestConst[] = [];
+${e.des}
+
+Owner   : ${e.members.filter((r) => r.role === "superadmin")[0].name || "Idk bruh"}
+Member  : ${e.members.length}/${e.maxMember}`;
+      }) || []
+    );
+  }
+
+  static story: StoryData = {
+    storyId: 0,
+    progress: [],
+  };
+
+  static pityPlayer: PityPlayer[] = [];
+
+  static weaponComponent: WeaponComponent[] = [];
+
+  static bossChallenge = {};
+
+  static waveChallenge = {};
 }
 
 export { Terra };

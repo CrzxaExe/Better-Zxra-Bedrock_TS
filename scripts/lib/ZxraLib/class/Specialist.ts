@@ -11,12 +11,14 @@ import {
   Formater,
   Calc,
   SpecialistThirst,
+  PlayerContainers,
 } from "../module";
 
 interface Specialist {
   container: Container;
   cooldown: Cooldown;
   rune: Rune;
+  inventory: PlayerContainers;
 }
 
 class Specialist extends Entity {
@@ -27,6 +29,7 @@ class Specialist extends Entity {
     this.container = this.source.getComponent("inventory");
     this.cooldown = new Cooldown(this);
     this.rune = new Rune(this);
+    this.inventory = new PlayerContainers(player);
   }
 
   // Controller
@@ -78,6 +81,7 @@ class Specialist extends Entity {
     }
 
     if (this.source.dimension.id === "nether") down += 0.04;
+    if (this.source.isSprinting) down += Terra.world.setting?.thirstRun || 0.03;
 
     if (down < 0) return;
 
@@ -104,7 +108,7 @@ class Specialist extends Entity {
 ${
   this.source.getBlockFromViewDirection({ maxDistance: Terra.world.setting?.whatSeeDistance || 7 })?.block?.type.id ||
   "minecraft:air"
-}${cd.length > 0 ? "\n\nCooldown:\n" + cd.join("\n") : ""}${sts.length > 0 ? "\n\nStatus:\n" + sts.join("\n") : ""}`,
+}${cd.length > 0 ? "\n\n< Cooldown\n" + cd.join("\n") : ""}${sts.length > 0 ? "\n\n< Status\n" + sts.join("\n") : ""}`,
       { fadeInDuration: 0, fadeOutDuration: 0, stayDuration: 0 }
     );
   }
@@ -120,6 +124,46 @@ ${
     if (!newData) throw new Error("Missing new data");
 
     Terra.setSpecialist(newData);
+  }
+
+  // Specialist methods
+  addSpXp(amount: number): void {
+    const data = this.getSp();
+    const { level, xp } = Calc.upSpecialist(
+      data.level.current,
+      (data.level.xp + amount) * (Terra.world.setting?.xpMultiplier || 1)
+    );
+
+    data.level.current = level;
+    data.level.xp = xp;
+    this.setSp(data);
+  }
+  minSpXp(amount: number): void {
+    this.addSpXp(-amount);
+  }
+  setSpXp(value: number): void {
+    const data = this.getSp();
+    const { level, xp } = Calc.upSpecialist(data.level.current, value * (Terra.world.setting?.xpMultiplier || 1));
+
+    data.level.current = level;
+    data.level.xp = xp;
+    this.setSp(data);
+  }
+
+  addSpLvl(amount: number): void {
+    const data = this.getSp();
+
+    data.level.current += amount;
+    this.setSp(data);
+  }
+  minSpLvl(amount: number): void {
+    this.addSpLvl(-amount);
+  }
+  setSplvl(value: number): void {
+    const data = this.getSp();
+
+    data.level.current = value;
+    this.setSp(data);
   }
 
   // Stamina methods
@@ -258,6 +302,50 @@ ${
     const data = this.getSp();
 
     data.voxn = value;
+    this.setSp(data);
+  }
+
+  // Title methods
+  getTitles(): string[] {
+    return this.getSp().titles;
+  }
+  hasTitle(name: string, data: SpecialistData = this.getSp()): boolean {
+    if (name === "") throw new Error("Missing name");
+
+    return data.titles.some((e) => e === name);
+  }
+  addTitle(name: string): void {
+    if (name === "") throw new Error("Missing name");
+
+    const data = this.getSp();
+    if (this.hasTitle(name, data)) return;
+    data.titles.push(name);
+    this.setSp(data);
+  }
+  removeTitle(name: string): void {
+    if (name === "") throw new Error("Missing name");
+
+    const data = this.getSp(),
+      find = data.titles.findIndex((e) => e === name);
+
+    if (find === -1) return;
+
+    data.titles.splice(find, 1);
+    this.setSp(data);
+  }
+
+  setActiveTitle(name: string): void {
+    if (name === "") throw new Error("Missing name");
+
+    if (!this.hasTitle(name)) return;
+    const data = this.getSp();
+
+    data.title = name;
+    this.setSp(data);
+  }
+  removeActiveTitle(): void {
+    const data = this.getSp();
+    data.title = "";
     this.setSp(data);
   }
 }

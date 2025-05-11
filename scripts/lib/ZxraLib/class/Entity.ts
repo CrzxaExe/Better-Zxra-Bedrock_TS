@@ -8,17 +8,7 @@ import {
   system,
   Vector3,
 } from "@minecraft/server";
-import {
-  defaultRuneStat,
-  EffectCreate,
-  EntityData,
-  Particle,
-  RuneStats,
-  Specialist,
-  Status,
-  StatusDecay,
-  Terra,
-} from "../module";
+import { defaultRuneStat, EffectCreate, EntityData, Particle, RuneStats, Status, StatusDecay, Terra } from "../module";
 
 interface Entity {
   source: any;
@@ -105,7 +95,7 @@ class Entity {
     // this user rune
     let actorRune = defaultRuneStat;
     if (this.source instanceof Player) {
-      actorRune = (Terra.getSpecialistCache(this.source.id) || new Specialist(this.source)).rune.getRuneStat();
+      actorRune = Terra.getSpecialistCache(this.source).rune.getRuneStat();
     }
 
     // Dodge chance
@@ -152,7 +142,7 @@ class Entity {
     // user rune
     let rune = defaultRuneStat;
     if (this.source instanceof Player) {
-      rune = new Specialist(this.source).rune.getRuneStat();
+      rune = Terra.getSpecialistCache(this.source).rune.getRuneStat();
     }
 
     amount *= 1 + (rune.healingEffectivity || 0);
@@ -287,6 +277,11 @@ class Entity {
       if (!Array.isArray(tags)) throw new Error("Invalid paramater: tags must be string[] or string");
       tags.forEach((e: string) => this.source.removeTag(e));
     });
+  }
+
+  playAnim(animation: string): void {
+    if (animation === "") throw new Error("Missing animation");
+    this.source.playAnimation(animation, { blendOutTime: 0.35 });
   }
 
   // Particle Methods

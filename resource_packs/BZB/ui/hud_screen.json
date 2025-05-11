@@ -1,6 +1,5 @@
 {
   "namespace": "hud",
-  // Waduh ngapain bang
 
   "hide_ele": {
     "type": "image",
@@ -14,9 +13,9 @@
     "$welcome": "cz.welcomer",
     "text": "$welcome",
     "alpha": "@cz_anim.join",
-    "anchor_from": "top_center",
+    "anchor_from": "top",
     "layer": 12,
-    "anchor_to": "top_center",
+    "anchor_to": "top",
     "size": ["default", 40],
     "shadow": true
   },
@@ -114,8 +113,9 @@
               "live_data": {
                 "type": "label",
                 "text": "#text",
+                "font_type": "smooth",
                 "text_alignment": "right",
-                "font_scale_factor": 0.8,
+                "font_scale_factor": 0.76,
                 "localize": false,
                 "anchor_from": "top_right",
                 "anchor_to": "top_right",
@@ -158,7 +158,6 @@
     "offset": ["5%", 0]
   },
 
-  // Features Model
   "chat_grid_item/chat_background": {
     "modifications": [
       {
@@ -219,13 +218,6 @@
               "anchor_from": "top_right"
             }
           },
-          /*{
-            "hide_btn@hud.hide_btn": {
-              "anchor_to": "bottom_right",
-              "anchor_from": "bottom_right",
-              "offset": [ -10, 0 ]
-            }
-          },*/
           {
             "player_bg": {
               "type": "image",

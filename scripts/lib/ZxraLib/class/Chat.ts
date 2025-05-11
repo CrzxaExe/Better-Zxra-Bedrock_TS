@@ -1,5 +1,5 @@
 import { Player, world } from "@minecraft/server";
-import { Formater, Specialist, Terra, settings } from "../module";
+import { Formater, Terra, settings } from "../module";
 
 class Chat {
   static privateMessage(sender: Player, message: string, targets: Player[]): void {
@@ -38,7 +38,7 @@ class Chat {
     if (message === "") return;
 
     const format: string = Terra.world.setting?.customChatPrefix || settings.customChatPrefix || "%name > %msg";
-    const sp = new Specialist(sender),
+    const sp = Terra.getSpecialistCache(sender),
       data = sp.getSp();
 
     world.sendMessage({
@@ -46,6 +46,7 @@ class Chat {
         .replace("%msg", message)
         .replace("%name", sender.name)
         .replace("%lvl", String(sender.level))
+        .replace("%title", data.title !== "" ? data.title : "")
         .replace("%guild", Formater.formatGuild(Terra.guild.getGuildByPlayer(sender)))
         .replace("%splvl", String(data.level.current)),
     });

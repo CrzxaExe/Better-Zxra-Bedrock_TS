@@ -1,5 +1,5 @@
 import { Dimension, Player, system, world } from "@minecraft/server";
-import { Entity, NOT_ALLOWED_ENTITY_TICK, Specialist, Terra, ZxraLib } from "./lib/ZxraLib/module";
+import { Entity, NOT_ALLOWED_ENTITY_TICK, Terra, ZxraLib } from "./lib/ZxraLib/module";
 
 // Event imports
 import "./lib/event/chatSend";
@@ -11,12 +11,25 @@ import "./lib/event/worldInitialize";
 
 // Info Version
 console.warn(`
-Using Better Zxra Bedrock v${ZxraLib.packVersion}
+[System] Loading plugins:
+Better Zxra Bedrock v${ZxraLib.packVersion}
 ZxraLib v${ZxraLib.version}`);
 
 Terra.setup();
 
 if (Terra.world.setting?.debug) console.warn(JSON.stringify(Terra.world));
+if (Terra.world.setting?.useBzbRules) {
+  system.run(() => {
+    const overworld = world.getDimension("overworld");
+    Terra.world.setting?.rules &&
+      Object.keys(Terra.world.setting.rules).forEach((e) => {
+        if (Terra.world.setting?.rules && e in Terra.world.setting.rules) {
+          const ruleValue = Terra.world.setting.rules[e as keyof typeof Terra.world.setting.rules];
+          overworld.runCommand(`gamerule ${e.toLowerCase()} ${ruleValue}`);
+        }
+      });
+  });
+}
 
 // Main Ticking
 function mainTick(): void {
@@ -24,7 +37,7 @@ function mainTick(): void {
     //  Activity tick
     if (system.currentTick % 5 === 0) {
       Terra.players.forEach((player: Player) => {
-        const sp = new Specialist(player);
+        const sp = Terra.getSpecialistCache(player);
 
         sp.controllerActionBar();
         sp.controllerStamina();
@@ -41,7 +54,7 @@ function mainTick(): void {
     }
 
     // Save Intervals
-    if (system.currentTick % (Terra.world.setting?.saveInterval || 400) /* 20 sec */ === 0) {
+    if (system.currentTick % (Terra.world.setting?.saveInterval || 20000) /* 1000 sec */ === 0) {
       Terra.save(false);
       Terra.setPlayer(world.getAllPlayers());
     }

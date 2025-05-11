@@ -73,12 +73,16 @@ class Cooldown {
     if (!name) throw new Error("Missing name");
     return this.getData().some((e) => e.name === name);
   }
-  canSkill(name: string, duration: number): boolean {
-    if (!name) throw new Error("Missing name");
-
-    if (this.hasCd(name)) return false;
-    this.addCd(name, duration);
+  canSkill(duration: number): boolean {
+    if (duration < 0) throw new Error("Parameter duration must be positive");
+    if (this.hasCd("cooldown") || this.hasCd("on_skill")) return false;
+    this.addCd("cooldown", duration);
     return true;
+  }
+  setIsSkill(duration: number): void {
+    if (duration < 0) throw new Error("Parameter duration must be positive");
+
+    this.addCd("on_skill", duration);
   }
 }
 

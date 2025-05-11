@@ -6,12 +6,13 @@
 
 export const ZxraLib: { packVersion: string; version: string } = {
   packVersion: "1.4.1",
-  version: "1.1.3ts",
+  version: "1.1.4ts",
 };
 
 // Class export
-export { Calc } from "./class/Calc";
+export { Calc, SpecialistLevelUp } from "./class/Calc";
 export { Chat } from "./class/Chat";
+export { BlockContainer, ItemContainer, ItemInventory, PlayerContainers } from "./class/Container";
 export { Cooldown } from "./class/Cooldown";
 export { CreateObject } from "./class/CreateDefault";
 export { Command, Modifier, Script, SpecialItem, Weapon } from "./class/DataClass";
@@ -19,6 +20,7 @@ export { Entity } from "./class/Entity";
 export { Formater } from "./class/Formater";
 export { Gacha } from "./class/Gacha";
 export { Guild } from "./class/Guild";
+export { Item } from "./class/Item";
 export { Leaderboard } from "./class/Leaderboard";
 export { Quest } from "./class/Quest";
 export { Rune } from "./class/Rune";
@@ -53,6 +55,7 @@ export type {
   LeaderboardData,
   ModifierData,
   QuestConst,
+  QuestController,
   QuestData,
   QuestFind,
   QuestPlayer,
@@ -63,6 +66,7 @@ export type {
   PasifHit,
   PasifHited,
   PasifKill,
+  PityPlayer,
   PlayerFinder,
   RedeemData,
   RedeemRewards,
@@ -70,13 +74,25 @@ export type {
   Scripts,
   Setting,
   SettingRules,
+  SettingStarterItem,
   SkillLib,
+  StatusData,
+  StatusFinder,
+  StoryData,
+  StoryProgress,
+  WeaponComponent,
+  WeaponComponentData,
+  WeaponPasifStat,
+  WeaponSkill,
+  WeaponSkillStat,
+  WeaponStat,
+  WorldData,
+} from "./types/lib";
+export type {
+  SpecialistComponent,
   SpecialistData,
   SpecialistLvl,
   SpecialistStamina,
   SpecialistThirst,
-  StatusData,
-  StatusFinder,
-  WeaponSkill,
-  WorldData,
-} from "./types/lib";
+  SpecialistWeapon,
+} from "./types/specialistTypes";

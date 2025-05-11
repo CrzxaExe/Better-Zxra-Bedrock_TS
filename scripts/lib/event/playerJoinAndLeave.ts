@@ -5,19 +5,34 @@ import {
   PlayerSpawnAfterEvent,
   world,
 } from "@minecraft/server";
-import { Specialist, Terra } from "../ZxraLib/module";
+import { SettingStarterItem, Terra } from "../ZxraLib/module";
 
 // Join event
 world.afterEvents.playerJoin.subscribe((event: PlayerJoinAfterEvent) => {});
 
 // Player Spawn event
 world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }: PlayerSpawnAfterEvent) => {
+  const sp = Terra.getSpecialistCache(player);
   if (initialSpawn) {
     Terra.setPlayer(world.getAllPlayers());
     Terra.createSpecialistCache();
-  }
 
-  const sp = new Specialist(player);
+    if (!Terra.world.setting?.staterItem) return;
+    const starterItems = Terra.world.setting.starterItems || [];
+
+    player.sendMessage({ translate: Terra.world.setting?.starterItemMessage || "system.welcome.item" });
+
+    starterItems.forEach(({ item, amount }: SettingStarterItem) => {
+      switch (item) {
+        case "cash":
+          sp.addMoney(amount);
+          break;
+        default: {
+          sp.inventory.addItem(item, amount);
+        }
+      }
+    });
+  }
 
   sp.resetToMaxStamina();
 });

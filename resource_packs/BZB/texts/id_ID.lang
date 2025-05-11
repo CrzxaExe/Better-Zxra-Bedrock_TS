@@ -600,7 +600,7 @@ system.welcome.item=Selamat datang ke dunia, Spesialis. Ini ada beberapa barang 
 system.worldspawn=Lokasi spawn world ini adalah
 system.xp=XP
 system.yes=< Iya >
-system.youDie=Kamu mati di 
+system.youDie=Kamu mati di %s
 
 tile.cz:acacia_chair.name=Kursi Akasia
 tile.cz:alchemy_set.name=Meja Alkimia

@@ -1,5 +1,5 @@
 import { Entity, Player } from "@minecraft/server";
-import { defaultEntity, defaultSpecialist, EntityData, SpecialistData } from "../module";
+import { defaultEntity, defaultSpecialist, EntityData, SpecialistData, Terra } from "../module";
 
 class CreateObject {
   static createEntity(entity: Entity): EntityData {
@@ -16,7 +16,7 @@ class CreateObject {
     return data;
   }
 
-  static createUUID(length: number = 10): string {
+  static createUUID(length: number = Terra.world.setting?.uuidLength || 12): string {
     const chars: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 
     let result: string = "";

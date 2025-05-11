@@ -1,3 +1,4 @@
+import { Vector3 } from "@minecraft/server";
 import { GuildData } from "../module";
 
 class Formater {
@@ -13,6 +14,14 @@ class Formater {
 
     if (guild) result = `[${guild.name}]§r§f `;
     return result;
+  }
+
+  static formatVector3(location: Vector3): string {
+    return `${location.x.toFixed(1)} ${location.y.toFixed(1)} ${location.z.toFixed(1)}`;
+  }
+
+  static formatIdentifier(name: string): string {
+    return name.replace("minecraft:", "");
   }
 }
 

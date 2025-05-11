@@ -601,7 +601,7 @@ system.welcome.item=Welcome to the world, specialist. Here are some item for you
 system.worldspawn=Default world spawn
 system.xp=XP
 system.yes=< Yes >
-system.youDie=You die at 
+system.youDie=You die at %s
 
 tile.cz:acacia_chair.name=Acacia Chair
 tile.cz:alchemy_set.name=Alchemy Table

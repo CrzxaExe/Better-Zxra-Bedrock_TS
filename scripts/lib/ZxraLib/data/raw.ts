@@ -6,7 +6,7 @@ export const defaultEntity = {
 };
 
 export const defaultRuneStat: RuneStats = {
-  // Improve stats for weapon only
+  // Improved stats for weapon only
   // Atk stat: increase all damage
   atk: 0,
   atkFlat: 0,
@@ -45,5 +45,10 @@ export const defaultSpecialist: SpecialistData = {
   money: 0,
   voxn: 0,
   rep: 0,
+  title: "",
+  titles: [],
+  selectedWeapon: [],
+  weapons: [],
   cd: [],
+  components: [],
 };
