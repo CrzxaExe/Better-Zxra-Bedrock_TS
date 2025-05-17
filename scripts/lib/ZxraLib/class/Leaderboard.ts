@@ -1,9 +1,14 @@
-// import { Terra } from "./Terra";
+import { CreateObject, LeaderboardData, Terra } from "../module";
 
 class Leaderboard {
-  constructor() {}
-  getData(): string {
-    return "test";
+  getData(): LeaderboardData {
+    return Terra.world.leaderboards || CreateObject.createLeaderboard();
+  }
+
+  setData(data: LeaderboardData): void {
+    if (!data) throw new Error("Missing data");
+
+    Terra.setleaderboard(data);
   }
 }
 

@@ -32,7 +32,7 @@ export { Terra } from "./class/Terra";
 export { damageColor } from "./data/color";
 export { NOT_ALLOWED_ENTITY_TICK } from "./data/entityFilters";
 export { questIndex } from "./data/quest";
-export { defaultEntity, defaultRuneStat, defaultSpecialist } from "./data/raw";
+export { defaultEntity, defaultPity, defaultRuneStat, defaultSpecialist } from "./data/raw";
 export { runeList } from "./data/rune";
 export { settings } from "./data/setting";
 

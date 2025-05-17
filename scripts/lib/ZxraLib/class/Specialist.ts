@@ -1,4 +1,4 @@
-import { Container, Player } from "@minecraft/server";
+import { Container, Player, Vector3 } from "@minecraft/server";
 import {
   Entity,
   Terra,
@@ -12,6 +12,7 @@ import {
   Calc,
   SpecialistThirst,
   PlayerContainers,
+  SpecialistComponent,
 } from "../module";
 
 interface Specialist {
@@ -44,6 +45,8 @@ class Specialist extends Entity {
     this.cooldown.getData().forEach((e) => this.cooldown.minCd(e.name, 0.25));
   }
   controllerStamina(): void {
+    if (["creative", "spectator"].includes(this.source.getGameMode())) return;
+
     const data = this.getSp(),
       max: number = data.stamina.max + data.stamina.additional + data.stamina.rune;
 
@@ -71,6 +74,8 @@ class Specialist extends Entity {
     this.addStamina(recovery);
   }
   controllerThirst(): void {
+    if (["creative", "spectator"].includes(this.source.getGameMode())) return;
+
     const { current } = this.getThirst();
     let down = 0.01 - this.status.decimalCalcStatus({ type: "thirst_recovery" }, 0, 0.01);
 
@@ -188,6 +193,8 @@ ${
     this.setSp(data);
   }
   minStamina(amount: number = 1): void {
+    if (["creative", "spectator"].includes(this.source.getGameMode())) return;
+
     this.addStamina(-amount);
   }
   setStamina(value: number = 1): void {
@@ -226,6 +233,8 @@ ${
     this.setSp(data);
   }
   minThirst(amount: number): void {
+    if (["creative", "spectator"].includes(this.source.getGameMode())) return;
+
     this.addStamina(amount);
   }
   setThirst(value: number): void {
@@ -346,6 +355,37 @@ ${
   removeActiveTitle(): void {
     const data = this.getSp();
     data.title = "";
+    this.setSp(data);
+  }
+
+  // Components methods
+  getComponent(name: string | undefined | void): SpecialistComponent[] | SpecialistComponent {
+    const data = this.getSp();
+    if (!name || name === "") {
+      return data.components;
+    }
+
+    const find = data.components.find((e) => e.name === name);
+
+    return find || [];
+  }
+  setComponent(name: string, newValue: Vector3 | number | string, data: SpecialistData = this.getSp()): void {
+    if (!name) throw new Error("Missing name");
+    if (!newValue) throw new Error("Missing new value");
+
+    const find = data.components.findIndex((e) => e.name === name);
+    if (find === -1) throw new Error("Object not found");
+
+    data.components[find].value = newValue;
+    this.setSp(data);
+  }
+  removeComponent(name: string, data: SpecialistData = this.getSp()): void {
+    if (!name) throw new Error("Missing name");
+
+    const find = data.components.findIndex((e) => e.name === name);
+    if (find === -1) throw new Error("Object not found");
+
+    data.components.splice(find, 1);
     this.setSp(data);
   }
 }

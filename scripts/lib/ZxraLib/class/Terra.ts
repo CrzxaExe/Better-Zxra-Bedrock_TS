@@ -1,10 +1,13 @@
 import { Dimension, Player, system, world } from "@minecraft/server";
 import {
+  CreateObject,
+  defaultPity,
   Entity,
   EntityData,
   Guild,
   GuildData,
   Leaderboard,
+  LeaderboardData,
   PityPlayer,
   PlayerFinder,
   settings,
@@ -45,10 +48,11 @@ class Terra {
 
   static setup(): void {
     this.world.guilds = this.getProperty("guild", []);
-    this.world.leaderboards = this.getProperty("leaderboard", { chat: {}, deaths: {}, kills: {} });
+    this.world.leaderboards = this.getProperty("leaderboard", CreateObject.createLeaderboard());
     this.world.setting = this.getProperty("setting", settings);
     this.world.redeem = this.getProperty("redeem", []);
     this.entities = this.getProperty("entities", []);
+    this.pityPlayer = this.getProperty("pity", []);
 
     this.guild = new Guild();
     this.leaderboard = new Leaderboard();
@@ -65,6 +69,7 @@ class Terra {
     this.setProperty("setting", this.world.setting);
     this.setProperty("redeem", this.world.redeem);
     this.setProperty("entities", this.entities);
+    this.setProperty("pity", this.pityPlayer);
   }
 
   // World Data methods
@@ -207,7 +212,14 @@ class Terra {
     return this.entities.splice(find, 1);
   }
 
+  // Leaderboard Instance
   static leaderboard: Leaderboard;
+
+  static setleaderboard(data: LeaderboardData): void {
+    if (!data) throw new Error("Missing data");
+
+    this.world.leaderboards = data;
+  }
 
   // Guild instance
   static guild: Guild;
@@ -235,7 +247,25 @@ Member  : ${e.members.length}/${e.maxMember}`;
     progress: [],
   };
 
+  // Pity methods
   static pityPlayer: PityPlayer[] = [];
+
+  static getPityPlayer(player: Player): PityPlayer {
+    if (!player) return CreateObject.createPity(player);
+    return this.pityPlayer.find((e) => e.id === player.id) || CreateObject.createPity(player);
+  }
+  static setPityPlayer(player: Player, newData: PityPlayer): void {
+    if (!player) throw new Error("Missing player");
+    if (!newData) throw new Error("Missing new data");
+
+    const find = this.pityPlayer.findIndex((e) => e.id === player.id);
+    if (find === -1) {
+      this.pityPlayer.push(newData);
+      return;
+    }
+
+    this.pityPlayer[find] = newData;
+  }
 
   static weaponComponent: WeaponComponent[] = [];
 

@@ -1,5 +1,14 @@
 import { Entity, Player } from "@minecraft/server";
-import { defaultEntity, defaultSpecialist, EntityData, SpecialistData, Terra } from "../module";
+import {
+  defaultEntity,
+  defaultPity,
+  defaultSpecialist,
+  EntityData,
+  LeaderboardData,
+  PityPlayer,
+  SpecialistData,
+  Terra,
+} from "../module";
 
 class CreateObject {
   static createEntity(entity: Entity): EntityData {
@@ -22,6 +31,16 @@ class CreateObject {
     let result: string = "";
     for (let i = 0; i <= length; i++) result += chars.charAt(Math.floor(Math.random() * chars.length));
     return result;
+  }
+
+  static createPity(player: Player): PityPlayer {
+    const data = { ...defaultPity, id: player.id };
+
+    return data;
+  }
+
+  static createLeaderboard(): LeaderboardData {
+    return { chat: [], deaths: [], kills: [] };
   }
 }
 

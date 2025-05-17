@@ -58,9 +58,14 @@ interface ItemSpecial {
 
 // Leaderboard interface
 interface LeaderboardData {
-  chat: Object;
-  deaths: Object;
-  kills: Object;
+  chat: LbData[];
+  deaths: LbData[];
+  kills: LbData[];
+}
+interface LbData {
+  id: string;
+  name: string;
+  value: number;
 }
 
 // Modifier interface

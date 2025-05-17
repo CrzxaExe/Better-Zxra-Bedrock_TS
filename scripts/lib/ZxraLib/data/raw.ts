@@ -1,4 +1,4 @@
-import { RuneStats, SpecialistData } from "../module";
+import { PityPlayer, RuneStats, SpecialistData } from "../module";
 
 export const defaultEntity = {
   id: "id",
@@ -51,4 +51,13 @@ export const defaultSpecialist: SpecialistData = {
   weapons: [],
   cd: [],
   components: [],
+};
+
+export const defaultPity: PityPlayer = {
+  id: "",
+  pity: {
+    featured: 0,
+    limited: 0,
+    unique: 0,
+  },
 };
