@@ -46,6 +46,8 @@ export const defaultSpecialist: SpecialistData = {
   voxn: 0,
   rep: 0,
   title: "",
+  equippedRune: [],
+  runes: [],
   titles: [],
   selectedWeapon: [],
   weapons: [],

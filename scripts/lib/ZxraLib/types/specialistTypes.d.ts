@@ -1,3 +1,5 @@
+import { RuneStats } from "./lib";
+
 // Specialist interface
 interface SpecialistData {
   id: string;
@@ -9,11 +11,18 @@ interface SpecialistData {
   rep: number;
   title: string;
   titles: string[];
+  equippedRune: string[];
+  runes: SpecialistRune[];
   cd: CooldownData[];
   selectedWeapon: [string?, string?];
   weapons: SpecialistWeapon[];
   quest?: QuestPlayer;
   components: SpecialistComponent[];
+}
+interface SpecialistRune {
+  name: string;
+  lvl: number;
+  stats: RuneStats;
 }
 interface SpecialistComponent {
   name: string;
@@ -40,4 +49,12 @@ interface SpecialistWeapon {
   skillLvl: [WeaponSkillStat?, WeaponSkillStat?, WeaponSkillStat?, WeaponSkillStat?];
 }
 
-export { SpecialistComponent, SpecialistData, SpecialistLvl, SpecialistStamina, SpecialistThirst, SpecialistWeapon };
+export {
+  SpecialistComponent,
+  SpecialistData,
+  SpecialistLvl,
+  SpecialistRune,
+  SpecialistStamina,
+  SpecialistThirst,
+  SpecialistWeapon,
+};

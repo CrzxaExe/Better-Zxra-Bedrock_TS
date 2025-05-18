@@ -279,9 +279,9 @@ class Entity {
     });
   }
 
-  playAnim(animation: string): void {
+  playAnim(animation: string, blendOutTime: number = 0.35): void {
     if (animation === "") throw new Error("Missing animation");
-    this.source.playAnimation(animation, { blendOutTime: 0.35 });
+    this.source.playAnimation(animation, { blendOutTime });
   }
 
   // Particle Methods

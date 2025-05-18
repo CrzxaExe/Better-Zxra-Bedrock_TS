@@ -62,6 +62,8 @@ interface LeaderboardData {
   deaths: LbData[];
   kills: LbData[];
 }
+type LeaderboardSystemType = "chat" | "deaths" | "kills";
+type LeaderboardType = LeaderboardSystemType | "splvl" | "guildlvl" | "money" | "voxn" | "reputation";
 interface LbData {
   id: string;
   name: string;
@@ -164,7 +166,7 @@ interface RedeemRewards {
 }
 
 // Rune Stats interface
-interface RuneStats {
+type RuneStats = {
   atk?: number;
   atkFlat?: number;
 
@@ -187,7 +189,8 @@ interface RuneStats {
   artFragile?: number;
   fireFragile?: number;
   fragile?: number;
-
+} & RuneAction;
+interface RuneAction {
   // Action Effect
   onAttacked?: Function;
   onCrit?: Function;
@@ -274,6 +277,7 @@ interface StoryProgress {
 interface WeaponComponent {
   id: string;
   components: WeaponComponentData[];
+  attributes: WeaponAttribute[];
 }
 interface WeaponComponentData {
   name: string;
@@ -295,6 +299,11 @@ interface WeaponStat {
   name: string;
   value: string;
 }
+interface WeaponAttribute {
+  id: string;
+  type: WeaponAttributetype;
+}
+type WeaponAttributetype = "handle";
 
 // World interface
 interface WorldData {
@@ -314,7 +323,10 @@ export type {
   GuildMember,
   GuildRole,
   ItemSpecial,
+  LbData,
   LeaderboardData,
+  LeaderboardSystemType,
+  LeaderboardType,
   ModifierData,
   QuestConst,
   QuestController,
@@ -332,6 +344,7 @@ export type {
   PlayerFinder,
   RedeemData,
   RedeemRewards,
+  RuneAction,
   RuneStats,
   Scripts,
   Setting,
@@ -342,6 +355,8 @@ export type {
   StatusFinder,
   StoryData,
   StoryProgress,
+  WeaponAttribute,
+  WeaponAttributetype,
   WeaponComponent,
   WeaponComponentData,
   WeaponPasifStat,
