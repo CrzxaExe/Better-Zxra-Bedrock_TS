@@ -1,9 +1,8 @@
 import { Player } from "@minecraft/server";
 import { SkillLib, Weapon } from "../ZxraLib/module";
+import { KyleSkill } from "../WeaponModule/module";
 
 Weapon.registerSkill("kyles", (user: Player, lib: SkillLib) => {
-  user.sendMessage(`${lib.useDuration}`);
-
   if ((lib.sp?.status.getStatus({ name: "zelxt_point" })[0]?.lvl || 0) >= 100) {
     user.sendMessage("Skill Special");
   } else if (user.isSneaking) {
@@ -11,6 +10,10 @@ Weapon.registerSkill("kyles", (user: Player, lib: SkillLib) => {
   } else if (!user.isOnGround) {
     user.sendMessage("Skill 3");
   } else {
-    user.sendMessage("Skill 1");
+    if (!lib.sp?.cooldown.canSkill("kyle_1", 5)) {
+      user.sendMessage({ translate: "system.onCooldown" });
+    }
+
+    KyleSkill.skill1(user, lib);
   }
 });

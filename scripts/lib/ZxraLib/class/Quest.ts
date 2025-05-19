@@ -26,7 +26,7 @@ class Quest {
   }
 
   // Controller
-  controller({ act, target, amount }: QuestController): void {
+  controller({ act, target, amount = 1 }: QuestController): void {
     const data = this.getPlayerQuest();
 
     if (data.id === -1) return;

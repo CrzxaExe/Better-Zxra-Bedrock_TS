@@ -89,6 +89,7 @@ class Specialist extends Entity {
     if (this.source.isSprinting) down += Terra.world.setting?.thirstRun || 0.03;
 
     if (down < 0) return;
+    // console.warn(down, current);
 
     this.minThirst(down);
   }
@@ -132,8 +133,7 @@ ${
   }
 
   // Specialist methods
-  addSpXp(amount: number): void {
-    const data = this.getSp();
+  addSpXp(amount: number, data: SpecialistData = this.getSp()): void {
     const { level, xp } = Calc.upSpecialist(
       data.level.current,
       (data.level.xp + amount) * (Terra.world.setting?.xpMultiplier || 1)
@@ -143,11 +143,10 @@ ${
     data.level.xp = xp;
     this.setSp(data);
   }
-  minSpXp(amount: number): void {
-    this.addSpXp(-amount);
+  minSpXp(amount: number, data: SpecialistData = this.getSp()): void {
+    this.addSpXp(-amount, data);
   }
-  setSpXp(value: number): void {
-    const data = this.getSp();
+  setSpXp(value: number, data: SpecialistData = this.getSp()): void {
     const { level, xp } = Calc.upSpecialist(data.level.current, value * (Terra.world.setting?.xpMultiplier || 1));
 
     data.level.current = level;
@@ -155,18 +154,14 @@ ${
     this.setSp(data);
   }
 
-  addSpLvl(amount: number): void {
-    const data = this.getSp();
-
+  addSpLvl(amount: number, data: SpecialistData = this.getSp()): void {
     data.level.current += amount;
     this.setSp(data);
   }
-  minSpLvl(amount: number): void {
-    this.addSpLvl(-amount);
+  minSpLvl(amount: number, data: SpecialistData = this.getSp()): void {
+    this.addSpLvl(-amount, data);
   }
-  setSplvl(value: number): void {
-    const data = this.getSp();
-
+  setSplvl(value: number, data: SpecialistData = this.getSp()): void {
     data.level.current = value;
     this.setSp(data);
   }
@@ -175,9 +170,8 @@ ${
   getStamina(): SpecialistStamina {
     return this.getSp().stamina;
   }
-  addStamina(amount: number = 1): void {
-    const data = this.getSp(),
-      max = data.stamina.max + data.stamina.additional + data.stamina.rune;
+  addStamina(amount: number = 1, data: SpecialistData = this.getSp()): void {
+    const max = data.stamina.max + data.stamina.additional + data.stamina.rune;
 
     if (data.stamina.current + amount > max) {
       this.setStamina(max);
@@ -192,23 +186,20 @@ ${
     data.stamina.current += amount;
     this.setSp(data);
   }
-  minStamina(amount: number = 1): void {
+  minStamina(amount: number = 1, data: SpecialistData = this.getSp()): void {
     if (["creative", "spectator"].includes(this.source.getGameMode())) return;
 
-    this.addStamina(-amount);
+    this.addStamina(-amount, data);
   }
-  setStamina(value: number = 1): void {
-    const data = this.getSp();
-
+  setStamina(value: number = 1, data: SpecialistData = this.getSp()): void {
     data.stamina.current = value;
     this.setSp(data);
   }
-  setMaxStamina(key: "max" | "additional" | "rune", amount: number): void {
+  setMaxStamina(key: "max" | "additional" | "rune", amount: number, data: SpecialistData = this.getSp()): void {
     if (!key || !amount) throw new Error("Missing key or amount");
 
     if (amount < 0) throw new Error("Amount cannot be negative");
 
-    const data = this.getSp();
     data.stamina[key] += amount;
     this.setSp(data);
   }
@@ -223,33 +214,27 @@ ${
   getThirst(): SpecialistThirst {
     return this.getSp().thirst;
   }
-  addThirst(amount: number = 1): void {
-    const data = this.getSp();
+  addThirst(amount: number = 1, data: SpecialistData = this.getSp()): void {
+    data.thirst.current += amount;
 
-    data.thirst.current = parseInt((data.thirst.current + amount).toFixed(3));
-
-    if (data.thirst.current >= (data.thirst.max + data.thirst.temp) * 1.1)
+    if (data.thirst.current >= (data.thirst.max + data.thirst.temp) * 1.1) {
       data.thirst.current = (data.thirst.max + data.thirst.temp) * 1.1;
+    }
     this.setSp(data);
   }
-  minThirst(amount: number): void {
+  minThirst(amount: number = 1, data: SpecialistData = this.getSp()): void {
     if (["creative", "spectator"].includes(this.source.getGameMode())) return;
 
-    this.addStamina(amount);
+    this.addThirst(-amount, data);
   }
-  setThirst(value: number): void {
-    const data = this.getSp();
-
+  setThirst(value: number, data: SpecialistData = this.getSp()): void {
     data.thirst.current = parseInt(value.toFixed(1));
     this.setSp(data);
   }
-  setToMaxThirst(): void {
-    const data = this.getSp();
-    this.setThirst(data.thirst.max);
+  setToMaxThirst(data: SpecialistData = this.getSp()): void {
+    this.setThirst(data.thirst.max, data);
   }
-  setMaxThrist(key: "max" | "temp", amount: number = 0): void {
-    const data = this.getSp();
-
+  setMaxThrist(key: "max" | "temp", amount: number = 0, data: SpecialistData = this.getSp()): void {
     data.thirst[key] += amount;
     this.setSp(data);
   }
@@ -258,18 +243,14 @@ ${
   getMoney(): number {
     return this.getSp().money;
   }
-  addMoney(amount: number = 1): void {
-    const data = this.getSp();
-
+  addMoney(amount: number = 1, data: SpecialistData = this.getSp()): void {
     data.money = parseInt((data.money + amount).toFixed(2));
     this.setSp(data);
   }
-  minMoney(amount: number = 1): void {
-    this.addMoney(-amount);
+  minMoney(amount: number = 1, data: SpecialistData = this.getSp()): void {
+    this.addMoney(-amount, data);
   }
-  setMoney(value: number = 0): void {
-    const data = this.getSp();
-
+  setMoney(value: number = 0, data: SpecialistData = this.getSp()): void {
     data.money = parseInt(value.toFixed(2));
     this.setSp(data);
   }
@@ -278,18 +259,14 @@ ${
   getRep(): number {
     return this.getSp().rep;
   }
-  addRep(amount: number = 1): void {
-    const data = this.getSp();
-
+  addRep(amount: number = 1, data: SpecialistData = this.getSp()): void {
     data.rep = +amount;
     this.setSp(data);
   }
-  minRep(amount: number = 1): void {
-    this.addRep(-amount);
+  minRep(amount: number = 1, data: SpecialistData = this.getSp()): void {
+    this.addRep(-amount, data);
   }
-  setRep(value: number = 0): void {
-    const data = this.getSp();
-
+  setRep(value: number = 0, data: SpecialistData = this.getSp()): void {
     data.rep = value;
     this.setSp(data);
   }
@@ -298,18 +275,14 @@ ${
   getVoxn(): number {
     return this.getSp().voxn;
   }
-  addVoxn(amount: number = 1): void {
-    const data = this.getSp();
-
+  addVoxn(amount: number = 1, data: SpecialistData = this.getSp()): void {
     data.voxn += amount;
     this.setSp(data);
   }
-  minVoxn(amount: number = 1): void {
-    this.addVoxn(-amount);
+  minVoxn(amount: number = 1, data: SpecialistData = this.getSp()): void {
+    this.addVoxn(-amount, data);
   }
-  setVoxn(value: number = 0): void {
-    const data = this.getSp();
-
+  setVoxn(value: number = 0, data: SpecialistData = this.getSp()): void {
     data.voxn = value;
     this.setSp(data);
   }
@@ -323,19 +296,17 @@ ${
 
     return data.titles.some((e) => e === name);
   }
-  addTitle(name: string): void {
+  addTitle(name: string, data: SpecialistData = this.getSp()): void {
     if (name === "") throw new Error("Missing name");
 
-    const data = this.getSp();
     if (this.hasTitle(name, data)) return;
     data.titles.push(name);
     this.setSp(data);
   }
-  removeTitle(name: string): void {
+  removeTitle(name: string, data: SpecialistData = this.getSp()): void {
     if (name === "") throw new Error("Missing name");
 
-    const data = this.getSp(),
-      find = data.titles.findIndex((e) => e === name);
+    const find = data.titles.findIndex((e) => e === name);
 
     if (find === -1) return;
 
@@ -343,24 +314,23 @@ ${
     this.setSp(data);
   }
 
-  setActiveTitle(name: string): void {
+  setActiveTitle(name: string, data: SpecialistData = this.getSp()): void {
     if (name === "") throw new Error("Missing name");
 
     if (!this.hasTitle(name)) return;
-    const data = this.getSp();
-
     data.title = name;
     this.setSp(data);
   }
-  removeActiveTitle(): void {
-    const data = this.getSp();
+  removeActiveTitle(data: SpecialistData = this.getSp()): void {
     data.title = "";
     this.setSp(data);
   }
 
   // Components methods
-  getComponent(name: string | undefined | void): SpecialistComponent[] | SpecialistComponent {
-    const data = this.getSp();
+  getComponent(
+    name: string | undefined | void,
+    data: SpecialistData = this.getSp()
+  ): SpecialistComponent[] | SpecialistComponent {
     if (!name || name === "") {
       return data.components;
     }

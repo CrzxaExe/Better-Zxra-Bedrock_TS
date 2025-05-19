@@ -7,9 +7,13 @@ world.afterEvents.itemReleaseUse.subscribe(async ({ itemStack, source, useDurati
   try {
     const skill = Weapon.getSkill(itemStack?.typeId.split(":")[1]);
 
+    const sp = Terra.getSpecialistCache(source);
+
+    sp.cooldown.addCd("stamina_regen", Terra.world.setting?.staminaAction || 3);
+
     if (!skill) return;
     skill.callback(source, {
-      sp: Terra.getSpecialistCache(source),
+      sp,
       useDuration: useDuration / 20,
     });
   } catch (error: { message: string } | any) {

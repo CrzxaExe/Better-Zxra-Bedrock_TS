@@ -52,8 +52,10 @@ class Entity {
     if (!type) throw new Error("Missing Type");
     return this.source.typeId.split(":")[1] === type;
   }
-  isTeammate(id: string) {
+  isTeammate(player: Player) {
     if (!this.is("player")) throw new Error("This entity is not instance of Player");
+
+    Terra.guild.getGuildByPlayer(player);
   }
 
   // Family Methods

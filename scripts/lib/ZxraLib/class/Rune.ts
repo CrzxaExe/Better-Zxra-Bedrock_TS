@@ -1,5 +1,4 @@
-import { Player } from "@minecraft/server";
-import { defaultRuneStat, Entity, RuneStats, Specialist, SpecialistData, SpecialistRune } from "../module";
+import { defaultRuneStat, RuneStats, Specialist, SpecialistData, SpecialistRune } from "../module";
 
 interface Rune {
   sp: Specialist;

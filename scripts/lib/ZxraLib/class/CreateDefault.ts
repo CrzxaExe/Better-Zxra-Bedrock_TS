@@ -8,6 +8,7 @@ import {
   PityPlayer,
   SpecialistData,
   Terra,
+  WeaponComponent,
 } from "../module";
 
 class CreateObject {
@@ -41,6 +42,10 @@ class CreateObject {
 
   static createLeaderboard(): LeaderboardData {
     return { chat: [], deaths: [], kills: [] };
+  }
+
+  static createWeaponComponent(id: string): WeaponComponent {
+    return { id, components: [], attributes: [] };
   }
 }
 

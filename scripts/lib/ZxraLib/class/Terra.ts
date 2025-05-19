@@ -1,7 +1,6 @@
-import { Dimension, Player, system, world } from "@minecraft/server";
+import { Dimension, Player, system, Vector3, world } from "@minecraft/server";
 import {
   CreateObject,
-  defaultPity,
   Entity,
   EntityData,
   Guild,
@@ -15,6 +14,7 @@ import {
   SpecialistData,
   StoryData,
   WeaponComponent,
+  WeaponComponentDataValue,
   WorldData,
 } from "../module";
 
@@ -267,10 +267,90 @@ Member  : ${e.members.length}/${e.maxMember}`;
     this.pityPlayer[find] = newData;
   }
 
+  // Weapon Global data cache
   static weaponComponent: WeaponComponent[] = [];
 
+  static getPlayerWeaponComponent(id: string): WeaponComponent {
+    if (id === "") throw new Error("Missing id");
+
+    const data = this.weaponComponent.find((e) => e.id === id);
+
+    return data || CreateObject.createWeaponComponent(id);
+  }
+  static setPlayerWeaponComponent(id: string, data: WeaponComponent): void {
+    if (id === "") throw new Error("Missing id");
+    if (!data) throw new Error("Missing data");
+
+    const find = this.weaponComponent.findIndex((e) => e.id === id);
+
+    if (find === -1) {
+      this.weaponComponent.push(data);
+      return;
+    }
+
+    this.weaponComponent.splice(find, 1, data);
+  }
+
+  static addPlayerWpnComponent(
+    id: string,
+    key: string,
+    amount: number = 1,
+    data: WeaponComponent = this.getPlayerWeaponComponent(id)
+  ): void {
+    if (id === "" || key === "") throw new Error("Missing id or key");
+
+    const find = data.components.findIndex((e) => e.name === key);
+
+    if (find === -1) {
+      data.components.push({ name: key, value: amount });
+    } else {
+      if (typeof data.components[find].value !== "number") return;
+      data.components[find].value += amount;
+    }
+
+    this.setPlayerWeaponComponent(id, data);
+  }
+  static setPlayerWpnComponent(
+    id: string,
+    key: string,
+    value: WeaponComponentDataValue,
+    data: WeaponComponent = this.getPlayerWeaponComponent(id)
+  ): void {
+    if (id === "") throw new Error("Missing id");
+
+    const find = data.components.findIndex((e) => e.name === key);
+
+    if (find === -1) {
+      data.components.push({ name: key, value });
+    } else {
+      switch (typeof data.components[find].value) {
+        case "string":
+          if (typeof value !== "string") throw new Error("Type data component value are not match");
+          data.components[find].value = value;
+          break;
+        case "object":
+          if (typeof value !== "object") throw new Error("Type data component value are not match");
+          data.components[find].value = value;
+          break;
+        case "number":
+          if (typeof value !== "number") throw new Error("Type data component value are not match");
+          data.components[find].value = value;
+          break;
+        case "boolean":
+          if (typeof value !== "boolean") throw new Error("Type data component value are not match");
+          if (typeof value !== "boolean") throw new Error("Type data value are not match");
+          data.components[find].value = value;
+          break;
+      }
+    }
+
+    this.setPlayerWeaponComponent(id, data);
+  }
+
+  // Boss challanges cache
   static bossChallenge = {};
 
+  // Wave challange cache
   static waveChallenge = {};
 }
 

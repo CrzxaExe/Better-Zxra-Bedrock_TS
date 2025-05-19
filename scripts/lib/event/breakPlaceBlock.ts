@@ -1,5 +1,5 @@
 import { PlayerBreakBlockAfterEvent, world } from "@minecraft/server";
-import { Terra } from "../ZxraLib/module";
+import { Quest, Terra } from "../ZxraLib/module";
 
 world.afterEvents.playerBreakBlock.subscribe(
   ({
@@ -13,6 +13,11 @@ world.afterEvents.playerBreakBlock.subscribe(
     const sp = Terra.getSpecialistCache(player);
 
     sp.minThirst(0.6);
+    sp.minStamina(Terra.world.setting?.staminaAction || 3);
+
+    const quest = new Quest(player);
+
+    quest.controller({ act: "destroy", target: block, amount: 1 });
   }
 );
 world.beforeEvents.playerBreakBlock.subscribe((e) => {});

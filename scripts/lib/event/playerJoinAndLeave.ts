@@ -17,10 +17,12 @@ world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }: PlayerSpawnAf
     Terra.setPlayer(world.getAllPlayers());
     Terra.createSpecialistCache();
 
+    if (player.hasTag("firstJoin")) return;
     if (!Terra.world.setting?.staterItem) return;
     const starterItems = Terra.world.setting.starterItems || [];
 
     player.sendMessage({ translate: Terra.world.setting?.starterItemMessage || "system.welcome.item" });
+    player.addTag("firstJoin");
 
     starterItems.forEach(({ item, amount }: SettingStarterItem) => {
       switch (item) {

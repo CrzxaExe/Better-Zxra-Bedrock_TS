@@ -83,7 +83,7 @@ interface QuestConst {
   sp?: any;
 }
 interface QuestController {
-  act: string;
+  act: QuestType;
   target: Entity | Block;
   amount: number;
 }
@@ -110,6 +110,7 @@ interface QuestTask {
   target: string;
   amount: number;
 }
+type QuestType = "destroy" | "place" | "kill" | "get";
 
 // Particle interface
 interface Particle {
@@ -245,7 +246,7 @@ interface SettingStarterItem {
 // Skill interface
 interface SkillLib {
   useDuration?: number;
-  sp?: Specialist;
+  sp: Specialist;
 }
 
 // Status interface
@@ -281,8 +282,9 @@ interface WeaponComponent {
 }
 interface WeaponComponentData {
   name: string;
-  value: Vector3 | number | string;
+  value: WeaponComponentDataValue;
 }
+type WeaponComponentDataValue = any[] | Vector3 | number | string | boolean;
 interface WeaponPasifStat {
   pasif: number;
   stat: WeaponStat[];
@@ -335,6 +337,7 @@ export type {
   QuestPlayer,
   QuestRewards,
   QuestTask,
+  QuestType,
   Particle,
   PasifData,
   PasifHit,
@@ -359,6 +362,7 @@ export type {
   WeaponAttributetype,
   WeaponComponent,
   WeaponComponentData,
+  WeaponComponentDataValue,
   WeaponPasifStat,
   WeaponSkill,
   WeaponSkillStat,
