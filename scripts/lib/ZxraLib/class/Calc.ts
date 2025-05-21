@@ -1,3 +1,5 @@
+import { EntityHealthComponent } from "@minecraft/server";
+
 interface SpecialistLevelUp {
   level: number;
   xp: number;
@@ -19,6 +21,10 @@ class Calc {
       neededXp = this.specialistLevelUp(level);
     }
     return { level, xp };
+  }
+
+  static hpLostPercentage(hp: EntityHealthComponent): number {
+    return 1 - hp.currentValue / hp.effectiveMax;
   }
 }
 

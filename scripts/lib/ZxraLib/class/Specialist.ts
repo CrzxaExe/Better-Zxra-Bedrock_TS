@@ -98,7 +98,12 @@ class Specialist extends Entity {
 
     const cd: string[] = cols.map((e) => `${Formater.formatName(e.name)} ${e.duration.toFixed(2)}s`);
     const sts: string[] = this.status.getStatus().map((e) => {
-      return `${e.name} ${e.duration}s`;
+      const lbl =
+        {
+          stack: `${Formater.formatName(e.name)} > ${e.lvl.toFixed(0)}`,
+        }[e.type] || `${Formater.formatName(e.name)} ${e.duration}s`;
+
+      return lbl;
     });
 
     this.source.onScreenDisplay.setTitle(

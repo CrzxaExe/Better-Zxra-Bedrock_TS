@@ -1,6 +1,16 @@
 import { Block, Entity, MolangVariableMap, Vector3 } from "@minecraft/server";
 import { Specialist } from "../module";
 
+// Boss interface
+interface BossChallengeData {
+  boss: Entity;
+  participants: BossChallangeParticipant[];
+}
+interface BossChallangeParticipant {
+  player: Player;
+  damage: number;
+}
+
 // Cooldown interface
 interface CooldownData {
   name: string;
@@ -247,6 +257,8 @@ interface SettingStarterItem {
 interface SkillLib {
   useDuration?: number;
   sp: Specialist;
+  vel?: Vector3;
+  velocity?: Vector3;
 }
 
 // Status interface
@@ -316,6 +328,8 @@ interface WorldData {
 }
 
 export type {
+  BossChallengeData,
+  BossChallangeParticipant,
   CooldownData,
   CommandData,
   EffectCreate,

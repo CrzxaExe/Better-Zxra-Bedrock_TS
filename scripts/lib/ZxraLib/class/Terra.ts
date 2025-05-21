@@ -1,5 +1,6 @@
-import { Dimension, Player, system, Vector3, world } from "@minecraft/server";
+import { Dimension, Player, system, world, Entity as mcEntity } from "@minecraft/server";
 import {
+  BossChallengeData,
   CreateObject,
   Entity,
   EntityData,
@@ -201,7 +202,10 @@ class Terra {
     if (!id || !data) throw new Error("Missing on id or data");
 
     const find = this.entities.findIndex((e) => e.id === id);
-    if (find === -1) throw new Error("Cannot found id");
+    if (find === -1) {
+      this.addDataEntity(data);
+      return;
+    }
 
     this.entities[find] = data;
   }
@@ -348,7 +352,33 @@ Member  : ${e.members.length}/${e.maxMember}`;
   }
 
   // Boss challanges cache
-  static bossChallenge = {};
+  static bossChallenge: BossChallengeData | undefined;
+
+  static setBossChallenge(boss: mcEntity): void {
+    if (!boss) throw new Error("Missing boss");
+
+    this.bossChallenge = CreateObject.createBossChallenge(boss);
+  }
+  static resetBossChallenge(): void {
+    this.bossChallenge = undefined;
+  }
+  static addParticipantBossChallenge(
+    player: Player,
+    damage: number = 1,
+    data: BossChallengeData | undefined = this.bossChallenge
+  ): void {
+    if (!player || !data) throw new Error("Missing player or there is no data");
+
+    const find = data.participants.findIndex((e) => e.player.id === player.id);
+
+    if (find === -1) {
+      data.participants.push({ player, damage });
+    } else {
+      data.participants[find].damage += damage;
+    }
+
+    this.bossChallenge = data;
+  }
 
   // Wave challange cache
   static waveChallenge = {};

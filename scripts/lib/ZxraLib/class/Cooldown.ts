@@ -76,7 +76,10 @@ class Cooldown {
   canSkill(name: string, duration: number): boolean {
     if (name === "") throw new Error("Missing name");
     if (duration < 0) throw new Error("Parameter duration must be positive");
-    if (this.hasCd(name) || this.hasCd("on_skill")) return false;
+    if (this.hasCd(name) || this.hasCd("on_skill")) {
+      this.sp.source.onScreenDisplay.setActionBar({ translate: "system.onCooldown" });
+      return false;
+    }
     this.addCd(name, duration);
     return true;
   }

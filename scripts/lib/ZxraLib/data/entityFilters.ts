@@ -11,6 +11,7 @@ export const NOT_ALLOWED_ENTITY_TICK: string[] = [
   "cz:slash",
   "minecraft:allay",
   "minecraft:armor_stand",
+  "minecraft:arrow",
   "minecraft:bat",
   "minecraft:bee",
   "minecraft:chicken",
@@ -20,5 +21,20 @@ export const NOT_ALLOWED_ENTITY_TICK: string[] = [
   "minecraft:pig",
   "minecraft:sheep",
   "minecraft:sniffer",
+  "minecraft:thrown_trident",
+];
+
+export const NOT_VALID_ENTITY: string[] = [
+  "cz:block_data",
+  "cz:bullet",
+  "cz:indicator",
+  "cz:kyle_drop",
+  "cz:kyle_sword",
+  "cz:particle",
+  "cz:seat",
+  "cz:slash",
+  "minecraft:armor_stand",
+  "minecraft:arrow",
+  "minecraft:item",
   "minecraft:thrown_trident",
 ];

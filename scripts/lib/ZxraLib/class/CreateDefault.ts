@@ -1,5 +1,6 @@
-import { Entity, Player } from "@minecraft/server";
+import { Entity, Player, Vector3 } from "@minecraft/server";
 import {
+  BossChallengeData,
   defaultEntity,
   defaultPity,
   defaultSpecialist,
@@ -46,6 +47,25 @@ class CreateObject {
 
   static createWeaponComponent(id: string): WeaponComponent {
     return { id, components: [], attributes: [] };
+  }
+
+  static createBossChallenge(entity: Entity): BossChallengeData {
+    return { boss: entity, participants: [] };
+  }
+
+  static createVelocityPlayer(player: Player, vel: Vector3 = player.getVelocity()): Vector3 {
+    if (!player) throw new Error("Missing player");
+
+    const rot = player.getRotation();
+    rot.y = ((rot.y + 45) * Math.PI) / 180;
+
+    const velocity = {
+      x: (Math.cos(rot.y) - Math.sin(rot.y)) * 1,
+      y: 0,
+      z: (Math.sin(rot.y) + Math.cos(rot.y)) * 1,
+    };
+
+    return velocity;
   }
 }
 

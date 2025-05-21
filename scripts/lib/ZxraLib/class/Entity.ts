@@ -2,13 +2,26 @@ import {
   Effect,
   EffectTypes,
   EntityHealthComponent,
+  EntityRaycastHit,
   EntityTypeFamilyComponent,
   MolangVariableMap,
   Player,
+  Entity as mcEntity,
   system,
   Vector3,
+  EntityDamageCause,
 } from "@minecraft/server";
-import { defaultRuneStat, EffectCreate, EntityData, Particle, RuneStats, Status, StatusDecay, Terra } from "../module";
+import {
+  defaultRuneStat,
+  EffectCreate,
+  EntityData,
+  NOT_VALID_ENTITY,
+  Particle,
+  RuneStats,
+  Status,
+  StatusDecay,
+  Terra,
+} from "../module";
 
 interface Entity {
   source: any;
@@ -131,7 +144,7 @@ class Entity {
     }
 
     this.source.applyDamage(Math.round(damage), {
-      cause: options.cause,
+      cause: options.cause as EntityDamageCause,
       damagingEntity: options.damagingEntity,
     });
 
@@ -139,7 +152,8 @@ class Entity {
     this.knockback(velocity.vel, velocity.ver, velocity.hor);
   }
   heal(amount: number): void {
-    const hp: EntityHealthComponent = this.source.getComponent("health");
+    const hp: EntityHealthComponent | undefined = this.source.getComponent("health");
+    if (!hp) return;
 
     // user rune
     let rune = defaultRuneStat;
@@ -159,7 +173,7 @@ class Entity {
   // Effect Methods
   addEffectOne(name: string, duration: number = 1, amplifier: number = 0, showParticles: boolean = true): void {
     if (!name) throw new Error("Missing Name of Effect");
-    this.source.addEffect(EffectTypes.get(name), duration * 20, { amplifier, showParticles });
+    this.source.addEffect(EffectTypes.get(name) || name, duration * 20, { amplifier, showParticles });
   }
   addEffect(effect: EffectCreate[] | EffectCreate): void {
     if (Array.isArray(effect)) {
@@ -184,11 +198,18 @@ class Entity {
     effect.forEach((e) => this.source.removeEffect(e));
   }
   hasEffect(effect: string[] | string): boolean[] | boolean {
-    if (typeof effect === "string") return this.source.hasEffect(effect);
+    if (typeof effect === "string")
+      return this.source
+        .getEffects()
+        .map((e: Effect) => e.typeId.replace("minecraft:", ""))
+        .includes(effect);
 
     if (!Array.isArray(effect)) return false;
     return effect.reduce((all: boolean[], cur: string) => {
-      const eff: boolean = this.source.hasEffect(cur);
+      const eff: boolean = this.source
+        .getEffects()
+        .map((e: Effect) => e.typeId.replace("minecraft:", ""))
+        .includes(cur);
       all.push(eff);
       return all;
     }, []);
@@ -321,7 +342,7 @@ class Entity {
     });
   }
   impactParticle(): void {
-    if (!this.source.onGround) return;
+    if (!this.source.isOnGround) return;
     this.particles(["cz:impact_up", "cz:impact_p"]);
   }
 
@@ -329,11 +350,19 @@ class Entity {
   knockback(velocity: Vector3, horizontal: number = 0, vertical: number = 0): void {
     if (!velocity) throw new Error("Missing velocity");
 
-    this.source.applyKnockback(velocity.x, velocity.z, horizontal, vertical);
+    this.source.applyKnockback({ x: velocity.x * horizontal, z: velocity.z * horizontal }, vertical);
   }
   bind(duration: number): void {
     this.addEffect({ name: "slowness", duration, amplifier: 254, showParticles: false });
     this.selfParticle("cz:bind", { ...this.source.location, y: this.source.location.y + 2.3 });
+  }
+
+  // Get other Entity methods
+  getEntityFromDistance(maxDistance: number = 6): EntityRaycastHit[] {
+    let excludeNames: string[] = [];
+    if (this.source instanceof Player) excludeNames = [...Terra.guild.getTeammate(this.source)];
+
+    return this.source.getEntitiesFromViewDirection({ maxDistance, excludeNames, excludeTypes: NOT_VALID_ENTITY });
   }
 
   // Refresh Methods

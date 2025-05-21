@@ -30,7 +30,7 @@ export { Terra } from "./class/Terra";
 
 // Data export
 export { damageColor } from "./data/color";
-export { NOT_ALLOWED_ENTITY_TICK } from "./data/entityFilters";
+export { NOT_ALLOWED_ENTITY_TICK, NOT_VALID_ENTITY } from "./data/entityFilters";
 export { questIndex } from "./data/quest";
 export { defaultEntity, defaultPity, defaultRuneStat, defaultSpecialist } from "./data/raw";
 export { runeList } from "./data/rune";
@@ -43,6 +43,8 @@ export { WeaponTypes } from "./enum/weaponTypes";
 
 // Types export
 export type {
+  BossChallengeData,
+  BossChallangeParticipant,
   CooldownData,
   CommandData,
   EffectCreate,
