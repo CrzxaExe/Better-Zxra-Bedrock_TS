@@ -128,7 +128,7 @@
         "blink": "controller.animation.persona.blink",
         "draw_control": "controller.animation.draw.control",
         "kyle_draw": "animation.kyle.draw",
-        "kyle_charge": "animation.weapon.draw.kyle",
+        "kyle_charge": "animation.weapon.kyles.charge",
         "kyle_player": "animation.kyle.player",
         "kyle_player_run": "animation.kyle.player.run",
         "kyle_new_run": "animation.kyle.new.run",

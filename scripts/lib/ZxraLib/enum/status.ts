@@ -14,5 +14,6 @@ export enum StatusTypes {
   Skill = "skill",
   StaminaRecovery = "stamina_recovery",
   StaminaStuck = "stamina_stuck",
+  State = "state",
   Stun = "stun",
 }

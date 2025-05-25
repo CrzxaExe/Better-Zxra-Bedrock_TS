@@ -6,7 +6,7 @@ class KyleSkill {
   static skill1(user: Player, { sp, vel, velocity }: SkillLib): void {
     sp.playAnim("animation.weapon.kyles.skill1");
 
-    sp.bind(1.6);
+    sp.bind(1.75);
     sp.minStamina(8);
 
     const data = sp.getSp().weapons.find((e) => e.weapon === "kyles"),
@@ -22,7 +22,7 @@ class KyleSkill {
         new Entity(e.entity).addDamage(
           Math.round(8 + (hp?.effectiveMax || 20) * 0.4 * slayerLostHPPercentation(user)),
           {
-            cause: "void",
+            cause: "entityAttack",
             damagingEntity: user,
             rune: sp.rune.getRuneStat(),
           }
@@ -39,6 +39,66 @@ class KyleSkill {
         });
       }
     }, 15);
+  }
+
+  static skill1Up(user: Player, { sp, velocity, vel }: SkillLib): void {
+    sp.playAnim("animation.weapon.kyles.skill1.up");
+
+    sp.bind(2.5);
+    sp.minStamina(12);
+
+    system.runTimeout(() => {
+      sp.knockback(velocity || vel || user.getVelocity(), 1.3, 0);
+
+      system.runTimeout(() => {
+        sp.knockback(velocity || vel || user.getVelocity(), 1.7, 0);
+        sp.getEntityFromDistance(5).forEach((e) => {
+          new Entity(e.entity).addDamage(10, {
+            cause: "void",
+            damagingEntity: user,
+            rune: sp.rune.getRuneStat(),
+          });
+        });
+
+        system.runTimeout(() => {
+          sp.knockback(velocity || vel || user.getVelocity(), -3.2, 0);
+
+          system.runTimeout(() => {
+            sp.knockback(velocity || vel || user.getVelocity(), 5.5, 0);
+
+            sp.getEntityFromDistance(5.9).forEach((e) => {
+              new Entity(e.entity).addDamage(10, {
+                cause: "void",
+                damagingEntity: user,
+                rune: sp.rune.getRuneStat(),
+              });
+            });
+          }, 14);
+        }, 4);
+      }, 10);
+    }, 13);
+  }
+
+  static skillSpecial(user: Player, { sp }: SkillLib): void {
+    sp.playAnim("animation.weapon.kyles.transform");
+
+    sp.bind(1.5);
+    sp.minStamina(10);
+
+    system.runTimeout(() => {
+      sp.status.minStatusLvl("zelxt_point", 100);
+      sp.status.addStatus("zelxt_mode", 1, {
+        type: "state",
+        decay: "none",
+        stack: false,
+        lvl: 1,
+      });
+
+      sp.addEffect([
+        { name: "speed", amplifier: 1, duration: 5, showParticles: false },
+        { name: "absorption", amplifier: 4, duration: 10, showParticles: false },
+      ]);
+    }, 20);
   }
 }
 

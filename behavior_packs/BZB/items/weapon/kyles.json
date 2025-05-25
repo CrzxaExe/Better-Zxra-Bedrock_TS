@@ -26,7 +26,7 @@
       "minecraft:hover_text_color": "cyan",
       "minecraft:use_modifiers": {
         "use_duration": 10,
-        "movement_modifier": 0.75
+        "movement_modifier": 0.1
       },
       "minecraft:tags": {
         "tags": ["slayer"]

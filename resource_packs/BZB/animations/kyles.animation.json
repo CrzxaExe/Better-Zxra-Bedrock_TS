@@ -1,6 +1,26 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
+		"animation.kyle.sizes": {
+			"loop": true,
+			"bones": {
+				"sword": {
+					"rotation": [0, 0, 0],
+					"position": [0, -1, 0],
+					"scale": [1.4, 1.3, 1.4]
+				}
+			}
+		},
+		"animation.kyle.first_person": {
+			"loop": true,
+			"bones": {
+				"kyles": {
+					"rotation": [0, 50, -40],
+					"position": [0, 6, 0],
+					"scale": 1.7
+				}
+			}
+		},
 		"animation.kyle.grab": {
 			"loop": true,
 			"bones": {
@@ -18,13 +38,33 @@
 				}
 			}
 		},
-		"animation.kyle.sizes": {
-			"loop": true,
+		"animation.kyle.open": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.2083,
 			"bones": {
-				"sword": {
-					"rotation": [0, 0, 0],
-					"position": [0, -1, 0],
-					"scale": [1.4, 1.3, 1.4]
+				"swordWingLeft": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.2083": [0, 0.4, -0.3]
+					}
+				},
+				"sWingB": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.2083": [0, 1, 0]
+					}
+				},
+				"swordWingRight": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.2083": [0, -0.4, 0.3]
+					}
+				},
+				"sWingC": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.2083": [0, 0, 1]
+					}
 				}
 			}
 		}
