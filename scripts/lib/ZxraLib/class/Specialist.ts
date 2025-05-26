@@ -89,7 +89,6 @@ class Specialist extends Entity {
     if (this.source.isSprinting) down += Terra.world.setting?.thirstRun || 0.03;
 
     if (down < 0) return;
-    // console.warn(down, current);
 
     this.minThirst(down);
   }
@@ -101,6 +100,7 @@ class Specialist extends Entity {
       const lbl =
         {
           stack: `${Formater.formatName(e.name)} > ${e.lvl.toFixed(0)}`,
+          state: `${Formater.formatName(e.name)}`,
         }[e.type] || `${Formater.formatName(e.name)} ${e.duration}s`;
 
       return lbl;

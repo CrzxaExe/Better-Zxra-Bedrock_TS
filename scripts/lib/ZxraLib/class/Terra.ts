@@ -1,6 +1,8 @@
-import { Dimension, Player, system, world, Entity as mcEntity } from "@minecraft/server";
+import { Dimension, Player, system, world, Entity as mcEntity, CustomCommandRegistry } from "@minecraft/server";
 import {
   BossChallengeData,
+  Command,
+  CommandData,
   CreateObject,
   Entity,
   EntityData,
@@ -60,6 +62,12 @@ class Terra {
 
     system.run(() => this.setPlayer(world.getAllPlayers()));
     this.createSpecialistCache();
+  }
+  static setupCommand(registry: CustomCommandRegistry): void {
+    const cmd = Command.Cmd;
+
+    console.warn(`[System] Load ${cmd.length} custom commands`);
+    cmd.forEach((e: CommandData) => registry.registerCommand(e.config, e.callback));
   }
   static save(isEnable: boolean = true): void {
     console.warn("[System] Saving data");

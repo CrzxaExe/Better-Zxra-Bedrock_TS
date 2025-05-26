@@ -9,6 +9,9 @@ import "./lib/event/playerJoinAndLeave";
 import "./lib/event/skill";
 import "./lib/event/worldInitialize";
 
+// Custom Command
+import "./lib/cmds/users";
+
 // Info Version
 console.warn(`
 [System] Loading plugins:

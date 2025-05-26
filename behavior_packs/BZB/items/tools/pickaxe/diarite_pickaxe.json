@@ -22,10 +22,7 @@
       "minecraft:repairable": {
         "repair_items": [
           {
-            "items": [
-              "cz:diarite_ingot",
-              "cz:diarite_pickaxe"
-            ],
+            "items": ["cz:diarite_ingot", "cz:diarite_pickaxe"],
             "repair_amount": "q.max_durability"
           }
         ]
@@ -339,18 +336,6 @@
           },
           {
             "block": "minecraft:stone_block_slab",
-            "speed": 20
-          },
-          {
-            "block": "minecraft:stone_block_slab2",
-            "speed": 20
-          },
-          {
-            "block": "minecraft:stone_block_slab3",
-            "speed": 20
-          },
-          {
-            "block": "minecraft:stone_block_slab4",
             "speed": 20
           },
           {

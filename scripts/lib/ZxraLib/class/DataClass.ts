@@ -1,3 +1,4 @@
+import { CustomCommand, CustomCommandResult } from "@minecraft/server";
 import {
   CommandData,
   ItemSpecial,
@@ -15,18 +16,18 @@ class Command {
   static Cmd: Array<CommandData> = [];
   static CmdL: Array<CommandData> = [];
 
-  static add(name: string, callback: Function) {
-    this.Cmd.push({ name, callback });
+  static add(config: CustomCommand, callback: any) {
+    this.Cmd.push({ config, callback });
   }
-  static addL(name: string, callback: Function) {
-    this.CmdL.push({ name, callback });
+  static addL(config: CustomCommand, callback: any) {
+    this.CmdL.push({ config, callback });
   }
 
   static get(name: string): CommandData | undefined {
-    return this.Cmd.find((e) => e.name === name);
+    return this.Cmd.find((e) => e.config.name === name);
   }
   static getL(name: string): CommandData | undefined {
-    return this.CmdL.find((e) => e.name === name);
+    return this.CmdL.find((e) => e.config.name === name);
   }
 }
 

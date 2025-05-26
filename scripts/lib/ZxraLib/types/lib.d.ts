@@ -1,4 +1,13 @@
-import { Block, Entity, MolangVariableMap, Vector3 } from "@minecraft/server";
+import {
+  Block,
+  CommandResult,
+  CustomCommand,
+  CustomCommandOrigin,
+  CustomCommandResult,
+  Entity,
+  MolangVariableMap,
+  Vector3,
+} from "@minecraft/server";
 import { Specialist } from "../module";
 
 // Boss interface
@@ -19,8 +28,8 @@ interface CooldownData {
 
 // Command interface
 interface CommandData {
-  name: string;
-  callback: Function | undefined;
+  config: CustomCommand;
+  callback: Function<CustomCommandResult>;
 }
 
 // Effect interface
