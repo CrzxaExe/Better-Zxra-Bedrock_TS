@@ -12,6 +12,7 @@ import {
   EntityDamageCause,
 } from "@minecraft/server";
 import {
+  Calc,
   defaultRuneStat,
   EffectCreate,
   EntityData,
@@ -150,6 +151,33 @@ class Entity {
 
     if (!velocity) return;
     this.knockback(velocity.vel, velocity.ver, velocity.hor);
+  }
+  consumeHp(
+    percentage: number,
+    hp: EntityHealthComponent | undefined = this.source.getComponent("health"),
+    identifier?: "kyle" | undefined
+  ) {
+    if (!percentage) throw new Error("Missing percentage");
+    if (percentage < 0) throw new Error("Parameter percentage must be positive");
+
+    const hpLost = Calc.hpLostPercentage(hp);
+
+    hp.setCurrentValue(hp.currentValue * percentage);
+
+    if (!(this.source instanceof Player)) return;
+
+    const sp = Terra.getSpecialistCache(this.source);
+
+    switch (identifier) {
+      case "kyle":
+        sp.status.addStatus("zelxt_point", 1, {
+          type: "stack",
+          decay: "none",
+          stack: true,
+          lvl: (Calc.hpLostPercentage(hp) - hpLost) * 100,
+        });
+        break;
+    }
   }
   heal(amount: number): void {
     const hp: EntityHealthComponent | undefined = this.source.getComponent("health");

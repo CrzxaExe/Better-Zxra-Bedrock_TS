@@ -10,8 +10,7 @@ class KyleSkill {
     sp.minStamina(8);
 
     const data = sp.getSp().weapons.find((e) => e.weapon === "kyles"),
-      hp = user.getComponent("health"),
-      hpLost = Calc.hpLostPercentage(hp as EntityHealthComponent);
+      hp = user.getComponent("health");
 
     system.runTimeout(() => {
       sp.knockback(velocity || vel || user.getVelocity(), 1, 0);
@@ -29,15 +28,7 @@ class KyleSkill {
         );
       });
 
-      if (target.length > 0 && hp && hp.currentValue > 1) {
-        hp.setCurrentValue(hp.currentValue - hp.currentValue * 0.4);
-        sp.status.addStatus("zelxt_point", 1, {
-          type: "stack",
-          decay: "none",
-          stack: true,
-          lvl: (Calc.hpLostPercentage(hp) - hpLost) * 100,
-        });
-      }
+      if (target.length > 0 && hp && hp.currentValue > 1) sp.consumeHp(0.4, hp, "kyle");
     }, 15);
   }
 
@@ -52,6 +43,7 @@ class KyleSkill {
 
       system.runTimeout(() => {
         sp.knockback(velocity || vel || user.getVelocity(), 1.7, 0);
+        sp.source.triggerEvent("cz:immune_300ms");
         sp.getEntityFromDistance(5).forEach((e) => {
           new Entity(e.entity).addDamage(10, {
             cause: "void",
@@ -65,6 +57,7 @@ class KyleSkill {
 
           system.runTimeout(() => {
             sp.knockback(velocity || vel || user.getVelocity(), 5.5, 0);
+            sp.source.triggerEvent("cz:immune_300ms");
 
             sp.getEntityFromDistance(5.9).forEach((e) => {
               new Entity(e.entity).addDamage(10, {

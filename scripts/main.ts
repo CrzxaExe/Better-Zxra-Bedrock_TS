@@ -11,6 +11,7 @@ import "./lib/event/worldInitialize";
 
 // Custom Command
 import "./lib/cmds/users";
+import "./lib/cmds/admin";
 
 // Info Version
 console.warn(`

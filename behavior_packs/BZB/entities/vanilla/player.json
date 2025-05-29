@@ -7,9 +7,7 @@
       "is_summonable": false,
       "is_experimental": false,
       "scripts": {
-        "animate": [
-          "new_root"
-        ]
+        "animate": ["new_root"]
       },
       "animations": {
         "new_root": "controller.animation.player.cz"
@@ -29,10 +27,7 @@
           "remove_effects": "bad_omen"
         },
         "minecraft:timer": {
-          "time": [
-            0.0,
-            0.0
-          ],
+          "time": [0.0, 0.0],
           "looping": false,
           "time_down_event": {
             "event": "minecraft:clear_add_raid_omen",
@@ -70,6 +65,21 @@
         },
         "minecraft:skin_id": {
           "value": 1
+        }
+      },
+      "immune_300ms": {
+        "minecraft:damage_sensor": {
+          "triggers": {
+            "deals_damage": false,
+            "cause": "all"
+          }
+        },
+        "minecraft:timer": {
+          "time": 0.3,
+          "time_down_event": {
+            "event": "cz:clear_with_shield",
+            "target": "self"
+          }
         }
       },
       "silent_20": {
@@ -319,10 +329,7 @@
         "on_death": "Math.Min(query.player_level * 7, 100)"
       },
       "minecraft:type_family": {
-        "family": [
-          "player",
-          "slayer"
-        ]
+        "family": ["player", "slayer"]
       },
       "minecraft:is_hidden_when_invisible": {},
       "minecraft:loot": {
@@ -402,27 +409,17 @@
       },
       "minecraft:rideable": {
         "seat_count": 2,
-        "family_types": [
-          "parrot_tame"
-        ],
+        "family_types": ["parrot_tame"],
         "pull_in_entities": true,
         "seats": [
           {
-            "position": [
-              0.4,
-              -0.2,
-              -0.1
-            ],
+            "position": [0.4, -0.2, -0.1],
             "min_rider_count": 0,
             "max_rider_count": 0,
             "lock_rider_rotation": 0
           },
           {
-            "position": [
-              -0.4,
-              -0.2,
-              -0.1
-            ],
+            "position": [-0.4, -0.2, -0.1],
             "min_rider_count": 1,
             "max_rider_count": 2,
             "lock_rider_rotation": 0
@@ -491,88 +488,70 @@
     "events": {
       "minecraft:gain_raid_omen": {
         "add": {
-          "component_groups": [
-            "minecraft:add_raid_omen"
-          ]
+          "component_groups": ["minecraft:add_raid_omen"]
         }
       },
       "minecraft:clear_add_raid_omen": {
         "remove": {
-          "component_groups": [
-            "minecraft:add_raid_omen"
-          ]
+          "component_groups": ["minecraft:add_raid_omen"]
         },
         "add": {
-          "component_groups": [
-            "minecraft:clear_raid_omen_spell_effect"
-          ]
+          "component_groups": ["minecraft:clear_raid_omen_spell_effect"]
         }
       },
       "minecraft:trigger_raid": {
         "add": {
-          "component_groups": [
-            "minecraft:raid_trigger"
-          ]
+          "component_groups": ["minecraft:raid_trigger"]
         }
       },
       "minecraft:remove_raid_trigger": {
         "remove": {
-          "component_groups": [
-            "minecraft:raid_trigger"
-          ]
+          "component_groups": ["minecraft:raid_trigger"]
         }
       },
       "cz:add_liberator": {
         "add": {
-          "component_groups": [
-            "liberator"
-          ]
+          "component_groups": ["liberator"]
         },
         "remove": {
-          "component_groups": [
-            "no_variant"
-          ]
+          "component_groups": ["no_variant"]
         }
       },
       "cz:endless_1": {
         "add": {
-          "component_groups": [
-            "endless_skill1"
-          ]
+          "component_groups": ["endless_skill1"]
         }
       },
       "cz:lectaze_slash": {
         "add": {
-          "component_groups": [
-            "lectaze_slash"
-          ]
+          "component_groups": ["lectaze_slash"]
+        }
+      },
+      "cz:immune_300ms": {
+        "add": {
+          "component_groups": ["lectaze_slash"]
         }
       },
       "cz:summon_kyles": {
         "add": {
-          "component_groups": [
-            "summon_kyles"
-          ]
+          "component_groups": ["summon_kyles"]
         }
       },
       "cz:lectaze_1": {
         "add": {
-          "component_groups": [
-            "lectaze_skill1"
-          ]
+          "component_groups": ["lectaze_skill1"]
         }
       },
       "cz:lectaze_ultimate": {
         "add": {
-          "component_groups": [
-            "lectaze_ult"
-          ]
+          "component_groups": ["lectaze_ult"]
         }
       },
       "cz:clear": {
         "remove": {
           "component_groups": [
             "liberator",
+            "immune_300ms",
             "silent_20",
             "endless_skill1",
             "lectaze_skill1",
@@ -588,6 +567,7 @@
             "remove": {
               "component_groups": [
                 "liberator",
+                "immune_300ms",
                 "silent_20",
                 "endless_skill1",
                 "lectaze_skill1",
@@ -618,50 +598,33 @@
       },
       "cz:stun_reduce": {
         "queue_command": {
-          "command": [
-            "title @s actionbar Dodge",
-            "tag @s remove stunned"
-          ]
+          "command": ["title @s actionbar Dodge", "tag @s remove stunned"]
         }
       },
       "cz:on_rain": {
         "queue_command": {
-          "command": [
-            "title @s actionbar Rain"
-          ]
+          "command": ["title @s actionbar Rain"]
         }
       },
       "cz:test": {
         "queue_command": {
-          "command": [
-            "say test"
-          ]
+          "command": ["say test"]
         },
         "add": {
-          "component_groups": [
-            "no_variant"
-          ]
+          "component_groups": ["no_variant"]
         }
       },
       "cz:reset_variant": {
         "add": {
-          "component_groups": [
-            "no_variant"
-          ]
+          "component_groups": ["no_variant"]
         }
       },
       "cz:shield_break": {
         "remove": {
-          "component_groups": [
-            "shield_1",
-            "shield_magic_1",
-            "mudrock_shield"
-          ]
+          "component_groups": ["shield_1", "shield_magic_1", "mudrock_shield"]
         },
         "add": {
-          "component_groups": [
-            "no_variant"
-          ]
+          "component_groups": ["no_variant"]
         }
       },
       "cz:mudrock_shield_break": {
@@ -675,103 +638,65 @@
       },
       "cz:shield_1": {
         "add": {
-          "component_groups": [
-            "shield_1"
-          ]
+          "component_groups": ["shield_1"]
         },
         "remove": {
-          "component_groups": [
-            "no_variant"
-          ]
+          "component_groups": ["no_variant"]
         }
       },
       "cz:mudrock_shield": {
         "add": {
-          "component_groups": [
-            "mudrock_shield"
-          ]
+          "component_groups": ["mudrock_shield"]
         },
         "remove": {
-          "component_groups": [
-            "no_variant"
-          ]
+          "component_groups": ["no_variant"]
         }
       },
       "cz:shield_magic_1": {
         "add": {
-          "component_groups": [
-            "shield_magic_1"
-          ]
+          "component_groups": ["shield_magic_1"]
         }
       },
       "cz:no_fall_5s": {
         "add": {
-          "component_groups": [
-            "no_fall_5s"
-          ]
+          "component_groups": ["no_fall_5s"]
         }
       },
       "cz:clear_fall": {
         "remove": {
-          "component_groups": [
-            "no_fall_5s"
-          ]
+          "component_groups": ["no_fall_5s"]
         }
       },
       "cz:max_health_player_22": {
         "add": {
-          "component_groups": [
-            "health1"
-          ]
+          "component_groups": ["health1"]
         },
         "remove": {
-          "component_groups": [
-            "health2",
-            "health3",
-            "health4"
-          ]
+          "component_groups": ["health2", "health3", "health4"]
         }
       },
       "cz:max_health_player_24": {
         "add": {
-          "component_groups": [
-            "health2"
-          ]
+          "component_groups": ["health2"]
         },
         "remove": {
-          "component_groups": [
-            "health1",
-            "health3",
-            "health4"
-          ]
+          "component_groups": ["health1", "health3", "health4"]
         }
       },
       "cz:max_health_player_26": {
         "add": {
-          "component_groups": [
-            "health3"
-          ]
+          "component_groups": ["health3"]
         },
         "remove": {
-          "component_groups": [
-            "health1",
-            "health2",
-            "health4"
-          ]
+          "component_groups": ["health1", "health2", "health4"]
         }
       },
       "cz:max_health_player_28": {
         "add": {
-          "component_groups": [
-            "health4"
-          ]
+          "component_groups": ["health4"]
         },
         "remove": {
-          "component_groups": [
-            "health1",
-            "health2",
-            "health3"
-          ]
+          "component_groups": ["health1", "health2", "health3"]
         }
       }
     }

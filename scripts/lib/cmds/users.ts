@@ -49,7 +49,7 @@ Command.add(
         const plyr: Player = Terra.getPlayer({ id: origin.sourceEntity.id }) as Player;
         if (!plyr) throw new Error("Not a origin player");
 
-        plyr.setGameMode(GameMode.creative);
+        plyr.setGameMode(GameMode.Creative);
       });
       return {
         status: CustomCommandStatus.Success,
@@ -79,7 +79,7 @@ Command.add(
         const plyr: Player = Terra.getPlayer({ id: origin.sourceEntity.id }) as Player;
         if (!plyr) throw new Error("Not a origin player");
 
-        plyr.setGameMode(GameMode.survival);
+        plyr.setGameMode(GameMode.Survival);
       });
       return {
         status: CustomCommandStatus.Success,
@@ -109,7 +109,7 @@ Command.add(
         const plyr: Player = Terra.getPlayer({ id: origin.sourceEntity.id }) as Player;
         if (!plyr) throw new Error("Not a origin player");
 
-        plyr.setGameMode(GameMode.adventure);
+        plyr.setGameMode(GameMode.Adventure);
       });
       return {
         status: CustomCommandStatus.Success,
@@ -139,7 +139,7 @@ Command.add(
         const plyr: Player = Terra.getPlayer({ id: origin.sourceEntity.id }) as Player;
         if (!plyr) throw new Error("Not a origin player");
 
-        plyr.setGameMode(GameMode.spectator);
+        plyr.setGameMode(GameMode.Spectator);
       });
       return {
         status: CustomCommandStatus.Success,
@@ -158,17 +158,49 @@ Command.add(
     name: "cz:bal",
     description: "cmd.bal",
     permissionLevel: CommandPermissionLevel.Any,
+    optionalParameters: [{ name: "target", type: CustomCommandParamType.PlayerSelector }],
   },
-  (origin: CustomCommandOrigin): CustomCommandResult => {
+  (origin: CustomCommandOrigin, target: Player | undefined): CustomCommandResult => {
     try {
       system.run(() => {
         if (origin.sourceEntity?.typeId !== "minecraft:player") throw new Error("Not a player");
 
-        const plyr: Player = Terra.getPlayer({ id: origin.sourceEntity.id }) as Player;
+        const plyr: Player = Terra.getPlayer({ id: target?.id || origin.sourceEntity.id }) as Player;
         if (!plyr) throw new Error("Not a origin player");
 
         const data = Terra.getSpecialist(plyr.id) || CreateObject.createSpecialist(plyr);
-        plyr.sendMessage({ translate: "system.bal", with: [String(data.money)] });
+        plyr.sendMessage({ translate: "system.bal", with: [String(plyr.name), String(data.money)] });
+      });
+
+      return {
+        status: CustomCommandStatus.Success,
+      };
+    } catch (error: any) {
+      console.warn("[System] Error while run command " + error.message);
+      return {
+        status: CustomCommandStatus.Failure,
+      };
+    }
+  }
+);
+
+Command.add(
+  {
+    name: "cz:voxn",
+    description: "cmd.voxn",
+    permissionLevel: CommandPermissionLevel.Any,
+    optionalParameters: [{ name: "target", type: CustomCommandParamType.PlayerSelector }],
+  },
+  (origin: CustomCommandOrigin, target: Player | undefined): CustomCommandResult => {
+    try {
+      system.run(() => {
+        if (origin.sourceEntity?.typeId !== "minecraft:player") throw new Error("Not a player");
+
+        const plyr: Player = Terra.getPlayer({ id: target?.id || origin.sourceEntity.id }) as Player;
+        if (!plyr) throw new Error("Not a origin player");
+
+        const data = Terra.getSpecialist(plyr.id) || CreateObject.createSpecialist(plyr);
+        plyr.sendMessage({ translate: "system.bal", with: [String(plyr.name), String(data.voxn)] });
       });
 
       return {
@@ -204,6 +236,44 @@ Command.add(
             const py = Terra.getPlayer({ id: e.id }) as Player;
 
             return `${i + 1}. ${py.name} - $${e.money}`;
+          });
+
+        plyr.sendMessage(data.slice(0, max).join("\n"));
+      });
+
+      return {
+        status: CustomCommandStatus.Success,
+      };
+    } catch (error: any) {
+      console.warn("[System] Error while run command " + error.message);
+      return {
+        status: CustomCommandStatus.Failure,
+      };
+    }
+  }
+);
+
+Command.add(
+  {
+    name: "cz:voxntop",
+    description: "cmd.voxntop",
+    permissionLevel: CommandPermissionLevel.Any,
+    optionalParameters: [{ name: "max", type: CustomCommandParamType.Integer }],
+  },
+  (origin: CustomCommandOrigin, max: number = 10): CustomCommandResult => {
+    try {
+      system.run(() => {
+        if (origin.sourceEntity?.typeId !== "minecraft:player") throw new Error("Not a player");
+
+        const plyr: Player = Terra.getPlayer({ id: origin.sourceEntity.id }) as Player;
+        if (!plyr) throw new Error("Not a origin player");
+
+        const data = Terra.specialist
+          .sort((a, b) => a.voxn - b.voxn)
+          .map((e, i) => {
+            const py = Terra.getPlayer({ id: e.id }) as Player;
+
+            return `${i + 1}. ${py.name} - $${e.voxn} Voxn`;
           });
 
         plyr.sendMessage(data.slice(0, max).join("\n"));
