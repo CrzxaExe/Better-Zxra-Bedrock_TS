@@ -8,7 +8,7 @@ import {
   system,
   world,
 } from "@minecraft/server";
-import { Command, Terra } from "../ZxraLib/module";
+import { Command, Setting, Terra } from "../ZxraLib/module";
 import { ActionFormData } from "@minecraft/server-ui";
 
 Command.add(
@@ -16,7 +16,7 @@ Command.add(
     name: "cz:settings",
     description: "cmd.settings",
     permissionLevel: CommandPermissionLevel.GameDirectors,
-    mandatoryParameters: [{ name: "params", type: CustomCommandParamType.String }],
+    optionalParameters: [{ name: "params", type: CustomCommandParamType.String }],
   },
   (origin: CustomCommandOrigin, params: string): CustomCommandResult => {
     try {
@@ -25,12 +25,20 @@ Command.add(
       const plyr = Terra.getPlayer({ id: origin.sourceEntity?.id }) as Player;
       if (!plyr) throw new Error("Not a origin player");
 
+      const settings = Terra.world.setting ?? {};
+      const content = Object.keys(settings)
+        .sort((a, b) => a.localeCompare(b))
+        .map((e) => {
+          if (e === "rules") return;
+          return `${e}: ${settings[e as keyof Setting]}`;
+        });
+
       system.run(() => {
         switch (params) {
           case "open":
             new ActionFormData()
               .title("cz:settings")
-              .body({ rawtext: [{ text: JSON.stringify(Terra.world.setting) }] })
+              .body({ rawtext: [{ text: content.join("\n") }] })
               .button({ translate: "system.edit" })
 
               .show(plyr)

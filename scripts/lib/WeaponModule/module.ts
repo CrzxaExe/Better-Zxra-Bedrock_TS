@@ -2,6 +2,9 @@
 // # Need ZxraLib
 // #####################################################################
 
+// Data exports
+export { uniqueWeaponData } from "./data/unique";
+
 // Pasif exports
 
 // Skill exports

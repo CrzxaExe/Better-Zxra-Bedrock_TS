@@ -17,9 +17,7 @@
           ]
         },
         "hold": {
-          "animations": [
-            "sneak"
-          ],
+          "animations": ["sneak"],
           "blend_transition": 0.1,
           "transitions": [
             {
@@ -123,9 +121,7 @@
               "attack": "q.is_delayed_attacking == 1.0 || v.attack_time > 0"
             }
           ],
-          "animations": [
-            "emerge"
-          ]
+          "animations": ["emerge"]
         },
         "stealth": {
           "blend_transition": 0.3,
@@ -134,10 +130,7 @@
               "default": "q.variant != 3"
             }
           ],
-          "animations": [
-            "skill_3",
-            "look"
-          ]
+          "animations": ["skill_3", "look"]
         }
       }
     },
@@ -150,9 +143,7 @@
               "attack": "q.is_delayed_attacking == 1.0"
             }
           ],
-          "animations": [
-            "idle"
-          ]
+          "animations": ["idle"]
         },
         "attack": {
           "blend_transition": 0.2,
@@ -161,8 +152,27 @@
               "default": "q.any_animation_finished"
             }
           ],
-          "animations": [
-            "attack"
+          "animations": ["attack"]
+        }
+      }
+    },
+    "controller.animation.kyle.3d": {
+      "states": {
+        "default": {
+          "blend_transition": 0.25,
+          "transitions": [
+            {
+              "open": "q.is_using_item > 0"
+            }
+          ]
+        },
+        "open": {
+          "blend_transition": 0.25,
+          "animations": ["opened"],
+          "transitions": [
+            {
+              "default": "q.is_using_item < 0.1"
+            }
           ]
         }
       }
@@ -210,7 +220,10 @@
           "blend_transition": 0.3,
           "transitions": [
             {
-              "draw_sword": "query.is_using_item > 0"
+              "draw_sword": "query.is_using_item > 0 && !q.is_sneaking"
+            },
+            {
+              "draw_sneak": "query.is_using_item > 0 && q.is_sneaking"
             },
             {
               "running": "query.is_sprinting"
@@ -255,13 +268,35 @@
               "draw_lance": "v.lance"
             }
           ],
-          "blend_transition": 0.25,
+          "blend_transition": 0.3,
+          "transitions": [
+            {
+              "default": "query.is_using_item < 0.1 && q.any_animation_finished"
+            },
+            {
+              "draw_sneak": "q.is_using_item > 0 && q.is_sneaking"
+            },
+            {
+              "running": "query.is_sprinting"
+            }
+          ]
+        },
+        "draw_sneak": {
+          "animations": [
+            {
+              "kyle_charge_sneak": "v.kyles"
+            }
+          ],
+          "blend_transition": 0.3,
           "transitions": [
             {
               "default": "query.is_using_item < 0.1 && q.any_animation_finished"
             },
             {
               "running": "query.is_sprinting"
+            },
+            {
+              "draw_sword": "query.is_using_item > 0 && !q.is_sneaking"
             }
           ]
         },
@@ -286,7 +321,10 @@
               "default": "q.is_sprinting < 0.1"
             },
             {
-              "draw_sword": "query.is_using_item"
+              "draw_sword": "query.is_using_item && !q.is_sneaking"
+            },
+            {
+              "draw_sneak": "query.is_using_item && q.is_sneaking"
             }
           ]
         }
@@ -307,9 +345,7 @@
               "moving": "q.is_moving"
             }
           ],
-          "animations": [
-            "bob"
-          ]
+          "animations": ["bob"]
         },
         "attack": {
           "animations": [
@@ -331,9 +367,7 @@
           ]
         },
         "emerge": {
-          "animations": [
-            "spawned"
-          ],
+          "animations": ["spawned"],
           "transitions": [
             {
               "default": "q.any_animation_finished"
@@ -345,9 +379,7 @@
           "blend_transition": 0.1
         },
         "moving": {
-          "animations": [
-            "move"
-          ],
+          "animations": ["move"],
           "transitions": [
             {
               "default": "!q.is_moving"
@@ -368,15 +400,11 @@
               "running": "q.ground_speed >= 0.17 && query.modified_move_speed >= 0.75"
             }
           ],
-          "animations": [
-            "yuri_bob"
-          ],
+          "animations": ["yuri_bob"],
           "blend_transition": 0.1
         },
         "moving": {
-          "animations": [
-            "move"
-          ],
+          "animations": ["move"],
           "transitions": [
             {
               "default": "q.ground_speed < 0.08"
@@ -388,9 +416,7 @@
           "blend_transition": 0.1
         },
         "running": {
-          "animations": [
-            "run"
-          ],
+          "animations": ["run"],
           "transitions": [
             {
               "default": "q.ground_speed < 0.08"
@@ -422,10 +448,7 @@
       "states": {
         "default": {
           "blend_transition": 0.3,
-          "animations": [
-            "cape",
-            "hudplayer"
-          ]
+          "animations": ["cape", "hudplayer"]
         }
       }
     }

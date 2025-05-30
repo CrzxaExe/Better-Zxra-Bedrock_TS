@@ -45,8 +45,9 @@ interface SpecialistThirst {
 }
 interface SpecialistWeapon {
   weapon: string;
-  pasifLvl: [WeaponPasifStat?, WeaponPasifStat?];
-  skillLvl: [WeaponSkillStat?, WeaponSkillStat?, WeaponSkillStat?, WeaponSkillStat?];
+  atk: number;
+  pasifLvl: [WeaponStat[], WeaponStat[]?];
+  skillLvl: [WeaponStat[], WeaponStat[], WeaponStat[]?, WeaponStat[]?];
 }
 
 export {

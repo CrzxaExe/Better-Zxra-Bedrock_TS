@@ -178,6 +178,8 @@ class Entity {
         });
         break;
     }
+
+    // console.warn(`hp = ${Calc.hpLostPercentage(hp)} - ${hpLost} = ${(Calc.hpLostPercentage(hp) - hpLost) * 100}`);
   }
   heal(amount: number): void {
     const hp: EntityHealthComponent | undefined = this.source.getComponent("health");

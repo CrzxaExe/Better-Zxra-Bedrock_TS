@@ -306,17 +306,9 @@ interface WeaponComponentData {
   value: WeaponComponentDataValue;
 }
 type WeaponComponentDataValue = any[] | Vector3 | number | string | boolean;
-interface WeaponPasifStat {
-  pasif: number;
-  stat: WeaponStat[];
-}
 interface WeaponSkill {
   name: string;
   callback: Function;
-}
-interface WeaponSkillStat {
-  skill: string | number;
-  stat: WeapomStat[];
 }
 interface WeaponStat {
   name: string;
@@ -386,9 +378,7 @@ export type {
   WeaponComponent,
   WeaponComponentData,
   WeaponComponentDataValue,
-  WeaponPasifStat,
   WeaponSkill,
-  WeaponSkillStat,
   WeaponStat,
   WorldData,
 };

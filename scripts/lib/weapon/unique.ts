@@ -14,12 +14,8 @@ Weapon.registerSkill("kyles", (user: Player, lib: SkillLib) => {
     user.sendMessage("Skill 3");
   } else {
     if (lib.sp.status.getStatus({ name: "zelxt_mode" })[0]) {
-      if (!lib.sp?.cooldown.canSkill("kyle_1", 3.5)) return;
-
       KyleSkill.skill1Up(user, lib);
     } else {
-      if (!lib.sp?.cooldown.canSkill("kyle_1", 5)) return;
-
       KyleSkill.skill1(user, lib);
     }
   }

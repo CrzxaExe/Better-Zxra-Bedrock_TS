@@ -16,6 +16,8 @@
       },
       "animations": {
         "normal": "animation.kyle.grab",
+        "opened": "animation.kyle.open",
+        "model_controller": "controller.animation.kyle.3d",
         "first_person": "animation.kyle.first_person",
         "control": "controller.animation.kyle.control"
       },
@@ -27,12 +29,11 @@
           {
             "first_person": "c.is_first_person"
           },
-          "control"
+          "control",
+          "model_controller"
         ]
       },
-      "render_controllers": [
-        "controller.render.default"
-      ]
+      "render_controllers": ["controller.render.default"]
     }
   }
 }

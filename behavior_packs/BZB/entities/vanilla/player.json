@@ -529,7 +529,7 @@
       },
       "cz:immune_300ms": {
         "add": {
-          "component_groups": ["lectaze_slash"]
+          "component_groups": ["immune_300ms"]
         }
       },
       "cz:summon_kyles": {

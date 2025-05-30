@@ -6,7 +6,7 @@
 
 export const ZxraLib: { packVersion: string; version: string } = {
   packVersion: "1.4.1",
-  version: "1.1.4ts",
+  version: "1.1.5ts",
 };
 
 // Class export
@@ -92,9 +92,7 @@ export type {
   WeaponComponent,
   WeaponComponentData,
   WeaponComponentDataValue,
-  WeaponPasifStat,
   WeaponSkill,
-  WeaponSkillStat,
   WeaponStat,
   WorldData,
 } from "./types/lib";
