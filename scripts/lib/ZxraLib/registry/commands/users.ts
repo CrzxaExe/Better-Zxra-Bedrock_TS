@@ -9,7 +9,7 @@ import {
   system,
   world,
 } from "@minecraft/server";
-import { Command, CreateObject, Terra } from "../ZxraLib/module";
+import { Command, CreateObject, Terra } from "../../module";
 
 Command.add(
   {
@@ -33,6 +33,7 @@ Command.add(
   }
 );
 
+// Gamemode
 Command.add(
   {
     name: "cz:gmc",
@@ -62,7 +63,6 @@ Command.add(
     }
   }
 );
-
 Command.add(
   {
     name: "cz:gms",
@@ -92,7 +92,6 @@ Command.add(
     }
   }
 );
-
 Command.add(
   {
     name: "cz:gma",
@@ -122,7 +121,6 @@ Command.add(
     }
   }
 );
-
 Command.add(
   {
     name: "cz:gmsp",
@@ -153,6 +151,7 @@ Command.add(
   }
 );
 
+// Currency
 Command.add(
   {
     name: "cz:bal",
@@ -183,7 +182,6 @@ Command.add(
     }
   }
 );
-
 Command.add(
   {
     name: "cz:voxn",
@@ -200,7 +198,7 @@ Command.add(
         if (!plyr) throw new Error("Not a origin player");
 
         const data = Terra.getSpecialist(plyr.id) || CreateObject.createSpecialist(plyr);
-        plyr.sendMessage({ translate: "system.bal", with: [String(plyr.name), String(data.voxn)] });
+        plyr.sendMessage({ translate: "system.voxn", with: [String(plyr.name), String(data.voxn)] });
       });
 
       return {
@@ -215,6 +213,7 @@ Command.add(
   }
 );
 
+// Top
 Command.add(
   {
     name: "cz:baltop",
@@ -252,7 +251,6 @@ Command.add(
     }
   }
 );
-
 Command.add(
   {
     name: "cz:voxntop",

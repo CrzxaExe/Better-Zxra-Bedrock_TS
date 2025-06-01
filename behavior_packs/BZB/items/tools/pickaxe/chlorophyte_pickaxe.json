@@ -40,7 +40,7 @@
         "destroy_speeds": [
           {
             "block": {
-              "tags": "q.any_tag('stone', 'metal', 'diamond_pick_diggable', 'tier_3',  'heavy_ingot_block2','anvil','cauldrons','ancient_city_replaceable','beacon_base_blocks','cobblestone','copper_ores','deepslate_ore_replaceables','infiniburn_nether','mineable/pickaxe','ore_rates/singular','stone_bricks','stone_ore_replaceables','storage_blocks','walls')"
+              "tags": "q.any_tag('stone', 'metal', 'diamond_pick_diggable', 'tier_3', 'heavy_ingot_block2','anvil','cauldrons','ancient_city_replaceable','beacon_base_blocks','cobblestone','copper_ores','deepslate_ore_replaceables','infiniburn_nether','mineable/pickaxe','ore_rates/singular','stone_bricks','stone_ore_replaceables','storage_blocks','walls')"
             },
             "speed": 25
           },
@@ -249,10 +249,6 @@
             "speed": 20
           },
           {
-            "block": "minecraft:stonebrick",
-            "speed": 20
-          },
-          {
             "block": "minecraft:blackstone",
             "speed": 20
           },
@@ -305,10 +301,6 @@
             "speed": 20
           },
           {
-            "block": "minecraft:concrete",
-            "speed": 20
-          },
-          {
             "block": "minecraft:prismarine_bricks_stairs",
             "speed": 20
           },
@@ -337,22 +329,6 @@
             "speed": 20
           },
           {
-            "block": "minecraft:stone_block_slab",
-            "speed": 20
-          },
-          {
-            "block": "minecraft:stone_block_slab2",
-            "speed": 20
-          },
-          {
-            "block": "minecraft:stone_block_slab3",
-            "speed": 20
-          },
-          {
-            "block": "minecraft:stone_block_slab4",
-            "speed": 20
-          },
-          {
             "block": "minecraft:stone_brick_stairs",
             "speed": 20
           },
@@ -366,10 +342,6 @@
           },
           {
             "block": "minecraft:blackstone_wall",
-            "speed": 20
-          },
-          {
-            "block": "minecraft:double_stone_block_slab",
             "speed": 20
           },
           {

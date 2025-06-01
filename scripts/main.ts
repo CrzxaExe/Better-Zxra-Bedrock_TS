@@ -10,8 +10,8 @@ import "./lib/event/skill";
 import "./lib/event/worldInitialize";
 
 // Custom Command
-import "./lib/cmds/users";
-import "./lib/cmds/admin";
+import "./lib/ZxraLib/registry/commands/users";
+import "./lib/ZxraLib/registry/commands/admin";
 
 // Info Version
 console.warn(`

@@ -28,11 +28,7 @@
       "minecraft:repairable": {
         "repair_items": [
           {
-            "items": [
-              "cz:mina_ingot",
-              "cz:mina_sword",
-              "cz:mina_powder"
-            ],
+            "items": ["cz:mina_ingot", "cz:mina_sword", "cz:mina_powder"],
             "repair_amount": "query.max_durability"
           }
         ]
@@ -45,10 +41,6 @@
       "minecraft:digger": {
         "use_efficiency": true,
         "destroy_speeds": [
-          {
-            "block": "minecraft:monster_egg",
-            "speed": 9
-          },
           {
             "block": "minecraft:web",
             "speed": 9
@@ -65,14 +57,7 @@
             "block": "minecraft:lit_pumpkin",
             "speed": 9
           },
-          {
-            "block": "minecraft:leaves",
-            "speed": 9
-          },
-          {
-            "block": "minecraft:leaves9",
-            "speed": 9
-          },
+
           {
             "block": "minecraft:cocoa",
             "speed": 9

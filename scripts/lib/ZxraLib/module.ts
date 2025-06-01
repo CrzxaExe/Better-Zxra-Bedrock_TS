@@ -23,6 +23,7 @@ export { Guild } from "./class/Guild";
 export { Item } from "./class/Item";
 export { Leaderboard } from "./class/Leaderboard";
 export { Quest } from "./class/Quest";
+export { BlockRegister, ItemRegister } from "./class/Registry";
 export { Rune } from "./class/Rune";
 export { Specialist } from "./class/Specialist";
 export { Status } from "./class/Status";
@@ -96,6 +97,7 @@ export type {
   WeaponStat,
   WorldData,
 } from "./types/lib";
+export type { BlockRegisterData } from "./types/registry";
 export type {
   SpecialistComponent,
   SpecialistData,
@@ -105,3 +107,5 @@ export type {
   SpecialistThirst,
   SpecialistWeapon,
 } from "./types/specialistTypes";
+
+import "./registry/blocks/all";

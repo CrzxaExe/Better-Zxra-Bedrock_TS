@@ -1,5 +1,14 @@
-import { Dimension, Player, system, world, Entity as mcEntity, CustomCommandRegistry } from "@minecraft/server";
 import {
+  Dimension,
+  Player,
+  system,
+  world,
+  Entity as mcEntity,
+  CustomCommandRegistry,
+  BlockComponentRegistry,
+} from "@minecraft/server";
+import {
+  BlockRegister,
   BossChallengeData,
   Command,
   CommandData,
@@ -66,8 +75,24 @@ class Terra {
   static setupCommand(registry: CustomCommandRegistry): void {
     const cmd = Command.Cmd;
 
-    console.warn(`[System] Load ${cmd.length} custom commands`);
+    if (cmd.length === 0) {
+      console.warn("[System] No load custom command, because empty cmd");
+      return;
+    }
+
     cmd.forEach((e: CommandData) => registry.registerCommand(e.config, e.callback));
+    console.warn(`[System] Load ${cmd.length} custom commands`);
+  }
+  static setupBlockComponent(registry: BlockComponentRegistry): void {
+    const register = BlockRegister.register;
+
+    if (register.length === 0) {
+      console.warn("[System] No load block components, because empty register");
+      return;
+    }
+
+    register.forEach((e) => registry.registerCustomComponent(e.name, e.callback));
+    console.warn(`[System] Load ${register.length} block components`);
   }
   static save(isEnable: boolean = true): void {
     console.warn("[System] Saving data");

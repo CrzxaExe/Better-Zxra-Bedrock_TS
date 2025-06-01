@@ -7,8 +7,10 @@ world.afterEvents.worldLoad.subscribe(({}: WorldLoadAfterEvent) => {
   Terra.setPlayer(world.getAllPlayers());
 });
 
-system.beforeEvents.startup.subscribe(({ customCommandRegistry }: StartupEvent) => {
-  console.warn("[System] Start loading custom commands");
+// Registry
+system.beforeEvents.startup.subscribe(({ customCommandRegistry, blockComponentRegistry }: StartupEvent) => {
+  console.warn("[System] Start loading custom features");
 
   Terra.setupCommand(customCommandRegistry);
+  Terra.setupBlockComponent(blockComponentRegistry);
 });

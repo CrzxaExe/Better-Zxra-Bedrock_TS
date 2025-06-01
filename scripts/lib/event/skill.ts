@@ -10,9 +10,9 @@ world.afterEvents.itemReleaseUse.subscribe(async ({ itemStack, source, useDurati
     const sp = Terra.getSpecialistCache(source),
       vel = source.getVelocity();
 
+    if (!skill) return;
     sp.cooldown.addCd("stamina_regen", Terra.world.setting?.staminaAction || 3);
 
-    if (!skill) return;
     skill.callback(source, {
       sp,
       vel,
