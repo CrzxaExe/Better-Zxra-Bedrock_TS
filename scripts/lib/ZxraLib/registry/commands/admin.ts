@@ -80,9 +80,9 @@ Command.add(
     try {
       system.run(() => {
         if (!target) throw new Error("Target not found");
-        if (origin.sourceEntity?.typeId !== "minecraft:player") throw new Error("Not a player");
+        if ((target.typeId || origin.sourceEntity?.typeId) !== "minecraft:player") throw new Error("Not a player");
 
-        const plyr: Player = Terra.getPlayer({ id: target?.id || origin.sourceEntity.id }) as Player;
+        const plyr: Player = Terra.getPlayer({ id: target?.id || origin.sourceEntity?.id }) as Player;
         if (!plyr) throw new Error("Not a origin player");
 
         const sp = Terra.getSpecialistCache(plyr);
@@ -116,9 +116,9 @@ Command.add(
     try {
       system.run(() => {
         if (!target) throw new Error("Target not found");
-        if (origin.sourceEntity?.typeId !== "minecraft:player") throw new Error("Not a player");
+        if ((target.typeId || origin.sourceEntity?.typeId) !== "minecraft:player") throw new Error("Not a player");
 
-        const plyr: Player = Terra.getPlayer({ id: target?.id || origin.sourceEntity.id }) as Player;
+        const plyr: Player = Terra.getPlayer({ id: target?.id || origin.sourceEntity?.id }) as Player;
         if (!plyr) throw new Error("Not a origin player");
 
         const sp = Terra.getSpecialistCache(plyr);
@@ -152,9 +152,9 @@ Command.add(
     try {
       system.run(() => {
         if (!target) throw new Error("Target not found");
-        if (origin.sourceEntity?.typeId !== "minecraft:player") throw new Error("Not a player");
+        if ((target.typeId || origin.sourceEntity?.typeId) !== "minecraft:player") throw new Error("Not a player");
 
-        const plyr: Player = Terra.getPlayer({ id: target?.id || origin.sourceEntity.id }) as Player;
+        const plyr: Player = Terra.getPlayer({ id: target?.id || origin.sourceEntity?.id }) as Player;
         if (!plyr) throw new Error("Not a origin player");
 
         const sp = Terra.getSpecialistCache(plyr);
@@ -190,9 +190,9 @@ Command.add(
     try {
       system.run(() => {
         if (!target) throw new Error("Target not found");
-        if (origin.sourceEntity?.typeId !== "minecraft:player") throw new Error("Not a player");
+        if ((target.typeId || origin.sourceEntity?.typeId) !== "minecraft:player") throw new Error("Not a player");
 
-        const plyr: Player = Terra.getPlayer({ id: target?.id || origin.sourceEntity.id }) as Player;
+        const plyr: Player = Terra.getPlayer({ id: target?.id || origin.sourceEntity?.id }) as Player;
         if (!plyr) throw new Error("Not a origin player");
 
         const sp = Terra.getSpecialistCache(plyr);
@@ -226,9 +226,9 @@ Command.add(
     try {
       system.run(() => {
         if (!target) throw new Error("Target not found");
-        if (origin.sourceEntity?.typeId !== "minecraft:player") throw new Error("Not a player");
+        if ((target.typeId || origin.sourceEntity?.typeId) !== "minecraft:player") throw new Error("Not a player");
 
-        const plyr: Player = Terra.getPlayer({ id: target?.id || origin.sourceEntity.id }) as Player;
+        const plyr: Player = Terra.getPlayer({ id: target?.id || origin.sourceEntity?.id }) as Player;
         if (!plyr) throw new Error("Not a origin player");
 
         const sp = Terra.getSpecialistCache(plyr);
@@ -262,9 +262,9 @@ Command.add(
     try {
       system.run(() => {
         if (!target) throw new Error("Target not found");
-        if (origin.sourceEntity?.typeId !== "minecraft:player") throw new Error("Not a player");
+        if ((target.typeId || origin.sourceEntity?.typeId) !== "minecraft:player") throw new Error("Not a player");
 
-        const plyr: Player = Terra.getPlayer({ id: target?.id || origin.sourceEntity.id }) as Player;
+        const plyr: Player = Terra.getPlayer({ id: target?.id || origin.sourceEntity?.id }) as Player;
         if (!plyr) throw new Error("Not a origin player");
 
         const sp = Terra.getSpecialistCache(plyr);

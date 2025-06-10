@@ -9,7 +9,7 @@ import {
   system,
   world,
 } from "@minecraft/server";
-import { Command, CreateObject, Terra } from "../../module";
+import { Command, CreateObject, Terra, UserPanel } from "../../module";
 
 Command.add(
   {
@@ -275,6 +275,35 @@ Command.add(
           });
 
         plyr.sendMessage(data.slice(0, max).join("\n"));
+      });
+
+      return {
+        status: CustomCommandStatus.Success,
+      };
+    } catch (error: any) {
+      console.warn("[System] Error while run command " + error.message);
+      return {
+        status: CustomCommandStatus.Failure,
+      };
+    }
+  }
+);
+
+Command.add(
+  {
+    name: "cz:menu",
+    description: "cmd.menu",
+    permissionLevel: CommandPermissionLevel.Any,
+  },
+  (origin: CustomCommandOrigin): CustomCommandResult => {
+    try {
+      system.run(() => {
+        if (origin.sourceEntity?.typeId !== "minecraft:player") throw new Error("Not a player");
+
+        const plyr: Player = Terra.getPlayer({ id: origin.sourceEntity.id }) as Player;
+        if (!plyr) throw new Error("Not a origin player");
+
+        UserPanel.home(plyr);
       });
 
       return {

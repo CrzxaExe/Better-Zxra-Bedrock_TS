@@ -13,3 +13,7 @@ BlockRegister.add("cz:chair", {
     sit.runCommand(`ride ${player.name} start_riding @s`);
   },
 });
+
+BlockRegister.add("cz:generator", {
+  onPlayerInteract({ block }) {},
+});

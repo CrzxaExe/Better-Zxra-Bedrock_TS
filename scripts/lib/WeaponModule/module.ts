@@ -8,7 +8,7 @@ export { uniqueWeaponData } from "./data/unique";
 // Pasif exports
 
 // Skill exports
-export { KyleSkill } from "./skills/Kyles";
+export { Kyle } from "./skills/Kyles";
 
 // Traits exports
 export { slayerLostHPPercentation } from "./traits/slayer";

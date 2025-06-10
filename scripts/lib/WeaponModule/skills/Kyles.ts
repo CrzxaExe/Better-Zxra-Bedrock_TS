@@ -2,7 +2,7 @@ import { Player, system } from "@minecraft/server";
 import { Entity, SkillLib } from "../../ZxraLib/module";
 import { slayerLostHPPercentation, uniqueWeaponData } from "../module";
 
-class KyleSkill {
+class Kyle {
   static skill1(user: Player, { sp, vel, velocity }: SkillLib): void {
     const data = sp.getSp().weapons.find((e) => e.weapon === "kyles") || uniqueWeaponData.kyles,
       skill = data.skillLvl[0],
@@ -111,12 +111,17 @@ class KyleSkill {
 
     sp.bind(1.5);
     sp.minStamina(10);
+    user.addTag("preview");
 
     const data = sp.getSp().weapons.find((e) => e.weapon === "kyles") || uniqueWeaponData.kyles,
       skill = data.skillLvl[3],
       hp = user.getComponent("health");
 
+    user.runCommand(`camera @s set minecraft:free ease 0.2 in_bounce pos ^-2^1^2 facing @s`);
+
     system.runTimeout(() => {
+      user.runCommand(`summon cz:particles ~ ~ ~ ~ ~ cz:impact_particle `);
+
       sp.status.minStatusLvl("zelxt_point", 100);
       sp.status.addStatus("zelxt_mode", 1, {
         type: "state",
@@ -128,11 +133,16 @@ class KyleSkill {
       sp.heal((hp?.effectiveMax || 20) * skill?.find((e) => e.name === "health_recover").value);
 
       sp.addEffect([
-        { name: "speed", amplifier: 1, duration: 5, showParticles: false },
+        { name: "speed", amplifier: 1, duration: 10, showParticles: false },
         { name: "absorption", amplifier: 4, duration: 10, showParticles: false },
       ]);
+
+      system.runTimeout(() => {
+        user.camera.clear();
+        user.removeTag("preview");
+      }, 5);
     }, 20);
   }
 }
 
-export { KyleSkill };
+export { Kyle };

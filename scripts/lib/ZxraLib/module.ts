@@ -108,4 +108,7 @@ export type {
   SpecialistWeapon,
 } from "./types/specialistTypes";
 
+// UI exports
+export { UserPanel } from "./ui/user";
+
 import "./registry/blocks/all";

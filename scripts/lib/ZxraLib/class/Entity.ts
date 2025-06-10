@@ -160,13 +160,14 @@ class Entity {
     if (!percentage) throw new Error("Missing percentage");
     if (percentage < 0) throw new Error("Parameter percentage must be positive");
 
-    const hpLost = Calc.hpLostPercentage(hp);
+    const hpLost: number = Calc.hpLostPercentage(hp);
 
     hp.setCurrentValue(hp.currentValue * percentage);
 
     if (!(this.source instanceof Player)) return;
 
     const sp = Terra.getSpecialistCache(this.source);
+    const lvl = (1 - (Math.max(Calc.hpLostPercentage(hp), hpLost) - Math.min(hpLost, Calc.hpLostPercentage(hp)))) * 100;
 
     switch (identifier) {
       case "kyle":
@@ -174,12 +175,12 @@ class Entity {
           type: "stack",
           decay: "none",
           stack: true,
-          lvl: (Calc.hpLostPercentage(hp) - hpLost) * 100,
+          lvl,
         });
         break;
     }
 
-    // console.warn(`hp = ${Calc.hpLostPercentage(hp)} - ${hpLost} = ${(Calc.hpLostPercentage(hp) - hpLost) * 100}`);
+    // console.warn(`hp = ${Calc.hpLostPercentage(hp)} ${hpLost} = ${lvl}`);
   }
   heal(amount: number): void {
     const hp: EntityHealthComponent | undefined = this.source.getComponent("health");
