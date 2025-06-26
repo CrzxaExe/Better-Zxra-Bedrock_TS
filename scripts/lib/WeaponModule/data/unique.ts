@@ -14,7 +14,7 @@ export const uniqueWeaponData = {
         { name: "stamina", value: 8 },
         { name: "cooldown", value: 5 },
         { name: "zelxt_stamina", value: 12 },
-        { name: "zelxt_cooldown", value: 4 },
+        { name: "zelxt_cooldown", value: 8 },
 
         { name: "atk_percentage", value: 4 },
         { name: "health_percentage", value: 0.4 },

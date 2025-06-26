@@ -1,4 +1,4 @@
-import { Container, Player, Vector3 } from "@minecraft/server";
+import { Container, GameMode, Player, Vector3 } from "@minecraft/server";
 import {
   Entity,
   Terra,
@@ -192,7 +192,7 @@ ${
     this.setSp(data);
   }
   minStamina(amount: number = 1, data: SpecialistData = this.getSp()): void {
-    if (["creative", "spectator"].includes(this.source.getGameMode())) return;
+    if ([GameMode.Creative, GameMode.Spectator].includes(this.source.getGameMode())) return;
 
     this.addStamina(-amount, data);
   }
@@ -228,7 +228,7 @@ ${
     this.setSp(data);
   }
   minThirst(amount: number = 1, data: SpecialistData = this.getSp()): void {
-    if (["creative", "spectator"].includes(this.source.getGameMode())) return;
+    if ([GameMode.Creative, GameMode.Spectator].includes(this.source.getGameMode())) return;
 
     this.addThirst(-amount, data);
   }

@@ -16,7 +16,7 @@ world.afterEvents.itemReleaseUse.subscribe(async ({ itemStack, source, useDurati
     skill.callback(source, {
       sp,
       vel,
-      velocity: CreateObject.createVelocityPlayer(source, vel),
+      velocity: CreateObject.createVelocityPlayer(source),
       useDuration: useDuration / 20,
     });
   } catch (error: { message: string } | any) {

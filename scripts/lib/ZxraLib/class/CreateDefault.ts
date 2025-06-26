@@ -53,7 +53,7 @@ class CreateObject {
     return { boss: entity, participants: [] };
   }
 
-  static createVelocityPlayer(player: Player, vel: Vector3 = player.getVelocity()): Vector3 {
+  static createVelocityPlayer(player: Player): Vector3 {
     if (!player) throw new Error("Missing player");
 
     const rot = player.getRotation();

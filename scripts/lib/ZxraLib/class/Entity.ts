@@ -171,11 +171,15 @@ class Entity {
 
     switch (identifier) {
       case "kyle":
+        const stack = sp.status.getStatus({ name: "zelxt_point" })[0]?.lvl || 0;
+
+        if (stack >= 200) return;
+
         sp.status.addStatus("zelxt_point", 1, {
           type: "stack",
           decay: "none",
           stack: true,
-          lvl,
+          lvl: stack + lvl > 200 ? 200 - stack : lvl,
         });
         break;
     }
@@ -394,6 +398,14 @@ class Entity {
     if (this.source instanceof Player) excludeNames = [...Terra.guild.getTeammate(this.source)];
 
     return this.source.getEntitiesFromViewDirection({ maxDistance, excludeNames, excludeTypes: NOT_VALID_ENTITY });
+  }
+  getEntityWithinRadius(radius: number = 6): Entity[] {
+    let excludeNames: string[] = [];
+    if (this.source instanceof Player) excludeNames = [...Terra.guild.getTeammate(this.source)];
+
+    return this.source.dimension
+      .getEntities({ maxDistance: radius, excludeNames })
+      .filter((e: Entity) => e.id !== this.source.id);
   }
 
   // Refresh Methods

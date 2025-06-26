@@ -24,9 +24,14 @@ world.afterEvents.entityDie.subscribe(
 );
 
 // Entity Hit event
-world.afterEvents.entityHitEntity.subscribe(() => {}, {
-  entityTypes: ["minecraft:player"],
-});
+world.afterEvents.entityHitEntity.subscribe(
+  ({ damagingEntity, hitEntity }) => {
+    console.warn(damagingEntity.typeId, hitEntity.typeId);
+  },
+  {
+    entityTypes: ["minecraft:player"],
+  }
+);
 
 // Entity Hurt event
 world.afterEvents.entityHurt.subscribe(() => {}, {

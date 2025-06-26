@@ -1,8 +1,10 @@
 import { Player, system } from "@minecraft/server";
-import { Entity, SkillLib } from "../../ZxraLib/module";
+import { CreateObject, Entity, SkillLib } from "../../ZxraLib/module";
 import { slayerLostHPPercentation, uniqueWeaponData } from "../module";
 
 class Kyle {
+  static pasif1(user: Player): void {}
+
   static skill1(user: Player, { sp, vel, velocity }: SkillLib): void {
     const data = sp.getSp().weapons.find((e) => e.weapon === "kyles") || uniqueWeaponData.kyles,
       skill = data.skillLvl[0],
@@ -39,23 +41,23 @@ class Kyle {
     }, 15);
   }
 
-  static skill1Up(user: Player, { sp, velocity, vel }: SkillLib): void {
+  static skill1Up(user: Player, { sp }: SkillLib): void {
     const data = sp.getSp().weapons.find((e) => e.weapon === "kyles") || uniqueWeaponData.kyles,
       pasif = data.pasifLvl[0].find((e) => e.name === "zelxt_mode_multiplier").value,
       skill = data.skillLvl[0],
       hp = user.getComponent("health");
 
-    if (!sp.cooldown.canSkill("kyle_skill1", skill.find((e) => e.name === "zelxt_cooldown").value || 4.5)) return;
+    if (!sp.cooldown.canSkill("kyle_skill1", skill.find((e) => e.name === "zelxt_cooldown").value || 8)) return;
     sp.playAnim("animation.weapon.kyles.skill1.up");
 
     sp.bind(2.5);
     sp.minStamina(skill.find((e) => e.name === "zelxt_stamina").value || 12);
 
     system.runTimeout(() => {
-      sp.knockback(velocity || vel || user.getVelocity(), 1.3, 0);
+      sp.knockback(CreateObject.createVelocityPlayer(user), 1.3, 0);
 
       system.runTimeout(() => {
-        sp.knockback(velocity || vel || user.getVelocity(), 1.7, 0);
+        sp.knockback(CreateObject.createVelocityPlayer(user), 1.7, 0);
         sp.source.triggerEvent("cz:immune_300ms");
 
         const first = sp.getEntityFromDistance(5);
@@ -76,10 +78,10 @@ class Kyle {
         });
 
         system.runTimeout(() => {
-          sp.knockback(velocity || vel || user.getVelocity(), -3.2, 0);
+          sp.knockback(CreateObject.createVelocityPlayer(user), -3.2, 0);
 
           system.runTimeout(() => {
-            sp.knockback(velocity || vel || user.getVelocity(), 5.5, 0);
+            sp.knockback(CreateObject.createVelocityPlayer(user), 5.5, 0);
             sp.source.triggerEvent("cz:immune_300ms");
 
             const second = sp.getEntityFromDistance(5.9);
@@ -106,6 +108,27 @@ class Kyle {
     }, 13);
   }
 
+  static skill2(user: Player, { sp, useDuration }: SkillLib): void {
+    const data = sp.getSp().weapons.find((e) => e.weapon === "kyles") || uniqueWeaponData.kyles,
+      skill = data.skillLvl[1],
+      hp = user.getComponent("health");
+
+    if (!sp.cooldown.canSkill("kyle_skill2", skill.find((e) => e.name === "cooldown").value || 5)) return;
+    sp.playAnim("animation.weapon.kyles.skill2");
+
+    sp.bind(1.4);
+    sp.minStamina(skill.find((e) => e.name === "stamina").value || 14);
+
+    system.runTimeout(() => {
+      sp.source.triggerEvent("cz:immune_300ms");
+      sp.knockback(CreateObject.createVelocityPlayer(user), 1 * (10 - (useDuration || 10)) + 1.3, 0);
+
+      system.runTimeout(() => {
+        sp.source.clearVelocity();
+      }, 4);
+    }, 14);
+  }
+
   static skillSpecial(user: Player, { sp }: SkillLib): void {
     sp.playAnim("animation.weapon.kyles.transform");
 
@@ -117,9 +140,10 @@ class Kyle {
       skill = data.skillLvl[3],
       hp = user.getComponent("health");
 
-    user.runCommand(`camera @s set minecraft:free ease 0.2 in_bounce pos ^-2^1^2 facing @s`);
+    user.runCommand(`camera @s set minecraft:free ease 0.2 in_bounce pos ^-1.2^0.4^-0.5 facing @s`);
 
     system.runTimeout(() => {
+      user.runCommand(`camera @s set minecraft:free ease 0.2 in_bounce pos ^-0.4^1.7^0.1 facing @s`);
       user.runCommand(`summon cz:particles ~ ~ ~ ~ ~ cz:impact_particle `);
 
       sp.status.minStatusLvl("zelxt_point", 100);
@@ -140,8 +164,8 @@ class Kyle {
       system.runTimeout(() => {
         user.camera.clear();
         user.removeTag("preview");
-      }, 5);
-    }, 20);
+      }, 9);
+    }, 18);
   }
 }
 

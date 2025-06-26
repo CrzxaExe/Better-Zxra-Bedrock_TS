@@ -6,8 +6,8 @@ Minecraft Bedrock Addon, adding new mechanics for your journey. [here]("https://
 
 Progress Rewrite:
 
-- Content: 3.5%
-- System: 59.1%
+- Content: 3.9%
+- System: 59.3%
 - Ui: 32%
 
 Features:
