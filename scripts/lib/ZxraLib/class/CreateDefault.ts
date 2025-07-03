@@ -6,6 +6,7 @@ import {
   defaultSpecialist,
   EntityData,
   LeaderboardData,
+  npcFile,
   PityPlayer,
   SpecialistData,
   Terra,
@@ -16,14 +17,33 @@ class CreateObject {
   static createEntity(entity: Entity): EntityData {
     if (!entity) throw new Error("Missing entity");
 
-    const data = { ...defaultEntity, id: entity.id };
+    const data = {
+      id: entity.id,
+      status: [],
+    };
     return data;
   }
 
   static createSpecialist(player: Player): SpecialistData {
     if (!player) throw new Error("Missing player");
 
-    const data: SpecialistData = { ...defaultSpecialist, id: player.id };
+    const data: SpecialistData = {
+      id: player.id,
+      level: { current: 0, xp: 0 },
+      stamina: { current: 100, max: 100, additional: 0, rune: 0 },
+      thirst: { current: 100, max: 100, temp: 0 },
+      money: 0,
+      voxn: 0,
+      rep: 0,
+      title: "",
+      equippedRune: [],
+      runes: [],
+      titles: [],
+      selectedWeapon: [],
+      weapons: [],
+      cd: [],
+      components: [],
+    };
     return data;
   }
 
@@ -66,6 +86,13 @@ class CreateObject {
     };
 
     return velocity;
+  }
+
+  static createNpcData(entity: Entity, data: EntityData = Terra.getDataEntity(entity.id)): EntityData {
+    const defaultModels = npcFile[entity.typeId.split(":")[1]] || undefined;
+
+    data.npc = defaultModels;
+    return data;
   }
 }
 

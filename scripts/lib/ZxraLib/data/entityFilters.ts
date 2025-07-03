@@ -22,6 +22,7 @@ export const NOT_ALLOWED_ENTITY_TICK: string[] = [
   "minecraft:sheep",
   "minecraft:sniffer",
   "minecraft:thrown_trident",
+  "minecraft:xp_orb",
 ];
 
 export const NOT_VALID_ENTITY: string[] = [
@@ -37,4 +38,5 @@ export const NOT_VALID_ENTITY: string[] = [
   "minecraft:arrow",
   "minecraft:item",
   "minecraft:thrown_trident",
+  "minecraft:xp_orb",
 ];

@@ -2,9 +2,7 @@
   "format_version": "1.10.0",
   "render_controllers": {
     "controller.render.kyle": {
-      "textures": [
-        "Texture.kyle_state"
-      ],
+      "textures": ["Texture.kyle_state"],
       "is_hurt_color": {},
       "on_fire_color": {},
       "geometry": "Geometry.kyle_state",
@@ -74,9 +72,7 @@
       ]
     },
     "controller.render.sepen": {
-      "textures": [
-        "Texture.sepen"
-      ],
+      "textures": ["Texture.sepen"],
       "is_hurt_color": {},
       "on_fire_color": {},
       "geometry": "Geometry.sepen",
@@ -143,9 +139,7 @@
       ]
     },
     "controller.render.kyle_entity": {
-      "textures": [
-        "Texture.default"
-      ],
+      "textures": ["Texture.default"],
       "is_hurt_color": {},
       "on_fire_color": {},
       "geometry": "Geometry.default",
@@ -156,9 +150,7 @@
       ]
     },
     "controller.render.player.shield": {
-      "textures": [
-        "Array.texture[q.skin_id]"
-      ],
+      "textures": ["Array.texture[q.skin_id]"],
       "is_hurt_color": {},
       "on_fire_color": {},
       "geometry": "Array.geometry[q.skin_id]",
@@ -173,7 +165,8 @@
             "Texture.cape",
             "Texture.liberator_crown",
             "Texture.quezn_shield",
-            "Texture.mudrock_shield"
+            "Texture.mudrock_shield",
+            "Texture.cape"
           ]
         },
         "geometries": {
@@ -181,15 +174,14 @@
             "Geometry.default",
             "Geometry.liberator_crown",
             "Geometry.quezn_shield",
-            "Geometry.mudrock_shield"
+            "Geometry.mudrock_shield",
+            "Geometry.default"
           ]
         }
       }
     },
     "controller.render.particles": {
-      "textures": [
-        "Array.texture[q.variant]"
-      ],
+      "textures": ["Array.texture[q.variant]"],
       "is_hurt_color": {},
       "on_fire_color": {},
       "geometry": "Array.geometry[q.variant]",
@@ -201,15 +193,31 @@
       "color": {},
       "arrays": {
         "textures": {
-          "Array.texture": [
-            "Texture.impact",
-            "Texture.liberator_swing"
-          ]
+          "Array.texture": ["Texture.impact", "Texture.liberator_swing"]
         },
         "geometries": {
-          "Array.geometry": [
-            "Geometry.impact_model",
-            "Geometry.liberator_swing_model"
+          "Array.geometry": ["Geometry.impact_model", "Geometry.liberator_swing_model"]
+        }
+      }
+    },
+    "controller.render.weapon.kyle": {
+      "geometry": "Geometry.default",
+      "is_hurt_color": {},
+      "on_fire_color": {},
+      "textures": ["Array.texture[q.skin_id]"],
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "arrays": {
+        "textures": {
+          "Array.texture": [
+            "Texture.default",
+            "Texture.default",
+            "Texture.default",
+            "Texture.default",
+            "Texture.active"
           ]
         }
       }

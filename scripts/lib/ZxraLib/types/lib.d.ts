@@ -6,25 +6,26 @@ import {
   CustomCommandResult,
   Entity,
   MolangVariableMap,
+  ScriptEventSource,
   Vector3,
 } from "@minecraft/server";
 import { Specialist } from "../module";
 
 // Boss interface
-interface BossChallengeData {
+type BossChallengeData = {
   boss: Entity;
   participants: BossChallangeParticipant[];
-}
-interface BossChallangeParticipant {
+};
+type BossChallangeParticipant = {
   player: Player;
   damage: number;
-}
+};
 
 // Cooldown interface
-interface CooldownData {
+type CooldownData = {
   name: string;
   duration: number;
-}
+};
 
 // Command interface
 interface CommandData {
@@ -41,10 +42,12 @@ interface EffectCreate {
 }
 
 // Entity interface
-interface EntityData {
-  id: string;
-  status: StatusData[];
-}
+type EntityData = Prettify<
+  {
+    id: string;
+    status: StatusData[];
+  } & NpcModels
+>;
 
 // Guild interface
 interface GuildData {
@@ -134,8 +137,8 @@ type QuestType = "destroy" | "place" | "kill" | "get";
 // Particle interface
 interface Particle {
   particle: string;
-  location: Vector3;
-  molang: MolangVariableMap;
+  location: Vector3 | undefined;
+  molang: MolangVariableMap | undefined;
 }
 
 // Pasif interface
@@ -224,6 +227,17 @@ interface Scripts {
   namespace: string;
   callback: Function;
 }
+type ScriptParams = {
+  cmd: string;
+  id: string;
+  rawMsg: string[];
+  msg: string[];
+  message: string;
+  sourceType: ScriptEventSource;
+  initiator: Entity | undefined;
+  sourceBlock: Block | undefined;
+  sourceEntity: Entity | undefined;
+};
 
 // Setting interface
 interface Setting {
@@ -268,6 +282,7 @@ interface SkillLib {
   sp: Specialist;
   vel?: Vector3;
   velocity?: Vector3;
+  multiplier?: number;
 }
 
 // Status interface
@@ -365,6 +380,7 @@ export type {
   RuneAction,
   RuneStats,
   Scripts,
+  ScriptParams,
   Setting,
   SettingRules,
   SettingStarterItem,

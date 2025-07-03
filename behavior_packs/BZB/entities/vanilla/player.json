@@ -67,6 +67,11 @@
           "value": 1
         }
       },
+      "zelxt_mode": {
+        "minecraft:skin_id": {
+          "value": 4
+        }
+      },
       "immune_300ms": {
         "minecraft:damage_sensor": {
           "triggers": {
@@ -77,7 +82,7 @@
         "minecraft:timer": {
           "time": 0.3,
           "time_down_event": {
-            "event": "cz:clear_with_shield",
+            "event": "cz:clear_immune",
             "target": "self"
           }
         }
@@ -532,6 +537,11 @@
           "component_groups": ["immune_300ms"]
         }
       },
+      "cz:clear_immune": {
+        "remove": {
+          "component_groups": ["immune_300ms"]
+        }
+      },
       "cz:summon_kyles": {
         "add": {
           "component_groups": ["summon_kyles"]
@@ -617,6 +627,9 @@
       "cz:reset_variant": {
         "add": {
           "component_groups": ["no_variant"]
+        },
+        "remove": {
+          "component_groups": ["mudrock_shield", "shield_1", "liberator"]
         }
       },
       "cz:shield_break": {
@@ -697,6 +710,22 @@
         },
         "remove": {
           "component_groups": ["health1", "health2", "health3"]
+        }
+      },
+      "cz:zelxt_mode_on": {
+        "add": {
+          "component_groups": ["zelxt_mode"]
+        },
+        "remove": {
+          "component_groups": ["no_variant"]
+        }
+      },
+      "cz:zelxt_mode_off": {
+        "remove": {
+          "component_groups": ["zelxt_mode"]
+        },
+        "add": {
+          "component_groups": ["no_variant"]
         }
       }
     }

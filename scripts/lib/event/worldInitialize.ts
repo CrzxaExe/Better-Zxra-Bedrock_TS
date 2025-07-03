@@ -8,9 +8,12 @@ world.afterEvents.worldLoad.subscribe(({}: WorldLoadAfterEvent) => {
 });
 
 // Registry
-system.beforeEvents.startup.subscribe(({ customCommandRegistry, blockComponentRegistry }: StartupEvent) => {
-  console.warn("[System] Start loading custom features");
+system.beforeEvents.startup.subscribe(
+  ({ customCommandRegistry, blockComponentRegistry, itemComponentRegistry }: StartupEvent) => {
+    console.warn("[System] Start loading custom features");
 
-  Terra.setupCommand(customCommandRegistry);
-  Terra.setupBlockComponent(blockComponentRegistry);
-});
+    Terra.setupCommand(customCommandRegistry);
+    Terra.setupBlockComponent(blockComponentRegistry);
+    Terra.setupItemComponent(itemComponentRegistry);
+  }
+);

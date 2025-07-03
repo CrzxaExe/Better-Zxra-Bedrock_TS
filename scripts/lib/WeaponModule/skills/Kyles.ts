@@ -1,11 +1,13 @@
-import { Player, system } from "@minecraft/server";
+import { Player, system, Entity as mcEntity, MolangVariableMap } from "@minecraft/server";
 import { CreateObject, Entity, SkillLib } from "../../ZxraLib/module";
 import { slayerLostHPPercentation, uniqueWeaponData } from "../module";
 
 class Kyle {
   static pasif1(user: Player): void {}
 
-  static skill1(user: Player, { sp, vel, velocity }: SkillLib): void {
+  static pasif2(user: Player): void {}
+
+  static skill1(user: Player, { sp, vel, velocity, multiplier }: SkillLib): void {
     const data = sp.getSp().weapons.find((e) => e.weapon === "kyles") || uniqueWeaponData.kyles,
       skill = data.skillLvl[0],
       hp = user.getComponent("health");
@@ -27,7 +29,8 @@ class Kyle {
             data.atk * skill.find((e) => e.name === "atk_percentage").value +
               (hp?.effectiveMax || 20) *
                 skill.find((e) => e.name === "health_percentage").value *
-                slayerLostHPPercentation(user)
+                slayerLostHPPercentation(user) *
+                (multiplier || 1)
           ),
           {
             cause: "entityAttack",
@@ -41,7 +44,7 @@ class Kyle {
     }, 15);
   }
 
-  static skill1Up(user: Player, { sp }: SkillLib): void {
+  static skill1Up(user: Player, { sp, multiplier }: SkillLib): void {
     const data = sp.getSp().weapons.find((e) => e.weapon === "kyles") || uniqueWeaponData.kyles,
       pasif = data.pasifLvl[0].find((e) => e.name === "zelxt_mode_multiplier").value,
       skill = data.skillLvl[0],
@@ -68,7 +71,8 @@ class Kyle {
               (hp?.effectiveMax || 20) *
                 skill.find((e) => e.name === "zelxt_health_percentage").value *
                 slayerLostHPPercentation(user) *
-                pasif,
+                pasif *
+                (multiplier || 1),
             {
               cause: "void",
               damagingEntity: user,
@@ -81,7 +85,7 @@ class Kyle {
           sp.knockback(CreateObject.createVelocityPlayer(user), -3.2, 0);
 
           system.runTimeout(() => {
-            sp.knockback(CreateObject.createVelocityPlayer(user), 5.5, 0);
+            sp.knockback(CreateObject.createVelocityPlayer(user), 5, 0);
             sp.source.triggerEvent("cz:immune_300ms");
 
             const second = sp.getEntityFromDistance(5.9);
@@ -92,7 +96,8 @@ class Kyle {
                   (hp?.effectiveMax || 20) *
                     skill.find((e) => e.name === "zelxt_health_percentage").value *
                     slayerLostHPPercentation(user) *
-                    pasif,
+                    pasif *
+                    (multiplier || 1),
                 {
                   cause: "void",
                   damagingEntity: user,
@@ -108,7 +113,7 @@ class Kyle {
     }, 13);
   }
 
-  static skill2(user: Player, { sp, useDuration }: SkillLib): void {
+  static skill2(user: Player, { sp, useDuration, multiplier }: SkillLib): void {
     const data = sp.getSp().weapons.find((e) => e.weapon === "kyles") || uniqueWeaponData.kyles,
       skill = data.skillLvl[1],
       hp = user.getComponent("health");
@@ -124,9 +129,173 @@ class Kyle {
       sp.knockback(CreateObject.createVelocityPlayer(user), 1 * (10 - (useDuration || 10)) + 1.3, 0);
 
       system.runTimeout(() => {
+        const target = sp.getEntityFromDistanceCone(4, 90);
+
+        target.forEach((e: mcEntity) => {
+          new Entity(e).addDamage(
+            data.atk * skill.find((e) => e.name === "atk_percentage").value +
+              (hp?.effectiveMax || 20) *
+                skill.find((e) => e.name === "zelxt_health_percentage").value *
+                slayerLostHPPercentation(user) *
+                (multiplier || 1),
+            {
+              cause: "entityAttack",
+              damagingEntity: user,
+              rune: sp.rune.getRuneStat(),
+            }
+          );
+        });
+
+        if (target.length > 0) sp.consumeHp(0.5, hp, "kyle");
+
         sp.source.clearVelocity();
       }, 4);
-    }, 14);
+    }, 13);
+  }
+
+  static skill2Up(user: Player, { sp, multiplier }: SkillLib): void {
+    const data = sp.getSp().weapons.find((e) => e.weapon === "kyles") || uniqueWeaponData.kyles,
+      pasif = data.pasifLvl[0].find((e) => e.name === "zelxt_mode_multiplier").value,
+      skill = data.skillLvl[1],
+      hp = user.getComponent("health");
+
+    const location = sp.getLocationInFront(7);
+    location.y += 0.5;
+
+    if (!sp.cooldown.canSkill("kyle_skill2", skill.find((e) => e.name === "zelxt_cooldown").value || 8)) return;
+    sp.playAnim("animation.weapon.kyles.skill2.up");
+
+    sp.bind(1.3);
+    sp.minStamina(skill.find((e) => e.name === "zelxt_stamina").value || 12);
+    sp.source.triggerEvent("cz:immune_300ms");
+
+    sp.cooldown.setIsSkill(0.5);
+
+    system.runTimeout(() => {
+      user.teleport(location, { checkForBlocks: true });
+
+      const target = sp.getEntityWithinRadius(3);
+
+      target.forEach((e) => {
+        if (!e) return;
+        new Entity(e).addDamage(
+          data.atk * skill.find((e) => e.name === "zelxt_atk_percentage").value +
+            (hp?.effectiveMax || 20) *
+              skill.find((e) => e.name === "zelxt_health_percentage").value *
+              slayerLostHPPercentation(user) *
+              pasif *
+              (multiplier || 1),
+          {
+            cause: "void",
+            damagingEntity: user,
+            rune: sp.rune.getRuneStat(),
+          }
+        );
+      });
+
+      if (target.length > 0) sp.consumeHp(0.6, hp, "kyle");
+    }, 10);
+  }
+
+  static skill3(user: Player, { sp, multiplier }: SkillLib): void {
+    const data = sp.getSp().weapons.find((e) => e.weapon === "kyles") || uniqueWeaponData.kyles,
+      skill = data.skillLvl[2],
+      hp = user.getComponent("health");
+
+    if (!skill) return;
+
+    if (!sp.cooldown.canSkill("kyle_skill3", skill.find((e) => e.name === "cooldown").value || 8)) return;
+    sp.playAnim("animation.weapon.kyles.skill3");
+
+    sp.bind(1.2);
+    sp.minStamina(skill.find((e) => e.name === "stamina").value || 12);
+
+    sp.knockback(CreateObject.createVelocityPlayer(user), 0, 0.2);
+    sp.addEffect({ name: "slow_falling", duration: 0.6, amplifier: 1, showParticles: false });
+
+    sp.source.triggerEvent("cz:immune_300ms");
+    sp.cooldown.setIsSkill(0.7);
+    system.runTimeout(() => {
+      sp.knockback(CreateObject.createVelocityPlayer(user), 0, 0.6);
+
+      const target = sp.getEntityFromDistanceCone(3);
+
+      target.forEach((e) => {
+        if (!e) return;
+        new Entity(e).addDamage(
+          data.atk +
+            (hp?.effectiveMax || 20) *
+              skill.find((e) => e.name === "zelxt_health_percentage").value *
+              slayerLostHPPercentation(user) *
+              (multiplier || 1),
+          {
+            cause: "entityAttack",
+            damagingEntity: user,
+            rune: sp.rune.getRuneStat(),
+          }
+        );
+      });
+
+      if (target.length > 0) sp.consumeHp(0.5, hp, "kyle");
+    }, 10);
+  }
+
+  static skill3Up(user: Player, { sp, multiplier }: SkillLib): void {
+    const data = sp.getSp().weapons.find((e) => e.weapon === "kyles") || uniqueWeaponData.kyles,
+      pasif = data.pasifLvl[0].find((e) => e.name === "zelxt_mode_multiplier").value,
+      skill = data.skillLvl[2],
+      hp = user.getComponent("health"),
+      stack = sp.status.getStatus({ name: "zelxt_point" })[0]?.lvl || 0;
+
+    if (!skill) return;
+
+    if (!sp.cooldown.canSkill("kyle_skill3", skill.find((e) => e.name === "zelxt_cooldown").value || 8)) return;
+    sp.playAnim("animation.weapon.kyles.skill3.up");
+
+    sp.bind(2.5);
+    sp.minStamina(skill.find((e) => e.name === "zelxt_stamina").value || 12);
+
+    sp.knockback(CreateObject.createVelocityPlayer(user), 0, 1.2);
+    sp.addEffect({ name: "slow_falling", duration: 1.2, amplifier: 1, showParticles: false });
+
+    sp.cooldown.setIsSkill(1.1);
+
+    system.runTimeout(() => {
+      sp.knockback(CreateObject.createVelocityPlayer(user), 0, -6.2);
+      sp.source.triggerEvent("cz:immune_300ms");
+
+      system.runTimeout(() => {
+        const target = sp.getEntityWithinRadius(4);
+
+        target.forEach((e) => {
+          if (!e) return;
+          new Entity(e).addDamage(
+            data.atk +
+              (hp?.effectiveMax || 20) *
+                skill.find((e) => e.name === "zelxt_health_percentage").value *
+                slayerLostHPPercentation(user) *
+                pasif *
+                (1 + stack / 200) *
+                (multiplier || 1),
+            {
+              cause: "void",
+              damagingEntity: user,
+              rune: sp.rune.getRuneStat(),
+            }
+          );
+        });
+
+        sp.status.removeStatus("zelxt_point");
+
+        system.runTimeout(() => {
+          const molang = new MolangVariableMap();
+          molang.setFloat("radius", 10);
+          molang.setFloat("total_particle", 220);
+
+          sp.particles({ particle: "cz:impact_p", location: user.location, molang });
+        }, 4);
+      }, 3);
+    }, 20);
   }
 
   static skillSpecial(user: Player, { sp }: SkillLib): void {
@@ -140,11 +309,14 @@ class Kyle {
       skill = data.skillLvl[3],
       hp = user.getComponent("health");
 
-    user.runCommand(`camera @s set minecraft:free ease 0.2 in_bounce pos ^-1.2^0.4^-0.5 facing @s`);
+    let loc = sp.getLocationInFront(2);
+
+    user.runCommand(`camera @s set minecraft:free ease 0.2 in_bounce pos ${loc.x} ${loc.y + 1} ${loc.z} facing @s`);
 
     system.runTimeout(() => {
-      user.runCommand(`camera @s set minecraft:free ease 0.2 in_bounce pos ^-0.4^1.7^0.1 facing @s`);
-      user.runCommand(`summon cz:particles ~ ~ ~ ~ ~ cz:impact_particle `);
+      loc = sp.getLocationInFront(2.5);
+      user.runCommand(`camera @s set minecraft:free ease 0.2 in_bounce pos ${loc.x} ${loc.y + 1.3} ${loc.z} facing @s`);
+      user.triggerEvent("cz:zelxt_mode_on");
 
       sp.status.minStatusLvl("zelxt_point", 100);
       sp.status.addStatus("zelxt_mode", 1, {

@@ -18,8 +18,8 @@ export const uniqueWeaponData = {
 
         { name: "atk_percentage", value: 4 },
         { name: "health_percentage", value: 0.4 },
-        { name: "zelxt_atk_percentage", value: 6 },
-        { name: "zelxt_health_percentage", value: 0.5 },
+        { name: "zelxt_atk_percentage", value: 4 },
+        { name: "zelxt_health_percentage", value: 0.4 },
       ],
       [
         { name: "stamina", value: 14 },

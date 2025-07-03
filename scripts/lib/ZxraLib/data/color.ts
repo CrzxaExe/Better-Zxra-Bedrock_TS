@@ -36,3 +36,10 @@ export const damageColor = {
   void: "§l__",
   wither: "§9",
 };
+
+export const rarityColor = {
+  unique: "§2",
+  epic: "§5§l",
+  legend: "§e",
+  rare: "§d",
+};

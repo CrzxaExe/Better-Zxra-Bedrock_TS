@@ -6,7 +6,7 @@
 
 export const ZxraLib: { packVersion: string; version: string } = {
   packVersion: "1.4.1",
-  version: "1.1.5ts",
+  version: "1.1.6ts",
 };
 
 // Class export
@@ -30,8 +30,10 @@ export { Status } from "./class/Status";
 export { Terra } from "./class/Terra";
 
 // Data export
-export { damageColor } from "./data/color";
+export { damageColor, rarityColor } from "./data/color";
+export { RUNE_GACHA_PRICE, WEAPON_GACHA_PRICE } from "./data/constant";
 export { NOT_ALLOWED_ENTITY_TICK, NOT_VALID_ENTITY } from "./data/entityFilters";
+export { npcFile } from "./data/npc";
 export { questIndex } from "./data/quest";
 export { defaultEntity, defaultPity, defaultRuneStat, defaultSpecialist } from "./data/raw";
 export { runeList } from "./data/rune";
@@ -39,8 +41,14 @@ export { settings } from "./data/setting";
 
 // Enums export
 export { BzbEntity } from "./enum/entity";
-export { StatusDecay, StatusTypes } from "./enum/status";
+export { StatusDecay, StatusDecayEnum, StatusTypes } from "./enum/status";
 export { WeaponTypes } from "./enum/weaponTypes";
+
+// Function export
+export { durabilityControl } from "./function/durabilityControl";
+
+// NPC Models export
+export { Yuri } from "./npc/models/Yuri";
 
 // Types export
 export type {
@@ -80,6 +88,7 @@ export type {
   RedeemRewards,
   RuneStats,
   Scripts,
+  ScriptParams,
   Setting,
   SettingRules,
   SettingStarterItem,
@@ -97,7 +106,8 @@ export type {
   WeaponStat,
   WorldData,
 } from "./types/lib";
-export type { BlockRegisterData } from "./types/registry";
+export type { NPC, NpcModels, NpcData, YuriConst, YuriData, YuriModels } from "./types/npc";
+export type { BlockRegisterData, ItemRegisterData } from "./types/registry";
 export type {
   SpecialistComponent,
   SpecialistData,
@@ -111,4 +121,13 @@ export type {
 // UI exports
 export { UserPanel } from "./ui/user";
 
+/*
+ *   Imports
+ */
+
+// Script imports
+import "./scriptEvents/index";
+
+// Registry imports
 import "./registry/blocks/all";
+import "./registry/items/tools";

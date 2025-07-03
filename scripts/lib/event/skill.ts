@@ -18,6 +18,11 @@ world.afterEvents.itemReleaseUse.subscribe(async ({ itemStack, source, useDurati
       vel,
       velocity: CreateObject.createVelocityPlayer(source),
       useDuration: useDuration / 20,
+      multiplier: sp.status.decimalCalcStatus(
+        { type: "skill" },
+        sp.status.decimalCalcStatus({ type: "damage" }, 1, 0.01),
+        0.01
+      ),
     });
   } catch (error: { message: string } | any) {
     console.warn("[System] Error on Event ItemReleaseuse" + error.message);

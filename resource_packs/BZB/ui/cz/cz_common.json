@@ -130,7 +130,7 @@
     "size": ["100%", "100%"],
     "anchor_from": "bottom_middle",
     "anchor_to": "bottom_middle",
-    "offset": [0, "40.7%x - 20px"],
+    "offset": [0, "40.8%x - 20px"],
     "$display|default": "textures/cz/art/yuri/skin/normal",
     "$text_name|default": "",
     "$panel_indent_size|default": ["90% - 16px", "90% - 21px"],
@@ -148,7 +148,7 @@
               "face": {
                 "type": "image",
                 "texture": "$display",
-                "size": ["122%", "122%"],
+                "size": ["117%", "117%"],
                 "layer": 1
               }
             }
@@ -158,19 +158,19 @@
       {
         "common_panel@common.common_panel": {
           "$dialog_background": "$custom_background",
-          "offset": [-30, "29.5%"]
+          "offset": [-30, "29.8%"]
         }
       },
       {
         "title_label@common_dialogs.title_label": {
-          "offset": [-30, "27.5% + 12px"]
+          "offset": [-30, "27.7% + 12px"]
         }
       },
       {
         "panel_indent": {
           "type": "panel",
           "size": "$panel_indent_size",
-          "offset": [-30, "33.5%"],
+          "offset": [-30, "34%"],
           "anchor_from": "top_middle",
           "anchor_to": "top_middle",
           "controls": [{ "inside_header_panel@$child_control": {} }]

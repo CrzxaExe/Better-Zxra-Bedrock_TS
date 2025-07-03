@@ -8,6 +8,7 @@ import {
   questIndex,
   QuestPlayer,
   QuestRewards,
+  QuestTask,
   Terra,
 } from "../module";
 
@@ -123,7 +124,7 @@ class Quest {
 
   // Get raw
   rawReward(quest: QuestData): string {
-    let result: string[] = [];
+    const result: string[] = [];
 
     const isJoinGuild: boolean = Terra.guild.hasJoinGuild(this.in.player);
 
@@ -147,6 +148,17 @@ class Quest {
           result.push(`${amount} x ${Formater.formatName(item)}`);
           break;
       }
+    });
+
+    return result.join("\n");
+  }
+  rawAct(quest: QuestData, playerQuest: QuestPlayer = this.getPlayerQuest()): string {
+    const result: string[] = [];
+
+    quest.task.forEach(({ act, amount, target }: QuestTask, i: number) => {
+      const name = Formater.formatName(target);
+
+      result.push(`- ${name} ${playerQuest.progress[i]}/${quest.task[i]}`);
     });
 
     return result.join("\n");

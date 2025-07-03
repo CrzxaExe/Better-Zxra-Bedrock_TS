@@ -59,11 +59,45 @@ class Rune {
   }
 
   getRuneStat(): RuneStats {
-    const data = defaultRuneStat;
+    // Clone defaultRuneStat to avoid mutating the original and ensure correct typing
+    const data: RuneStats = { ...defaultRuneStat };
 
-    this.sp.getSp().runes.forEach((e) => {});
+    this.getRune().forEach((e) => {
+      const stats = e.stats;
+
+      Object.keys(stats)
+        .filter((a) => !["onKill", "onHit", "onAttacked"].includes(a))
+        .forEach((r) => {
+          const key = r as keyof RuneStats;
+          const value = stats[key];
+          if (typeof value === "number") {
+            data[key] = value as any;
+          }
+        });
+      return;
+    });
 
     return data;
+  }
+  getRuneActiveStat(type: "onKill" | "onHit" | "onAttacked"): Function[] {
+    const data = this.getRune();
+
+    const fn: Function[] = [];
+
+    data.forEach((e) => {
+      const stats = e.stats;
+
+      Object.keys(stats)
+        .filter((a) => ["onKill", "onHit", "onAttacked"].includes(a))
+        .forEach((a) => {
+          if (a !== type) return;
+          if (typeof stats[a] === "function") {
+            fn.push(stats[a]);
+          }
+        });
+    });
+
+    return fn;
   }
 }
 

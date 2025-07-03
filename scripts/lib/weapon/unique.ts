@@ -10,12 +10,16 @@ Weapon.registerSkill("kyles", (user: Player, lib: SkillLib) => {
     Kyle.skillSpecial(user, lib);
   } else if (user.isSneaking) {
     if (lib.sp.status.getStatus({ name: "zelxt_mode" })[0]) {
-      user.sendMessage("Skill 2");
+      Kyle.skill2Up(user, lib);
     } else {
       Kyle.skill2(user, lib);
     }
   } else if (!user.isOnGround) {
-    user.sendMessage("Skill 3");
+    if (lib.sp.status.getStatus({ name: "zelxt_mode" })[0]) {
+      Kyle.skill3Up(user, lib);
+    } else {
+      Kyle.skill3(user, lib);
+    }
   } else {
     if (lib.sp.status.getStatus({ name: "zelxt_mode" })[0]) {
       Kyle.skill1Up(user, lib);

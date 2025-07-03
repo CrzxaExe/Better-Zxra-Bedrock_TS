@@ -6,6 +6,7 @@ import {
   Entity as mcEntity,
   CustomCommandRegistry,
   BlockComponentRegistry,
+  ItemComponentRegistry,
 } from "@minecraft/server";
 import {
   BlockRegister,
@@ -17,6 +18,7 @@ import {
   EntityData,
   Guild,
   GuildData,
+  ItemRegister,
   Leaderboard,
   LeaderboardData,
   PityPlayer,
@@ -93,6 +95,17 @@ class Terra {
 
     register.forEach((e) => registry.registerCustomComponent(e.name, e.callback));
     console.warn(`[System] Load ${register.length} block components`);
+  }
+  static setupItemComponent(registry: ItemComponentRegistry): void {
+    const register = ItemRegister.register;
+
+    if (register.length === 0) {
+      console.warn("[System] No load item components, because empty register");
+      return;
+    }
+
+    register.forEach((e) => registry.registerCustomComponent(e.name, e.callback));
+    console.warn(`[System] Load ${register.length} item components`);
   }
   static save(isEnable: boolean = true): void {
     console.warn("[System] Saving data");
@@ -243,6 +256,8 @@ class Terra {
     this.entities[find] = data;
   }
   static remDataEntity(id: string): EntityData[] | EntityData | undefined {
+    if (!id || id === "") return;
+
     const find = this.entities.findIndex((e) => e.id === id);
 
     if (find === -1) throw new Error("Cannot found id");

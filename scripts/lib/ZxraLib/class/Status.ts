@@ -53,7 +53,7 @@ class Status {
     duration: number = 1,
     {
       type = StatusTypes.None,
-      decay = StatusDecay.Time,
+      decay = "Time",
       stack = false,
       lvl = 1,
     }: { type: StatusTypes | string; decay: StatusDecay | string; stack: boolean; lvl: number }
@@ -82,14 +82,8 @@ class Status {
 
     if (Array.isArray(status)) {
       status.forEach(
-        ({
-          name,
-          duration = 1,
-          type = StatusTypes.None,
-          lvl = 1,
-          decay = StatusDecay.Time,
-          stack = false,
-        }: StatusData) => this.addStatus(name, duration, { type, lvl, decay, stack })
+        ({ name, duration = 1, type = StatusTypes.None, lvl = 1, decay = "Time", stack = false }: StatusData) =>
+          this.addStatus(name, duration, { type, lvl, decay, stack })
       );
       return;
     }
@@ -97,7 +91,7 @@ class Status {
     if (!(status instanceof Object)) throw new Error("Invalid parameter: status must be StatusData[] or StatusData");
     if (!status.name) throw new Error("Missing name on status");
 
-    const { name, duration = 1, type = StatusTypes.None, decay = StatusDecay.Time, lvl = 1, stack = false } = status;
+    const { name, duration = 1, type = StatusTypes.None, decay = "Time", lvl = 1, stack = false } = status;
     this.addStatus(name, duration, { type, lvl, decay, stack });
   }
 

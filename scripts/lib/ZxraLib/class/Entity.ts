@@ -10,12 +10,14 @@ import {
   system,
   Vector3,
   EntityDamageCause,
+  VectorXZ,
 } from "@minecraft/server";
 import {
   Calc,
   defaultRuneStat,
   EffectCreate,
   EntityData,
+  NOT_ALLOWED_ENTITY_TICK,
   NOT_VALID_ENTITY,
   Particle,
   RuneStats,
@@ -25,7 +27,7 @@ import {
 } from "../module";
 
 interface Entity {
-  source: any;
+  source: mcEntity | any;
   id: string;
   family: EntityTypeFamilyComponent;
   status: Status;
@@ -57,7 +59,7 @@ class Entity {
   controllerStatus(): void {
     this.status
       .getData()
-      .filter((e) => e.type === StatusDecay.Time)
+      .filter((e) => e.type === "Time")
       .forEach((e) => this.status.minStatus(e.name, 0.25));
   }
 
@@ -345,8 +347,8 @@ class Entity {
   // Particle Methods
   selfParticle(
     particle: string,
-    location: Vector3 = this.source.location,
-    molang: MolangVariableMap = new MolangVariableMap()
+    location: Vector3 | undefined = this.source.location,
+    molang: MolangVariableMap | undefined = new MolangVariableMap()
   ): void {
     if (!particle) throw new Error("Missing particle");
     this.source.dimension.spawnParticle(particle, location, molang);
@@ -399,13 +401,75 @@ class Entity {
 
     return this.source.getEntitiesFromViewDirection({ maxDistance, excludeNames, excludeTypes: NOT_VALID_ENTITY });
   }
-  getEntityWithinRadius(radius: number = 6): Entity[] {
+  getEntityWithinRadius(radius: number = 6): mcEntity[] {
     let excludeNames: string[] = [];
-    if (this.source instanceof Player) excludeNames = [...Terra.guild.getTeammate(this.source)];
+    if (this.source.typeId === "minecraft:player") excludeNames = [...Terra.guild.getTeammate(this.source)];
 
-    return this.source.dimension
-      .getEntities({ maxDistance: radius, excludeNames })
-      .filter((e: Entity) => e.id !== this.source.id);
+    return this.source.dimension.getEntities({
+      maxDistance: radius,
+      excludeNames,
+      minDistance: 0,
+      location: this.source.location,
+      excludeTypes: NOT_ALLOWED_ENTITY_TICK,
+    });
+  }
+
+  getEntityFromDistanceCone(maxDistance: number = 6, fov: number = 60): mcEntity[] {
+    const entities = this.getEntityWithinRadius(maxDistance);
+
+    const origin = this.source.location;
+    const rotationY = this.source.getRotation().y;
+
+    const halfFovRad = (fov / 2) * (Math.PI / 180);
+
+    const rad = (rotationY * Math.PI) / 180;
+    const forward = {
+      x: -Math.sin(rad),
+      z: Math.cos(rad),
+    };
+
+    return entities.filter((e) => {
+      if (!e.location) return false;
+      const dx = e.location.x - origin.x;
+      const dz = e.location.z - origin.z;
+      const length = Math.sqrt(dx * dx + dz * dz);
+      if (length === 0) return false;
+
+      const dir = { x: dx / length, z: dz / length };
+
+      const dot = forward.x * dir.x + forward.z * dir.z;
+
+      const angle = Math.acos(dot);
+
+      // console.warn(e.typeId, angle, halfFovRad, rotationY);
+      return angle <= halfFovRad;
+    });
+  }
+
+  getLocationInFront(distance: number = 6): Vector3 {
+    const entity = this.getEntityFromDistance(distance);
+
+    if (entity.length > 0) return entity[0].entity.location;
+
+    const block = this.source.getBlockFromViewDirection({ maxDistance: distance })?.block;
+
+    if (block) return block.location;
+
+    const origin = this.source.location;
+    const yaw = (this.source.getRotation().y * Math.PI) / 180;
+    const pitch = (this.source.getRotation().x * Math.PI) / 180;
+
+    const forward = {
+      x: -Math.sin(yaw) * Math.cos(pitch),
+      y: Math.sin(pitch),
+      z: Math.cos(yaw) * Math.cos(pitch),
+    };
+
+    return {
+      x: origin.x + forward.x * distance,
+      y: origin.y + forward.y * distance,
+      z: origin.z + forward.z * distance,
+    };
   }
 
   // Refresh Methods

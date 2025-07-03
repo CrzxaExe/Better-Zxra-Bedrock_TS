@@ -108,7 +108,9 @@ class Specialist extends Entity {
 
     this.source.onScreenDisplay.setTitle(
       `cz:ui ${this.source.name}
-(${((level.xp / Calc.specialistLevelUp(level.current || 0)) * 100).toFixed(1)}) ${level.xp} XP ${level.current} < [SP]
+(${((level.xp / Calc.specialistLevelUp(level.current || 0)) * 100).toFixed(1)}) ${level.xp.toFixed(2)} XP ${
+        level.current
+      } < [SP]
 
 §a$${money}§r§f | §b§l${voxn} Voxn§r§f
  
@@ -127,6 +129,7 @@ ${
   // Data methods
   getSp(): SpecialistData {
     const data = Terra.getSpecialist(this.source.id);
+    // console.warn(this.id, JSON.stringify(data?.stamina));
 
     if (!data) return CreateObject.createSpecialist(this.source);
     return data;

@@ -1,8 +1,10 @@
-export enum StatusDecay {
-  Time = "time",
-  None = "none",
-  Stack = "stack",
-}
+export const StatusDecayEnum = {
+  Time: "time",
+  None: "none",
+  Stack: "stack",
+} as const;
+
+export type StatusDecay = ObjectValues<typeof StatusDecayEnum>;
 
 export enum StatusTypes {
   ArtFragile = "art_fragile",

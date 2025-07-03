@@ -162,7 +162,7 @@
           "blend_transition": 0.25,
           "transitions": [
             {
-              "open": "q.is_using_item > 0"
+              "open": "query.skin_id == 4"
             }
           ]
         },
@@ -171,7 +171,7 @@
           "animations": ["opened"],
           "transitions": [
             {
-              "default": "q.is_using_item < 0.1"
+              "default": "q.skin_id != 4"
             }
           ]
         }

@@ -12,6 +12,8 @@ world.afterEvents.playerJoin.subscribe((event: PlayerJoinAfterEvent) => {});
 
 // Player Spawn event
 world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }: PlayerSpawnAfterEvent) => {
+  player.triggerEvent("cz:zelxt_mode_off");
+
   const sp = Terra.getSpecialistCache(player);
   if (initialSpawn) {
     Terra.setPlayer(world.getAllPlayers());

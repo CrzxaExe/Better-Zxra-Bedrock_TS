@@ -7,6 +7,7 @@ import "./lib/event/entityAction";
 import "./lib/event/entityActivity";
 import "./lib/event/playerJoinAndLeave";
 import "./lib/event/skill";
+import "./lib/event/scriptEvent";
 import "./lib/event/worldInitialize";
 
 // Custom Command
@@ -55,6 +56,8 @@ function mainTick(): void {
           new Entity(e).controllerStatus();
         });
       });
+
+      // console.warn(JSON.stringify(Terra.specialist));
     }
 
     // Save Intervals

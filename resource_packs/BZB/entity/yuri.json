@@ -18,11 +18,7 @@
           "variable.tcos0 = (Math.cos(query.modified_distance_moved * 38.17) * query.modified_move_speed / variable.gliding_speed_value) * 57.3;",
           "variable.running = q.ground_speed > 0.3;"
         ],
-        "animate": [
-          "tail_controller",
-          "root",
-          "look_at_target_default"
-        ]
+        "animate": ["tail_controller", "root", "ears_controller", "look_at_target_default"]
       },
       "animations": {
         "look_at_target_default": "animation.yuri.looking",
@@ -49,15 +45,14 @@
         "root": "controller.animation.yuri.root",
         "ears_controller": "controller.animation.yuri.ears",
         "ears_idle": "animation.yuri.ears.idle",
-        "ears_interest": "animation.yuri.ears.interest"
+        "ears_interest": "animation.yuri.ears.interest",
+        "ears_wingle": "animation.yuri.ears.wingle"
       },
       "spawn_egg": {
         "texture": "spawn_egg",
         "texture_index": 0
       },
-      "render_controllers": [
-        "controller.render.yuri"
-      ],
+      "render_controllers": ["controller.render.yuri"],
       "enable_attachables": true
     }
   }

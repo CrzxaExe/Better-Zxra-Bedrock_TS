@@ -9,6 +9,7 @@
       },
       "textures": {
         "default": "textures/entity/kyle",
+        "active": "textures/entity/kyle_zelxt",
         "enchanted": "textures/misc/enchanted_item_glint"
       },
       "geometry": {
@@ -33,7 +34,7 @@
           "model_controller"
         ]
       },
-      "render_controllers": ["controller.render.default"]
+      "render_controllers": ["controller.render.weapon.kyle"]
     }
   }
 }

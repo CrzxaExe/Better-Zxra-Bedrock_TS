@@ -41,6 +41,13 @@ class Chat {
     const sp = Terra.getSpecialistCache(sender),
       data = sp.getSp();
 
+    const gamemode: string = {
+      Adventure: "AD",
+      Creative: "CE",
+      Survival: "SE",
+      Spectator: "SP",
+    }[sender.getGameMode()];
+
     world.sendMessage({
       text: format
         .replace("%msg", message)
@@ -48,7 +55,8 @@ class Chat {
         .replace("%lvl", String(sender.level))
         .replace("%title", data.title !== "" ? data.title : "")
         .replace("%guild", Formater.formatGuild(Terra.guild.getGuildByPlayer(sender)))
-        .replace("%splvl", String(data.level.current)),
+        .replace("%splvl", String(data.level.current))
+        .replace("%gm", gamemode),
     });
   }
 }
