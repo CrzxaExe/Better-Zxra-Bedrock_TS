@@ -11,4 +11,5 @@ export { uniqueWeaponData } from "./data/unique";
 export { Kyle } from "./skills/Kyles";
 
 // Traits exports
+export { Reaper } from "./traits/reaper";
 export { slayerLostHPPercentation } from "./traits/slayer";

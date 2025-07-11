@@ -62,7 +62,7 @@
         "triggers": [
           {
             "cause": "fall",
-            "deals_damage": false
+            "deals_damage": "no"
           },
           {
             "cause": "fire",
@@ -144,11 +144,10 @@
         "priority": 3,
         "max_dist": 3,
         "speed_multiplier": 1,
-        "random_stop_interval": 2.0,
+        "random_stop_interval": 2,
         "track_target": true
       },
       "minecraft:shooter": {
-        "type": "smallfireball",
         "def": "minecraft:small_fireball"
       },
       "minecraft:behavior.ranged_attack": {
@@ -169,11 +168,7 @@
         "priority": 6
       },
       "minecraft:type_family": {
-        "family": [
-          "blaze",
-          "monster",
-          "mob"
-        ]
+        "family": ["blaze", "monster", "mob"]
       },
       "minecraft:physics": {},
       "minecraft:pushable": {
@@ -201,40 +196,28 @@
     "events": {
       "cz:mob_ability_on": {
         "add": {
-          "component_groups": [
-            "has_ability"
-          ]
+          "component_groups": ["has_ability"]
         }
       },
       "cz:mob_ability_off": {
         "remove": {
-          "component_groups": [
-            "has_ability"
-          ]
+          "component_groups": ["has_ability"]
         }
       },
       "cz:ability_off": {
         "remove": {
-          "component_groups": [
-            "ability"
-          ]
+          "component_groups": ["ability"]
         },
         "add": {
-          "component_groups": [
-            "has_ability"
-          ]
+          "component_groups": ["has_ability"]
         }
       },
       "cz:ability_on": {
         "add": {
-          "component_groups": [
-            "ability"
-          ]
+          "component_groups": ["ability"]
         },
         "remove": {
-          "component_groups": [
-            "has_ability"
-          ]
+          "component_groups": ["has_ability"]
         }
       }
     }

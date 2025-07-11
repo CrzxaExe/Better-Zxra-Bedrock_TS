@@ -115,7 +115,7 @@
                 "text": "#text",
                 "font_type": "smooth",
                 "text_alignment": "right",
-                "font_scale_factor": 0.76,
+                "font_scale_factor": 0.92,
                 "localize": false,
                 "anchor_from": "top_right",
                 "anchor_to": "top_right",

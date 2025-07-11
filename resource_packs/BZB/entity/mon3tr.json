@@ -1,0 +1,35 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "cz:mon3tr",
+      "materials": {
+        "default": "skeleton"
+      },
+      "textures": {
+        "default": "textures/entity/mon3tr"
+      },
+      "geometry": {
+        "default": "geometry.mon3tr"
+      },
+      "scripts": {
+        "pre_animation": [
+          "variable.tcos0 = (Math.cos(query.modified_distance_moved * 38.17) * query.modified_move_speed / variable.gliding_speed_value) * 57.3;"
+        ],
+        "animate": ["root"]
+      },
+      "animations": {
+        "look": "animation.mont3r.look",
+        "idle": "animation.mont3r.idle",
+        "fly": "animation.mon3tr.fly",
+        "root": "controller.animation.mon3tr"
+      },
+      "spawn_egg": {
+        "texture": "cz:angel",
+        "texture_index": 0
+      },
+      "render_controllers": ["controller.render.skeleton"],
+      "enable_attachables": true
+    }
+  }
+}

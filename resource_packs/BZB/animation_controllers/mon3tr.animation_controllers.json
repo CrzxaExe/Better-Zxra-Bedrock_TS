@@ -1,0 +1,12 @@
+{
+	"format_version": "1.19.0",
+	"animation_controllers": {
+		"controller.animation.mon3tr": {
+			"states": {
+				"default": {
+					"animations": ["idle", "fly", "look"]
+				}
+			}
+		}
+	}
+}

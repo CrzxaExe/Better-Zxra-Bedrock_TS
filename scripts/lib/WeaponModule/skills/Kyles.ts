@@ -288,12 +288,14 @@ class Kyle {
         sp.status.removeStatus("zelxt_point");
 
         system.runTimeout(() => {
-          const molang = new MolangVariableMap();
-          molang.setFloat("radius", 10);
-          molang.setFloat("total_particle", 220);
+          // sp.spawnParticle("cz:particles", "cz:shockwave_particle");
 
-          sp.particles({ particle: "cz:impact_p", location: user.location, molang });
-        }, 4);
+          sp.particles({
+            particle: "cz:shockwave",
+            location: { ...user.location, y: user.location.y + 0.01 },
+            molang: new MolangVariableMap(),
+          });
+        }, 3);
       }, 3);
     }, 20);
   }

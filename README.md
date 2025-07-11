@@ -23,7 +23,7 @@ Progress Rewrite:
 
 - Content: 5.6%
 - System: 62.4%
-- Ui: 36%
+- Ui: 36.5%
 
 Features:
 
@@ -49,3 +49,7 @@ Features:
 - Shop
 - Stater Item
 - Support (Indonesia, English US) Language
+
+# Docs
+
+[Weapon](./docs/weapon.md)

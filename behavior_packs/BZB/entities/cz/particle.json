@@ -16,41 +16,39 @@
         "value": 0
       },
       "minecraft:fire_immune": true,
+      "minecraft:behavior.float": {},
       "minecraft:physics": {},
       "minecraft:conditional_bandwidth_optimization": {},
       "minecraft:damage_sensor": {
         "triggers": {
           "cause": "all",
-          "deals_damage": false
+          "deals_damage": "no"
         }
       },
       "minecraft:type_family": {
-        "family": [
-          "data"
-        ]
+        "family": ["data"]
       }
     },
     "events": {
       "minecraft:entity_spawned": {},
       "cz:impact_particle": {
         "add": {
-          "component_groups": [
-            "impact"
-          ]
+          "component_groups": ["impact"]
         }
       },
       "cz:liberator_swing_particle": {
         "add": {
-          "component_groups": [
-            "liberator_swing"
-          ]
+          "component_groups": ["liberator_swing"]
+        }
+      },
+      "cz:shockwave_particle": {
+        "add": {
+          "component_groups": ["shockwave"]
         }
       },
       "minecraft:despawn": {
         "add": {
-          "component_groups": [
-            "despawn"
-          ]
+          "component_groups": ["despawn"]
         }
       }
     },
@@ -76,6 +74,24 @@
         },
         "minecraft:timer": {
           "time": 0.25,
+          "looping": false,
+          "time_down_event": {
+            "event": "minecraft:despawn"
+          }
+        },
+        "minecraft:skin_id": {
+          "value": 0
+        }
+      },
+      "shockwave": {
+        "minecraft:variant": {
+          "value": 2
+        },
+        "minecraft:scale": {
+          "value": 3
+        },
+        "minecraft:timer": {
+          "time": 0.634,
           "looping": false,
           "time_down_event": {
             "event": "minecraft:despawn"

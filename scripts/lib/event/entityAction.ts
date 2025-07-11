@@ -1,4 +1,11 @@
-import { EntityDieAfterEvent, EntityHitBlockAfterEvent, EntityHurtAfterEvent, Player, world } from "@minecraft/server";
+import {
+  EntityDieAfterEvent,
+  EntityHealthChangedAfterEvent,
+  EntityHitBlockAfterEvent,
+  EntityHurtAfterEvent,
+  Player,
+  world,
+} from "@minecraft/server";
 import { damageColor, Formater, Quest, Terra, Weapon } from "../ZxraLib/module";
 
 // Entity Killed event
@@ -17,6 +24,10 @@ world.afterEvents.entityDie.subscribe(
         sp.setToMaxThirst();
         sp.resetToMaxStamina();
         sp.minRep(10);
+
+        if (sp.status.hasStatus({ name: "zelxt_mode" })) {
+          deadEntity.triggerEvent("cz:zelxt_revive");
+        }
 
         Terra.leaderboard.addLb("deaths", deadEntity.id);
       }
@@ -104,6 +115,15 @@ world.afterEvents.entityHurt.subscribe(
     const item = hurtEntity.getComponent("inventory")?.container?.getItem(hurtEntity.selectedSlotIndex);
     const sp = Terra.getSpecialistCache(hurtEntity);
 
+    console.warn(cause, damage);
+
+    if (
+      (hurtEntity.getComponent("health")?.currentValue || 20) < damage &&
+      sp.status.hasStatus({ name: "zelxt_mode" })
+    ) {
+      hurtEntity.triggerEvent("cz:zelxt_revive");
+    }
+
     sp.cooldown.addCd("stamina_regen", Terra.world.setting?.staminaExhaust || 3);
     sp.minStamina(Terra.world.setting?.staminaAction || 4);
     if (!item || item === undefined || !damagingEntity || damagingEntity === undefined) return;
@@ -148,3 +168,18 @@ world.afterEvents.entityHurt.subscribe(({ hurtEntity, damage, damageSource: { ca
 world.afterEvents.entityHitBlock.subscribe(({ hitBlock }: EntityHitBlockAfterEvent) => {
   console.warn(hitBlock.typeId);
 });
+
+world.afterEvents.entityHealthChanged.subscribe(
+  ({ newValue, oldValue, entity }: EntityHealthChangedAfterEvent) => {
+    if (!(entity instanceof Player)) return;
+
+    // const sp = Terra.getSpecialistCache(entity);
+
+    // if (sp.status.hasStatus({ name: "zelxt_mode" }) && newValue <= 1) {
+    //   entity.triggerEvent("cz:zelxt_revive");
+    // }
+
+    console.warn(oldValue, newValue);
+  },
+  { entityTypes: ["minecraft:player"] }
+);

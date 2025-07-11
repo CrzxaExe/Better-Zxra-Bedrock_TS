@@ -1,0 +1,60 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "cz:mon3tr",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "components": {
+      "minecraft:experience_reward": {
+        "on_death": "query.last_hit_by_player ? 20 + (query.equipment_count * Math.Random(10,30)) : 0"
+      },
+      "minecraft:nameable": {},
+      "minecraft:breathable": {
+        "total_supply": 15,
+        "suffocate_time": 0,
+        "breathes_water": true
+      },
+      "minecraft:health": {
+        "value": 6000,
+        "max": 6000
+      },
+      "minecraft:collision_box": {
+        "width": 0.72,
+        "height": 2.01
+      },
+      "minecraft:movement": {
+        "value": 0.17
+      },
+      "minecraft:navigation.walk": {
+        "is_amphibious": true,
+        "avoid_sun": false,
+        "avoid_water": true
+      },
+      "minecraft:movement.basic": {},
+      "minecraft:jump.static": {},
+      "minecraft:can_climb": {},
+      "minecraft:fire_immune": true,
+      "minecraft:physics": {},
+      "minecraft:pushable": {
+        "is_pushable": true,
+        "is_pushable_by_piston": true
+      },
+      "minecraft:knockback_resistance": {
+        "value": 0.86
+      },
+      "minecraft:type_family": {
+        "family": ["mon3tr", "kaltsit"]
+      },
+      "minecraft:scale": {
+        "value": 5.65
+      },
+      "minecraft:conditional_bandwidth_optimization": {}
+    },
+    "events": {
+      "minecraft:entity_spawned": {}
+    }
+  }
+}

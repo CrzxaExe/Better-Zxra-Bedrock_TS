@@ -49,7 +49,7 @@
       "liberator": {
         "minecraft:damage_sensor": {
           "triggers": {
-            "deals_damage": false,
+            "deals_damage": "no",
             "cause": "all"
           }
         },
@@ -67,15 +67,63 @@
           "value": 1
         }
       },
-      "zelxt_mode": {
+      "zelxt_mode_var": {
         "minecraft:skin_id": {
           "value": 4
+        }
+      },
+      "zelxt_mode": {
+        "minecraft:health": {
+          "min": 1
+        },
+        "minecraft:damage_sensor": {
+          "triggers": [
+            {
+              "deals_damage": "no",
+              "cause": "all",
+              "on_damage": {
+                "event": "cz:zelxt_revive",
+                "filters": [
+                  {
+                    "any_of": [
+                      {
+                        "test": "has_damage",
+                        "value": "fatal"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "zelxt_immune": {
+        "minecraft:damage_sensor": {
+          "triggers": [
+            {
+              "cause": "all",
+              "deals_damage": "no"
+            }
+          ]
+        },
+        "minecraft:timer": {
+          "time": 4,
+          "time_down_event": {
+            "event": "cz:zelxt_mode_off",
+            "target": "self"
+          }
+        }
+      },
+      "normal_min_hp": {
+        "minecraft:health": {
+          "min": -1000
         }
       },
       "immune_300ms": {
         "minecraft:damage_sensor": {
           "triggers": {
-            "deals_damage": false,
+            "deals_damage": "no",
             "cause": "all"
           }
         },
@@ -214,7 +262,7 @@
         },
         "minecraft:damage_sensor": {
           "triggers": {
-            "deals_damage": false,
+            "deals_damage": "no",
             "on_damage": {
               "filters": {
                 "test": "has_damage",
@@ -239,7 +287,7 @@
         },
         "minecraft:damage_sensor": {
           "triggers": {
-            "deals_damage": false,
+            "deals_damage": "no",
             "on_damage": {
               "filters": {
                 "test": "has_damage",
@@ -260,7 +308,7 @@
         },
         "minecraft:damage_sensor": {
           "triggers": {
-            "deals_damage": false,
+            "deals_damage": "no",
             "on_damage": {
               "filters": {
                 "test": "has_damage",
@@ -303,7 +351,7 @@
         },
         "minecraft:damage_sensor": {
           "triggers": {
-            "deals_damage": false,
+            "deals_damage": "no",
             "on_damage": {
               "event": "cz:mudrock_shield_break",
               "filters": {
@@ -714,18 +762,29 @@
       },
       "cz:zelxt_mode_on": {
         "add": {
-          "component_groups": ["zelxt_mode"]
+          "component_groups": ["zelxt_mode_var", "zelxt_mode"]
         },
         "remove": {
-          "component_groups": ["no_variant"]
+          "component_groups": ["no_variant", "normal_min_hp"]
+        }
+      },
+      "cz:zelxt_revive": {
+        "add": {
+          "component_groups": ["zelxt_immune"]
+        },
+        "remove": {
+          "component_groups": ["zelxt_mode"]
+        },
+        "queue_command": {
+          "command": ["scriptevent cz:zelxt_revive"]
         }
       },
       "cz:zelxt_mode_off": {
         "remove": {
-          "component_groups": ["zelxt_mode"]
+          "component_groups": ["zelxt_mode_var", "zelxt_immune"]
         },
         "add": {
-          "component_groups": ["no_variant"]
+          "component_groups": ["no_variant", "normal_min_hp"]
         }
       }
     }

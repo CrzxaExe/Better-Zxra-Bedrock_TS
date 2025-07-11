@@ -5,32 +5,48 @@
 			"states": {
 				"default": {
 					"transitions": [
-						{"look_player": "q.has_target"},
-						{"searching": "q.is_searching"},
-						{"sit": "q.is_sitting"}
+						{
+							"look_player": "q.has_target"
+						},
+						{
+							"searching": "q.is_searching"
+						},
+						{
+							"sit": "q.is_sitting"
+						}
 					],
 					"blend_transition": 0.35
 				},
 				"look_player": {
 					"animations": ["player"],
 					"transitions": [
-						{"default": "!q.has_target"},
-						{"searching": "q.is_searching"}
+						{
+							"default": "!q.has_target"
+						},
+						{
+							"searching": "q.is_searching"
+						}
 					],
 					"blend_transition": 0.35
 				},
 				"searching": {
 					"animations": ["searching"],
 					"transitions": [
-						{"default": "!q.is_searching"},
-						{"look_player": "q.has_target"}
+						{
+							"default": "!q.is_searching"
+						},
+						{
+							"look_player": "q.has_target"
+						}
 					],
 					"blend_transition": 0.35
 				},
 				"sit": {
 					"animations": ["sit"],
 					"transitions": [
-						{"default": "!q.is_sitting"}
+						{
+							"default": "!q.is_sitting"
+						}
 					],
 					"blend_transition": 0.35
 				}
@@ -41,15 +57,31 @@
 				"default": {
 					"animations": ["tail_idle"],
 					"transitions": [
-						{"walk": "q.is_moving"}
+						{
+							"walk": "q.is_moving"
+						},
+						{
+							"idle_speed": "q.state_time > 6"
+						}
 					],
-					"blend_transition": 0.35,
-					"blend_via_shortest_path": true
+					"blend_transition": 0.35
 				},
 				"walk": {
 					"animations": ["tail_walk"],
 					"transitions": [
-						{"default": "!q.is_moving"}
+						{
+							"default": "!q.is_moving"
+						}
+					],
+					"blend_transition": 0.35,
+					"blend_via_shortest_path": true
+				},
+				"idle_speed": {
+					"animations": ["tail_run"],
+					"transitions": [
+						{
+							"default": "q.any_animation_finished"
+						}
 					],
 					"blend_transition": 0.35,
 					"blend_via_shortest_path": true
@@ -61,7 +93,9 @@
 				"wingle": {
 					"animations": ["ears_wingle"],
 					"transitions": [
-						{"default": "q.any_animation_finished"}
+						{
+							"default": "q.any_animation_finished"
+						}
 					],
 					"blend_transition": 0.25,
 					"blend_via_shortest_path": true
@@ -69,7 +103,9 @@
 				"interest": {
 					"animations": ["ears_interest"],
 					"transitions": [
-						{"default": "!q.has_target"}
+						{
+							"default": "!q.has_target"
+						}
 					],
 					"blend_transition": 0.35,
 					"blend_via_shortest_path": true
@@ -77,8 +113,12 @@
 				"default": {
 					"animations": ["ears_idle"],
 					"transitions": [
-						{"wingle": "q.state_time > 9"},
-						{"interest": "q.has_target"}
+						{
+							"wingle": "q.state_time > 9"
+						},
+						{
+							"interest": "q.has_target"
+						}
 					],
 					"blend_transition": 0.25
 				}

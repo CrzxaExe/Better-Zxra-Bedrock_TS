@@ -1,1 +1,2 @@
+import "./entity";
 import "./npc";

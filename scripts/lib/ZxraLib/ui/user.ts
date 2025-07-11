@@ -1,6 +1,6 @@
 import { CommandPermissionLevel, Player } from "@minecraft/server";
 import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
-import { Quest, Terra } from "../module";
+import { Quest, Specialist, Terra } from "../module";
 
 class UserPanel {
   static home(player: Player): void {
@@ -86,7 +86,7 @@ class UserPanel {
   }
 
   static rune(player: Player): void {
-    const user = Terra.getSpecialistCache(player);
+    const sp = Terra.getSpecialistCache(player);
 
     new ActionFormData()
       .title("cz.rune")
@@ -172,7 +172,7 @@ class UserPanel {
       }
     });
   }
-  static userManagement(player: Player): void {
+  static userManagement(player: Player, sp: Specialist = Terra.getSpecialistCache(player)): void {
     const ui = new ActionFormData()
       .title(player.name)
       .body({ translate: "cz.user.body" })
@@ -195,7 +195,17 @@ class UserPanel {
     }
 
     ui.show(player).then((e) => {
-      console.warn(e);
+      switch (e.selection) {
+        case 3:
+          sp.setMoney(0);
+          break;
+        case 4:
+          sp.setStamina(100);
+          sp.setMaxStamina("max", 100);
+          sp.setMaxStamina("additional", 0);
+          sp.setMaxStamina("rune", 0);
+          break;
+      }
     });
   }
 

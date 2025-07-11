@@ -99,7 +99,7 @@ class Entity {
   // Combat Methods
   addDamage(
     damage: number = 1,
-    options: { cause: string; damagingEntity: any; rune?: RuneStats; isSkill?: boolean } = {
+    options: { cause: EntityDamageCause | string; damagingEntity: mcEntity; rune?: RuneStats; isSkill?: boolean } = {
       cause: "entityAttack",
       damagingEntity: this.source,
       rune: defaultRuneStat,
@@ -169,7 +169,7 @@ class Entity {
     if (!(this.source instanceof Player)) return;
 
     const sp = Terra.getSpecialistCache(this.source);
-    const lvl = (1 - (Math.max(Calc.hpLostPercentage(hp), hpLost) - Math.min(hpLost, Calc.hpLostPercentage(hp)))) * 100;
+    const lvl = (Math.max(Calc.hpLostPercentage(hp), hpLost) - Math.min(hpLost, Calc.hpLostPercentage(hp))) * 100;
 
     switch (identifier) {
       case "kyle":
@@ -187,6 +187,12 @@ class Entity {
     }
 
     // console.warn(`hp = ${Calc.hpLostPercentage(hp)} ${hpLost} = ${lvl}`);
+  }
+  setCurrentHP(value: number): void {
+    const hp: EntityHealthComponent | undefined = this.source.getComponent("health");
+    if (!hp) return;
+
+    hp.setCurrentValue(value);
   }
   heal(amount: number): void {
     const hp: EntityHealthComponent | undefined = this.source.getComponent("health");
@@ -448,11 +454,9 @@ class Entity {
 
   getLocationInFront(distance: number = 6): Vector3 {
     const entity = this.getEntityFromDistance(distance);
-
     if (entity.length > 0) return entity[0].entity.location;
 
     const block = this.source.getBlockFromViewDirection({ maxDistance: distance })?.block;
-
     if (block) return block.location;
 
     const origin = this.source.location;
@@ -461,7 +465,7 @@ class Entity {
 
     const forward = {
       x: -Math.sin(yaw) * Math.cos(pitch),
-      y: Math.sin(pitch),
+      y: -Math.sin(pitch),
       z: Math.cos(yaw) * Math.cos(pitch),
     };
 
@@ -475,6 +479,13 @@ class Entity {
   // Refresh Methods
   refreshEntity(): void {
     this.remTag(["silent_target", "liberator_target", "silence", "lectaze_target", "fireing_zone", "catlye_ult"]);
+  }
+
+  // 3D Particle
+  spawnParticle(namespace: string, event: string, location: Vector3 = this.source.location): void {
+    const particle = this.source.dimension.spawnEntity(namespace, location);
+
+    particle.triggerEvent(event);
   }
 }
 

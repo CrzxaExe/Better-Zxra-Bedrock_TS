@@ -22,7 +22,7 @@
         "value": true
       },
       "minecraft:entity_placer": {
-        "entity": "cz:particle"
+        "entity": "cz:particles"
       }
     }
   }

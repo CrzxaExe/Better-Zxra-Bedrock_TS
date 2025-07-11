@@ -193,10 +193,10 @@
       "color": {},
       "arrays": {
         "textures": {
-          "Array.texture": ["Texture.impact", "Texture.liberator_swing"]
+          "Array.texture": ["Texture.impact", "Texture.liberator_swing", "Texture.shockwave"]
         },
         "geometries": {
-          "Array.geometry": ["Geometry.impact_model", "Geometry.liberator_swing_model"]
+          "Array.geometry": ["Geometry.impact_model", "Geometry.liberator_swing_model", "Geometry.shockwave_model"]
         }
       }
     },

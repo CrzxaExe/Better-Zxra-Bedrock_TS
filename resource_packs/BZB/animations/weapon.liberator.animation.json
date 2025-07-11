@@ -1,0 +1,64 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.weapon.liberator.close": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.25,
+			"bones": {
+				"headLiberator": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.25": [0, 0, -12.5]
+					}
+				},
+				"handleAcc": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.25": [0, 0, -17.5]
+					}
+				},
+				"elb": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.25": [0, 0, -32.5]
+					}
+				}
+			}
+		},
+		"animation.weapon.liberator.open.wide": {
+			"animation_length": 0.25,
+			"bones": {
+				"headLiberator": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.25": [0, 0, 7.5]
+					}
+				},
+				"handleAcc": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.25": [0, 0, 17.5]
+					}
+				}
+			}
+		},
+		"animation.weapon.liberator.handle": {
+			"loop": true,
+			"bones": {
+				"liberator": {
+					"rotation": [90, 0, -90],
+					"position": [0, 23, 9],
+					"scale": 1.15
+				},
+				"headLiberator": {
+					"position": [0, 0, 0.05],
+					"scale": 1.2
+				},
+				"blade": {
+					"position": [0.13053, 0.99144, 0],
+					"scale": 0.8
+				}
+			}
+		}
+	}
+}

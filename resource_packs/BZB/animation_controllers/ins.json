@@ -439,6 +439,9 @@
             },
             {
               "liberator_swing_anim": "q.variant == 1 && q.skin_id == 0"
+            },
+            {
+              "shockwave_anim": "q.variant == 2"
             }
           ]
         }
