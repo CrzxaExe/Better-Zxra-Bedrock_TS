@@ -1,9 +1,16 @@
 import { Player, system, Entity as mcEntity, MolangVariableMap } from "@minecraft/server";
-import { CreateObject, Entity, SkillLib } from "../../ZxraLib/module";
+import { CreateObject, Entity, SkillLib, SpecialistWeapon, Terra } from "../../ZxraLib/module";
 import { slayerLostHPPercentation, uniqueWeaponData } from "../module";
 
 class Kyle {
-  static pasif1(user: Player): void {}
+  static pasif1(
+    user: Player,
+    data: SpecialistWeapon | undefined = Terra.getSpecialist(user.id)?.weapons?.find((e) => e.weapon === "kyles")
+  ): number {
+    const lvl = data || uniqueWeaponData.kyles;
+
+    return lvl.pasifLvl[0].find((e) => e.name === "zelxt_mode_multiplier").value;
+  }
 
   static pasif2(user: Player): void {}
 
@@ -41,12 +48,21 @@ class Kyle {
       });
 
       if (target.length > 0 && hp && hp.currentValue > 1) sp.consumeHp(0.4, hp, "kyle");
+
+      const loc = sp.getLocationInFront(3.5);
+      system.runTimeout(() => {
+        sp.particles({
+          particle: "cz:kyle_skill1",
+          location: { ...loc },
+          molang: new MolangVariableMap(),
+        });
+      }, 1);
     }, 15);
   }
 
   static skill1Up(user: Player, { sp, multiplier }: SkillLib): void {
     const data = sp.getSp().weapons.find((e) => e.weapon === "kyles") || uniqueWeaponData.kyles,
-      pasif = data.pasifLvl[0].find((e) => e.name === "zelxt_mode_multiplier").value,
+      pasif = this.pasif1(user),
       skill = data.skillLvl[0],
       hp = user.getComponent("health");
 
@@ -81,6 +97,13 @@ class Kyle {
           );
         });
 
+        const loc = sp.getLocationInFront(3.5);
+        sp.particles({
+          particle: "cz:kyle_skill1_zelxt",
+          location: { ...loc },
+          molang: new MolangVariableMap(),
+        });
+
         system.runTimeout(() => {
           sp.knockback(CreateObject.createVelocityPlayer(user), -3.2, 0);
 
@@ -107,6 +130,13 @@ class Kyle {
             });
 
             if (first.length > 0 || second.length > 0) sp.consumeHp(0.5, hp, "kyle");
+
+            const loc = sp.getLocationInFront(3.5);
+            sp.particles({
+              particle: "cz:kyle_skill1_reverse_zelxt",
+              location: { ...loc },
+              molang: new MolangVariableMap(),
+            });
           }, 14);
         }, 4);
       }, 10);
@@ -148,14 +178,19 @@ class Kyle {
 
         if (target.length > 0) sp.consumeHp(0.5, hp, "kyle");
 
-        sp.source.clearVelocity();
+        const loc = sp.getLocationInFront(3.5);
+        sp.particles({
+          particle: "cz:kyle_skill1",
+          location: { ...loc },
+          molang: new MolangVariableMap(),
+        });
       }, 4);
     }, 13);
   }
 
   static skill2Up(user: Player, { sp, multiplier }: SkillLib): void {
     const data = sp.getSp().weapons.find((e) => e.weapon === "kyles") || uniqueWeaponData.kyles,
-      pasif = data.pasifLvl[0].find((e) => e.name === "zelxt_mode_multiplier").value,
+      pasif = this.pasif1(user),
       skill = data.skillLvl[1],
       hp = user.getComponent("health");
 
@@ -237,12 +272,21 @@ class Kyle {
       });
 
       if (target.length > 0) sp.consumeHp(0.5, hp, "kyle");
+
+      system.runTimeout(() => {
+        const loc = sp.getLocationInFront(2.5);
+        sp.particles({
+          particle: "cz:kyle_skill3",
+          location: { ...loc },
+          molang: new MolangVariableMap(),
+        });
+      }, 1);
     }, 10);
   }
 
   static skill3Up(user: Player, { sp, multiplier }: SkillLib): void {
     const data = sp.getSp().weapons.find((e) => e.weapon === "kyles") || uniqueWeaponData.kyles,
-      pasif = data.pasifLvl[0].find((e) => e.name === "zelxt_mode_multiplier").value,
+      pasif = this.pasif1(user),
       skill = data.skillLvl[2],
       hp = user.getComponent("health"),
       stack = sp.status.getStatus({ name: "zelxt_point" })[0]?.lvl || 0;

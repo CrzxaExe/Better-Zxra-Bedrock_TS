@@ -4896,6 +4896,30 @@
 					}
 				}
 			}
+		},
+		"animation.weapon.kyles.run": {
+			"loop": true,
+			"bones": {
+				"waist": {
+					"rotation": [17.5, 0, 0]
+				}
+			}
+		},
+		"animation.weapon.kyles.init": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.2083,
+			"bones": {
+				"rightArm": {
+					"rotation": {
+						"0.0": [-64.68335, -25.01686, 41.79505],
+						"0.2083": [-102.15546, -23.43815, 67.72139]
+					},
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.2083": [0, -2, -2]
+					}
+				}
+			}
 		}
 	}
 }

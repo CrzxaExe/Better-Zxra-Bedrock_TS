@@ -115,7 +115,7 @@ world.afterEvents.entityHurt.subscribe(
     const item = hurtEntity.getComponent("inventory")?.container?.getItem(hurtEntity.selectedSlotIndex);
     const sp = Terra.getSpecialistCache(hurtEntity);
 
-    console.warn(cause, damage);
+    // console.warn(cause, damage);
 
     if (
       (hurtEntity.getComponent("health")?.currentValue || 20) < damage &&
@@ -173,13 +173,7 @@ world.afterEvents.entityHealthChanged.subscribe(
   ({ newValue, oldValue, entity }: EntityHealthChangedAfterEvent) => {
     if (!(entity instanceof Player)) return;
 
-    // const sp = Terra.getSpecialistCache(entity);
-
-    // if (sp.status.hasStatus({ name: "zelxt_mode" }) && newValue <= 1) {
-    //   entity.triggerEvent("cz:zelxt_revive");
-    // }
-
-    console.warn(oldValue, newValue);
+    // console.warn(oldValue, newValue);
   },
   { entityTypes: ["minecraft:player"] }
 );

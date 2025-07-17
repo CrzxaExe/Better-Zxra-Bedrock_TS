@@ -57,7 +57,31 @@ class Yuri {
           case 1:
             this.skinUi(player);
             break;
+          case 2:
+            this.scaleUi(player);
+            break;
         }
+      });
+  }
+
+  scaleUi(player: Player): void {
+    new ActionFormData()
+      .title(`cz:yuri_scale`)
+      .body({ translate: "yuri.ask.scale" })
+      .button({ translate: "yuri.scale.l" })
+      .button({ translate: "yuri.scale.n" })
+      .button({ translate: "yuri.scale.p" })
+
+      .show(player)
+      .then((e) => {
+        const scaleEvents: string[] = ["cz:size_loli", "cz:size_n", "cz:size_p"];
+        const scaleEvent =
+          typeof e.selection === "number" && e.selection >= 0 && e.selection < scaleEvents.length
+            ? scaleEvents[e.selection]
+            : undefined;
+
+        if (!scaleEvent) return;
+        this.source.triggerEvent(scaleEvent);
       });
   }
 
@@ -69,7 +93,17 @@ class Yuri {
       .button({ translate: "yuri.skin.combat" }, "textures/cz/art/yuri/preview/combat.png")
       .button({ translate: "yuri.skin.cheerleader" }, "textures/cz/art/yuri/preview/cheerleader.png")
 
-      .show(player);
+      .show(player)
+      .then((e) => {
+        const skinsEvents: string[] = ["cz:change_to_normal_skin", "cz:change_to_combat_skin"];
+        const skinEvent =
+          typeof e.selection === "number" && e.selection >= 0 && e.selection < skinsEvents.length
+            ? skinsEvents[e.selection]
+            : undefined;
+
+        if (!skinEvent) return;
+        this.source.triggerEvent(skinEvent);
+      });
   }
 }
 

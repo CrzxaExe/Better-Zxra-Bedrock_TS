@@ -21,8 +21,8 @@ Changelogs:
 
 Progress Rewrite:
 
-- Content: 5.6%
-- System: 62.4%
+- Content: 6.8%
+- System: 62.6%
 - Ui: 36.5%
 
 Features:
@@ -52,4 +52,6 @@ Features:
 
 # Docs
 
+[Buff_Debuff](./docs/buff_debuff.md)
 [Weapon](./docs/weapon.md)
+[Weaponary](./docs/weaponary.md)

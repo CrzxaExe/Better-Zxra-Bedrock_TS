@@ -1,4 +1,4 @@
-[Back](../README.md)
+bn[Back](../README.md)
 
 # Weapon
 
@@ -6,9 +6,9 @@
 
 Stats:
 
-> Atk 5
-> Type: Dagger
-> Rarity: Legend
+> Atk 5<br/>
+> Type: Dagger<br/>
+> Rarity: Legend<br/>
 > Tags: Art, Moility, DPS
 
 Trait `[Dagger]`
@@ -29,9 +29,9 @@ Skills:
 
 Stats:
 
-> Atk 14
-> Type: Greatsword
-> Rarity: Epic
+> Atk 14<br/>
+> Type: Greatsword<br/>
+> Rarity: Epic<br/>
 > Tags: HP, Nuker, DPS
 
 Trait `[Greatsword]`
@@ -54,9 +54,9 @@ Skills:
 
 Stats:
 
-> Atk 9
-> Type: Artsword
-> Rarity: Unique
+> Atk 9<br/>
+> Type: Artsword<br/>
+> Rarity: Unique<br/>
 > Tags: Elemental, Nuker, DPS
 
 Trait `[Artsword]`
@@ -83,9 +83,9 @@ Skills:
 
 Stats:
 
-> Atk 11
-> Type: Reaper
-> Rarity: Epic
+> Atk 11<br/>
+> Type: Reaper<br/>
+> Rarity: Epic<br/>
 > Tags: Survival, Force, DPS
 
 Trait `[Reaper]`
@@ -98,7 +98,7 @@ Pasif:
 
 Skills:
 
-> [Grace Pull], 17 Stamina | 6.5s CD | No Sneak
+> [Grace Pull], 17 Stamina | 6.5s CD | No Sneak<br/>
 > Pull all target on cone area in front of user with small force , deals 120% Atk
 >
 > []
@@ -109,9 +109,9 @@ Skills:
 
 Stats:
 
-> Atk 4
-> Type: Staff
-> Rarity: Unique
+> Atk 4<br/>
+> Type: Staff<br/>
+> Rarity: Unique<br/>
 > Tags: AOE, Heal
 
 Trait `[Staff]`
@@ -126,10 +126,10 @@ Pasif:
 
 Skills:
 
-> [Ouch], 28 Stamina | 3s CD | No Sneak
+> [Ouch], 28 Stamina | 3s CD | No Sneak<br/>
 > Heal one target as 100% Atk in range
 >
-> [Ouch Again], 34 Stamina | 3s CD | No Sneak & 3x [Ouch]
+> [Ouch Again], 34 Stamina | 3s CD | No Sneak & 3x [Ouch]<br/>
 > Heal all target in range as 150% Atk
 >
 > []
@@ -140,9 +140,9 @@ Skills:
 
 Stats:
 
-> Atk 9
-> Type: Artsword
-> Rarity: Unique
+> Atk 9<br/>
+> Type: Artsword<br/>
+> Rarity: Unique<br/>
 > Tags: Poison, Debuff, Survival, DPS
 
 Trait `[Artsword]`
@@ -157,23 +157,23 @@ Pasif:
 
 Skills:
 
-> [Will It], 10 Stamina | 3.5 CD | No Sneak
+> [Will It], 10 Stamina | 3.5 CD | No Sneak<br/>
 > Shoot Art bullet to deals 150% Atk. If there is enemy in front of user(distance < 3) instead of shooting a bullet, it will piece sword to deals 180% Atk
 >
 > []
 >
 > []
 >
-> [Devour Bad Effect], 18 Stamina | 10 CD | 5s | Jump & Has Debuff
+> [Devour Bad Effect], 18 Stamina | 10 CD | 5s | Jump & Has Debuff<br/>
 > Clear all debuff effect. Heal user and gain regeneration and resistance effect for a sec. Immune to all debuff on duration.
 
 ## Kyle Concept
 
 Stats:
 
-> Atk: 2
-> Type: Slayer
-> Rarity: Limited
+> Atk: 2<br/>
+> Type: Slayer<br/>
+> Rarity: Limited<br/>
 > Tags: Nuker, HP, Survival, DPS
 
 Trait `[Slayer]`
@@ -188,34 +188,73 @@ Pasif:
 
 Skils:
 
-> [Tempest Slices], 8 Stamina | 5s CD | No Sneak
+> [Tempest Slices], 8 Stamina | 5s CD | No Sneak<br/>
 > Consume 40% current HP, slash one target and deal 400% Atk + 40% Max HP as Physical Damage
 >
-> [Tempest Zelxt Slash], 12 Stamina | 3.5s CD | No Sneak & on Zelxt Mode
+> [Tempest Zelxt Slash], 12 Stamina | 3.5s CD | No Sneak & on Zelxt Mode<br/>
 > Consume 50% current HP, attack twice and deals Void Damage to all target on track as 400% Atk + 40% Max HP
 >
-> [Slice Through], 14 Stamina | 9.5s CD | Sneak
+> [Slice Through], 14 Stamina | 9.5s CD | Sneak<br/>
 > Dash to front and deals AOE dmg to area around user as 250% Atk + 60% Max HP as Physical Damage, Consume 50% current HP
 >
-> [Ender on Zel], 20 Stamina | 7s CD | Sneak & on Zelxt Mode
+> [Ender on Zel], 20 Stamina | 7s CD | Sneak & on Zelxt Mode<br/>
 > Teleport to target location and deal Void damage to all target on radius as 300% Atk + 80% Max HP, Consume 60% current HP
 >
-> [Unlifted Slice], 10 Stamina | 11s CD | Jump
+> [Unlifted Slice], 10 Stamina | 11s CD | Jump<br/>
 > Hit the target and causes target to airbone, deals 60% Max HP as Physical Damage, consume 50% Current HP
 >
-> [Corruption on Pain], 17 Stamina | 20s CD | Jump & on Zelxt Mode
+> [Corruption on Pain], 17 Stamina | 20s CD | Jump & on Zelxt Mode<br/>
 > Hitting ground, causes target on area gets AOE Void damage as 95% Max HP. Recover 20% HP when there are 3 target on area
 >
-> [Zelxt Devoured], 10 Stamina | 0 CD | %Zelxt-Point >= 100
+> [Zelxt Devoured], 10 Stamina | 0 CD | %Zelxt-Point >= 100<br/>
 > Enter to Zelxt Mode, gains Absorption & Speed effect for a sec.
+
+## Lectaze
+
+Stats:
+
+> Atk 11<br/>
+> Type: Spear<br/>
+> Rarity: Unique<br/>
+> Tags: Summon, Control, DPS
+
+Trait `[Spear]`
+
+> Deals more damage depending on target location, more damage if closer with user
+
+Pasif:
+
+> [Creations]: %Lectaze-Sword will rise after 5 sec. While %Lectaze-Sword arise, user get stack. Increase base damage by 1 every stack(Max 5 stack)
+>
+> [Clip]: Everytime %Lectazw-Sword die or despawn it will explode and deals 150% Atk
+
+Skills:
+
+> []
+>
+> []
+>
+> []
+>
+> []
+
+Summon:
+
+[Lectaze Sword]
+
+> Atk 5<br/>
+> Def: 4 Physical<br/>
+> Mspd: 0.65 FLy
+
+Pasif: `Prioritize targeting last entity that user attack, stay on the field for 10 sec`
 
 ## Liberator Concept
 
 Stats:
 
-> Atk 12
-> Type: Reaper
-> Rarity: Unique
+> Atk 12<br/>
+> Type: Reaper<br/>
+> Rarity: Limited<br/>
 > Tags: Summon, Survival, AOE, DPS
 
 Trait `[Reaper]`
@@ -230,51 +269,82 @@ Pasif:
 
 Skils:
 
-> [Reap Through], 16 Stamina | 4.5s CD | No Sneak
+> [Reap Through], 16 Stamina | 4.5s CD | No Sneak<br/>
 > Swipe all enemy on front of user with cone shape, deals 130% Atk as AOE damage to all enemy
 >
-> [Reaping Flow], 26 Stamina | 6s CD | No Sneak & %Liberator-Angel on field
+> [Reaping Flow], 26 Stamina | 6s CD | No Sneak & %Liberator-Angel on field<br/>
 > Swipe all enemy on front of user with cone shape, deals 140% Atk + 20% Max HP as Void Damage. %Liberator-Angel trigger skill "Command: Reap Flow" and teleport to front of user location
 >
-> [Dimension Move], 20 Stamina | 8s CD | Sneak
+> [Dimension Move], 20 Stamina | 8s CD | Sneak<br/>
 > Teleport to target location, deal 150% Atk as AOE damage to all target on cone area
 >
-> [Dimensional Wave], 18 Stamina | 6s CD | Jump
+> [Dimensional Wave], 18 Stamina | 6s CD | Jump<br/>
 > Charging for a sec to consume all %Angel on radius (Absorp %Angel or Consume 25% Max HP if %Liberator-Angel to increase AOE damage), deals 130% Atk of AOE damage to all enemy on radius and damage will decrease for far enemy on area.
 >
-> [Dimension Break], 24 Stamina | 26s CD | %Soul-of-Death >= 3 & Jump
+> [Dimension Break], 24 Stamina | 26s CD | %Soul-of-Death >= 3 & Jump<br/>
 > Summoning %Liberator-Angel by slicing though spirit dimension. While %Liberator-Angel on field, user damage change to Void Damage and skill damage +30%, Consume all %Soul-of-Death
 
 Summons:
 
 [Angel]
 
-> Atk 12
-> Def: 2 Physical, 4 Res
+> Atk 12<br/>
+> Def: 2 Physical, 4 Res<br/>
 > Mspd: 0.4
 
-Pasif: `Will targeting enemy with %Liberator-Target tag, stays on field by 20s`
+Pasif: `Will targeting enemy with %Liberator-Target tag, stays on the field for 20s`
 
 [Liberator Angel]
 
-> Atk 24
-> Def: 4 Physical, 12 Res
+> Atk 24<br/>
+> Def: 4 Physical, 12 Res<br/>
 > Mspd: 0.4
 
-Pasif: `Will targeting enemy with %Liberator-Target tag, stays on field by 30s`
+Pasif: `Will targeting enemy with %Liberator-Target tag, stays on the field for 30s`
 
 Skills:
 
-> [Command: Reap Flow]
+> [Command: Reap Flow]<br/>
 > Shacking ground to deals 160% User Atk as Void Damage and apply small airbone
+
+## Mudrock
+
+Stats:
+
+> Atk 11<br/>
+> Type: Hammer<br/>
+> Rarity: Limited<br/>
+> Tags: Survival, AOE, DPS
+
+Trait `[Hammer]`
+
+> Deals additional damage depending on target HP(Max 200% Atk)
+
+Pasif:
+
+> [Ward of the Fertile Soil] Every 9 sec, will generate shield that will block all damage and heal 15% Max HP(Shield can be stack up to 3 times)
+>
+> [Unshakable Solidarity] Increase skill damage to 120% while having shield
+
+Skills:
+
+> [Crag Splitter], 16 Stamina | 3.5s CD | No Sneak<br/>
+> Spin and cause damage to all target suround user, deals 210% Atk and heals 10% Max HP
+>
+> []
+>
+> [Bloodline of Desecrated Earth], 24 Stamina | 25s CD | 30s | Jump<br/>
+> Charging for 10 sec. While charging, user will immune to any damage. After all deals 300% Atk and gains +60% Skill Damge for 20 sec
+>
+> []
 
 ## Skyler Concept
 
 Stats:
 
-> Atk 9
-> Type: Artsword
-> Rarity: Unique
+> Atk 9<br/>
+> Type: Artsword<br/>
+> Rarity: Unique<br/>
 > Tags: Elemental, DOT, Debuff, DPS
 
 Trait `[Artsword]`
@@ -295,5 +365,5 @@ Skills:
 >
 > []
 >
-> [Inferno Field], 24 Stamina | 20s CD | 10s | Has %Fire-Res Effect
+> [Inferno Field], 24 Stamina | 20s CD | 10s | Has %Fire-Res Effect<br/>
 > Create area that will blow for first time deals 240% Atk as Fire damage, and deals 50% Atk as Fire damage with burn apply to all enemy in the area every sec

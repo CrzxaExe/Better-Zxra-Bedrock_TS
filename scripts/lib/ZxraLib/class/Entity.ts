@@ -438,6 +438,7 @@ class Entity {
       if (!e.location) return false;
       const dx = e.location.x - origin.x;
       const dz = e.location.z - origin.z;
+
       const length = Math.sqrt(dx * dx + dz * dz);
       if (length === 0) return false;
 
