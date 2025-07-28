@@ -1,4 +1,4 @@
-bn[Back](../README.md)
+[Back](../README.md)
 
 # Weapon
 
@@ -67,7 +67,7 @@ Pasif:
 
 > [Electricity] When Atk and Skill combined, summon lighting to deals 150% Atk
 >
-> [ArChain] Attack will chain to 3 enemy and damage will decrease 30% every jump from enemy.
+> [ArChain] Attack will chain to 2 other enemy and damage will decrease 30% every jump from enemy.
 
 Skills:
 
@@ -120,16 +120,16 @@ Trait `[Staff]`
 
 Pasif:
 
-> [Medicine] Heal target for 100% Atk adn apply Regeneration effect for them
+> [Medicine] Heal target for 100% Atk and apply Regeneration effect for them
 >
 > [Don't Falls] If target HP are less than 50%, increase heal amount to 150% Atk
 
 Skills:
 
-> [Ouch], 28 Stamina | 3s CD | No Sneak<br/>
+> [Ouch], 24 Stamina | 3s CD | No Sneak<br/>
 > Heal one target as 100% Atk in range
 >
-> [Ouch Again], 34 Stamina | 3s CD | No Sneak & 3x [Ouch]<br/>
+> [Ouch Again], 30 Stamina | 3s CD | No Sneak & 3x [Ouch]<br/>
 > Heal all target in range as 150% Atk
 >
 > []
@@ -166,6 +166,34 @@ Skills:
 >
 > [Devour Bad Effect], 18 Stamina | 10 CD | 5s | Jump & Has Debuff<br/>
 > Clear all debuff effect. Heal user and gain regeneration and resistance effect for a sec. Immune to all debuff on duration.
+
+## Endless Concept
+
+> Atk 2<br/>
+> Type Gun<br/>
+> Rarity: Unique<br/>
+> Ammo: 12<br/>
+> Tags: Spam, Ranged, DPS
+
+Trait `[Gun]`
+
+> Long range weapon
+
+Pasif:
+
+> [Endpoint] Increase damage to 140% if target are futher than 8 block<br/>
+>
+> [End Ammo] Have 20% chance to not consume ammo while using skill and have 20% chance replenish 1 ammo
+
+Skills:
+
+> []<br/>
+>
+> []<br/>
+>
+> []<br/>
+>
+> []
 
 ## Kyle Concept
 
@@ -209,14 +237,14 @@ Skils:
 > [Zelxt Devoured], 10 Stamina | 0 CD | %Zelxt-Point >= 100<br/>
 > Enter to Zelxt Mode, gains Absorption & Speed effect for a sec.
 
-## Lectaze
+## Lectaze Concept
 
 Stats:
 
 > Atk 11<br/>
 > Type: Spear<br/>
 > Rarity: Unique<br/>
-> Tags: Summon, Control, DPS
+> Tags: Summon, Control, Art, DPS
 
 Trait `[Spear]`
 
@@ -226,7 +254,7 @@ Pasif:
 
 > [Creations]: %Lectaze-Sword will rise after 5 sec. While %Lectaze-Sword arise, user get stack. Increase base damage by 1 every stack(Max 5 stack)
 >
-> [Clip]: Everytime %Lectazw-Sword die or despawn it will explode and deals 150% Atk
+> [Clip]: Everytime %Lectazw-Sword die or despawn it will explode and deals 150% Atk as Art damage
 
 Skills:
 
@@ -279,7 +307,7 @@ Skils:
 > Teleport to target location, deal 150% Atk as AOE damage to all target on cone area
 >
 > [Dimensional Wave], 18 Stamina | 6s CD | Jump<br/>
-> Charging for a sec to consume all %Angel on radius (Absorp %Angel or Consume 25% Max HP if %Liberator-Angel to increase AOE damage), deals 130% Atk of AOE damage to all enemy on radius and damage will decrease for far enemy on area.
+> Charging for a sec to consume all %Angel on radius (Absorb %Angel or Consume 25% Max HP if %Liberator-Angel to increase AOE damage), deals 130% Atk of AOE damage to all enemy on radius and damage will decrease for far enemy on area.
 >
 > [Dimension Break], 24 Stamina | 26s CD | %Soul-of-Death >= 3 & Jump<br/>
 > Summoning %Liberator-Angel by slicing though spirit dimension. While %Liberator-Angel on field, user damage change to Void Damage and skill damage +30%, Consume all %Soul-of-Death
@@ -307,7 +335,28 @@ Skills:
 > [Command: Reap Flow]<br/>
 > Shacking ground to deals 160% User Atk as Void Damage and apply small airbone
 
-## Mudrock
+## Lighter Concept
+
+> Atk 9<br/>
+> Type: Spear<br/>
+> Rarity: Legend<br/>
+> Tags: Elemental, Nuker, DPS
+
+Trait `[Spear]`
+
+> Deals more damage depending on target location, more damage if closer with user
+
+Pasif:
+
+> [Burning Glare] Increase damage deals to burning enemy by 250%
+
+Skills:
+
+> []
+>
+> []
+
+## Mudrock Concept
 
 Stats:
 
@@ -329,12 +378,12 @@ Pasif:
 Skills:
 
 > [Crag Splitter], 16 Stamina | 3.5s CD | No Sneak<br/>
-> Spin and cause damage to all target suround user, deals 210% Atk and heals 10% Max HP
+> Spin and cause damage to all target around user, deals 210% Atk and heals 10% Max HP
 >
 > []
 >
-> [Bloodline of Desecrated Earth], 24 Stamina | 25s CD | 30s | Jump<br/>
-> Charging for 10 sec. While charging, user will immune to any damage. After all deals 300% Atk and gains +60% Skill Damge for 20 sec
+> [Bloodline of Desecrated Earth], 24 Stamina | 21s CD | 30s | Jump<br/>
+> Charging for 10 sec. While charging, user will immune to any damage. After all deals 300% Atk to all enemy in range and gains +60% Skill Damge for 20 sec
 >
 > []
 

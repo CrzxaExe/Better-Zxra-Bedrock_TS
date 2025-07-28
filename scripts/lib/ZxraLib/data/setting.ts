@@ -11,13 +11,15 @@ export const settings: Setting = {
       %splvl    = specialist level
       %title    = specialist title
   */
-  customChatPrefix: "%name > %msg",
+  customChatPrefix: "%guild%name > %msg",
   // if true, every damage applier will summon float text of damage
   damageIndicator: true,
   // Player will get their death location
   deathLocation: true,
   // if true, debuging mode will active
   debug: true,
+  // Price to create guild(in money)
+  guildCreateCost: 2_000,
   // default gamerules for this addon
   rules: {
     naturalregeneration: false,

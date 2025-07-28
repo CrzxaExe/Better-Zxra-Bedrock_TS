@@ -47,6 +47,8 @@ world.afterEvents.itemCompleteUse.subscribe(({ itemStack, source, useDuration }:
 
   if (!specialItem) return;
 
+  specialItem.callback(source, itemStack, useDuration);
+
   try {
     specialItem.callback(source, itemStack, useDuration);
   } catch (error: { message: string } | any) {

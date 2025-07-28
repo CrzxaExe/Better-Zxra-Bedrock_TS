@@ -23,9 +23,11 @@ import {
   LeaderboardData,
   PityPlayer,
   PlayerFinder,
+  RedeemData,
   settings,
   Specialist,
   SpecialistData,
+  SpecialItem,
   StoryData,
   WeaponComponent,
   WeaponComponentDataValue,
@@ -37,42 +39,54 @@ class Terra {
   static world: WorldData = {};
 
   // Property Methods
-  static getProperty(namespace: string = "world", def: Object = {}): any {
-    let result = def;
-    try {
-      system.run(() => {
-        result = world.getDynamicProperty(namespace) || JSON.stringify(def);
-      });
-    } catch (err: Error | any) {
-      console.warn(err.message);
-      return;
-    }
-
+  static getProperty(namespace: string = "world", def: Object = {}): Object {
+    const property: string = world.getDynamicProperty(namespace) as string;
+    let result: Object = JSON.parse(property) || def;
     return result;
   }
-  static setProperty(namespace: string = "world", data: any): void {
+  static setProperty(namespace: string = "world", data: Object): void {
     if (!namespace || !data) throw new Error("Missing namespace or data");
 
     try {
-      system.run(() => world.setDynamicProperty(namespace, JSON.stringify(data)));
+      world.setDynamicProperty(namespace, JSON.stringify(data));
     } catch (error: { message: string } | any) {
       throw new Error("Error on save data: " + error.message);
     }
   }
 
   static setup(): void {
-    this.world.guilds = this.getProperty("guild", []);
-    this.world.leaderboards = this.getProperty("leaderboard", CreateObject.createLeaderboard());
-    this.world.setting = this.getProperty("setting", settings);
-    this.world.redeem = this.getProperty("redeem", []);
-    this.entities = this.getProperty("entities", []);
-    this.pityPlayer = this.getProperty("pity", []);
+    system.run(() => {
+      this.world.guilds = this.getProperty("guild", []) as GuildData[];
+      this.world.leaderboards = this.getProperty("leaderboard", CreateObject.createLeaderboard()) as LeaderboardData;
+      this.world.setting = this.getProperty("setting", { ...settings });
+      this.world.redeem = this.getProperty("redeem", []) as RedeemData[];
+      this.entities = this.getProperty("entities", []) as EntityData[];
+      this.pityPlayer = this.getProperty("pity", []) as PityPlayer[];
+      this.specialist = this.getProperty("specialist", []) as SpecialistData[];
 
-    this.guild = new Guild();
-    this.leaderboard = new Leaderboard();
+      this.guild = new Guild();
+      this.leaderboard = new Leaderboard();
 
-    system.run(() => this.setPlayer(world.getAllPlayers()));
-    this.createSpecialistCache();
+      this.setPlayer(world.getAllPlayers());
+      this.createSpecialistCache();
+
+      // Item Event Load Counter
+      console.warn(
+        SpecialItem.use.length > 0
+          ? `[System] Load ${SpecialItem.use.length} item use event`
+          : "[System] Item use event are not initialize"
+      );
+      console.warn(
+        SpecialItem.place.length > 0
+          ? `[System] Load ${SpecialItem.place.length} item place event`
+          : "[System] Item place event are not initialize"
+      );
+      console.warn(
+        SpecialItem.item.length > 0
+          ? `[System] Load ${SpecialItem.item.length} item consume event`
+          : "[System] Item consume event are not initialize"
+      );
+    });
   }
   static setupCommand(registry: CustomCommandRegistry): void {
     const cmd = Command.Cmd;
@@ -111,12 +125,13 @@ class Terra {
     console.warn("[System] Saving data");
 
     if (!isEnable) return;
-    this.setProperty("guild", this.world.guilds);
-    this.setProperty("leaderboard", this.world.leaderboards);
-    this.setProperty("setting", this.world.setting);
-    this.setProperty("redeem", this.world.redeem);
+    this.setProperty("guild", this.world.guilds as Object);
+    this.setProperty("leaderboard", this.world.leaderboards as Object);
+    this.setProperty("setting", this.world.setting as Object);
+    this.setProperty("redeem", this.world.redeem as Object);
     this.setProperty("entities", this.entities);
     this.setProperty("pity", this.pityPlayer);
+    this.setProperty("specialist", this.specialist);
   }
 
   // World Data methods
@@ -288,7 +303,7 @@ class Terra {
 
 ${e.des}
 
-Owner   : ${e.members.filter((r) => r.role === "superadmin")[0].name || "Idk bruh"}
+Owner   : ${e.members.filter((r) => r.role === "super_admin")[0].name || "Idk bruh"}
 Member  : ${e.members.length}/${e.maxMember}`;
       }) || []
     );

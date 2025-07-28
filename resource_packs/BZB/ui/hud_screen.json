@@ -196,7 +196,7 @@
     "visible": false
   },
   "root_panel/mob_effects_renderer": {
-    "offset": [80, 24]
+    "offset": ["80px", "24px"]
   },
 
   "root_panel": {
@@ -209,55 +209,13 @@
             "zxras@hud.zxras": {
               "anchor_from": "bottom_middle",
               "anchor_to": "bottom_middle",
-              "offset": [0, "-1%%"]
+              "offset": ["0px", "-1%"]
             }
           },
           {
             "wd@hud.info_panel": {
               "anchor_to": "top_right",
               "anchor_from": "top_right"
-            }
-          },
-          {
-            "player_bg": {
-              "type": "image",
-              "texture": "textures/ui/position_label_cz",
-              "size": [54, 34],
-              "layer": 2,
-              "anchor_from": "bottom_left",
-              "anchor_to": "bottom_left",
-              "offset": ["1.5%", "-4%"],
-              "controls": [
-                {
-                  "player_renderer_panel": {
-                    "type": "panel",
-                    "size": [30, 30],
-                    "offset": [0, -16],
-
-                    "controls": [
-                      {
-                        "player_renderer": {
-                          "type": "custom",
-                          "renderer": "live_player_renderer",
-                          "property_bag": {
-                            "#look_at_cursor": false
-                          },
-                          "animation_reset_name": "screen_animation_reset",
-                          "anims": [
-                            "@common.screen_exit_size_animation_push",
-                            "@common.screen_exit_size_animation_pop",
-                            "@common.screen_entrance_size_animation_push",
-                            "@common.screen_entrance_size_animation_pop"
-                          ],
-                          "layer": 8,
-                          "anchor_from": "center",
-                          "anchor_to": "center"
-                        }
-                      }
-                    ]
-                  }
-                }
-              ]
             }
           }
         ]

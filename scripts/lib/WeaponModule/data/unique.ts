@@ -1,4 +1,6 @@
-export const uniqueWeaponData = {
+import { SpecialistWeapon } from "../../ZxraLib/module";
+
+export const unique: { [key: string]: SpecialistWeapon } = {
   kyles: {
     weapon: "kyles",
     atk: 2,
@@ -45,4 +47,211 @@ export const uniqueWeaponData = {
       [{ name: "health_recover", value: 0.2 }],
     ],
   },
+  liberator: {
+    weapon: "liberator",
+    atk: 12,
+    pasifLvl: [
+      [
+        { name: "heal_multiplier", value: 2 },
+        { name: "max_stack", value: 3 },
+      ],
+      [{ name: "heal", value: 0.2 }],
+    ],
+    skillLvl: [
+      [
+        { name: "stamina", value: 16 },
+        { name: "cooldown", value: 4.5 },
+        { name: "atk_percentage", value: 1.3 },
+
+        { name: "special_stamina", value: 26 },
+        { name: "special_cooldown", value: 6 },
+        { name: "special_atk_percentage", value: 1.4 },
+        { name: "special_hp_percentage", value: 0.2 },
+        { name: "special_summon_damage", value: 1.6 },
+      ],
+      [
+        { name: "stamina", value: 20 },
+        { name: "cooldown", value: 8 },
+        { name: "atk_percentage", value: 1.5 },
+      ],
+      [
+        { name: "stamina", value: 18 },
+        { name: "cooldown", value: 6 },
+        { name: "atk_percentage", value: 1.3 },
+        { name: "consumed_multiplier", value: 0.05 },
+      ],
+      [
+        { name: "stamina", value: 24 },
+        { name: "cooldown", value: 26 },
+        { name: "dimension_break_buff", value: 1.3 },
+      ],
+    ],
+  },
+  boltizer: {
+    weapon: "boltizer",
+    atk: 9,
+    pasifLvl: [
+      [{ name: "lightning_damage", value: 1.5 }],
+      [
+        { name: "chain_length", value: 2 },
+        { name: "chain_penalty", value: 0.3 },
+      ],
+    ],
+    skillLvl: [[], [], [], []],
+  },
+  skyler: {
+    weapon: "skyler",
+    atk: 9,
+    pasifLvl: [
+      [
+        { name: "burn_duration", value: 10 },
+        { name: "damage_increase", value: 1.2 },
+      ],
+      [
+        { name: "radius", value: 2.5 },
+        { name: "burn_duration", value: 5 },
+      ],
+    ],
+    skillLvl: [
+      [],
+      [],
+      [],
+      [
+        { name: "stamina", value: 24 },
+        { name: "cooldown", value: 20 },
+        { name: "duration", value: 10 },
+        { name: "radius", value: 8 },
+        { name: "atk_percentage", value: 2.4 },
+        { name: "burn_damage", value: 0.5 },
+      ],
+    ],
+  },
+  lectaze: {
+    weapon: "lectaze",
+    atk: 11,
+    pasifLvl: [
+      [
+        { name: "stack_atk", value: 1 },
+        { name: "max_stack", value: 5 },
+      ],
+      [{ name: "blow_damage", value: 1.5 }],
+    ],
+    skillLvl: [[], [], [], []],
+  },
+  mudrock: {
+    weapon: "mudrock",
+    atk: 11,
+    pasifLvl: [
+      [
+        { name: "stack_regenrate", value: 9 },
+        { name: "heal", value: 0.15 },
+      ],
+      [{ name: "increase_damage", value: 1.2 }],
+    ],
+    skillLvl: [
+      [
+        { name: "stamina", value: 16 },
+        { name: "cooldown", value: 3.5 },
+        { name: "atk_percentage", value: 2.1 },
+        { name: "heal", value: 0.1 },
+      ],
+      [],
+      [
+        { name: "stamina", value: 24 },
+        { name: "cooldown", value: 21 },
+        { name: "duration", value: 30 },
+        { name: "atk_percentage", value: 3.0 },
+        { name: "skill_buff", value: 0.6 },
+      ],
+      [],
+    ],
+  },
+  destreza: {
+    weapon: "destreza",
+    atk: 9,
+    pasifLvl: [
+      [
+        { name: "poison_damage", value: 0.3 },
+        { name: "max_stack", value: 3 },
+      ],
+      [
+        { name: "spread_radius", value: 1.2 },
+        { name: "blow_damage", value: 1.5 },
+      ],
+    ],
+    skillLvl: [
+      [
+        { name: "stamina", value: 10 },
+        { name: "cooldown", value: 3.5 },
+        { name: "melee_atk_percentage", value: 1.8 },
+        { name: "ranged_atk_percentage", value: 1.5 },
+      ],
+      [],
+      [],
+      [],
+    ],
+  },
+  catlye: {
+    weapon: "catlye",
+    atk: 9,
+    pasifLvl: [
+      [
+        { name: "heal", value: 1.0 },
+        { name: "regeneration_lvl", value: 0 },
+        { name: "regeneration_duration", value: 3 },
+      ],
+      [
+        { name: "min_hp_percentage", value: 0.5 },
+        { name: "healing_effectifity", value: 1.5 },
+      ],
+    ],
+    skillLvl: [
+      [
+        { name: "stamina", value: 24 },
+        { name: "cooldown", value: 3 },
+        { name: "atk_percentage", value: 1 },
+
+        { name: "special_stamina", value: 30 },
+        { name: "special_cooldown", value: 8 },
+        { name: "special_atk_percentage", value: 1.5 },
+      ],
+      [],
+      [],
+    ],
+  },
 };
+
+export const epic: { [key: string]: SpecialistWeapon } = {
+  berserk: {
+    weapon: "berserk",
+    atk: 14,
+    pasifLvl: [[{ name: "max_stack", value: 70.0 }]],
+    skillLvl: [[], [], []],
+  },
+  bringer: {
+    weapon: "bringer",
+    atk: 11,
+    pasifLvl: [[{ name: "heal", value: 0.2 }]],
+    skillLvl: [
+      [
+        { name: "stamina", value: 17 },
+        { name: "cooldown", value: 6.5 },
+        { name: "atk_percentage", value: 1.2 },
+        { name: "force", value: 0.5 },
+      ],
+      [],
+      [],
+    ],
+  },
+};
+
+export const legend: { [key: string]: SpecialistWeapon } = {
+  azyh: {
+    weapon: "azyh",
+    atk: 5,
+    pasifLvl: [[{ name: "atk_percentage", value: 2.0 }]],
+    skillLvl: [[], []],
+  },
+};
+
+export const rare: { [key: string]: SpecialistWeapon } = {};

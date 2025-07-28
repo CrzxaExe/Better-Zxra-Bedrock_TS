@@ -50,6 +50,6 @@ world.afterEvents.playerLeave.subscribe((event: PlayerLeaveAfterEvent) => {
 // Before Leave event
 world.beforeEvents.playerLeave.subscribe((event: PlayerLeaveBeforeEvent) => {
   if (Terra.players.length - 1 <= 0) {
-    Terra.save();
+    Terra.save(true);
   }
 });

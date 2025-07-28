@@ -166,7 +166,7 @@ world.afterEvents.entityHurt.subscribe(({ hurtEntity, damage, damageSource: { ca
 });
 
 world.afterEvents.entityHitBlock.subscribe(({ hitBlock }: EntityHitBlockAfterEvent) => {
-  console.warn(hitBlock.typeId);
+  // console.warn(hitBlock.typeId);
 });
 
 world.afterEvents.entityHealthChanged.subscribe(

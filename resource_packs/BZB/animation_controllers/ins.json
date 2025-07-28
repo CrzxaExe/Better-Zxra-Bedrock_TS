@@ -400,7 +400,10 @@
               "running": "q.ground_speed >= 0.17 && query.modified_move_speed >= 0.75"
             }
           ],
-          "animations": ["yuri_bob"],
+          "animations": [
+            { "yuri_bob": "query.variant == 0 || q.variant == 1" },
+            { "yuri_cheerleader_bob": "query.variant == 2" }
+          ],
           "blend_transition": 0.1
         },
         "moving": {

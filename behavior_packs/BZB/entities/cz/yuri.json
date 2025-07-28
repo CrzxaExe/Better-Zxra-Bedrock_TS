@@ -55,40 +55,27 @@
           {
             "weight": 100,
             "add": {
-              "component_groups": [
-                "cz:yuri_wild",
-                "cz:yuri_size_n",
-                "normal_skin"
-              ]
+              "component_groups": ["cz:yuri_wild", "cz:yuri_size_n", "normal_skin"]
             }
           }
         ]
       },
       "minecraft:on_tame": {
         "add": {
-          "component_groups": [
-            "cz:yuri_tamed"
-          ]
+          "component_groups": ["cz:yuri_tamed"]
         },
         "remove": {
-          "component_groups": [
-            "cz:yuri_wild"
-          ]
+          "component_groups": ["cz:yuri_wild"]
         }
       },
       "cz:stay": {
         "sequence": [
           {
             "remove": {
-              "component_groups": [
-                "cz:follow_owner",
-                "cz:walk_idle"
-              ]
+              "component_groups": ["cz:follow_owner", "cz:walk_idle"]
             },
             "add": {
-              "component_groups": [
-                "cz:stay"
-              ]
+              "component_groups": ["cz:stay"]
             }
           }
         ]
@@ -97,15 +84,10 @@
         "sequence": [
           {
             "add": {
-              "component_groups": [
-                "cz:follow_owner"
-              ]
+              "component_groups": ["cz:follow_owner"]
             },
             "remove": {
-              "component_groups": [
-                "cz:stay",
-                "cz:walk_idle"
-              ]
+              "component_groups": ["cz:stay", "cz:walk_idle"]
             }
           }
         ]
@@ -114,15 +96,10 @@
         "sequence": [
           {
             "add": {
-              "component_groups": [
-                "cz:walk_idle"
-              ]
+              "component_groups": ["cz:walk_idle"]
             },
             "remove": {
-              "component_groups": [
-                "cz:stay",
-                "cz:follow_owner"
-              ]
+              "component_groups": ["cz:stay", "cz:follow_owner"]
             }
           }
         ]
@@ -131,15 +108,10 @@
         "sequence": [
           {
             "add": {
-              "component_groups": [
-                "cz:yuri_size_n"
-              ]
+              "component_groups": ["cz:yuri_size_n"]
             },
             "remove": {
-              "component_groups": [
-                "cz:yuri_size_p",
-                "cz:yuri_size_loli"
-              ]
+              "component_groups": ["cz:yuri_size_p", "cz:yuri_size_loli"]
             }
           }
         ]
@@ -148,15 +120,10 @@
         "sequence": [
           {
             "add": {
-              "component_groups": [
-                "cz:yuri_size_loli"
-              ]
+              "component_groups": ["cz:yuri_size_loli"]
             },
             "remove": {
-              "component_groups": [
-                "cz:yuri_size_p",
-                "cz:yuri_size_n"
-              ]
+              "component_groups": ["cz:yuri_size_p", "cz:yuri_size_n"]
             }
           }
         ]
@@ -165,15 +132,10 @@
         "sequence": [
           {
             "add": {
-              "component_groups": [
-                "cz:yuri_size_p"
-              ]
+              "component_groups": ["cz:yuri_size_p"]
             },
             "remove": {
-              "component_groups": [
-                "cz:yuri_size_loli",
-                "cz:yuri_size_n"
-              ]
+              "component_groups": ["cz:yuri_size_loli", "cz:yuri_size_n"]
             }
           }
         ]
@@ -182,11 +144,7 @@
         "sequence": [
           {
             "remove": {
-              "component_groups": [
-                "cz:target_zombie",
-                "cz:target_creeper",
-                "cz:target_skeleton"
-              ]
+              "component_groups": ["cz:target_zombie", "cz:target_creeper", "cz:target_skeleton"]
             }
           }
         ]
@@ -195,15 +153,10 @@
         "sequence": [
           {
             "remove": {
-              "component_groups": [
-                "cz:target_zombie",
-                "cz:target_skeleton"
-              ]
+              "component_groups": ["cz:target_zombie", "cz:target_skeleton"]
             },
             "add": {
-              "component_groups": [
-                "cz:target_creeper"
-              ]
+              "component_groups": ["cz:target_creeper"]
             }
           }
         ]
@@ -212,15 +165,10 @@
         "sequence": [
           {
             "remove": {
-              "component_groups": [
-                "cz:target_creeper",
-                "cz:target_skeleton"
-              ]
+              "component_groups": ["cz:target_creeper", "cz:target_skeleton"]
             },
             "add": {
-              "component_groups": [
-                "cz:target_zombie"
-              ]
+              "component_groups": ["cz:target_zombie"]
             }
           }
         ]
@@ -229,49 +177,42 @@
         "sequence": [
           {
             "remove": {
-              "component_groups": [
-                "cz:target_creeper",
-                "cz:target_zombie"
-              ]
+              "component_groups": ["cz:target_creeper", "cz:target_zombie"]
             },
             "add": {
-              "component_groups": [
-                "cz:target_skeleton"
-              ]
+              "component_groups": ["cz:target_skeleton"]
             }
           }
         ]
       },
       "cz:open_menu": {
         "queue_command": {
-          "command": [
-            "scriptevent cz:yuri_menu"
-          ],
+          "command": ["scriptevent cz:yuri_menu"],
           "target": "other"
         }
       },
       "cz:change_to_normal_skin": {
         "add": {
-          "component_groups": [
-            "normal_skin"
-          ]
+          "component_groups": ["normal_skin"]
         },
         "remove": {
-          "component_groups": [
-            "combat_skin"
-          ]
+          "component_groups": ["combat_skin", "cheerleader_skin"]
         }
       },
       "cz:change_to_combat_skin": {
         "add": {
-          "component_groups": [
-            "combat_skin"
-          ]
+          "component_groups": ["combat_skin"]
         },
         "remove": {
-          "component_groups": [
-            "normal_skin"
-          ]
+          "component_groups": ["normal_skin", "cheerleader_skin"]
+        }
+      },
+      "cz:change_to_cheerleader_skin": {
+        "add": {
+          "component_groups": ["cheerleader_skin"]
+        },
+        "remove": {
+          "component_groups": ["normal_skin", "normal_skin"]
         }
       }
     },
@@ -279,12 +220,7 @@
       "cz:yuri_tamed": {
         "minecraft:is_tamed": {},
         "minecraft:type_family": {
-          "family": [
-            "yuri",
-            "cat",
-            "zxra",
-            "npc"
-          ]
+          "family": ["yuri", "cat", "zxra", "npc"]
         },
         "minecraft:behavior.pet_sleep_with_owner": {
           "goal_radius": 1.0,
@@ -334,17 +270,11 @@
       },
       "cz:yuri_wild": {
         "minecraft:type_family": {
-          "family": [
-            "cat",
-            "yuri",
-            "zxra"
-          ]
+          "family": ["cat", "yuri", "zxra"]
         },
         "minecraft:tameable": {
           "probability": 0.8,
-          "tame_items": [
-            "minecraft:cod"
-          ],
+          "tame_items": ["minecraft:cod"],
           "tame_event": {
             "event": "minecraft:on_tame",
             "target": "self"
@@ -487,6 +417,11 @@
       "combat_skin": {
         "minecraft:variant": {
           "value": 1
+        }
+      },
+      "cheerleader_skin": {
+        "minecraft:variant": {
+          "value": 2
         }
       }
     }

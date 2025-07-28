@@ -1,13 +1,13 @@
 import { Player, system, Entity as mcEntity, MolangVariableMap } from "@minecraft/server";
 import { CreateObject, Entity, SkillLib, SpecialistWeapon, Terra } from "../../ZxraLib/module";
-import { slayerLostHPPercentation, uniqueWeaponData } from "../module";
+import { slayerLostHPPercentation, weaponData } from "../module";
 
 class Kyle {
   static pasif1(
     user: Player,
     data: SpecialistWeapon | undefined = Terra.getSpecialist(user.id)?.weapons?.find((e) => e.weapon === "kyles")
   ): number {
-    const lvl = data || uniqueWeaponData.kyles;
+    const lvl = data || weaponData.unique.kyles;
 
     return lvl.pasifLvl[0].find((e) => e.name === "zelxt_mode_multiplier").value;
   }
@@ -15,7 +15,7 @@ class Kyle {
   static pasif2(user: Player): void {}
 
   static skill1(user: Player, { sp, vel, velocity, multiplier }: SkillLib): void {
-    const data = sp.getSp().weapons.find((e) => e.weapon === "kyles") || uniqueWeaponData.kyles,
+    const data = sp.getSp().weapons.find((e) => e.weapon === "kyles") || weaponData.unique.kyles,
       skill = data.skillLvl[0],
       hp = user.getComponent("health");
 
@@ -61,7 +61,7 @@ class Kyle {
   }
 
   static skill1Up(user: Player, { sp, multiplier }: SkillLib): void {
-    const data = sp.getSp().weapons.find((e) => e.weapon === "kyles") || uniqueWeaponData.kyles,
+    const data = sp.getSp().weapons.find((e) => e.weapon === "kyles") || weaponData.unique.kyles,
       pasif = this.pasif1(user),
       skill = data.skillLvl[0],
       hp = user.getComponent("health");
@@ -144,15 +144,15 @@ class Kyle {
   }
 
   static skill2(user: Player, { sp, useDuration, multiplier }: SkillLib): void {
-    const data = sp.getSp().weapons.find((e) => e.weapon === "kyles") || uniqueWeaponData.kyles,
+    const data = sp.getSp().weapons.find((e) => e.weapon === "kyles") || weaponData.unique.kyles,
       skill = data.skillLvl[1],
       hp = user.getComponent("health");
 
-    if (!sp.cooldown.canSkill("kyle_skill2", skill.find((e) => e.name === "cooldown").value || 5)) return;
+    if (!sp.cooldown.canSkill("kyle_skill2", skill?.find((e) => e.name === "cooldown").value || 5)) return;
     sp.playAnim("animation.weapon.kyles.skill2");
 
     sp.bind(1.4);
-    sp.minStamina(skill.find((e) => e.name === "stamina").value || 14);
+    sp.minStamina(skill?.find((e) => e.name === "stamina").value || 14);
 
     system.runTimeout(() => {
       sp.source.triggerEvent("cz:immune_300ms");
@@ -163,9 +163,9 @@ class Kyle {
 
         target.forEach((e: mcEntity) => {
           new Entity(e).addDamage(
-            data.atk * skill.find((e) => e.name === "atk_percentage").value +
+            data.atk * skill?.find((e) => e.name === "atk_percentage").value +
               (hp?.effectiveMax || 20) *
-                skill.find((e) => e.name === "zelxt_health_percentage").value *
+                skill?.find((e) => e.name === "zelxt_health_percentage").value *
                 slayerLostHPPercentation(user) *
                 (multiplier || 1),
             {
@@ -189,7 +189,7 @@ class Kyle {
   }
 
   static skill2Up(user: Player, { sp, multiplier }: SkillLib): void {
-    const data = sp.getSp().weapons.find((e) => e.weapon === "kyles") || uniqueWeaponData.kyles,
+    const data = sp.getSp().weapons.find((e) => e.weapon === "kyles") || weaponData.unique.kyles,
       pasif = this.pasif1(user),
       skill = data.skillLvl[1],
       hp = user.getComponent("health");
@@ -197,11 +197,11 @@ class Kyle {
     const location = sp.getLocationInFront(7);
     location.y += 0.5;
 
-    if (!sp.cooldown.canSkill("kyle_skill2", skill.find((e) => e.name === "zelxt_cooldown").value || 8)) return;
+    if (!sp.cooldown.canSkill("kyle_skill2", skill?.find((e) => e.name === "zelxt_cooldown").value || 8)) return;
     sp.playAnim("animation.weapon.kyles.skill2.up");
 
     sp.bind(1.3);
-    sp.minStamina(skill.find((e) => e.name === "zelxt_stamina").value || 12);
+    sp.minStamina(skill?.find((e) => e.name === "zelxt_stamina").value || 12);
     sp.source.triggerEvent("cz:immune_300ms");
 
     sp.cooldown.setIsSkill(0.5);
@@ -214,9 +214,9 @@ class Kyle {
       target.forEach((e) => {
         if (!e) return;
         new Entity(e).addDamage(
-          data.atk * skill.find((e) => e.name === "zelxt_atk_percentage").value +
+          data.atk * skill?.find((e) => e.name === "zelxt_atk_percentage").value +
             (hp?.effectiveMax || 20) *
-              skill.find((e) => e.name === "zelxt_health_percentage").value *
+              skill?.find((e) => e.name === "zelxt_health_percentage").value *
               slayerLostHPPercentation(user) *
               pasif *
               (multiplier || 1),
@@ -233,7 +233,7 @@ class Kyle {
   }
 
   static skill3(user: Player, { sp, multiplier }: SkillLib): void {
-    const data = sp.getSp().weapons.find((e) => e.weapon === "kyles") || uniqueWeaponData.kyles,
+    const data = sp.getSp().weapons.find((e) => e.weapon === "kyles") || weaponData.unique.kyles,
       skill = data.skillLvl[2],
       hp = user.getComponent("health");
 
@@ -285,7 +285,7 @@ class Kyle {
   }
 
   static skill3Up(user: Player, { sp, multiplier }: SkillLib): void {
-    const data = sp.getSp().weapons.find((e) => e.weapon === "kyles") || uniqueWeaponData.kyles,
+    const data = sp.getSp().weapons.find((e) => e.weapon === "kyles") || weaponData.unique.kyles,
       pasif = this.pasif1(user),
       skill = data.skillLvl[2],
       hp = user.getComponent("health"),
@@ -351,7 +351,7 @@ class Kyle {
     sp.minStamina(10);
     user.addTag("preview");
 
-    const data = sp.getSp().weapons.find((e) => e.weapon === "kyles") || uniqueWeaponData.kyles,
+    const data = sp.getSp().weapons.find((e) => e.weapon === "kyles") || weaponData.unique.kyles,
       skill = data.skillLvl[3],
       hp = user.getComponent("health");
 

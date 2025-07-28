@@ -22,7 +22,7 @@ class Guild {
     if (!updateData) throw new Error("Missing updateData");
 
     const data = this.getData(),
-      find = data?.findIndex((e) => e.id == updateData.id);
+      find = data.findIndex((e) => e.id == updateData.id);
 
     if (find === -1) throw new Error("Data not found");
     data[find] = updateData;
@@ -61,7 +61,7 @@ class Guild {
       des,
       approval,
       maxMember: 5,
-      members: [{ id: player.id, name: player.name, role: "superadmin" }],
+      members: [{ id: player.id, name: player.name, role: "super_admin" }],
       applier: [],
       token: 0,
     };

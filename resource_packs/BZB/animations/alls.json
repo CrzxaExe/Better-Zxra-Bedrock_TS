@@ -63,9 +63,13 @@
 			"loop": true,
 			"bones": {
 				"rightItem": {
-					"rotation": [0, 80, -40],
+					"rotation": [0, 40, -40],
 					"position": [0, 6, 0],
 					"scale": [1.83, 1.09, 1.83]
+				},
+				"liberator": {
+					"rotation": [34.48556, -18.22825, -118.1445],
+					"position": [2, 22, 2]
 				}
 			}
 		},

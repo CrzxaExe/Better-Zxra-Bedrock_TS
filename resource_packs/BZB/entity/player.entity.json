@@ -73,7 +73,8 @@
         ]
       },
       "animations": {
-        "root": "controller.animation.player.root",
+        "root": "controller.animation.cz.player.root",
+        "tpp_init": "controller.animation.cz.player.init",
         "shield_animation": "animation.shields",
         "base_controller": "controller.animation.player.base",
         "hudplayer": "controller.animation.player.hudplayer",
@@ -86,7 +87,7 @@
         "look_at_target_inverted": "animation.player.look_at_target.inverted",
         "cape": "animation.player.cape",
         "move.arms": "animation.player.move.arms",
-        "move.legs": "animation.cz.move",
+        "move.legs": "animation.player.move.legs",
         "swimming": "animation.player.swim",
         "swimming.legs": "animation.player.swim.legs",
         "riding.arms": "animation.player.riding.arms",
@@ -123,8 +124,9 @@
         "third_person_bow_equipped": "animation.player.bow_equipped",
         "crossbow_hold": "animation.player.crossbow_hold",
         "crossbow_controller": "controller.animation.player.crossbow",
-        "shield_block_main_hand": "animation.player.shield_block_main_hand",
-        "shield_block_off_hand": "animation.player.shield_block_off_hand",
+        "shield_blocking_controll": "controller.animation.cz.player.blocking",
+        "shield_block_main_hand": "animation.cz.block.main",
+        "shield_block_off_hand": "animation.cz.block.off",
         "blink": "controller.animation.persona.blink",
         "draw_control": "controller.animation.draw.control",
         "kyle_draw": "animation.kyle.draw",
@@ -145,8 +147,7 @@
         "gun_use": "animation.weapon.gun",
         "staff_use": "animation.weapon.staff",
         "heavy_weapon": "animation.weapon.heavy.grab",
-        "heavy_charge": "animation.weapon.heavy.charge",
-        "kyle_particle": "animation.kyle.particles"
+        "heavy_charge": "animation.weapon.heavy.charge"
       },
       "render_controllers": [
         {

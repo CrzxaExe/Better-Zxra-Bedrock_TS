@@ -1,3 +1,5 @@
+import { GachaRarity } from "./gacha";
+
 export const damageColor = {
   anvil: "§l^",
   blockExplosion: "§l§6",
@@ -37,7 +39,7 @@ export const damageColor = {
   wither: "§9",
 };
 
-export const rarityColor = {
+export const rarityColor: Record<GachaRarity, string> = {
   unique: "§2",
   epic: "§5§l",
   legend: "§e",

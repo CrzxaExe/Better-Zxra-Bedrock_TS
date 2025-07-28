@@ -8,7 +8,7 @@ import {
   system,
   world,
 } from "@minecraft/server";
-import { Command, Setting, Terra } from "../../module";
+import { Command, GuildPanel, Setting, Terra } from "../../module";
 import { ActionFormData } from "@minecraft/server-ui";
 
 // Settings
@@ -271,6 +271,59 @@ Command.add(
 
         sp.setMoney(value);
         plyr.sendMessage({ translate: "system.setbal", with: [String(plyr.name), String(value)] });
+      });
+
+      return {
+        status: CustomCommandStatus.Success,
+      };
+    } catch (error: any) {
+      console.warn("[System] Error while run command " + error.message);
+      return {
+        status: CustomCommandStatus.Failure,
+      };
+    }
+  }
+);
+
+Command.add(
+  {
+    name: "cz:guildadmin",
+    description: "cmd.guildadmin",
+    permissionLevel: CommandPermissionLevel.Admin,
+  },
+  (origin: CustomCommandOrigin): CustomCommandResult => {
+    try {
+      system.run(() => {
+        if (origin.sourceEntity?.typeId !== "minecraft:player") throw new Error("Not a player");
+
+        const plyr: Player = Terra.getPlayer({ id: origin.sourceEntity?.id }) as Player;
+        if (!plyr) throw new Error("Not a origin player");
+
+        GuildPanel.admin(plyr);
+      });
+
+      return {
+        status: CustomCommandStatus.Success,
+      };
+    } catch (error: any) {
+      console.warn("[System] Error while run command " + error.message);
+      return {
+        status: CustomCommandStatus.Failure,
+      };
+    }
+  }
+);
+
+Command.add(
+  {
+    name: "cz:savedata",
+    description: "cmd.savedata",
+    permissionLevel: CommandPermissionLevel.Admin,
+  },
+  (origin: CustomCommandOrigin): CustomCommandResult => {
+    try {
+      system.run(() => {
+        Terra.save(true);
       });
 
       return {

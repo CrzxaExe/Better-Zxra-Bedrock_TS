@@ -317,3 +317,101 @@ Command.add(
     }
   }
 );
+
+Command.add(
+  {
+    name: "cz:guild",
+    description: "cmd.guild",
+    permissionLevel: CommandPermissionLevel.Any,
+  },
+  (origin: CustomCommandOrigin): CustomCommandResult => {
+    try {
+      system.run(() => {
+        if (origin.sourceEntity?.typeId !== "minecraft:player") throw new Error("Not a player");
+
+        const plyr: Player = Terra.getPlayer({ id: origin.sourceEntity.id }) as Player;
+        if (!plyr) throw new Error("Not a origin player");
+
+        UserPanel.guild(plyr);
+      });
+
+      return {
+        status: CustomCommandStatus.Success,
+      };
+    } catch (error: any) {
+      console.warn("[System] Error while run command " + error.message);
+      return {
+        status: CustomCommandStatus.Failure,
+      };
+    }
+  }
+);
+
+Command.add(
+  {
+    name: "cz:guildlist",
+    description: "cmd.guildlist",
+    permissionLevel: CommandPermissionLevel.Any,
+  },
+  (origin: CustomCommandOrigin): CustomCommandResult => {
+    try {
+      system.run(() => {
+        if (origin.sourceEntity?.typeId !== "minecraft:player") throw new Error("Not a player");
+
+        const plyr: Player = Terra.getPlayer({ id: origin.sourceEntity.id }) as Player;
+        if (!plyr) throw new Error("Not a origin player");
+
+        plyr.sendMessage({
+          rawtext: [
+            { translate: "system.guild.list" },
+            ...Terra.guild.getData().map((e) => {
+              return { text: `\n- [${e.level.lvl}] ${e.name} | ${e.members.length}/${e.maxMember}  |  ID: ${e.id}` };
+            }),
+          ],
+        });
+      });
+
+      return {
+        status: CustomCommandStatus.Success,
+      };
+    } catch (error: any) {
+      console.warn("[System] Error while run command " + error.message);
+      return {
+        status: CustomCommandStatus.Failure,
+      };
+    }
+  }
+);
+
+Command.add(
+  {
+    name: "cz:stats",
+    description: "cmd.stats",
+    permissionLevel: CommandPermissionLevel.Any,
+    optionalParameters: [{ name: "target", type: CustomCommandParamType.PlayerSelector }],
+  },
+  (origin: CustomCommandOrigin, target: Player | undefined): CustomCommandResult => {
+    try {
+      system.run(() => {
+        if (origin.sourceEntity?.typeId !== "minecraft:player") throw new Error("Not a player");
+        const selector = target || origin.sourceEntity;
+
+        if (!selector) return;
+
+        const plyr: Player = Terra.getPlayer({ id: selector.id }) as Player;
+        if (!plyr) throw new Error("Not a origin player");
+
+        UserPanel.userProfile(Terra.getPlayer({ id: origin.sourceEntity.id }) as Player, plyr);
+      });
+
+      return {
+        status: CustomCommandStatus.Success,
+      };
+    } catch (error: any) {
+      console.warn("[System] Error while run command " + error.message);
+      return {
+        status: CustomCommandStatus.Failure,
+      };
+    }
+  }
+);

@@ -140,8 +140,8 @@
         "yuri_pnl": {
           "type": "panel",
           "size": ["320%", "320%"],
-          "max_size": [590, 400],
-          "offset": ["60% + 12px", "-30%"],
+          "max_size": ["680px", "480px"],
+          "offset": ["58% + 12px", "-18%"],
           "layer": -1,
           "controls": [
             {

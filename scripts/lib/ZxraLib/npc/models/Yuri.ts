@@ -36,6 +36,8 @@ class Yuri {
 
       .show(player)
       .then((e) => {
+        if (e.canceled) return;
+
         switch (e.selection) {
           case 0:
             this.actionUi(player);
@@ -53,6 +55,8 @@ class Yuri {
       .button({ translate: "yuri.scale" })
       .show(player)
       .then((e) => {
+        if (e.canceled) return;
+
         switch (e.selection) {
           case 1:
             this.skinUi(player);
@@ -74,6 +78,8 @@ class Yuri {
 
       .show(player)
       .then((e) => {
+        if (e.canceled) return;
+
         const scaleEvents: string[] = ["cz:size_loli", "cz:size_n", "cz:size_p"];
         const scaleEvent =
           typeof e.selection === "number" && e.selection >= 0 && e.selection < scaleEvents.length
@@ -95,7 +101,13 @@ class Yuri {
 
       .show(player)
       .then((e) => {
-        const skinsEvents: string[] = ["cz:change_to_normal_skin", "cz:change_to_combat_skin"];
+        if (e.canceled) return;
+
+        const skinsEvents: string[] = [
+          "cz:change_to_normal_skin",
+          "cz:change_to_combat_skin",
+          "cz:change_to_cheerleader_skin",
+        ];
         const skinEvent =
           typeof e.selection === "number" && e.selection >= 0 && e.selection < skinsEvents.length
             ? skinsEvents[e.selection]

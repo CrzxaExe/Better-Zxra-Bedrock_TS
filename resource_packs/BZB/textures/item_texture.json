@@ -523,6 +523,9 @@
     },
     "ender_shortsword": {
       "textures": "textures/items/ender/shortsword"
+    },
+    "diamond_pickaxe": {
+      "textures": "textures/items/diamond_pickaxe"
     }
   }
 }

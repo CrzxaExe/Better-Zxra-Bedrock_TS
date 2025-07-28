@@ -47,7 +47,7 @@ interface SpecialistWeapon {
   weapon: string;
   atk: number;
   pasifLvl: [WeaponStat[], WeaponStat[]?];
-  skillLvl: [WeaponStat[], WeaponStat[], WeaponStat[]?, WeaponStat[]?];
+  skillLvl: [WeaponStat[], WeaponStat[]?, WeaponStat[]?, WeaponStat[]?];
 }
 
 export {

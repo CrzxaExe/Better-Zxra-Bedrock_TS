@@ -9,7 +9,7 @@
         "cz_form0@cz_common.main_panel_no_buttons": {
           "$title_panel": "common_dialogs.standard_title_label",
           "$title_size": ["100% - 14px", 10],
-          "size": [410, 330],
+          "size": ["410px", "330px"],
           "$text_name": "cz.shop",
           "$title_text_binding_type": "none",
           "$child_control": "server_form.shop_panel",
@@ -31,7 +31,7 @@
         "cz_form1@common_dialogs.main_panel_no_buttons": {
           "$title_panel": "common_dialogs.standard_title_label",
           "$title_size": ["100% - 14px", 10],
-          "size": [330, 280],
+          "size": ["330px", "280px"],
           "$text_name": "cz.quest",
           "$title_text_binding_type": "none",
           "$child_control": "server_form.long_form_panel",
@@ -53,7 +53,7 @@
         "cz_form2@cz_common.full_panel_no_buttons": {
           "$title_panel": "common_dialogs.standard_title_label",
           "$title_size": ["100% - 14px", 10],
-          "size": [420, 220],
+          "size": ["420px", "220px"],
           "$text_name": "cz.user",
           "$title_text_binding_type": "none",
           "$child_control": "server_form.user_panel",
@@ -75,7 +75,7 @@
         "cz_form3@cz_common.yuri_panel_ui": {
           "$title_panel": "common_dialogs.standard_title_label",
           "$title_size": ["100% - 14px", 10],
-          "size": ["350px", "120px"],
+          "size": ["350px", "124px"],
           "$text_name": "Yuri Zxra",
           "$title_text_binding_type": "none",
           "$child_control": "server_form.yuri_panel",
@@ -102,7 +102,7 @@
         "cz_form4@cz_common.yuri_panel_ui": {
           "$title_panel": "common_dialogs.standard_title_label",
           "$title_size": ["100% - 14px", 10],
-          "size": ["350px", "120px"],
+          "size": ["350px", "124px"],
           "$text_name": "Yuri Zxra",
           "$title_text_binding_type": "none",
           "$child_control": "server_form.yuri_panel",
@@ -127,10 +127,38 @@
         }
       },
       {
-        "cz_form5@cz_common.main_panel_no_buttons": {
+        "cz_form5@cz_common.yuri_panel_ui": {
           "$title_panel": "common_dialogs.standard_title_label",
           "$title_size": ["100% - 14px", 10],
-          "size": [410, 330],
+          "size": ["350px", "124px"],
+          "$text_name": "Yuri Zxra",
+          "$title_text_binding_type": "none",
+          "$child_control": "server_form.yuri_panel",
+          "$display": "textures/cz/art/yuri/skin/cheerleader",
+          "layer": 2,
+          "alpha": 0.8,
+          "bindings": [
+            {
+              "binding_name": "#gamertag",
+              "binding_type": "collection",
+              "binding_collection_name": "players_collection"
+            },
+            {
+              "binding_name": "#title_text"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "(#title_text = 'cz:yuri_menu2')",
+              "target_property_name": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "cz_form6@cz_common.main_panel_no_buttons": {
+          "$title_panel": "common_dialogs.standard_title_label",
+          "$title_size": ["100% - 14px", 10],
+          "size": ["410px", "330px"],
           "$text_name": "guild.shop",
           "$title_text_binding_type": "none",
           "$child_control": "server_form.shop_panel",
@@ -149,10 +177,10 @@
         }
       },
       {
-        "cz_form6@cz_common.npc_panel_ui": {
+        "cz_form7@cz_common.npc_panel_ui": {
           "$title_panel": "common_dialogs.standard_title_label",
           "$title_size": ["100% - 14px", 10],
-          "size": [400, 124],
+          "size": ["400px", "124px"],
           "$text_name": "npc.shop.farmer",
           "$title_text_binding_type": "none",
           "$child_control": "server_form.npc_panel",
@@ -171,10 +199,10 @@
         }
       },
       {
-        "cz_form7@common_dialogs.main_panel_no_buttons": {
+        "cz_form8@common_dialogs.main_panel_no_buttons": {
           "$title_panel": "common_dialogs.standard_title_label",
           "$title_size": ["100% - 14px", 10],
-          "size": [300, 240],
+          "size": ["300px", "240px"],
           "$text_name": "cz.rune",
           "$title_text_binding_type": "none",
           "$child_control": "server_form.long_form_panel",
@@ -193,10 +221,10 @@
         }
       },
       {
-        "cz_form8@common_dialogs.main_panel_no_buttons": {
+        "cz_form9@common_dialogs.main_panel_no_buttons": {
           "$title_panel": "common_dialogs.standard_title_label",
           "$title_size": ["100% - 14px", 10],
-          "size": [280, 120],
+          "size": ["280px", "120px"],
           "$text_name": "cz.skins",
           "$title_text_binding_type": "none",
           "$child_control": "server_form.skins_panel",
@@ -218,7 +246,7 @@
         "cz_form@common_dialogs.main_panel_no_buttons": {
           "$title_panel": "common_dialogs.standard_title_label",
           "$title_size": ["100% - 14px", 10],
-          "size": [245, 220],
+          "size": ["245px", "220px"],
           "$text_name": "#title_text",
           "$title_text_binding_type": "none",
           "$child_control": "server_form.long_form_panel",
@@ -229,7 +257,7 @@
             },
             {
               "binding_type": "view",
-              "source_property_name": "((#title_text - 'cz:npc_shop_farmer') and (#title_text - 'cz:skins') and (#title_text - 'cz:rune')  and (#title_text - 'cz:shop') and (#title_text - 'cz:quest') and (#title_text - 'cz:guild_shop') and (#title_text - 'cz:yuri_menu0') and (#title_text - 'cz:yuri_menu1') and (#title_text - 'cz:user') = #title_text)",
+              "source_property_name": "((#title_text - 'cz:npc_shop_farmer') and (#title_text - 'cz:skins') and (#title_text - 'cz:rune')  and (#title_text - 'cz:shop') and (#title_text - 'cz:quest') and (#title_text - 'cz:guild_shop') and (#title_text - 'cz:yuri_menu0') and (#title_text - 'cz:yuri_menu1') and (#title_text - 'cz:yuri_menu2') and (#title_text - 'cz:user') = #title_text)",
               "target_property_name": "#visible"
             }
           ]
@@ -277,7 +305,7 @@
             {
               "main_label": {
                 "type": "label",
-                "offset": [2, 2],
+                "offset": ["2px", "2px"],
                 "color": "$main_header_text_color",
                 "size": ["100%", "default"],
                 "anchor_from": "top_left",
@@ -310,7 +338,7 @@
   "skins_dynamic_buttons_panel": {
     "type": "grid",
     "size": ["100%", "100%c"],
-    "grid_dimensions": [7, 5],
+    "grid_dimensions": [5, 4],
     "grid_item_template": "server_form.skins_button",
     "grid_fill_direction": "horizontal",
     "grid_rescaling_type": "horizontal",
@@ -333,7 +361,7 @@
   },
   "skins_button": {
     "type": "panel",
-    "size": [37, 61],
+    "size": [50, 80],
     "controls": [
       {
         "panel_name": {
@@ -354,8 +382,8 @@
               "image": {
                 "type": "image",
                 "layer": 6,
-                "anchor_from": "middle_left",
-                "size": [35, 60],
+                "anchor_from": "left",
+                "size": ["49px", "79px"],
                 "bindings": [
                   {
                     "binding_name": "#form_button_texture",
@@ -400,7 +428,7 @@
           "$pressed_button_name": "button.form_button_click",
           "anchor_from": "top_left",
           "anchor_to": "top_left",
-          "size": [35, 60],
+          "size": [49, 79],
           "$button_text": "#form_button_text",
           "$button_font_scale_factor": 0,
           "$button_text_binding_type": "collection",
@@ -470,7 +498,7 @@
       {
         "padding": {
           "type": "panel",
-          "size": ["100%", 4]
+          "size": ["100%", "4px"]
         }
       },
       {
@@ -491,7 +519,6 @@
     "size": ["100%", "100%c"],
     "grid_dimensions": [2, 3],
     "grid_item_template": "server_form.shop_button",
-    "grid_fill_direction": "horizontal",
     "grid_rescaling_type": "horizontal",
     "offset": [2, 10],
     "anchor_from": "top_middle",
@@ -512,7 +539,7 @@
   },
   "shop_button": {
     "type": "panel",
-    "size": [96, 60],
+    "size": [96, 54],
     "alpha": 0.7,
     "controls": [
       {
@@ -567,7 +594,7 @@
           "$pressed_button_name": "button.form_button_click",
           "anchor_from": "top_left",
           "anchor_to": "top_left",
-          "size": [96, 60],
+          "size": [96, 54],
           "$button_text": "#form_button_text",
           "$button_text_binding_type": "collection",
           "$button_text_grid_collection_name": "form_buttons",
@@ -699,7 +726,7 @@
     "layer": 1,
     "anchor_from": "bottom_middle",
     "anchor_to": "bottom_middle",
-    "offset": [0, "21%"],
+    "offset": ["0px", "20%"],
     "controls": [
       {
         "scrolling_panel@common.scrolling_panel": {
@@ -723,7 +750,7 @@
     "layer": 1,
     "anchor_from": "bottom_middle",
     "anchor_to": "bottom_middle",
-    "offset": [0, "21%"],
+    "offset": ["0px", "21%"],
     "controls": [
       {
         "scrolling_panel@common.scrolling_panel": {
@@ -768,7 +795,7 @@
 
   "user_button": {
     "type": "panel",
-    "size": [29, 27],
+    "size": ["29px", "27px"],
     "controls": [
       {
         "panel_name": {
@@ -789,8 +816,8 @@
               "image": {
                 "type": "image",
                 "layer": 6,
-                "anchor_from": "middle_left",
-                "size": [24, 24],
+                "anchor_from": "left",
+                "size": ["24px", "24px"],
                 "bindings": [
                   {
                     "binding_name": "#form_button_texture",
@@ -814,8 +841,8 @@
             },
             {
               "progress@progress.progress_loading_bars": {
-                "size": [30, 4],
-                "offset": [-2, 16],
+                "size": ["30px", "4px"],
+                "offset": ["-2px", "16px"],
                 "bindings": [
                   {
                     "binding_type": "view",
@@ -835,7 +862,7 @@
           "$pressed_button_name": "button.form_button_click",
           "anchor_from": "top_left",
           "anchor_to": "top_left",
-          "size": [29, 27],
+          "size": ["29px", "27px"],
           "$button_text": "#form_button_text",
           "$button_font_scale_factor": 0,
           "$button_text_binding_type": "collection",

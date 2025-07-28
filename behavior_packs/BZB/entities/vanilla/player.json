@@ -73,9 +73,6 @@
         }
       },
       "zelxt_mode": {
-        "minecraft:health": {
-          "min": 1
-        },
         "minecraft:damage_sensor": {
           "triggers": [
             {

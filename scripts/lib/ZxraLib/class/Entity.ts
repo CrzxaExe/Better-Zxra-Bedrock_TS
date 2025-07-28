@@ -169,7 +169,7 @@ class Entity {
     if (!(this.source instanceof Player)) return;
 
     const sp = Terra.getSpecialistCache(this.source);
-    const lvl = (Math.max(Calc.hpLostPercentage(hp), hpLost) - Math.min(hpLost, Calc.hpLostPercentage(hp))) * 100;
+    const lvl = (1 - Math.max(Calc.hpLostPercentage(hp), hpLost) - Math.min(hpLost, Calc.hpLostPercentage(hp))) * 100;
 
     switch (identifier) {
       case "kyle":
@@ -185,8 +185,6 @@ class Entity {
         });
         break;
     }
-
-    // console.warn(`hp = ${Calc.hpLostPercentage(hp)} ${hpLost} = ${lvl}`);
   }
   setCurrentHP(value: number): void {
     const hp: EntityHealthComponent | undefined = this.source.getComponent("health");

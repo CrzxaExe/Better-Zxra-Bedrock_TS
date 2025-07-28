@@ -33,11 +33,13 @@ export { Terra } from "./class/Terra";
 export { damageColor, rarityColor } from "./data/color";
 export { RUNE_GACHA_PRICE, WEAPON_GACHA_PRICE } from "./data/constant";
 export { NOT_ALLOWED_ENTITY_TICK, NOT_VALID_ENTITY } from "./data/entityFilters";
+export { gachaFeatured, gachaPolls, GachaRarity } from "./data/gacha";
 export { npcFile } from "./data/npc";
 export { questIndex } from "./data/quest";
 export { defaultEntity, defaultPity, defaultRuneStat, defaultSpecialist } from "./data/raw";
 export { runeList } from "./data/rune";
 export { settings } from "./data/setting";
+export { guildShop } from "./data/shop";
 
 // Enums export
 export { BzbEntity } from "./enum/entity";
@@ -51,6 +53,7 @@ export { durabilityControl } from "./function/durabilityControl";
 export { Yuri } from "./npc/models/Yuri";
 
 // Types export
+export type { GuildRole, GuildRoles, GuildData, GuildLevel, GuildMember, GuildShopItem } from "./types/guild";
 export type {
   BossChallengeData,
   BossChallangeParticipant,
@@ -58,10 +61,6 @@ export type {
   CommandData,
   EffectCreate,
   EntityData,
-  GuildData,
-  GuildLevel,
-  GuildMember,
-  GuildRole,
   ItemSpecial,
   LbData,
   LeaderboardData,
@@ -119,7 +118,7 @@ export type {
 } from "./types/specialistTypes";
 
 // UI exports
-export { UserPanel } from "./ui/user";
+export { GachaPanel, GuildPanel, UserPanel } from "./ui/user";
 
 /*
  *   Imports
@@ -131,3 +130,4 @@ import "./scriptEvents/index";
 // Registry imports
 import "./registry/blocks/all";
 import "./registry/items/tools";
+import "./registry/itemEvent/use";

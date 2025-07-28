@@ -3,7 +3,7 @@
 // #####################################################################
 
 // Data exports
-export { uniqueWeaponData } from "./data/unique";
+export * as weaponData from "./data/unique";
 
 // Pasif exports
 

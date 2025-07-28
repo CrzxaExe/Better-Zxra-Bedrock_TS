@@ -49,29 +49,6 @@ type EntityData = Prettify<
   } & NpcModels
 >;
 
-// Guild interface
-interface GuildData {
-  id: string;
-  name: string;
-  level: GuildLevel;
-  des: string;
-  maxMember: number;
-  approval: boolean;
-  members: GuildMember[];
-  applier: GuildMember[];
-  token: number;
-}
-interface GuildLevel {
-  lvl: number;
-  xp: number;
-}
-interface GuildMember {
-  id: string;
-  name: string;
-  role?: GuildRole;
-}
-type GuildRole = "superadmin" | "admin" | "member";
-
 // Item interface
 interface ItemSpecial {
   item: string;
@@ -102,7 +79,7 @@ interface ModifierData {
 // Quest interface
 interface QuestConst {
   player: Player;
-  sp?: any;
+  sp: Specialist;
 }
 interface QuestController {
   act: QuestType;
@@ -161,14 +138,14 @@ interface PasifKill {
 }
 
 // Pity interface
-interface PityPlayer {
+type PityPlayer = {
   id: string;
   pity: {
     unique: number;
     featured: number;
     limited: number;
   };
-}
+};
 
 // Player interface
 interface PlayerFinder {
@@ -247,6 +224,7 @@ interface Setting {
   damageIndicator?: boolean;
   deathLocation?: boolean;
   debug?: boolean;
+  guildCreateCost?: number;
   saveInterval?: number;
   shopMultiplier?: number;
   staminaAction?: number;
@@ -350,10 +328,6 @@ export type {
   CommandData,
   EffectCreate,
   EntityData,
-  GuildData,
-  GuildLevel,
-  GuildMember,
-  GuildRole,
   ItemSpecial,
   LbData,
   LeaderboardData,

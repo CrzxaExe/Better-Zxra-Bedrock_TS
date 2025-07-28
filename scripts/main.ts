@@ -62,7 +62,7 @@ function mainTick(): void {
 
     // Save Intervals
     if (system.currentTick % (Terra.world.setting?.saveInterval || 20000) /* 1000 sec */ === 0) {
-      Terra.save(false);
+      Terra.save(true);
       Terra.setPlayer(world.getAllPlayers());
     }
   } catch (err: { message: string } | any) {

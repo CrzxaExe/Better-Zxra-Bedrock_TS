@@ -696,6 +696,42 @@
 					}
 				}
 			}
+		},
+		"animation.yuri.idle_cheerleader": {
+			"loop": true,
+			"bones": {
+				"waist": {
+					"rotation": [-3, 0, 0],
+					"position": [0, "math.cos(q.life_time * 70) * 0.12 - 0.065", 0]
+				},
+				"head": {
+					"rotation": ["-math.cos(q.life_time * 70) * 0.62 + 3.765", 0, 0]
+				},
+				"ponytail": {
+					"rotation": ["math.cos(q.life_time * 70) * 3.72 - 0.065", "math.cos(q.life_time * 70) * 3.72 - 0.065", "math.cos(q.life_time * 70) * 3.72 - 0.065"]
+				},
+				"righthair": {
+					"rotation": [0, 0, "math.cos(q.life_time * 70) * 2.72 - 0.465"]
+				},
+				"lefthair": {
+					"rotation": [0, 0, "-math.cos(q.life_time * 70) * 2.72 - 0.465"]
+				},
+				"fronthair": {
+					"position": [0, "math.cos(q.life_time * 70) * 0.09", 0]
+				},
+				"leftArm": {
+					"rotation": [4.00675, -16.93663, "-12.4551898398 + math.cos(q.life_time * 70) * 2.59 - 1.565"],
+					"position": [-0.47, "math.cos(q.life_time * 70) * 0.19 - 1.565", 0.1]
+				},
+				"rightArm": {
+					"rotation": [0.86765, 15.24903, "11.4066215087 - math.cos(q.life_time * 70) * 2.59 + 1.565"],
+					"position": [0.47, "math.cos(q.life_time * 70) * 0.19 - 1.565", 0.1]
+				},
+				"b3r": {
+					"rotation": ["-math.cos(q.life_time * 70) * 1.52 - 1.02", 0, 0],
+					"position": [0, "math.cos(q.life_time * 70) * 0.12 - 0.01", 0]
+				}
+			}
 		}
 	}
 }

@@ -74,7 +74,7 @@ class Quest {
     data.quest.progress[index] += amount;
     this.in.sp.setSp(data);
 
-    this.questReward(data);
+    this.questReward(data.quest);
   }
   setPlayerQuest(quest: QuestData): void {
     const data = this.in.sp.getSp();
@@ -84,6 +84,18 @@ class Quest {
       progress: Array(quest.task.length),
     };
     this.in.sp.setSp(data);
+  }
+  setRandom(): void {
+    const availableQuest = questIndex.filter((e) => e.rep <= this.in.sp.getRep());
+
+    if (availableQuest.length < 1) {
+      this.in.player.sendMessage({ translate: "system.rep.up" });
+      return;
+    }
+
+    const quest = availableQuest[Math.floor(Math.random() * availableQuest.length)];
+
+    this.setPlayerQuest(quest);
   }
 
   isQuestClear(data: QuestPlayer = this.getPlayerQuest()): boolean {

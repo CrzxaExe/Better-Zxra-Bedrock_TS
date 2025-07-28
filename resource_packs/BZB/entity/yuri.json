@@ -8,10 +8,12 @@
       },
       "textures": {
         "normal": "textures/entity/yuri/yuri_normal",
-        "combat": "textures/entity/yuri/yuri_combat"
+        "combat": "textures/entity/yuri/yuri_combat",
+        "cheerleader": "textures/entity/yuri/yuri_cheerleader"
       },
       "geometry": {
-        "default": "geometry.yuri"
+        "default": "geometry.yuri",
+        "cheerleader": "geometry.yuri_cheerleader"
       },
       "scripts": {
         "pre_animation": [
@@ -34,6 +36,7 @@
         "attack.rotations": "animation.humanoid.attack.rotations",
         "sneaking": "animation.humanoid.sneaking",
         "yuri_bob": "animation.yuri.idle",
+        "yuri_cheerleader_bob": "animation.yuri.idle_cheerleader",
         "damage_nearby_mobs": "animation.humanoid.damage_nearby_mobs",
         "bow_and_arrow": "animation.humanoid.bow_and_arrow",
         "swimming": "animation.humanoid.swimming",
