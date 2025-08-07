@@ -10,7 +10,6 @@ import {
   system,
   Vector3,
   EntityDamageCause,
-  VectorXZ,
 } from "@minecraft/server";
 import {
   Calc,
@@ -22,7 +21,7 @@ import {
   Particle,
   RuneStats,
   Status,
-  StatusDecay,
+  StatusData,
   Terra,
 } from "../module";
 
@@ -57,10 +56,22 @@ class Entity {
 
   // Controller
   controllerStatus(): void {
-    this.status
-      .getData()
-      .filter((e) => e.type === "Time")
-      .forEach((e) => this.status.minStatus(e.name, 0.25));
+    // console.warn(JSON.stringify(this.status.getData()));
+    const status = this.status.getData();
+
+    status.filter((e) => e.decay === "time").forEach((e) => this.status.minStatus(e.name, 0.25));
+
+    this.controllerActiveStatusEffect(status);
+  }
+  controllerActiveStatusEffect(status: StatusData[] = this.status.getData()): void {
+    status.forEach((e: StatusData) => {
+      switch (e.type) {
+        case "wet":
+          if (!this.isOnFire()) return;
+          this.source.extinguishFire();
+          break;
+      }
+    });
   }
 
   // Validation Methods
@@ -181,7 +192,7 @@ class Entity {
           type: "stack",
           decay: "none",
           stack: true,
-          lvl: stack + lvl > 200 ? 200 - stack : lvl,
+          lvl: Math.abs(stack + lvl > 200 ? 200 - stack : lvl),
         });
         break;
     }
@@ -405,6 +416,9 @@ class Entity {
 
     return this.source.getEntitiesFromViewDirection({ maxDistance, excludeNames, excludeTypes: NOT_VALID_ENTITY });
   }
+  getFirstEntityFromDistance(maxDistance: number = 6): EntityRaycastHit | undefined {
+    return this.getEntityFromDistance(maxDistance)[0];
+  }
   getEntityWithinRadius(radius: number = 6): mcEntity[] {
     let excludeNames: string[] = [];
     if (this.source.typeId === "minecraft:player") excludeNames = [...Terra.guild.getTeammate(this.source)];
@@ -449,6 +463,38 @@ class Entity {
       // console.warn(e.typeId, angle, halfFovRad, rotationY);
       return angle <= halfFovRad;
     });
+  }
+
+  getChainedEntityFromDistance(radius: number, maxTargetCount: number = 1, excludeId: string[] = []): mcEntity[] {
+    const entity: mcEntity[] = [];
+    let targetGet: number = 0;
+
+    const firstTarget: mcEntity = this.source;
+
+    if (!firstTarget) return entity;
+    targetGet++;
+    entity.push(firstTarget);
+
+    let tempEntity: mcEntity = firstTarget;
+    const tempId: string[] = [tempEntity.id, ...excludeId];
+
+    while (targetGet < maxTargetCount) {
+      const nearbyEntity: mcEntity[] = new Entity(tempEntity)
+        .getEntityWithinRadius(radius)
+        .filter((e) => !tempId.includes(e.id))
+        .sort(
+          (a, b) => Calc.distance(a.location, tempEntity.location) - Calc.distance(b.location, tempEntity.location)
+        );
+
+      if (!nearbyEntity[0]) break;
+
+      targetGet++;
+      tempId.push(nearbyEntity[0].id);
+      entity.push(nearbyEntity[0]);
+      tempEntity = nearbyEntity[0];
+    }
+
+    return entity;
   }
 
   getLocationInFront(distance: number = 6): Vector3 {

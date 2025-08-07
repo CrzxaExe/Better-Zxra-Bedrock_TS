@@ -13,6 +13,8 @@ import {
   BossChallengeData,
   Command,
   CommandData,
+  commandEnums,
+  CommandEnumTypeStrict,
   CreateObject,
   Entity,
   EntityData,
@@ -121,6 +123,12 @@ class Terra {
     register.forEach((e) => registry.registerCustomComponent(e.name, e.callback));
     console.warn(`[System] Load ${register.length} item components`);
   }
+  static setupCommandEnums(registry: CustomCommandRegistry, enums: CommandEnumTypeStrict): void {
+    const register = enums;
+
+    Object.keys(register).forEach((e) => registry.registerEnum(e, register[e] as string[]));
+    console.warn(`[System] Load ${Object.keys(register).length} command enums`);
+  }
   static save(isEnable: boolean = true): void {
     console.warn("[System] Saving data");
 
@@ -144,9 +152,11 @@ class Terra {
 
   // World Other methods
   static getActiveDimension(): Dimension[] {
-    const dimension: Dimension[] = this.players.reduce((all: Dimension[], cur: Player) => {
-      if ([...all.map((e) => e.id)].includes(cur.dimension.id)) {
-        all.push(cur.dimension);
+    const players = world.getPlayers();
+    const dimension: Dimension[] = players.reduce((all: Dimension[], cur: Player) => {
+      if (!all.some((e) => e.id === cur.dimension.id)) {
+        all.push(cur.dimension as Dimension);
+        return all;
       }
       return all;
     }, []);
@@ -275,7 +285,7 @@ class Terra {
 
     const find = this.entities.findIndex((e) => e.id === id);
 
-    if (find === -1) throw new Error("Cannot found id");
+    if (find === -1) return;
     return this.entities.splice(find, 1);
   }
 

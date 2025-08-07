@@ -6,16 +6,19 @@ export const StatusDecayEnum = {
 
 export type StatusDecay = ObjectValues<typeof StatusDecayEnum>;
 
-export enum StatusTypes {
-  ArtFragile = "art_fragile",
-  Attack = "attack",
-  FireFragile = "fire_fragile",
-  Fragile = "fragile",
-  None = "none",
-  Silence = "silence",
-  Skill = "skill",
-  StaminaRecovery = "stamina_recovery",
-  StaminaStuck = "stamina_stuck",
-  State = "state",
-  Stun = "stun",
-}
+export const StatusTypesEnum = {
+  ArtFragile: "art_fragile",
+  Attack: "attack",
+  FireFragile: "fire_fragile",
+  Fragile: "fragile",
+  None: "none",
+  Silence: "silence",
+  Skill: "skill",
+  StaminaRecovery: "stamina_recovery",
+  StaminaStuck: "stamina_stuck",
+  State: "state",
+  Stun: "stun",
+  Wet: "wet",
+} as const;
+
+export type StatusTypes = ObjectValues<typeof StatusTypesEnum>;

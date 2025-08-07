@@ -31,6 +31,7 @@ export { Terra } from "./class/Terra";
 
 // Data export
 export { damageColor, rarityColor } from "./data/color";
+export { commandEnums } from "./data/commandEnum";
 export { RUNE_GACHA_PRICE, WEAPON_GACHA_PRICE } from "./data/constant";
 export { NOT_ALLOWED_ENTITY_TICK, NOT_VALID_ENTITY } from "./data/entityFilters";
 export { gachaFeatured, gachaPolls, GachaRarity } from "./data/gacha";
@@ -43,7 +44,7 @@ export { guildShop } from "./data/shop";
 
 // Enums export
 export { BzbEntity } from "./enum/entity";
-export { StatusDecay, StatusDecayEnum, StatusTypes } from "./enum/status";
+export { StatusDecay, StatusDecayEnum, StatusTypes, StatusTypesEnum } from "./enum/status";
 export { WeaponTypes } from "./enum/weaponTypes";
 
 // Function export
@@ -53,6 +54,7 @@ export { durabilityControl } from "./function/durabilityControl";
 export { Yuri } from "./npc/models/Yuri";
 
 // Types export
+export type { CommandEnumTypeStrict } from "./types/command";
 export type { GuildRole, GuildRoles, GuildData, GuildLevel, GuildMember, GuildShopItem } from "./types/guild";
 export type {
   BossChallengeData,
@@ -130,4 +132,5 @@ import "./scriptEvents/index";
 // Registry imports
 import "./registry/blocks/all";
 import "./registry/items/tools";
+import "./registry/itemEvent/consume";
 import "./registry/itemEvent/use";

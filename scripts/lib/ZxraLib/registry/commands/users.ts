@@ -72,7 +72,7 @@ Command.add(
   (origin: CustomCommandOrigin): CustomCommandResult => {
     try {
       system.run(() => {
-        world.sendMessage("Set to surivival mode");
+        world.sendMessage("Set to survival mode");
 
         if (origin.sourceEntity?.typeId !== "minecraft:player") throw new Error("Not a player");
 
@@ -159,16 +159,25 @@ Command.add(
     permissionLevel: CommandPermissionLevel.Any,
     optionalParameters: [{ name: "target", type: CustomCommandParamType.PlayerSelector }],
   },
-  (origin: CustomCommandOrigin, target: Player | undefined): CustomCommandResult => {
+  (origin: CustomCommandOrigin, target: Player | Player[] | undefined): CustomCommandResult => {
     try {
       system.run(() => {
         if (origin.sourceEntity?.typeId !== "minecraft:player") throw new Error("Not a player");
 
-        const plyr: Player = Terra.getPlayer({ id: target?.id || origin.sourceEntity.id }) as Player;
-        if (!plyr) throw new Error("Not a origin player");
+        function run(target: Player) {
+          const plyr: Player = Terra.getPlayer({ id: target?.id || origin?.sourceEntity?.id }) as Player;
+          if (!plyr) throw new Error("Not a origin player");
 
-        const data = Terra.getSpecialist(plyr.id) || CreateObject.createSpecialist(plyr);
-        plyr.sendMessage({ translate: "system.bal", with: [String(plyr.name), String(data.money)] });
+          const data = Terra.getSpecialist(plyr.id) || CreateObject.createSpecialist(plyr);
+          plyr.sendMessage({ translate: "system.bal", with: [String(plyr.name), String(data.money)] });
+        }
+
+        if (Array.isArray(target)) {
+          target.forEach((e) => run(e));
+          return;
+        }
+
+        run(target ?? (origin.sourceEntity as Player));
       });
 
       return {
@@ -390,11 +399,18 @@ Command.add(
     permissionLevel: CommandPermissionLevel.Any,
     optionalParameters: [{ name: "target", type: CustomCommandParamType.PlayerSelector }],
   },
-  (origin: CustomCommandOrigin, target: Player | undefined): CustomCommandResult => {
+  (origin: CustomCommandOrigin, target: Player | Player[] | undefined): CustomCommandResult => {
     try {
       system.run(() => {
         if (origin.sourceEntity?.typeId !== "minecraft:player") throw new Error("Not a player");
-        const selector = target || origin.sourceEntity;
+        let selector: Player | undefined;
+        if (Array.isArray(target) && target.length > 0) {
+          selector = target[0];
+        } else if (target && !Array.isArray(target)) {
+          selector = target;
+        } else if (origin.sourceEntity?.typeId === "minecraft:player") {
+          selector = origin.sourceEntity as Player;
+        }
 
         if (!selector) return;
 

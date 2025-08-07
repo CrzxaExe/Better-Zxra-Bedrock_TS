@@ -89,7 +89,7 @@
         "panel_indent": {
           "type": "panel",
           "size": "$panel_indent_size",
-          "offset": [0, 23],
+          "offset": ["0px", "23px"],
           "anchor_from": "top_middle",
           "anchor_to": "top_middle",
           "controls": [{ "inside_header_panel@$child_control": {} }]
@@ -116,7 +116,7 @@
         "panel_indent": {
           "type": "panel",
           "size": "$panel_indent_size",
-          "offset": [0, 23],
+          "offset": ["0px", "23px"],
           "anchor_from": "top_middle",
           "anchor_to": "top_middle",
           "controls": [{ "inside_header_panel@$child_control": {} }]
@@ -130,7 +130,7 @@
     "size": ["100%", "100%"],
     "anchor_from": "bottom_middle",
     "anchor_to": "bottom_middle",
-    "offset": [0, "40.8%x - 20px"],
+    "offset": ["0px", "40.8%x - 20px"],
     "$display|default": "textures/cz/art/yuri/skin/normal",
     "$text_name|default": "",
     "$panel_indent_size|default": ["90% - 16px", "90% - 21px"],
@@ -158,12 +158,12 @@
       {
         "common_panel@common.common_panel": {
           "$dialog_background": "$custom_background",
-          "offset": [-30, "29.8%"]
+          "offset": ["-30px", "29.8%"]
         }
       },
       {
         "title_label@common_dialogs.title_label": {
-          "offset": [-30, "27.7% + 12px"]
+          "offset": ["-30px", "27.7% + 12px"]
         }
       },
       {
@@ -184,7 +184,7 @@
     "size": ["100%", "100%"],
     "anchor_from": "bottom_middle",
     "anchor_to": "bottom_middle",
-    "offset": [0, "47.2%x - 20px"],
+    "offset": ["0px", "47.2%x - 20px"],
     "$text_name|default": "",
     "$panel_indent_size|default": ["100% - 15px", "100% - 20px"],
     "$custom_background|default": "cz_common.dialog_action",
@@ -193,20 +193,20 @@
         "common_panel@common.common_panel": {
           "$dialog_background": "$custom_background",
           "$show_close_button": false,
-          "offset": [0, "29.5%"]
+          "offset": ["0px", "29.5%"]
         }
       },
       {
         "title_label@common_dialogs.title_label": {
           "$title_text_color": [85, 25, 35],
-          "offset": [0, "1% + 12px"]
+          "offset": ["0px", "1% + 12px"]
         }
       },
       {
         "panel_indent": {
           "type": "panel",
           "size": "$panel_indent_size",
-          "offset": [0, "6.5%"],
+          "offset": ["0px", "6.5%"],
           "anchor_from": "top_middle",
           "anchor_to": "top_middle",
           "controls": [{ "inside_header_panel@$child_control": {} }]
@@ -227,7 +227,7 @@
   },
 
   "dialog_action@common_dialogs.dialog_background_common": {
-    "size": ["1000%", 144],
+    "size": ["1000%", "144px"],
     "alpha": 0.4,
     "texture": "textures/ui/Black"
   },
@@ -789,7 +789,7 @@
   },
   "cz_clear_tem_button": {
     "type": "panel",
-    "size": ["100%", 36],
+    "size": ["100%", "36px"],
     "$texture|default": "textures/cz/gray",
     "$text_button|default": "",
     "$btn_func|default": "",
@@ -797,7 +797,7 @@
       {
         "panel_name": {
           "type": "panel",
-          "size": [34, "100%c"],
+          "size": ["34px", "100%c"],
           "controls": [
             {
               "image": {
@@ -805,9 +805,9 @@
                 "texture": "$texture",
                 "layer": 5,
                 "anchor_from": "left",
-                "size": [30, 30],
+                "size": ["30px", "30px"],
                 "alpha": 0.7,
-                "offset": ["-55%", 0]
+                "offset": ["-55%", "0px"]
               }
             },
             {
@@ -841,9 +841,9 @@
           "anchor_from": "top_left",
           "anchor_to": "top_left",
           "size": ["100%", "100%"],
-          "offset": ["0%", 0],
+          "offset": ["0%", "0px"],
           "$button_text": "",
-          "$button_text_max_size": ["100%", 20]
+          "$button_text_max_size": ["100%", "20px"]
         }
       }
     ]

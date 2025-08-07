@@ -120,6 +120,7 @@ class Specialist extends Entity {
 §5Rep ${rep}§r§f AP ${Terra.players.length}
 ${
   this.source.getBlockFromViewDirection({ maxDistance: Terra.world.setting?.whatSeeDistance || 7 })?.block?.type.id ||
+  this.getEntityFromDistance(Terra.world.setting?.whatSeeDistance || 7)[0]?.entity.typeId ||
   "minecraft:air"
 }${cd.length > 0 ? "\n\n< Cooldown\n" + cd.join("\n") : ""}${sts.length > 0 ? "\n\n< Status\n" + sts.join("\n") : ""}`,
       { fadeInDuration: 0, fadeOutDuration: 0, stayDuration: 0 }
@@ -179,6 +180,8 @@ ${
     return this.getSp().stamina;
   }
   addStamina(amount: number = 1, data: SpecialistData = this.getSp()): void {
+    if (this.status.hasStatus({ type: "stamina_stuck" })) return;
+
     const max = data.stamina.max + data.stamina.additional + data.stamina.rune;
 
     if (data.stamina.current + amount > max) {

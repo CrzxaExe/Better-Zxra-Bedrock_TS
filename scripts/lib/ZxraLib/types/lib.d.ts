@@ -305,7 +305,7 @@ interface WeaponSkill {
 }
 interface WeaponStat {
   name: string;
-  value: string;
+  value: number;
 }
 interface WeaponAttribute {
   id: string;

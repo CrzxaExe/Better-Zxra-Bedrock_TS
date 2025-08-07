@@ -113,7 +113,6 @@
               "live_data": {
                 "type": "label",
                 "text": "#text",
-                "font_type": "smooth",
                 "text_alignment": "right",
                 "font_scale_factor": 0.92,
                 "localize": false,
@@ -196,7 +195,7 @@
     "visible": false
   },
   "root_panel/mob_effects_renderer": {
-    "offset": ["80px", "24px"]
+    "offset": ["0px", "40px"]
   },
 
   "root_panel": {

@@ -531,6 +531,12 @@
               ]
             },
             "event": "cz:stun_reduce"
+          },
+          {
+            "filters": {
+              "test": "in_water_or_rain"
+            },
+            "event": "cz:wet"
           }
         ]
       }
@@ -782,6 +788,11 @@
         },
         "add": {
           "component_groups": ["no_variant", "normal_min_hp"]
+        }
+      },
+      "cz:wet": {
+        "queue_command": {
+          "command": ["scriptevent cz:add_status wet 8 1 wet false time"]
         }
       }
     }

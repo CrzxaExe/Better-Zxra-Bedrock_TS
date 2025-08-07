@@ -136,6 +136,109 @@ Skills:
 >
 > []
 
+## Cenryter Concept
+
+Stats:
+
+> Atk 11<br/>
+> Type: Reaper<br/>
+> Rarity: Epic<br/>
+> Tags: Survival, Elemental, DPS
+
+Trait `[Reaper]`
+
+> Deals AOE damage to all enemy in front of user(Cone Shape) and heal user for every enemy hited
+
+Pasif:
+
+> [Our Fire] Attacking burn enemy will extend burn status and heal from trait are 3x
+
+Skills:
+
+> []<br/>
+>
+> []<br/>
+>
+> []
+
+## Cervant Concept
+
+Stats:
+
+> Atk 9<br/>
+> Type: Century<br/>
+> Rarity: Legend<br/>
+> Tags: DPS, AOE, Nuker
+
+Trait `[Century]`
+
+> Deals AOE damage to all enemy closer with target
+
+Pasif:
+
+> [Sharp Slice] When attacking enemy, increase damage +10% Atk. Can be stacked up to 5 times
+
+Skills:
+
+> [Excellent Steel Swing], 20 Stamina | 3.5s CD | No Sneak<br/>
+> On Normal state, attack all target on cone area deals 200% Atk and create shockwave damage as 100% Atk to enemy within radius.<br/>
+> On Sharped state, smash target to deals 190%
+>
+> [Intuition State], 18 Stamina | 10s CD | Sneak<br/>
+> Swith state between Normal and Sharped. On Sharped state, ATK will no longer AOE but damage increase to 250%
+
+## Crusher Concept
+
+Stats:
+
+> Atk 10<br/>
+> Type: Hammer<br/>
+> Rarity: Epic<br/>
+> Tags: Survival, DPS
+
+Trait `[Hammer]`
+
+> Deals additional damage depending on target HP(Max 200% Atk)
+
+Pasif:
+
+> [Iron Hit] 40% chance to deals 170% Atk and give Resistance effect for a sec
+
+Skills:
+
+> []
+>
+> []
+>
+> []
+
+## Destiny Concept
+
+Stats:
+
+> Atk 11<br/>
+> Type: Spear<br/>
+> Rarity: Unique<br/>
+> Tags: DPS, AOE, Nuker
+
+Trait `[Spear]`
+
+> Deals more damage depending on target location, more damage if closer with user
+
+Pasif:
+
+> [Fears] Hitting enemy will Silence them
+>
+> []
+
+Skills:
+
+> []
+>
+> []
+>
+> []
+
 ## Destreza Concept
 
 Stats:

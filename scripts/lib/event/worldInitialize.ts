@@ -1,5 +1,5 @@
 import { StartupEvent, system, world, WorldLoadAfterEvent } from "@minecraft/server";
-import { Terra } from "../ZxraLib/module";
+import { commandEnums, Terra } from "../ZxraLib/module";
 
 world.afterEvents.worldLoad.subscribe(({}: WorldLoadAfterEvent) => {
   console.warn("[System] Loading players");
@@ -12,6 +12,7 @@ system.beforeEvents.startup.subscribe(
   ({ customCommandRegistry, blockComponentRegistry, itemComponentRegistry }: StartupEvent) => {
     console.warn("[System] Start loading custom features");
 
+    Terra.setupCommandEnums(customCommandRegistry, commandEnums);
     Terra.setupCommand(customCommandRegistry);
     Terra.setupBlockComponent(blockComponentRegistry);
     Terra.setupItemComponent(itemComponentRegistry);

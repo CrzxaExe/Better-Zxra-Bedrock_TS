@@ -5,10 +5,10 @@ import {
   CustomCommandResult,
   CustomCommandStatus,
   Player,
+  Entity as mcEntity,
   system,
-  world,
 } from "@minecraft/server";
-import { Command, GuildPanel, Setting, Terra } from "../../module";
+import { Command, Entity, GuildPanel, Setting, StatusDecay, StatusTypes, Terra } from "../../module";
 import { ActionFormData } from "@minecraft/server-ui";
 
 // Settings
@@ -280,6 +280,7 @@ Command.add(
       console.warn("[System] Error while run command " + error.message);
       return {
         status: CustomCommandStatus.Failure,
+        message: error.message,
       };
     }
   }
@@ -324,6 +325,53 @@ Command.add(
     try {
       system.run(() => {
         Terra.save(true);
+      });
+
+      return {
+        status: CustomCommandStatus.Success,
+      };
+    } catch (error: any) {
+      console.warn("[System] Error while run command " + error.message);
+      return {
+        status: CustomCommandStatus.Failure,
+      };
+    }
+  }
+);
+
+Command.add(
+  {
+    name: "cz:addstatus",
+    description: "cmd.addstatus",
+    permissionLevel: CommandPermissionLevel.Admin,
+    mandatoryParameters: [
+      { name: "target", type: CustomCommandParamType.EntitySelector },
+      { name: "statusname", type: CustomCommandParamType.String },
+      { name: "duration", type: CustomCommandParamType.Float },
+      { name: "level", type: CustomCommandParamType.Integer },
+      { name: "cz:statustype", type: CustomCommandParamType.Enum },
+      { name: "stackable", type: CustomCommandParamType.Boolean },
+      { name: "cz:statusdecay", type: CustomCommandParamType.Enum },
+    ],
+  },
+  (
+    _: CustomCommandOrigin,
+    target: mcEntity,
+    name: string,
+    duration: number,
+    lvl: number,
+    type: string,
+    stack: boolean,
+    decay: string
+  ): CustomCommandResult => {
+    try {
+      system.run(() => {
+        new Entity(target).status.addStatus(name, duration, {
+          lvl,
+          type: type as StatusTypes,
+          stack,
+          decay: decay as StatusDecay,
+        });
       });
 
       return {

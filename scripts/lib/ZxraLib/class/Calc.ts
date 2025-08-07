@@ -1,4 +1,4 @@
-import { EntityHealthComponent } from "@minecraft/server";
+import { EntityHealthComponent, Vector3, VectorXZ } from "@minecraft/server";
 
 interface SpecialistLevelUp {
   level: number;
@@ -25,6 +25,18 @@ class Calc {
 
   static hpLostPercentage(hp: EntityHealthComponent): number {
     return 1 - hp.currentValue / hp.effectiveMax;
+  }
+
+  static distance(targetLocation: VectorXZ, baseLocation: VectorXZ): number {
+    return Math.sqrt((targetLocation.x - baseLocation.x) ** 2 + (targetLocation.z - baseLocation.z) ** 2);
+  }
+
+  static distance3(targetLocation: Vector3, baseLocation: Vector3): number {
+    return Math.sqrt(
+      (targetLocation.x - baseLocation.x) ** 2 +
+        (targetLocation.y - baseLocation.y) ** 2 +
+        (targetLocation.z - baseLocation.z) ** 2
+    );
   }
 }
 

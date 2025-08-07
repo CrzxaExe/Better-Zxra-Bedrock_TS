@@ -40,9 +40,9 @@ _List:_
 - [Hammer] Deals additional damage depending on target HP(Max 200% Atk)
 - [Katana] Deals additional damage if target has debuff or had been knockup
 - [Lance] Gets boost damage everytime use dash
-- [Loadout] Can switch weapon trait
+- [Loadout] Can switch weapon type
 - [Reaper] Deals AOE damage to All enemy in front of user(Cone Shape) and heal user for every enemy hited
-- [Shield] Can block enemy attack, if using on offhand will grain only pasif
+- [Shield] Can block enemy attack, can offhand combo with other weapon type
 - [Slayer] More HP lost will increase damage, gain 20% Healing Effectifity
 - [Spear] Deals more damage depending on target location, more damage if closer with user
 - [Staff] Can casting spell

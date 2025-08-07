@@ -2,6 +2,7 @@ import {
   EntityDieAfterEvent,
   EntityHealthChangedAfterEvent,
   EntityHitBlockAfterEvent,
+  EntityHitEntityAfterEvent,
   EntityHurtAfterEvent,
   Player,
   world,
@@ -49,25 +50,21 @@ world.afterEvents.entityDie.subscribe(
 
       if ((runeData.moneyDrop || 0) > 0) sp.addMoney(runeData.moneyDrop);
 
-      try {
-        rune.getRuneActiveStat("onKill").forEach((e) => {
-          e?.(damagingEntity, deadEntity);
-        });
-        const item = damagingEntity.getComponent("inventory")?.container?.getItem(damagingEntity.selectedSlotIndex);
+      rune.getRuneActiveStat("onKill").forEach((e) => {
+        e?.(damagingEntity, deadEntity);
+      });
+      const item = damagingEntity.getComponent("inventory")?.container?.getItem(damagingEntity.selectedSlotIndex);
 
-        if (!item) return;
+      if (!item) return;
 
-        const itemPasif = Weapon.Pasif.kill.find((e) => item.getTags().includes(e.name));
+      const itemPasif = Weapon.Pasif.kill.find((e) => item.typeId.split(":")[1] === e.name);
 
-        if (!itemPasif) return;
+      if (!itemPasif) return;
 
-        itemPasif.callback(damagingEntity, deadEntity, {
-          sp,
-          multiplier: sp.status.decimalCalcStatus({ type: "damage" }, 1, 0.01),
-        });
-      } catch (error: { message: string } | any) {
-        if (Terra.world.setting?.debug) console.warn("" + error.message);
-      }
+      itemPasif.callback(damagingEntity, deadEntity, {
+        sp,
+        multiplier: sp.status.decimalCalcStatus({ type: "damage" }, 1, 0.01),
+      });
     } catch (error: { message: string } | any) {
       console.warn("[System] Error on Event EntityDie: " + error.message);
     }
@@ -76,7 +73,7 @@ world.afterEvents.entityDie.subscribe(
 
 // Entity Hit event
 world.afterEvents.entityHitEntity.subscribe(
-  ({ damagingEntity, hitEntity }) => {
+  ({ damagingEntity, hitEntity }: EntityHitEntityAfterEvent) => {
     if (!(damagingEntity instanceof Player)) return;
 
     const item =
@@ -91,7 +88,7 @@ world.afterEvents.entityHitEntity.subscribe(
     try {
       sp.rune.getRuneActiveStat("onHit").forEach((e) => e?.(damagingEntity, hitEntity));
 
-      const itemPasif = Weapon.Pasif.hit.find((e) => item.getTags().includes(e.name));
+      const itemPasif = Weapon.Pasif.hit.find((e) => item.typeId.split(":")[1] === e.name);
 
       if (!itemPasif) return;
       itemPasif.callback(damagingEntity, hitEntity, {
@@ -130,13 +127,14 @@ world.afterEvents.entityHurt.subscribe(
 
     hurtEntity.runCommand(`camerashake add @s 1.4 0.26`);
 
-    const itemPasif = Weapon.Pasif.hited.find((e) => item.getTags().includes(e.name));
+    const itemPasif = Weapon.Pasif.hited.find((e) => item.typeId.split(":")[1] === e.name);
 
     if (!itemPasif) return;
 
     try {
       itemPasif.callback(hurtEntity, damagingEntity, {
         sp,
+        damage,
         multiplier: sp.status.decimalCalcStatus({ type: "damage" }, 1, 0.01),
       });
     } catch (error: { message: string } | any) {

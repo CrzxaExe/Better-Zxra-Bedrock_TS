@@ -220,7 +220,7 @@
           "blend_transition": 0.3,
           "transitions": [
             {
-              "draw_sword": "query.is_using_item > 0 && !q.is_sneaking"
+              "draw": "query.is_using_item > 0 && !q.is_sneaking"
             },
             {
               "draw_sneak": "query.is_using_item > 0 && q.is_sneaking"
@@ -235,13 +235,16 @@
             }
           ]
         },
-        "draw_sword": {
+        "draw": {
           "animations": [
             {
               "kyle_draw": "v.draw_sword"
             },
             {
               "kyle_charge": "v.kyles"
+            },
+            {
+              "liberator_charge": "q.get_equipped_item_name == 'liberator'"
             },
             {
               "draw_long": "v.draw_long"
@@ -285,6 +288,9 @@
           "animations": [
             {
               "kyle_charge_sneak": "v.kyles"
+            },
+            {
+              "liberator_charge_sneak": "q.get_equipped_item_name == 'liberator'"
             }
           ],
           "blend_transition": 0.3,
@@ -296,7 +302,7 @@
               "running": "query.is_sprinting"
             },
             {
-              "draw_sword": "query.is_using_item > 0 && !q.is_sneaking"
+              "draw": "query.is_using_item > 0 && !q.is_sneaking"
             }
           ]
         },
@@ -321,7 +327,7 @@
               "default": "q.is_sprinting < 0.1"
             },
             {
-              "draw_sword": "query.is_using_item && !q.is_sneaking"
+              "draw": "query.is_using_item && !q.is_sneaking"
             },
             {
               "draw_sneak": "query.is_using_item && q.is_sneaking"

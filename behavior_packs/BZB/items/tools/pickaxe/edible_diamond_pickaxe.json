@@ -37,7 +37,7 @@
           }
         ]
       },
-      "minecraft:mining_speed": 15,
+      "minecraft:mining_speed": 12,
       "minecraft:damage": 9,
       "minecraft:enchantable": {
         "value": 16,

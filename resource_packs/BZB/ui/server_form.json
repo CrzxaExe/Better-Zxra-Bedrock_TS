@@ -484,7 +484,7 @@
             {
               "main_label": {
                 "type": "label",
-                "offset": [2, 2],
+                "offset": ["2px", "2px"],
                 "color": "$main_header_text_color",
                 "size": ["100%", "default"],
                 "anchor_from": "top_left",
@@ -520,7 +520,7 @@
     "grid_dimensions": [2, 3],
     "grid_item_template": "server_form.shop_button",
     "grid_rescaling_type": "horizontal",
-    "offset": [2, 10],
+    "offset": ["2px", "10px"],
     "anchor_from": "top_middle",
     "anchor_to": "top_middle",
 
@@ -539,7 +539,7 @@
   },
   "shop_button": {
     "type": "panel",
-    "size": [96, 54],
+    "size": ["96px", "54px"],
     "alpha": 0.7,
     "controls": [
       {
@@ -563,8 +563,8 @@
                 "layer": 4,
                 "alpha": 0.6,
                 "anchor_from": "center",
-                "size": [34, 34],
-                "offset": [-18, -2],
+                "size": ["34px", "34px"],
+                "offset": ["-18px", "-2px"],
                 "bindings": [
                   {
                     "binding_name": "#form_button_texture",
@@ -594,7 +594,7 @@
           "$pressed_button_name": "button.form_button_click",
           "anchor_from": "top_left",
           "anchor_to": "top_left",
-          "size": [96, 54],
+          "size": ["96px", "54px"],
           "$button_text": "#form_button_text",
           "$button_text_binding_type": "collection",
           "$button_text_grid_collection_name": "form_buttons",
@@ -616,7 +616,7 @@
   "user_panel": {
     "type": "panel",
     "size": ["100%", "100%"],
-    "offset": [0, "-5%"],
+    "offset": ["0px", "-5%"],
     "layer": 1,
     "anchor_from": "top_left",
     "anchor_to": "top_left",
@@ -658,7 +658,7 @@
         "player_bg": {
           "type": "image",
           "texture": "textures/ui/position_label_cz",
-          "size": [45, 45],
+          "size": ["45px", "45px"],
           "layer": 2,
           "anchor_from": "bottom_left",
           "anchor_to": "bottom_left",
@@ -667,8 +667,8 @@
             {
               "player_renderer_panel": {
                 "type": "panel",
-                "size": [45, 45],
-                "offset": [0, -10],
+                "size": ["45px", "45px"],
+                "offset": ["0px", "-10px"],
 
                 "controls": [
                   {
@@ -775,7 +775,7 @@
     "grid_item_template": "server_form.user_button",
     "grid_fill_direction": "horizontal",
     "grid_rescaling_type": "horizontal",
-    "offset": [2, 0],
+    "offset": ["2px", "0px"],
     "anchor_from": "top_middle",
     "anchor_to": "top_middle",
 
