@@ -75,7 +75,7 @@
         "cz_form3@cz_common.yuri_panel_ui": {
           "$title_panel": "common_dialogs.standard_title_label",
           "$title_size": ["100% - 14px", 10],
-          "size": ["350px", "124px"],
+          "size": ["340px", "124px"],
           "$text_name": "Yuri Zxra",
           "$title_text_binding_type": "none",
           "$child_control": "server_form.yuri_panel",
@@ -102,7 +102,7 @@
         "cz_form4@cz_common.yuri_panel_ui": {
           "$title_panel": "common_dialogs.standard_title_label",
           "$title_size": ["100% - 14px", 10],
-          "size": ["350px", "124px"],
+          "size": ["340px", "124px"],
           "$text_name": "Yuri Zxra",
           "$title_text_binding_type": "none",
           "$child_control": "server_form.yuri_panel",
@@ -130,7 +130,7 @@
         "cz_form5@cz_common.yuri_panel_ui": {
           "$title_panel": "common_dialogs.standard_title_label",
           "$title_size": ["100% - 14px", 10],
-          "size": ["350px", "124px"],
+          "size": ["340px", "124px"],
           "$text_name": "Yuri Zxra",
           "$title_text_binding_type": "none",
           "$child_control": "server_form.yuri_panel",
@@ -224,7 +224,7 @@
         "cz_form9@common_dialogs.main_panel_no_buttons": {
           "$title_panel": "common_dialogs.standard_title_label",
           "$title_size": ["100% - 14px", 10],
-          "size": ["280px", "120px"],
+          "size": ["260px", "170px"],
           "$text_name": "cz.skins",
           "$title_text_binding_type": "none",
           "$child_control": "server_form.skins_panel",
@@ -338,7 +338,7 @@
   "skins_dynamic_buttons_panel": {
     "type": "grid",
     "size": ["100%", "100%c"],
-    "grid_dimensions": [5, 4],
+    "grid_dimensions": [3, 4],
     "grid_item_template": "server_form.skins_button",
     "grid_fill_direction": "horizontal",
     "grid_rescaling_type": "horizontal",
@@ -361,7 +361,7 @@
   },
   "skins_button": {
     "type": "panel",
-    "size": [50, 80],
+    "size": [70, 120],
     "controls": [
       {
         "panel_name": {
@@ -383,7 +383,7 @@
                 "type": "image",
                 "layer": 6,
                 "anchor_from": "left",
-                "size": ["49px", "79px"],
+                "size": ["69px", "119px"],
                 "bindings": [
                   {
                     "binding_name": "#form_button_texture",
@@ -428,7 +428,7 @@
           "$pressed_button_name": "button.form_button_click",
           "anchor_from": "top_left",
           "anchor_to": "top_left",
-          "size": [49, 79],
+          "size": [69, 119],
           "$button_text": "#form_button_text",
           "$button_font_scale_factor": 0,
           "$button_text_binding_type": "collection",

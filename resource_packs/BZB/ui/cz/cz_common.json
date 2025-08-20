@@ -148,7 +148,7 @@
               "face": {
                 "type": "image",
                 "texture": "$display",
-                "size": ["117%", "117%"],
+                "size": ["123%", "123%"],
                 "layer": 1
               }
             }

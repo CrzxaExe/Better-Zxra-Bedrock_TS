@@ -46,6 +46,7 @@ _List:_
 - [Slayer] More HP lost will increase damage, gain 20% Healing Effectifity
 - [Spear] Deals more damage depending on target location, more damage if closer with user
 - [Staff] Can casting spell
+- [Vitalis] Can heal allies by 50% of damage dealt
 
 ## Tag
 

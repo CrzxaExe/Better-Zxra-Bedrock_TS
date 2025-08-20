@@ -9,6 +9,7 @@ import {
 } from "@minecraft/server";
 import { ActionFormData, MessageFormData, MessageFormResponse, ModalFormData } from "@minecraft/server-ui";
 import {
+  AdminPanel,
   CreateObject,
   Formater,
   Gacha,
@@ -29,7 +30,7 @@ import { weaponData } from "../../WeaponModule/module";
 
 class UserPanel {
   static home(player: Player): void {
-    new ActionFormData()
+    const ui = new ActionFormData()
       .title("cz:user")
       .body({ rawtext: [{ translate: "system.profileMenu.body" }, { text: "\n\n\n\n\n\n\n\n\n\n\n\n\n" }] })
       .button({ translate: "cz.shop" }, "textures/cz/icon/shop")
@@ -40,39 +41,46 @@ class UserPanel {
       .button({ translate: "cz.quest" }, "textures/cz/icon/quest")
       .button({ translate: "cz.user" }, "textures/cz/icon/user")
       .button({ translate: "cz.redeem" }, "textures/cz/icon/redeem")
-      .button({ translate: "cz.wiki" }, "textures/cz/icon/wiki")
-      .show(player)
-      .then((e) => {
-        switch (e.selection) {
-          case 0:
-            this.shop(player);
-            break;
-          case 1:
-            this.guild(player);
-            break;
-          case 2:
-            this.rune(player);
-            break;
-          case 3:
-            this.leaderboard(player);
-            break;
-          case 4:
-            GachaPanel.home(player);
-            break;
-          case 5:
-            this.quest(player);
-            break;
-          case 6:
-            this.userProfile(player);
-            break;
-          case 7:
-            this.redeem(player);
-            break;
-          case 8:
-            this.wiki(player);
-            break;
-        }
-      });
+      .button({ translate: "cz.wiki" }, "textures/cz/icon/wiki");
+
+    if (player.commandPermissionLevel >= 1) {
+      ui.button({ translate: "cz:admin" }, "textures/cz/icon/admin");
+    }
+
+    ui.show(player).then((e) => {
+      switch (e.selection) {
+        case 0:
+          this.shop(player);
+          break;
+        case 1:
+          this.guild(player);
+          break;
+        case 2:
+          this.rune(player);
+          break;
+        case 3:
+          this.leaderboard(player);
+          break;
+        case 4:
+          GachaPanel.home(player);
+          break;
+        case 5:
+          this.quest(player);
+          break;
+        case 6:
+          this.userProfile(player);
+          break;
+        case 7:
+          this.redeem(player);
+          break;
+        case 8:
+          this.wiki(player);
+          break;
+        case 9:
+          AdminPanel.home(player);
+          break;
+      }
+    });
   }
 
   static guild(player: Player): void {

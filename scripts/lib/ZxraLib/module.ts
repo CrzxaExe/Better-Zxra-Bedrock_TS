@@ -6,7 +6,7 @@
 
 export const ZxraLib: { packVersion: string; version: string } = {
   packVersion: "1.4.1",
-  version: "1.1.6ts",
+  version: "1.1.7ts",
 };
 
 // Class export
@@ -120,6 +120,7 @@ export type {
 } from "./types/specialistTypes";
 
 // UI exports
+export { AdminPanel } from "./ui/admin";
 export { GachaPanel, GuildPanel, UserPanel } from "./ui/user";
 
 /*

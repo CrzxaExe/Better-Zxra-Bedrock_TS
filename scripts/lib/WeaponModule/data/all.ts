@@ -243,6 +243,12 @@ export const epic: { [key: string]: SpecialistWeapon } = {
       [],
     ],
   },
+  cenryter: {
+    weapon: "cenryter",
+    atk: 11,
+    pasifLvl: [[{ name: "heal_multiplier", value: 3 }]],
+    skillLvl: [[], [], []],
+  },
 };
 
 export const legend: { [key: string]: SpecialistWeapon } = {

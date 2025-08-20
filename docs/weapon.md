@@ -2,6 +2,29 @@
 
 # Weapon
 
+## Aegis Concept
+
+> Atk 6<br/>
+> Type: Shield<br/>
+> Rarity: Epic<br/>
+> Tags: Shield, Heal, DPS
+
+Trait `[Shield]`
+
+> Can block enemy attack, can offhand combo with other weapon type
+
+Pasif:
+
+> [Aura of Restoration] When blocking attack, unleash wave effect to heal all nearby allies by 50% Atk
+
+Skills:
+
+> []
+>
+> []
+>
+> []
+
 ## Azyh Concept
 
 Stats:
@@ -229,7 +252,7 @@ Pasif:
 
 > [Fears] Hitting enemy will Silence them
 >
-> []
+> [Unshantle Shift] Silence enemy take 150% damage from this weapon
 
 Skills:
 
@@ -294,6 +317,69 @@ Skills:
 >
 > []<br/>
 >
+> []<br/>
+>
+> []
+
+## Harmist Flute Concept
+
+> Atk 5<br/>
+> Type Flute<br/>
+> Rarity: Legend<br/>
+> Tags: Debuff, DPS
+
+Trait `[Flute]`
+
+> Use melody for casting
+
+Pasif:
+
+> [Harming Note] Apply 30% Fragile to enemy
+
+Skills:
+
+> []<br/>
+>
+> []
+
+## Harmony Concept
+
+> Atk 8<br/>
+> Type Spear<br/>
+> Rarity: Legend<br/>
+> Tags: Shield, Art, DPS
+
+Trait `[Spear]`
+
+> Deals more damage depending on target location, more damage if closer with user
+
+Pasif:
+
+> [Melody with Me] Create shield to block single art damage. Generate while attacking further target or with skill
+
+Skills:
+
+> []<br/>
+>
+> []
+
+## Hyrant Concept
+
+> Atk 8<br/>
+> Type Spear<br/>
+> Rarity: Legend<br/>
+> Tags: Bind, DPS
+
+Trait `[Spear]`
+
+> Deals more damage depending on target location, more damage if closer with user
+
+Pasif:
+
+> [Coldly Bind] Apply slowness to target. When target has been slowed, change status to Bind. Attacking Bind enemy deals 130% Atk
+
+Skills:
+
 > []<br/>
 >
 > []
@@ -487,6 +573,29 @@ Skills:
 >
 > [Bloodline of Desecrated Earth], 24 Stamina | 21s CD | 30s | Jump<br/>
 > Charging for 10 sec. While charging, user will immune to any damage. After all deals 300% Atk to all enemy in range and gains +60% Skill Damge for 20 sec
+>
+> []
+
+## Regrowth Concept
+
+> Atk 10<br/>
+> Type: Vitalis<br/>
+> Rarity: Epic<br/>
+> Tags: Debuff, Heal, DPS<br/>
+
+Trait `[Vitalis]`
+
+> Can heal allies by 50% of damage dealt
+
+Pasif:
+
+> [Prevent Recovery] Apply Anti Heal to enemy attacked
+
+Skills:
+
+> []
+>
+> []
 >
 > []
 
