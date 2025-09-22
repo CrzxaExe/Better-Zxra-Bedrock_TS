@@ -12,7 +12,7 @@ class Calc {
   /**
    * Return xp requirement to next level of specialist
    *
-   * @param level number, specialist level and number must be positive
+   * @param level specialist level and number must be positive
    * @returns number
    */
   static specialistLevelUp(level: number = 0): number {
@@ -24,8 +24,8 @@ class Calc {
   /**
    * Return object result of add level calculation of specialist level
    *
-   * @param level number, must be positive
-   * @param xp number, number must be positive
+   * @param level must be positive
+   * @param xp  number must be positive
    * @returns SpecialistLevelUp = { level: number, xp: number }
    */
   static upSpecialist(level: number, xp: number): SpecialistLevelUp {
@@ -42,7 +42,7 @@ class Calc {
   /**
    * Return health percentage of entity
    *
-   * @param hp EntityHealthComponent, health entity component
+   * @param hp health entity component
    * @returns number
    */
   static hpLostPercentage(hp: EntityHealthComponent): number {
@@ -52,8 +52,8 @@ class Calc {
   /**
    * Return distance 2D of two point
    *
-   * @param targetLocation VectorXZ, from location
-   * @param baseLocation VectorXZ, to location
+   * @param targetLocation from location
+   * @param baseLocation to location
    * @returns number, distance
    */
   static distance(targetLocation: VectorXZ, baseLocation: VectorXZ): number {
@@ -63,8 +63,8 @@ class Calc {
   /**
    * Return distance 3D of two point
    *
-   * @param targetLocation Vector3, from location
-   * @param baseLocation Vector3, to location
+   * @param targetLocation from location
+   * @param baseLocation to location
    * @returns number, distance
    */
   static distance3(targetLocation: Vector3, baseLocation: Vector3): number {

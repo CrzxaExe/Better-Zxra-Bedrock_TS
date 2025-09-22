@@ -94,16 +94,16 @@ Pasif:
 
 Skills:
 
-> [Conductor Strike], 14 Stamina | 5s CD | No sneak
+> [Conductor Strike], 14 Stamina | 5s CD | No sneak<br/>
 > Strike through target and deals 180% Atk as Lightning damage. Doesn't chainning
 >
-> [Foreground Shockwave], 18 Stamina | 8.5s CD | Sneak
+> [Foreground Shockwave], 18 Stamina | 8.5s CD | Sneak<br/>
 > Summon shockwave on user location. enemy inside area will get 200% Atk as Lightning damage and counted as attacked target
 >
-> [Self Conduction], 20 Stamina | 15s CD | Has %Electricity status
+> [Self Conduction], 20 Stamina | 15s CD | Has %Electricity status<br/><br/>
 > Summon Lightning strike to self, clear all debuff and gain protection effect for a sec. On duration, enemy that attacking user will get 50% Atk as Lightning damage
 >
-> [Thunder Strom], 26 Stamina | 25s CD | Jump
+> [Thunder Strom], 26 Stamina | 25s CD | Jump<br/>
 > Lock one target to summon 3 lightning strike to deals 220% Atk as Lightning damage and chaining to 3 target nearby.
 
 ## Bringer Concept
@@ -159,10 +159,10 @@ Skills:
 > [Ouch Again], 30 Stamina | 3s CD | No Sneak & 3x [Ouch]<br/>
 > Heal all target in range as 150% Atk
 >
-> [Heal on Allies], 20-50 Stamina | 8s CD | Sneak
+> [Heal on Allies], 20-50 Stamina | 8s CD | Sneak<br/>
 > Select one target to set location of area, heal all allies on that area for 250% Atk. Target must be entity(can be enemy or summon).
 >
-> [Great Healing Tome], 40 Stamina | 20s CD | Jump
+> [Great Healing Tome], 40 Stamina | 20s CD | Jump<br/>
 > Summon %Totem on user location. %Totem will heal all allies on range.
 
 Summons:
@@ -193,9 +193,11 @@ Pasif:
 
 Skills:
 
-> []<br/>
+> [Flaming Infusion], 16 Stamina | 5s CD | No Sneak<br/>
+> Slicing all target in front of user with cone shape, deals 160% Atk as Fire damage
 >
-> []<br/>
+> [Igniting Self], 24 Stamina | 12s CD | Sneak<br/>
+> Consume all burn or fire status from all enemy or allies within radius. Each status will be converted to +5% Atk for 15s (Can be stack up to 40%)
 >
 > []
 
@@ -240,7 +242,7 @@ Trait `[Hammer]`
 
 Pasif:
 
-> [Iron Hit] 40% chance to deals 170% Atk and give Resistance effect for a sec
+> [Iron Hit] 30% chance to deals 170% Atk and give Resistance effect for a sec
 
 Skills:
 
@@ -265,9 +267,9 @@ Trait `[Spear]`
 
 Pasif:
 
-> [Fears] Hitting enemy will Silence them
+> [Fears] Hitting enemy will %Silence them
 >
-> [Unshantle Shift] Silence enemy take 150% damage from this weapon
+> [Unshantle Shift] Increase damage to %Silence enemy by 150%
 
 Skills:
 
@@ -277,7 +279,8 @@ Skills:
 >
 > []
 >
-> []
+> [Unsharthering Star], 18 Stamina | 8.5s CD | Jump<br/>
+> Purging to the ground to deals 330% Atk as Physical damage to all enemy nearby. %Silence enemy take additional damage.
 
 ## Destreza Concept
 
@@ -312,11 +315,11 @@ Skills:
 
 ## Endless Concept
 
-> Atk 2<br/>
+> Atk 8<br/>
 > Type Gun<br/>
 > Rarity: Unique<br/>
 > Ammo: 12<br/>
-> Tags: Spam, Ranged, DPS
+> Tags: Art, Spam, Ranged, DPS
 
 Trait `[Gun]`
 
@@ -324,13 +327,14 @@ Trait `[Gun]`
 
 Pasif:
 
-> [Endpoint] Increase damage to 140% if target are futher than 8 block<br/>
+> [Endpoint] Increase damage to 150% if target are futher than 8 block<br/>
 >
 > [End Ammo] Have 20% chance to not consume ammo while using skill and have 20% chance replenish 1 ammo
 
 Skills:
 
-> []<br/>
+> [Presition Shoot], 12 Stamina | 3.5s CD | No Sneak<br/>
+> Shoot a bullet to deals 180% Atk as Art Damage. Consume one ammo.
 >
 > []<br/>
 >
@@ -458,29 +462,40 @@ Trait `[Spear]`
 
 Pasif:
 
-> [Creations]: %Lectaze-Sword will rise after 5 sec. While %Lectaze-Sword arise, user get stack. Increase base damage by 1 every stack(Max 5 stack)
+> [Creations]: %Lectaze-Sword will rise after 5 sec. While %Lectaze-Sword arise, user get stack. Increase base damage by 1 every stack for 3 sec (Max 5 stack)
 >
-> [Clip]: Everytime %Lectazw-Sword die or despawn it will explode and deals 150% Atk as Art damage
+> [Clip]: Everytime %Lectaze-Sword die or despawn it will explode and deals 150% Atk as Art damage
 
 Skills:
 
-> []
+> [Lance Upon Tray], 18 Stamina | 5s CD | No Sneak<br/>
+> Shoot %Lectaze-Sword to deals 180% Atk as Art damage. After shoot, user will dash a bit
 >
 > []
 >
-> []
+> [Command: Exploding], 18 Stamina | 17.5 CD | Jump<br/>
+> Triggering %Clip to all %Creation nearby. If %Creation more that 5, user get %Encharged status
 >
-> []
+> [Creating Fallen Sword], 24 Stamina | 0s CD | Jump & has %Encharged status<br/>
+> Summon %Lectaze-Fallen-Sword on target location to taunting all target nearby
 
 Summon:
 
 [Lectaze Sword]
 
+> Hp 10<br/>
 > Atk 5<br/>
 > Def: 4 Physical<br/>
 > Mspd: 0.65 FLy
 
 Pasif: `Prioritize targeting last entity that user attack, stay on the field for 10 sec`
+
+[Lectaze Fallen Sword]
+
+> Hp 40<br/>
+> Def 10 Physical, 4 Res, 8 Fire Res
+
+Pasif: `Upon summoned, deals 400% user Atk as Art damage. Taunting all enemy nearby. Stay on field by 10 sec`
 
 ## Liberator Concept
 
@@ -556,7 +571,7 @@ Trait `[Spear]`
 
 Pasif:
 
-> [Burning Glare] Increase damage deals to burning enemy by 250%
+> [Burning Glare] Increase damage deals to burning enemy by 2.5 times
 
 Skills:
 
@@ -712,8 +727,8 @@ Pasif:
 
 Skill:
 
-> [Into Shadow], 12 Stamina | 5.5s CD | No Sneak
-> Turn into %Shadow-Mode. In this mode gains movement and jump boost, damage change to Art damage. Using Attack or Skill will remove this mode.
+> [Into Shadow], 12 Stamina | 5.5s CD | No Sneak<br/>
+> Turn into %Shadow-Mode. In this mode gains movement and jump boost, damage change into Art damage. Using Attack or Skill will remove this mode.
 >
 > []
 >
@@ -785,16 +800,16 @@ Trait `[Artsword]`
 
 Pasif:
 
-> [Return Into Self], Killing enemy will reset all weapon cooldown and get +30% Atk for 10 sec.
+> [Return Into Self], Killing enemy will reset all weapon cooldown and get +30% Atk for 10 sec. (Cannot be stacked)
 
 Skill:
 
-> [Insuption Ichor], 12 Stamina | 8s CD | No Sneak
+> [Insuption Ichor], 12 Stamina | 8s CD | No Sneak<br/>
 > Attack one target to deals 200% Atk as Art damage
 >
 > []
 >
-> [Countless Times Ichor], 18 Stamina | 25c CD | Jump
+> [Countless Times Ichor], 18 Stamina | 25c CD | Jump<br/>
 > Jump to front to deals 350% Atk as Art damage to all enemy and push a bit the enemy
 
 ## Vitage Concept
@@ -835,11 +850,11 @@ Pasif:
 
 Skill:
 
-> [Incarmc], 18 Stamina | 6.5s CD | No Sneak
+> [Incarmc], 18 Stamina | 6.5s CD | No Sneak<br/>
 > Shoot art bullet to deals 300% Atk as Art damage
 >
-> [Stanc Quiest], 24 Stamina | 10s CD | Sneak
+> [Stanc Quiest], 24 Stamina | 10s CD | Sneak<br/>
 > Casting %Mana-Glance for 3 sec. Gain speed effect for a sec
 >
-> [Quanto Spark], 26-46 Stamina | 25s CD | Jump
+> [Quanto Spark], 26-46 Stamina | 25s CD | Jump<br/>
 > Lock target location. Create large explosion to that area and deals 500% Atk as Art damage. Consume all %Mana-Glance to create multiple. Each explosion will grow up a radius and damage

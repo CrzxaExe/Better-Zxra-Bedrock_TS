@@ -14,11 +14,11 @@ import {
   BossChallengeData,
   Command,
   CommandData,
-  commandEnums,
   CommandEnumTypeStrict,
   CreateObject,
   Entity,
   EntityData,
+  FullWorldData,
   Guild,
   GuildData,
   ItemRegister,
@@ -60,8 +60,8 @@ class Terra {
 
   /**
    * Get property from minecraft dynamic property
-   * @param namespace string, name of the property, default 'world'
-   * @param def Object, default value if the property are not present
+   * @param namespace  name of the property, default 'world'
+   * @param def  default value if the property are not present
    * @returns Object
    */
   static getProperty(namespace: string = "world", def: Object = {}): Object {
@@ -72,8 +72,8 @@ class Terra {
 
   /**
    * Set property to minecarft dynamic property
-   * @param namespace string, name of the property, default 'world'
-   * @param data Object, data that want to set
+   * @param namespace name of the property, default 'world'
+   * @param data data that want to set
    *
    * @throws when data cannot br set
    */
@@ -128,9 +128,35 @@ class Terra {
   }
 
   /**
+   * Import addon data from external JSON
+   *
+   * @param data data want to load (JSON)
+   */
+  static importDataFromJSON(data: FullWorldData): void {}
+
+  /**
+   *  Export addon data from internal App
+   *
+   * @returns FullWorldData
+   */
+  static exportDataToJSON(): FullWorldData {
+    const data: FullWorldData = {
+      world: Terra.world,
+      specialist: Terra.specialist,
+      story: Terra.story,
+      pityPlayer: Terra.pityPlayer,
+      weaponComponent: Terra.weaponComponent,
+      bossChallenge: Terra.bossChallenge ?? { boss: undefined, participants: [] },
+      waveChallenge: Terra.waveChallenge,
+    };
+
+    return data;
+  }
+
+  /**
    * Registering block component to minecraft
    *
-   * @param registry BlockComponentRegistry, register function
+   * @param registry register function
    */
   static setupBlockComponent(registry: BlockComponentRegistry): void {
     const register = BlockRegister.register;
@@ -147,7 +173,7 @@ class Terra {
   /**
    * Registering custom command to minecraft
    *
-   * @param registry CustomCommandRegistry, register function
+   * @param registry register function
    */
   static setupCommand(registry: CustomCommandRegistry): void {
     const cmd = Command.Cmd;
@@ -164,8 +190,8 @@ class Terra {
   /**
    * Registering command enums to minecraft
    *
-   * @param registry CustomCommandRegistry, register function
-   * @param enums CommandEnumTypeStrict, enums data
+   * @param registry register function
+   * @param enums  enums data
    */
   static setupCommandEnums(registry: CustomCommandRegistry, enums: CommandEnumTypeStrict): void {
     const register = enums;
@@ -177,7 +203,7 @@ class Terra {
   /**
    * Registering item component to minecraft
    *
-   * @param registry ItemComponentRegistry, register function
+   * @param registry register function
    */
   static setupItemComponent(registry: ItemComponentRegistry): void {
     const register = ItemRegister.register;
@@ -194,7 +220,7 @@ class Terra {
   /**
    * Save data function
    *
-   * @param isEnable boolean, data will be save or not, (trigger false save)
+   * @param isEnable data will be save or not, (trigger false save)
    */
   static save(isEnable: boolean = true): void {
     console.warn("[System] Saving data");
@@ -223,7 +249,7 @@ class Terra {
   /**
    * Set world data
    *
-   * @param data WorldData, data want to be set
+   * @param data data want to be set
    */
   static setWorldData(data: WorldData): void {
     this.world = data;
@@ -264,7 +290,7 @@ class Terra {
   /**
    * Get all player with matching name from world instance
    *
-   * @param name string, display name of player
+   * @param name display name of player
    * @returns Players[] | undefined
    */
   static getWorldPlayerByName(name: string): Player[] | undefined {
@@ -274,7 +300,7 @@ class Terra {
   /**
    * Get player with matching id from world instance
    *
-   * @param id string, player id
+   * @param id player id
    * @returns Player | undefined
    *
    * @throws if id are empty string
@@ -291,7 +317,7 @@ class Terra {
   /**
    * Get player from Terra.players
    *
-   * @param finder PlayerFinder | undefined, { name: string | id: string }
+   * @param finder - { name?: string | id?: string }
    * @returns
    */
   static getPlayer(finder: PlayerFinder | undefined): Player[] | Player | undefined {
@@ -306,7 +332,7 @@ class Terra {
   /**
    * Add player to Terra.players
    *
-   * @param player Player
+   * @param player
    */
   static addPlayer(player: Player): void {
     const find = this.players.find((e) => e.id === player.id);
@@ -318,7 +344,7 @@ class Terra {
   /**
    * Delete player with matching id that present in Terra.players
    *
-   * @param id string, player id
+   * @param id player id
    * @returns Player[] | undefined
    *
    * @throws if id are empty string
@@ -334,7 +360,7 @@ class Terra {
   /**
    * Set Terra.players
    *
-   * @param players Player[]
+   * @param players
    */
   static setPlayer(players: Player[]): void {
     this.players = players;
@@ -367,7 +393,7 @@ class Terra {
    * Find player from Terra.specialistCache.
    * Create new instance and set to list
    *
-   * @param player Player, player that want to get or create
+   * @param player player that want to get or create
    * @returns Specialist
    */
   static getSpecialistCache(player: Player): Specialist {
@@ -384,7 +410,7 @@ class Terra {
   /**
    * Add specialist data to Terra.specialist
    *
-   * @param data SpecialistData, player specialist data
+   * @param data player specialist data
    */
   static addSpecialist(data: SpecialistData): void {
     this.specialist.push(data);
@@ -393,7 +419,7 @@ class Terra {
   /**
    * Find specialist data player with matching id
    *
-   * @param id string, player id
+   * @param id player id
    * @returns SpecialistData | undefined
    */
   static getSpecialist(id: string): SpecialistData | undefined {
@@ -403,7 +429,7 @@ class Terra {
   /**
    * Replace specialist data player with new datq
    *
-   * @param newData SpecialistData, player specialist data
+   * @param newData player specialist data
    */
   static setSpecialist(newData: SpecialistData): void {
     if (!newData) throw new Error("Missing data");
@@ -421,7 +447,7 @@ class Terra {
   /**
    * Remove specialsit data player from Terra.specialist
    *
-   * @param id string, player id
+   * @param id player id
    * @returns SpecilistData[] if there are multiple data | SpecialistData | undefined
    *
    * @throws if id are empty string
@@ -449,7 +475,7 @@ class Terra {
   /**
    * Add entity data to Terra.entities
    *
-   * @param data EntityData
+   * @param data
    */
   static addDataEntity(data: EntityData): void {
     if (!data) throw new Error("Missing data");
@@ -459,7 +485,7 @@ class Terra {
   /**
    * Get entity data
    *
-   * @param id string, entity id
+   * @param id entity id
    * @returns EntityData | undefined
    */
   static getDataEntity(id: string): EntityData | undefined {
@@ -469,8 +495,8 @@ class Terra {
   /**
    * Set entity data to Terra.entities
    *
-   * @param id string, entity id
-   * @param data EntityData, data of the entity
+   * @param id entity id
+   * @param data data of the entity
    */
   static setDataEntity(id: string, data: EntityData): void {
     if (id === "") throw new Error("Invalid id");
@@ -487,7 +513,7 @@ class Terra {
   /**
    * Remove entity data from Terra.entities
    *
-   * @param id string, entity id
+   * @param id entity id
    * @returns EntityData[] | EntityData | undefined
    */
   static remDataEntity(id: string): EntityData[] | EntityData | undefined {
@@ -502,7 +528,7 @@ class Terra {
   /**
    * Get entity instance from Terra.entityCache
    *
-   * @param entity Entity(minecraft), insatnce of entity from minecraft
+   * @param entity insatnce of entity from minecraft
    * @returns Entity
    */
   static getEntityCache(entity: mcEntity): Entity {
@@ -532,7 +558,7 @@ class Terra {
   /**
    * Set leaderboard data with new data
    *
-   * @param data LeaderboardData, new data leaderboard
+   * @param data new data leaderboard
    */
   static setleaderboard(data: LeaderboardData): void {
     this.world.leaderboards = data;
@@ -548,7 +574,7 @@ class Terra {
   /**
    * Set guild data with new data
    *
-   * @param data GuildData[], new data for guild data
+   * @param data new data for guild data
    */
   static setDataGuild(data: GuildData[]): void {
     this.world.guilds = data;
@@ -557,7 +583,7 @@ class Terra {
   /**
    * Return list of data guild to string
    *
-   * @returns string, of guild
+   * @returns list of guild
    */
   static getListedGuild(): string[] {
     return (
@@ -590,7 +616,7 @@ Member  : ${e.members.length}/${e.maxMember}`;
   /**
    * Get player pity from Terra.playerPity
    *
-   * @param player Player
+   * @param player
    * @returns PityPlayer
    */
   static getPityPlayer(player: Player): PityPlayer {
@@ -600,8 +626,8 @@ Member  : ${e.members.length}/${e.maxMember}`;
   /**
    * Set data of player pity, with new one
    *
-   * @param player Player
-   * @param newData PityPlayer
+   * @param player
+   * @param newData
    * @returns
    */
   static setPityPlayer(player: Player, newData: PityPlayer): void {
@@ -624,7 +650,7 @@ Member  : ${e.members.length}/${e.maxMember}`;
   /**
    * Get data of player weapon component
    *
-   * @param id string, player id
+   * @param id player id
    * @returns WeaponComponent
    */
   static getPlayerWeaponComponent(id: string): WeaponComponent {
@@ -638,8 +664,8 @@ Member  : ${e.members.length}/${e.maxMember}`;
   /**
    * Set data of player weapon component with matching id
    *
-   * @param id string, player id
-   * @param data WeaponComponent, data want to insert
+   * @param id player id
+   * @param data data want to insert
    */
   static setPlayerWeaponComponent(id: string, data: WeaponComponent): void {
     if (id === "") throw new Error("Invalid id");
@@ -657,9 +683,9 @@ Member  : ${e.members.length}/${e.maxMember}`;
   /**
    * Add data for key of value on weapon component of player with matching id
    *
-   * @param id string, player id
-   * @param key string, key of value from data
-   * @param amount number, data want to add
+   * @param id player id
+   * @param key key of value from data
+   * @param amount data want to add
    * @param data WeaponComponent
    */
   static addPlayerWpnComponent(
@@ -685,9 +711,9 @@ Member  : ${e.members.length}/${e.maxMember}`;
   /**
    * Set weapon component of player with matching id
    *
-   * @param id string, player id
-   * @param key string, key of value
-   * @param value number | boolean
+   * @param id player id
+   * @param key key of value
+   * @param value
    * @param data WeaponComponent
    */
   static setPlayerWpnComponent(
@@ -737,7 +763,7 @@ Member  : ${e.members.length}/${e.maxMember}`;
   /**
    * Set boss challange data
    *
-   * @param boss Entity, entity of minecraft
+   * @param boss entity of minecraft
    */
   static setBossChallenge(boss: mcEntity): void {
     this.bossChallenge = CreateObject.createBossChallenge(boss);
@@ -753,8 +779,8 @@ Member  : ${e.members.length}/${e.maxMember}`;
   /**
    * Add new player to boss challange data
    *
-   * @param player Player
-   * @param damage number
+   * @param player
+   * @param damage
    * @param data BossChallangeData
    */
   static addParticipantBossChallenge(

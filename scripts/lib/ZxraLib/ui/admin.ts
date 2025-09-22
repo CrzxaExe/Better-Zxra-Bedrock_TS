@@ -142,15 +142,7 @@ class AdminPanel {
   }
 
   static exportData(player: Player): void {
-    const data = {
-      world: Terra.world,
-      specialist: Terra.specialist,
-      story: Terra.story,
-      pityPlayer: Terra.pityPlayer,
-      weaponComponent: Terra.weaponComponent,
-      bossChallenge: Terra.bossChallenge,
-      waveChallenge: Terra.waveChallenge,
-    };
+    const data = Terra.exportDataToJSON();
 
     new ModalFormData()
       .title("cz:admin_export")

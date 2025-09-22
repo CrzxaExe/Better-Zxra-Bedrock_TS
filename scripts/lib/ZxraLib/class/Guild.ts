@@ -2,7 +2,16 @@ import { Player } from "@minecraft/server";
 import { CreateObject, GuildData, GuildMember, GuildRole } from "../module";
 import { Terra } from "./Terra";
 
+/**
+ * Services class to handle guild request
+ */
 class Guild {
+  /**
+   * Get guild data by id or name
+   *
+   * @param finder finder object
+   * @returns GuildData[]
+   */
   getData(finder?: { id?: string; name?: string }): GuildData[] {
     const data = Array.isArray(Terra.world.guilds) ? Terra.world.guilds : [];
 
@@ -15,6 +24,13 @@ class Guild {
 
     return data;
   }
+
+  /**
+   * Get guild data by id
+   *
+   * @param id guild id
+   * @returns GuildData or undefined
+   */
   getGuild(id: string): GuildData | undefined {
     return this.getData().find((e) => e.id === id);
   }

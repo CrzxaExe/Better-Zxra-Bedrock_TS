@@ -63,6 +63,7 @@ export type {
   CommandData,
   EffectCreate,
   EntityData,
+  FullWorldData,
   ItemSpecial,
   LbData,
   LeaderboardData,

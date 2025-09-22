@@ -9,11 +9,11 @@ import {
   ScriptEventSource,
   Vector3,
 } from "@minecraft/server";
-import { Specialist } from "../module";
+import { Specialist, SpecialistData } from "../module";
 
 // Boss interface
 type BossChallengeData = {
-  boss: Entity;
+  boss: Entity | undefined;
   participants: BossChallangeParticipant[];
 };
 type BossChallangeParticipant = {
@@ -312,12 +312,22 @@ interface WeaponAttribute {
 type WeaponAttributetype = "handle";
 
 // World interface
-interface WorldData {
+type WorldData = {
   redeem: RedeemData[];
   setting: Setting;
   leaderboards?: LeaderboardData;
   guilds?: GuildData[];
-}
+};
+
+type FullWorldData = {
+  world: WorldData;
+  specialist: SpecialistData[];
+  story: StoryData;
+  pityPlayer: PityPlayer[];
+  weaponComponent: WeaponComponent[];
+  bossChallenge: BossChallengeData;
+  waveChallenge: {};
+};
 
 export type {
   BossChallengeData,
@@ -326,6 +336,7 @@ export type {
   CommandData,
   EffectCreate,
   EntityData,
+  FullWorldData,
   ItemSpecial,
   LbData,
   LeaderboardData,

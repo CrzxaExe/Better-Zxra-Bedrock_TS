@@ -26,7 +26,7 @@ import {
   Terra,
   WEAPON_GACHA_PRICE,
 } from "../module";
-import { weaponData } from "../../WeaponModule/module";
+import { weaponData, weaponRaw } from "../../WeaponModule/module";
 
 class UserPanel {
   static home(player: Player): void {
@@ -1212,7 +1212,7 @@ class GachaPanel {
 
         for (let i = 1; i <= total; i++) {
           const result = Gacha.weapon(player),
-            weaponConst = weaponData[result.rarity as keyof typeof weaponData][result.weapon];
+            weaponConst = weaponRaw[result.rarity as keyof typeof weaponData][result.weapon];
 
           if (!weaponConst) {
             player.sendMessage({ translate: "system.gacha.error.notFound" });
