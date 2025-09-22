@@ -6,7 +6,7 @@ Minecraft Bedrock Addon, adding new mechanics for your journey. [Here]("https://
 
 The different between this project and Better-Zxra-Bedrock is the efficiency of the code its self. Using JavaScript cause many error with variable type so we move on to TypeScript to prevent that error again on next update. As we change the language, we also change a bit a mechanics of the addon, such as data cache, singleton class and many more. Now we will not holdback about effect again, we will increase visual quality and animation quality this addon, so it will sometime laggy for low end device. Thats all.
 
-## Update 1.3.5
+## Update 1.3.5 | Redesign Journey
 
 Changelogs:
 
@@ -21,8 +21,8 @@ Changelogs:
 
 Progress Rewrite:
 
-- Content: 15.5%
-- System: 67.4%
+- Content: 16%
+- System: 67.7%
 - Ui: 36.8%
 
 Features:

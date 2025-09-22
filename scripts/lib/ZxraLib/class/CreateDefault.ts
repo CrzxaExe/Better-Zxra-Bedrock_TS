@@ -13,41 +13,41 @@ import {
   WeaponComponent,
 } from "../module";
 
+/**
+ * Utility class to create default data
+ */
 class CreateObject {
+  /**
+   * Create default entity data
+   *
+   * @param entity Entity, minecraft entity
+   * @returns EntityData
+   */
   static createEntity(entity: Entity): EntityData {
-    if (!entity) throw new Error("Missing entity");
-
-    const data = {
-      id: entity.id,
-      status: [],
-    };
+    const data = structuredClone(defaultEntity);
+    data.id = entity.id;
     return data;
   }
 
+  /**
+   * Create default specialist data for player
+   * @param player
+   * @returns Specialist data
+   */
   static createSpecialist(player: Player): SpecialistData {
-    if (!player) throw new Error("Missing player");
-
-    const data: SpecialistData = {
-      id: player.id,
-      level: { current: 0, xp: 0 },
-      stamina: { current: 100, max: 100, additional: 0, rune: 0 },
-      thirst: { current: 100, max: 100, temp: 0 },
-      money: 0,
-      voxn: 0,
-      rep: 0,
-      title: "",
-      equippedRune: [],
-      runes: [],
-      titles: [],
-      selectedWeapon: [],
-      weapons: [],
-      cd: [],
-      components: [],
-    };
+    const data: SpecialistData = structuredClone(defaultSpecialist);
+    data.id = player.id;
     return data;
   }
 
+  /**
+   * Generate uuid with set of length
+   *
+   * @param length number, positive only
+   * @returns string
+   */
   static createUUID(length: number = Terra.world.setting?.uuidLength || 12): string {
+    if (length < 0) length = Terra.world.setting.uuidLength || 12;
     const chars: string = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 
     let result: string = "";
@@ -55,27 +55,56 @@ class CreateObject {
     return result;
   }
 
+  /**
+   * Create default pity player data
+   *
+   * @param player Player
+   * @returns PityPlayer
+   */
   static createPity(player: Player): PityPlayer {
-    const data = { ...defaultPity, id: player.id };
-
+    const data = structuredClone(defaultPity);
+    data.id = player.id;
     return data;
   }
 
+  /**
+   * Create default leaderboard data
+   *
+   * @returns LeaderboardData
+   */
   static createLeaderboard(): LeaderboardData {
     return { chat: [], deaths: [], kills: [] };
   }
 
+  /**
+   * Create default weapon component of player
+   *
+   * @param id string, player id
+   * @returns WeaponComponent
+   * @throws when id is empty string
+   */
   static createWeaponComponent(id: string): WeaponComponent {
+    if (id === "") throw new Error("Invalid id");
     return { id, components: [], attributes: [] };
   }
 
+  /**
+   * Create default boss challange data
+   *
+   * @param entity Entity
+   * @returns BossChallangeData
+   */
   static createBossChallenge(entity: Entity): BossChallengeData {
     return { boss: entity, participants: [] };
   }
 
+  /**
+   * Create default velocity for player
+   *
+   * @param player Player
+   * @returns Vector3
+   */
   static createVelocityPlayer(player: Player): Vector3 {
-    if (!player) throw new Error("Missing player");
-
     const rot = player.getRotation();
     rot.y = ((rot.y + 45) * Math.PI) / 180;
 
@@ -88,7 +117,14 @@ class CreateObject {
     return velocity;
   }
 
-  static createNpcData(entity: Entity, data: EntityData = Terra.getDataEntity(entity.id)): EntityData {
+  /**
+   * Create default npc data for entity
+   *
+   * @param entity Entity
+   * @param data EntityData, optional
+   * @returns EntityData
+   */
+  static createNpcData(entity: Entity, data: EntityData | undefined = Terra.getDataEntity(entity.id)): EntityData {
     const defaultModels = npcFile[entity.typeId.split(":")[1]] || undefined;
 
     data.npc = defaultModels;

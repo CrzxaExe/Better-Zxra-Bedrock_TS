@@ -2,8 +2,9 @@
 
 _List:_
 
-- Attack Up: Increase attack and skill damage
-- Skill Up: Increase skill damage
+- Art Up: Increase art damage user
+- Attack Up: Increase attack and skill damage user
+- Skill Up: Increase skill damage user
 
 # Debuff
 
@@ -23,5 +24,6 @@ _List:_
 
 _List:_
 
-- Burn: Can get reacted with other elmental, depending on burn level it will create unique effect.
-- Wet: Can get reacted with other elemental, extinguish fire
+- Burn: Can reacted with other elmental, depending on burn level it will create unique effect.
+- Wet: Can reacted with other elemental, extinguish fire
+- Electrify: Can reacted with other elemental, slow self

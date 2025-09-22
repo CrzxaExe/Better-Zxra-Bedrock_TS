@@ -64,6 +64,7 @@ function mainTick(): void {
     if (system.currentTick % (Terra.world.setting?.saveInterval || 20000) /* 1000 sec */ === 0) {
       Terra.save(true);
       Terra.setPlayer(world.getAllPlayers());
+      Terra.clearEntityCache();
     }
   } catch (err: { message: string } | any) {
     console.warn("[Tick] Error on: ", err.message);

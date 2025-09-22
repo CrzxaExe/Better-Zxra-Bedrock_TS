@@ -117,6 +117,7 @@ export type {
   SpecialistStamina,
   SpecialistThirst,
   SpecialistWeapon,
+  SpecialistWeaponPlayer,
 } from "./types/specialistTypes";
 
 // UI exports

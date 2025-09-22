@@ -7,8 +7,6 @@ interface PlayerContainers {
 
 class PlayerContainers {
   constructor(player: Player) {
-    if (!player) throw new Error("Missing player");
-
     this.player = player;
   }
 
@@ -75,8 +73,6 @@ interface ItemInventory {
 
 class ItemContainer {
   constructor(item: ItemStack) {
-    if (!item) throw new Error("Missing item");
-
     this.item = item;
   }
 

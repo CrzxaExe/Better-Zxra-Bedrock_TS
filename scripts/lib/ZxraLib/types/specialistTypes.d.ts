@@ -15,7 +15,7 @@ interface SpecialistData {
   runes: SpecialistRune[];
   cd: CooldownData[];
   selectedWeapon: [string?, string?];
-  weapons: SpecialistWeapon[];
+  weapons: SpecialistWeaponPlayer[];
   quest?: QuestPlayer;
   components: SpecialistComponent[];
 }
@@ -43,12 +43,16 @@ interface SpecialistThirst {
   max: number;
   temp: number;
 }
-interface SpecialistWeapon {
+type SpecialistWeapon = {
   weapon: string;
   atk: number;
-  pasifLvl: [WeaponStat[], WeaponStat[]?];
-  skillLvl: [WeaponStat[], WeaponStat[]?, WeaponStat[]?, WeaponStat[]?];
-}
+  pasifLvl: [WeaponStat[][], WeaponStat[][]?];
+  skillLvl: [WeaponStat[][], WeaponStat[][]?, WeaponStat[][]?, WeaponStat[][]?];
+};
+type SpecialistWeaponPlayer = Omit<SpecialistWeapon, "pasifLvl" | "skillLvl"> & {
+  pasifLvl: [number, number?];
+  skillLvl: [number, number?, number?, number?];
+};
 
 export {
   SpecialistComponent,
@@ -58,4 +62,5 @@ export {
   SpecialistStamina,
   SpecialistThirst,
   SpecialistWeapon,
+  SpecialistWeaponPlayer,
 };

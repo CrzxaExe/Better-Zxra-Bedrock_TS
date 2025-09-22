@@ -1,14 +1,14 @@
 import { Player } from "@minecraft/server";
-import { SpecialistWeapon, Terra } from "../../ZxraLib/module";
-import { weaponData } from "../module";
+import { SpecialistWeaponPlayer, Terra } from "../../ZxraLib/module";
+import { weaponData, weaponRaw } from "../module";
 
 class Cenryter {
   static pasif(
     user: Player,
-    weapon: SpecialistWeapon = Terra.getSpecialist(user.id)?.weapons.find((e) => e.weapon === "cenryter") ??
-      weaponData.epic.cenryter
+    weapon: SpecialistWeaponPlayer = Terra.getSpecialist(user.id)?.weapons.find((e) => e.weapon === "cenryter") ??
+      weaponRaw.epic.cenryter
   ): number {
-    return weapon.pasifLvl[0].find((e) => e.name === "heal_multiplier") ?? 3;
+    return weaponData.epic.cenryter.pasifLvl[0]![weapon.pasifLvl[0]]!.find((e) => e.name === "heal_multiplier") ?? 3;
   }
 }
 

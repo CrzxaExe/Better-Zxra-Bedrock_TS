@@ -1,18 +1,38 @@
 import { Player } from "@minecraft/server";
 import { gachaFeatured, gachaPolls, GachaRarity, PityPlayer, runeList, Terra } from "../module";
 
+/**
+ * Utility class to handle gacha
+ */
 class Gacha {
+  /**
+   * Adding pity to user
+   *
+   * @param player Player
+   * @param key string, key of banner
+   * @param amount number, default 0
+   * @param pityData PityPlayer, default get to Terra.pityPlayer
+   */
   static addPityUser(
     player: Player,
     key: "featured" | "unique" | "limited",
-    amount: number = 0,
-    pityData: PityPlayer = Terra.getPityPlayer(player)
+    amount: number | undefined = 0,
+    pityData: PityPlayer | undefined = Terra.getPityPlayer(player)
   ): void {
     if (amount <= 0) return;
     pityData.pity[key] += amount;
 
     Terra.setPityPlayer(player, pityData);
   }
+
+  /**
+   * Set pity of player
+   *
+   * @param player Player
+   * @param key string, key of banner
+   * @param amount number, default 0
+   * @param pityData PityPlayer, default get to Terra.pityPlayer
+   */
   static setPityUser(
     player: Player,
     key: "featured" | "unique" | "limited",
@@ -26,12 +46,24 @@ class Gacha {
   }
 
   // Gacha main
+
+  /**
+   * Get random rune
+   *
+   * @returns string
+   */
   static rune(): string {
     const available = Object.keys(runeList);
 
     return available[Math.floor(Math.random() * available.length)];
   }
 
+  /**
+   * Get random weapon
+   *
+   * @param player Player
+   * @returns { rarity: GachaRarity, weapon: string }
+   */
   static weapon(player: Player): { rarity: GachaRarity; weapon: string } {
     const data = Terra.getPityPlayer(player);
 

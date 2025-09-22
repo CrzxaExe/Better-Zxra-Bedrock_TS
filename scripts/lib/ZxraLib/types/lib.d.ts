@@ -42,12 +42,10 @@ interface EffectCreate {
 }
 
 // Entity interface
-type EntityData = Prettify<
-  {
-    id: string;
-    status: StatusData[];
-  } & NpcModels
->;
+type EntityData = {
+  id: string;
+  status: StatusData[];
+} & NpcModels;
 
 // Item interface
 interface ItemSpecial {
@@ -315,8 +313,8 @@ type WeaponAttributetype = "handle";
 
 // World interface
 interface WorldData {
-  redeem?: RedeemData[];
-  setting?: Setting;
+  redeem: RedeemData[];
+  setting: Setting;
   leaderboards?: LeaderboardData;
   guilds?: GuildData[];
 }

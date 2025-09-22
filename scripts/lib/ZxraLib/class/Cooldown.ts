@@ -5,28 +5,47 @@ interface Cooldown {
   sp: Specialist;
 }
 
+/**
+ * Object cooldown data for specialist
+ */
 class Cooldown {
   constructor(player: Specialist) {
-    if (!player) throw new Error("Missing player");
-
     this.sp = player;
   }
 
   // Data methods
+
+  /**
+   * Get all cooldown data of player
+   *
+   * @returns CooldownData[]
+   */
   getData(): CooldownData[] {
     return this.sp.getSp().cd || [];
   }
-  setData(newData: CooldownData[]): void {
-    if (!newData) throw new Error("Missing new data");
 
+  /**
+   * Set current cooldown data of player
+   *
+   * @param newData CooldownData[]
+   */
+  setData(newData: CooldownData[]): void {
     const data = this.sp.getSp();
     data.cd = newData;
     this.sp.setSp(data);
   }
 
   // Functional methods
+
+  /**
+   * Adding or increasing cooldown from player
+   *
+   * @param name string, name of cooldown
+   * @param duration number, duration of cooldown, can negative
+   * @throws when name is empty string
+   */
   addCd(name: string, duration: number = 1): void {
-    if (!name) throw new Error("Missing name");
+    if (name === "") throw new Error("Invalid name");
 
     const data = this.getData(),
       find = data.findIndex((e) => e.name === name);
@@ -38,8 +57,16 @@ class Cooldown {
     }
     this.setData(data);
   }
+
+  /**
+   * Subtract cooldown duration from player
+   *
+   * @param name
+   * @param duration number, duration of cooldown to be subtract, only positive number
+   * @throws when name is empty string
+   */
   minCd(name: string, duration: number = 1): void {
-    if (!name) throw new Error("Missing name");
+    if (name === "") throw new Error("Invalid name");
 
     const data = this.getData(),
       find = data.findIndex((e) => e.name === name);
@@ -52,8 +79,15 @@ class Cooldown {
     }
     this.setData(data);
   }
+
+  /**
+   * Remove cooldown from player
+   *
+   * @param name string, name of cooldown
+   * @throws when name is empty string
+   */
   remCd(name: string): void {
-    if (!name) throw new Error("Missing name");
+    if (name === "") throw new Error("Invalid name");
 
     const data = this.getData(),
       find = data.findIndex((e) => e.name === name);
@@ -64,18 +98,43 @@ class Cooldown {
   }
 
   // Check methods
+
+  /**
+   * Get cooldown by name from player
+   *
+   * @param name string, name of cooldown
+   * @returns CooldownData | undefined
+   * @throws when name is empty string
+   */
   getCdByName(name: string): CooldownData | undefined {
-    if (!name) throw new Error("Missing name");
+    if (name === "") throw new Error("Invalid name");
 
     return this.getData().find((e) => e.name === name);
   }
+
+  /**
+   * Check if player has cooldown with matching name
+   *
+   * @param name string, name of cooldown
+   * @returns boolean
+   * @throws when name is empty string
+   */
   hasCd(name: string): boolean {
-    if (!name) throw new Error("Missing name");
+    if (name === "") throw new Error("Invalid name");
     return this.getData().some((e) => e.name === name);
   }
+
+  /**
+   * Check if player can using skill, if true it has been set to add its cooldown
+   *
+   * @param name string, name of cooldown
+   * @param duration number. duration of cooldown
+   * @returns boolean
+   * @throws when namen is empty string
+   */
   canSkill(name: string, duration: number): boolean {
-    if (name === "") throw new Error("Missing name");
-    if (duration < 0) throw new Error("Parameter duration must be positive");
+    if (name === "") throw new Error("Invalid name");
+    if (duration < 0) duration = 1;
     if (this.hasCd(name) || this.hasCd("on_skill")) {
       this.sp.source.onScreenDisplay.setActionBar({ translate: "system.onCooldown" });
       return false;
@@ -83,8 +142,14 @@ class Cooldown {
     this.addCd(name, duration);
     return true;
   }
+
+  /**
+   * Set if player has already use skill now
+   *
+   * @param duration number, duration of on skill
+   */
   setIsSkill(duration: number): void {
-    if (duration < 0) throw new Error("Parameter duration must be positive");
+    if (duration < 0) duration = 1;
 
     this.addCd("on_skill", duration);
   }

@@ -1,20 +1,20 @@
 import { Entity as mcEntity, MolangVariableMap, Player, system } from "@minecraft/server";
-import { Calc, Entity, SpecialistWeapon, Terra } from "../../ZxraLib/module";
-import { weaponData } from "../module";
+import { Calc, SpecialistWeaponPlayer, Terra } from "../../ZxraLib/module";
+import { weaponData, weaponRaw } from "../module";
 
 class Boltizer {
   static pasif2(
     user: Player,
     target: mcEntity[],
-    weapon: SpecialistWeapon = Terra.getSpecialist(user.id)?.weapons.find((e) => e.weapon === "boltizer") ??
-      weaponData.unique.boltizer
+    weapon: SpecialistWeaponPlayer = Terra.getSpecialist(user.id)?.weapons.find((e) => e.weapon === "boltizer") ??
+      weaponRaw.unique.boltizer
   ): void {
     let count: number = 0;
 
     target.forEach((e: mcEntity) => {
       const nextEntity: mcEntity | undefined = target[count + 1];
 
-      const ent = new Entity(e);
+      const ent = Terra.getEntityCache(e);
 
       if (nextEntity) {
         const molang = new MolangVariableMap();
@@ -37,7 +37,11 @@ class Boltizer {
 
       system.runTimeout(() => {
         ent.addDamage(
-          weapon.atk * (1 - count * (weapon.pasifLvl[1]?.find((e) => e.name === "chain_penalty").value ?? 0.3)),
+          weapon.atk *
+            (1 -
+              count *
+                (weaponData.unique.boltizer.pasifLvl[1]![weapon.pasifLvl[0]]?.find((e) => e.name === "chain_penalty")
+                  .value ?? 0.3)),
           {
             cause: "lightning",
             damagingEntity: user,

@@ -4,6 +4,7 @@
 
 // Data exports
 export * as weaponData from "./data/all";
+export * as weaponRaw from "./data/raw";
 
 // Pasif exports
 

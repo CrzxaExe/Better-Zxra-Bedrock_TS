@@ -1,7 +1,7 @@
-type NPC = Prettify<{
+type NPC = {
   data: NpcData;
   models: NpcModels;
-}>;
+};
 type NpcConst = {
   npc?: YuriConst;
 };
@@ -16,6 +16,9 @@ type YuriConst = {
 interface YuriData {
   greet: string[];
 }
-type YuriModels = {};
+type YuriModels = {
+  skins: [];
+  components: [];
+};
 
 export { NPC, NpcData, NpcModels, YuriConst, YuriData, YuriModels };

@@ -32,7 +32,7 @@ Stats:
 > Atk 5<br/>
 > Type: Dagger<br/>
 > Rarity: Legend<br/>
-> Tags: Art, Moility, DPS
+> Tags: Art, Mobility, DPS
 
 Trait `[Dagger]`
 
@@ -40,7 +40,7 @@ Trait `[Dagger]`
 
 Pasif:
 
-> [Slicezer] While having %Slicezer, attack will deals 200% Atk as Art damage adn bind target for short duration
+> [Slicezer] While having %Slicezer, attack will deals 200% Atk as Art damage and bind target for short duration
 
 Skills:
 
@@ -94,13 +94,17 @@ Pasif:
 
 Skills:
 
-> []
+> [Conductor Strike], 14 Stamina | 5s CD | No sneak
+> Strike through target and deals 180% Atk as Lightning damage. Doesn't chainning
 >
-> []
+> [Foreground Shockwave], 18 Stamina | 8.5s CD | Sneak
+> Summon shockwave on user location. enemy inside area will get 200% Atk as Lightning damage and counted as attacked target
 >
-> []
+> [Self Conduction], 20 Stamina | 15s CD | Has %Electricity status
+> Summon Lightning strike to self, clear all debuff and gain protection effect for a sec. On duration, enemy that attacking user will get 50% Atk as Lightning damage
 >
-> []
+> [Thunder Strom], 26 Stamina | 25s CD | Jump
+> Lock one target to summon 3 lightning strike to deals 220% Atk as Lightning damage and chaining to 3 target nearby.
 
 ## Bringer Concept
 
@@ -155,9 +159,20 @@ Skills:
 > [Ouch Again], 30 Stamina | 3s CD | No Sneak & 3x [Ouch]<br/>
 > Heal all target in range as 150% Atk
 >
-> []
+> [Heal on Allies], 20-50 Stamina | 8s CD | Sneak
+> Select one target to set location of area, heal all allies on that area for 250% Atk. Target must be entity(can be enemy or summon).
 >
-> []
+> [Great Healing Tome], 40 Stamina | 20s CD | Jump
+> Summon %Totem on user location. %Totem will heal all allies on range.
+
+Summons:
+
+[Totem]
+
+> HP 8<br/>
+> Def: 6 Physical, 10 Res
+
+Pasif: `This summon have low target priotity and will stay on field for 10s. Heal all allies in range as 100% Atk every sec.`
 
 ## Cenryter Concept
 
@@ -256,6 +271,8 @@ Pasif:
 
 Skills:
 
+> []
+>
 > []
 >
 > []
@@ -505,6 +522,7 @@ Summons:
 
 [Angel]
 
+> HP 28<br/>
 > Atk 12<br/>
 > Def: 2 Physical, 4 Res<br/>
 > Mspd: 0.4
@@ -513,6 +531,7 @@ Pasif: `Will targeting enemy with %Liberator-Target tag, stays on the field for 
 
 [Liberator Angel]
 
+> HP 80<br/>
 > Atk 24<br/>
 > Def: 4 Physical, 12 Res<br/>
 > Mspd: 0.4
@@ -576,6 +595,81 @@ Skills:
 >
 > []
 
+## Musha Concept
+
+> Atk 10<br/>
+> Type: Katana<br/>
+> Rarity: Legend<br/>
+> Tags: DPS
+
+Trait `[Katana]`
+
+> Deals additional damage if target has debuff or had been knockup
+
+Pasif:
+
+> [Decisive], Every 5 attack will get %Decisive stack that increase Atk by 1 (Max 3 times)
+
+Skill:
+
+> []
+>
+> []
+
+## Pandora Concept
+
+> Atk 8<br/>
+> Type: Briefcase<br/>
+> Rarity: Unique<br/>
+> Tags: Nuker, DPS
+
+Trait `[Briefcase]`
+
+> Every hit will push target and can use ranged
+
+Pasif:
+
+> [Out of Box], Every attack will increase damage by 20% Atk for each target (Max 3 times)
+>
+> [Laser From Aces], Has 28% chance target will be struck by laser to deals 440% Atk
+
+Skill:
+
+> []
+>
+> []
+>
+> []
+>
+> []
+
+## Quezn Concept
+
+> Atk 14<br/>
+> Type: Century<br/>
+> Rarity: Unique<br/>
+> Tags: Survival, AOE, DPS
+
+Trait `[Century]`
+
+> Deals AOE damage to all enemy closer with target
+
+Pasif:
+
+> [Gaslt], Every time using skill, will get shield that will block 1 physical damage. (Cannot be stacked)
+>
+> [Offensive Protection], While has shield, damage will increase to 130% Atk
+
+Skill:
+
+> []
+>
+> []
+>
+> []
+>
+> []
+
 ## Regrowth Concept
 
 > Atk 10<br/>
@@ -593,6 +687,34 @@ Pasif:
 
 Skills:
 
+> []
+>
+> []
+>
+> []
+
+## Silent Concept
+
+> Atk 11<br/>
+> Type: Katana<br/>
+> Rarity: Unique<br/>
+> Tags: Nuker, Mobility, Art, DPS
+
+Trait `[Katana]`
+
+> Deals additional damage if target has debuff or had been knockup
+
+Pasif:
+
+> [Counted Shadow], Everytime attacking debuff enemy will get %Counted-Shadow stack (Max 20 stack).
+>
+> [Shadow Quencity], Skill or Attack will knockup target while in %Shadow-Mode
+
+Skill:
+
+> [Into Shadow], 12 Stamina | 5.5s CD | No Sneak
+> Turn into %Shadow-Mode. In this mode gains movement and jump boost, damage change to Art damage. Using Attack or Skill will remove this mode.
+>
 > []
 >
 > []
@@ -628,3 +750,96 @@ Skills:
 >
 > [Inferno Field], 24 Stamina | 20s CD | 10s | Has %Fire-Res Effect<br/>
 > Create area that will blow for first time deals 240% Atk as Fire damage, and deals 50% Atk as Fire damage with burn apply to all enemy in the area every sec
+
+## Sui Concept
+
+> Atk 10<br/>
+> Type: Katana<br/>
+> Rarity: Legend<br/>
+> Tags: Debuff, DPS
+
+Trait `[Katana]`
+
+> Deals additional damage if target has debuff or had been knockup
+
+Pasif:
+
+> [Remark], Attacking marked target will deals 150% Atk
+
+Skill:
+
+> []
+>
+> []
+
+## Undying Concept
+
+> Atk 8<br/>
+> Type: Artsword<br/>
+> Rarity: Epic<br/>
+> Tags: Art, Spam, DPS
+
+Trait `[Artsword]`
+
+> Can use Art or Elemental
+
+Pasif:
+
+> [Return Into Self], Killing enemy will reset all weapon cooldown and get +30% Atk for 10 sec.
+
+Skill:
+
+> [Insuption Ichor], 12 Stamina | 8s CD | No Sneak
+> Attack one target to deals 200% Atk as Art damage
+>
+> []
+>
+> [Countless Times Ichor], 18 Stamina | 25c CD | Jump
+> Jump to front to deals 350% Atk as Art damage to all enemy and push a bit the enemy
+
+## Vitage Concept
+
+> Atk 7<br/>
+> Type: Lance<br/>
+> Rarity: Legend<br/>
+> Tags: DPS, Mobility
+
+Trait `[Lance]`
+
+> Gets boost damage everytime use dash
+
+Pasif:
+
+> [Push Break], After dashing, next attack or skill will has additional +20% target HP as Physical damage (Damage up to 500% Atk)
+
+Skill:
+
+> []
+>
+> []
+
+## Yume Staff Concept
+
+> Atk 8<br/>
+> Type: Staff<br/>
+> Rarity: Epic<br/>
+> Tags: Art, Nuker, DPS
+
+Trait `[Staff]`
+
+> Can casting spell
+
+Pasif:
+
+> [Mana Glance], Can store up to 5 %Mana-Glance. Increase art power and radius.
+
+Skill:
+
+> [Incarmc], 18 Stamina | 6.5s CD | No Sneak
+> Shoot art bullet to deals 300% Atk as Art damage
+>
+> [Stanc Quiest], 24 Stamina | 10s CD | Sneak
+> Casting %Mana-Glance for 3 sec. Gain speed effect for a sec
+>
+> [Quanto Spark], 26-46 Stamina | 25s CD | Jump
+> Lock target location. Create large explosion to that area and deals 500% Atk as Art damage. Consume all %Mana-Glance to create multiple. Each explosion will grow up a radius and damage

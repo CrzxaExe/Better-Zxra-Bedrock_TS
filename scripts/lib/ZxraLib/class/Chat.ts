@@ -1,7 +1,17 @@
 import { Player, world } from "@minecraft/server";
 import { Formater, Terra, settings } from "../module";
 
+/**
+ * Utility class to run custom chat
+ */
 class Chat {
+  /**
+   * Send private message to target with custom formatting
+   *
+   * @param sender Player, player sender
+   * @param message string
+   * @param targets Players[], array of player want to get the message
+   */
   static privateMessage(sender: Player, message: string, targets: Player[]): void {
     if (message === "") return;
 
@@ -12,6 +22,12 @@ class Chat {
     );
   }
 
+  /**
+   * Send private message to only member of guild with custom formatting
+   *
+   * @param sender Player
+   * @param message string
+   */
   static guildMessage(sender: Player, message: string): void {
     const guild = Terra.guild.getGuildByPlayer(sender);
 
@@ -34,6 +50,12 @@ class Chat {
     });
   }
 
+  /**
+   * Send global message with custom formatting
+   *
+   * @param sender Player
+   * @param message string
+   */
   static globalMessage(sender: Player, message: string): void {
     if (message === "") return;
 

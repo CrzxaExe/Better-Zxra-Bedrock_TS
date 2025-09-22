@@ -32,6 +32,11 @@ interface Entity {
   status: Status;
 }
 
+/**
+ * Entity instance
+ *
+ * @constructor Entity from minecraft
+ */
 class Entity {
   constructor(entity: any) {
     if (!entity) throw new Error("Missing Entity");
@@ -43,26 +48,50 @@ class Entity {
   }
 
   // Data Methods
+  /**
+   * Get entity data
+   *
+   * @param defaultValue Object
+   * @returns EntityData
+   */
   getEnt(defaultValue: EntityData = { id: this.id, status: [] }): EntityData {
     return Terra.getDataEntity(this.id) || defaultValue;
   }
+
+  /**
+   * Set entity data
+   *
+   * @param data EntityData;
+   */
   setEnt(data: EntityData): void {
     if (!data) throw new Error("Missing data");
     Terra.setDataEntity(this.id, data);
   }
+
+  /**
+   * Clear entity data
+   */
   clearEnt(): void {
     this.setEnt({ id: this.id, status: [] });
   }
 
   // Controller
+
+  /**
+   * Method to control entity status
+   */
   controllerStatus(): void {
-    // console.warn(JSON.stringify(this.status.getData()));
     const status = this.status.getData();
 
     status.filter((e) => e.decay === "time").forEach((e) => this.status.minStatus(e.name, 0.25));
 
     this.controllerActiveStatusEffect(status);
   }
+
+  /**
+   * Method to control active effect of entity status
+   * @param status StatusData
+   */
   controllerActiveStatusEffect(status: StatusData[] = this.status.getData()): void {
     status.forEach((e: StatusData) => {
       switch (e.type) {
@@ -75,39 +104,87 @@ class Entity {
   }
 
   // Validation Methods
+
+  /**
+   * Check if this entity is same type
+   *
+   * @param type string, identifier
+   * @returns boolean
+   */
   is(type: string): boolean {
-    if (!type) throw new Error("Missing Type");
+    if (!type) return false;
     return this.source.typeId.split(":")[1] === type;
   }
-  isTeammate(player: Player) {
-    if (!this.is("player")) throw new Error("This entity is not instance of Player");
 
-    Terra.guild.getGuildByPlayer(player);
+  /**
+   * Check if target are teammate to this entity
+   * @param player Player, target
+   * @returns boolean
+   */
+  isTeammate(player: Player): boolean {
+    if (!this.is("player")) return false;
+
+    return Terra.guild.getGuildByPlayer(player)?.members.some((e) => e.id === (this.source.id as string)) ?? false;
   }
 
   // Family Methods
+
+  /**
+   * Get all family tag of this entity
+   * @returns string[]
+   */
   getFamily(): string[] {
     return this.family.getTypeFamilies();
   }
+
+  /**
+   * Check if this entity has family tag
+   *
+   * @param name string
+   * @returns boolean
+   */
   hasFamily(name: string): boolean {
-    if (!name) throw new Error("Missing Name");
+    if (name === "") throw new Error("Invalid Name");
     return this.family.hasTypeFamily(name);
   }
 
   // Checking Methods
+
+  /**
+   * Check if this entity is on fire
+   *
+   * @returns boolean
+   */
   isOnFire(): boolean {
     return this.source.hasComponent("onfire");
   }
+
+  /**
+   * Check if this entity is tamed
+   * @returns boolean
+   */
   isTamed(): boolean {
     return this.source.hasComponent("is_tamed");
   }
 
   // NPC Methods
+
+  /**
+   * Npc method, to call gui of the npc entity
+   */
   npc() {
     if (!this.hasFamily("npc")) throw new Error("This entity is not npc");
   }
 
   // Combat Methods
+
+  /**
+   * Apply damage to this entity with calculated
+   *
+   * @param damage number, raw damage
+   * @param options Object, contain damage couse, source entity, rune stat, and is skill or not
+   * @param velocity Object, contain velocity, vertical knockback, horizontal knockback
+   */
   addDamage(
     damage: number = 1,
     options: { cause: EntityDamageCause | string; damagingEntity: mcEntity; rune?: RuneStats; isSkill?: boolean } = {
@@ -165,6 +242,14 @@ class Entity {
     if (!velocity) return;
     this.knockback(velocity.vel, velocity.ver, velocity.hor);
   }
+
+  /**
+   * Consume entity health with calculation
+   *
+   * @param percentage number, between 0-1
+   * @param hp EntityHealthComponent
+   * @param identifier string | undefined, weapon id
+   */
   consumeHp(
     percentage: number,
     hp: EntityHealthComponent | undefined = this.source.getComponent("health"),
@@ -197,12 +282,24 @@ class Entity {
         break;
     }
   }
+
+  /**
+   * Set current hp this entity with new one
+   *
+   * @param value number
+   */
   setCurrentHP(value: number): void {
     const hp: EntityHealthComponent | undefined = this.source.getComponent("health");
     if (!hp) return;
 
     hp.setCurrentValue(value);
   }
+
+  /**
+   * Add entity current hp with calculation
+   *
+   * @param amount number
+   */
   heal(amount: number): void {
     const hp: EntityHealthComponent | undefined = this.source.getComponent("health");
     if (!hp) return;
@@ -223,10 +320,25 @@ class Entity {
   }
 
   // Effect Methods
+  /**
+   * Add single effect to this entity
+   *
+   * @param name string, effect name
+   * @param duration number
+   * @param amplifier number, default 0
+   * @param showParticles boolean, default true
+   */
   addEffectOne(name: string, duration: number = 1, amplifier: number = 0, showParticles: boolean = true): void {
     if (!name) throw new Error("Missing Name of Effect");
     this.source.addEffect(EffectTypes.get(name) || name, duration * 20, { amplifier, showParticles });
   }
+
+  /**
+   * Add several effect to  this entity
+   *
+   * @param effect EffectCreate[] | EffectCreate
+   * @throws when effect are not object or array of EffectCreate
+   */
   addEffect(effect: EffectCreate[] | EffectCreate): void {
     if (Array.isArray(effect)) {
       effect.forEach(({ name, duration, amplifier, showParticles }) =>
@@ -240,6 +352,12 @@ class Entity {
     const { name, duration, amplifier, showParticles } = effect;
     this.addEffectOne(name, duration, amplifier, showParticles);
   }
+
+  /**
+   * Remove several effect for this entity
+   *
+   * @param effect string[] | string, name of effect
+   */
   removeEffect(effect: string[] | string): void {
     if (typeof effect === "string") {
       this.source.removeEffect(effect);
@@ -249,6 +367,13 @@ class Entity {
     if (!Array.isArray(effect)) return;
     effect.forEach((e) => this.source.removeEffect(e));
   }
+
+  /**
+   * Check if entity has effect name
+   *
+   * @param effect string[] | string
+   * @returns boolean[] | boolean
+   */
   hasEffect(effect: string[] | string): boolean[] | boolean {
     if (typeof effect === "string")
       return this.source
@@ -266,6 +391,12 @@ class Entity {
       return all;
     }, []);
   }
+
+  /**
+   * Check if entity has bad effect
+   *
+   * @returns boolean
+   */
   hasDebuffEffect(): boolean {
     return this.source
       .getEffects()
@@ -282,6 +413,10 @@ class Entity {
         ].includes(e.typeId)
       );
   }
+
+  /**
+   * Remove all debuff from entity
+   */
   removeAllDebuff(): void {
     this.removeEffect([
       "blindness",
@@ -296,6 +431,13 @@ class Entity {
   }
 
   // Essentials Methods
+
+  /**
+   * Run several command from this entity
+   *
+   * @param cmd string[] | string, list of command
+   * @throws when cmd is not string[] or string
+   */
   runCommand(cmd: string[] | string): void {
     if (typeof cmd === "string") {
       this.source.runCommand(cmd);
@@ -307,12 +449,22 @@ class Entity {
     cmd.forEach((e) => this.source.runCommand(e));
   }
 
-  setOnFire(duration: number): void {
+  /**
+   * Set on fire in this target for duration
+   *
+   * @param duration number, default 1
+   */
+  setOnFire(duration: number = 1): void {
     this.source.setOnFire(duration);
   }
 
+  /**
+   * Add several tags to this entity
+   *
+   * @param tags string[] | string
+   * @throws wheb tags are not string[] or string
+   */
   addTag(tags: string[] | string): void {
-    if (!tags) throw new Error("Missing tags");
     system.run(() => {
       if (typeof tags === "string") {
         this.source.addTag(tags);
@@ -324,15 +476,28 @@ class Entity {
       tags.forEach((tag: string) => this.source.addTag(tag));
     });
   }
+
+  /**
+   * Get tag with matched finder for this entity
+   *
+   * @param finder TagFinder
+   * @returns string[]
+   */
   getTag(finder: { tag: string }): string[] {
     const tags = this.source.getTags();
 
     if (!finder) return tags;
     return tags.filter((e: string) => finder.tag === e);
   }
-  hasTag(tags: string[] | string, combined: boolean = false): boolean[] | boolean {
-    if (!tags) throw new Error("Missing tags");
 
+  /**
+   * Check if entity has tags
+   *
+   * @param tags string[] | string
+   * @param combined boolean, default false, if true return will check this entity must have all tags
+   * @returns boolean[] | boolean
+   */
+  hasTag(tags: string[] | string, combined: boolean | undefined = false): boolean[] | boolean {
     if (typeof tags === "string") return this.source.hasTag(tags);
 
     if (!Array.isArray(tags)) return false;
@@ -340,10 +505,15 @@ class Entity {
 
     return combined ? res.every((e) => e === true) : res;
   }
+
+  /**
+   * Remove several tags from this entity
+   *
+   * @param tags string[] | string
+   * @throws when tags is not string[] or string
+   */
   remTag(tags: string[] | string): void {
     system.run(() => {
-      if (!tags) return;
-
       if (typeof tags === "string") {
         this.source.removeTag(tags);
         return;
@@ -354,12 +524,27 @@ class Entity {
     });
   }
 
-  playAnim(animation: string, blendOutTime: number = 0.35): void {
+  /**
+   * Playing animation to this entity
+   *
+   * @param animation string, animation name
+   * @param blendOutTime number, default 0.35
+   * @throws when animation is empty string
+   */
+  playAnim(animation: string, blendOutTime: number | undefined = 0.35): void {
     if (animation === "") throw new Error("Missing animation");
     this.source.playAnimation(animation, { blendOutTime });
   }
 
   // Particle Methods
+
+  /**
+   * Spawn particle to this entity
+   *
+   * @param particle string, particle name
+   * @param location Vector3
+   * @param molang MolangVariableMap
+   */
   selfParticle(
     particle: string,
     location: Vector3 | undefined = this.source.location,
@@ -368,6 +553,13 @@ class Entity {
     if (!particle) throw new Error("Missing particle");
     this.source.dimension.spawnParticle(particle, location, molang);
   }
+
+  /**
+   * Spawn several particle to this entity
+   *
+   * @param particles Particle[] | Particle | string[] | string
+   * @throws when particles is not array of object, array of string, object or string
+   */
   particles(particles: Particle[] | Particle | string[] | string): void {
     if (typeof particles === "string") {
       this.selfParticle(particles);
@@ -393,33 +585,66 @@ class Entity {
       this.selfParticle(particle, location, molang);
     });
   }
+
+  /**
+   * Spawn impact particle on this entity
+   */
   impactParticle(): void {
     if (!this.source.isOnGround) return;
     this.particles(["cz:impact_up", "cz:impact_p"]);
   }
 
   // Movement Methods
-  knockback(velocity: Vector3, horizontal: number = 0, vertical: number = 0): void {
-    if (!velocity) throw new Error("Missing velocity");
 
+  /**
+   * Apply knockback to this entity
+   * @param velocity Vector3
+   * @param horizontal number, default 0
+   * @param vertical number, default 0
+   */
+  knockback(velocity: Vector3, horizontal: number | undefined = 0, vertical: number | undefined = 0): void {
     this.source.applyKnockback({ x: velocity.x * horizontal, z: velocity.z * horizontal }, vertical);
   }
-  bind(duration: number): void {
+
+  /**
+   * Set entity to unable to move for a sec
+   * @param duration number, default 1
+   */
+  bind(duration: number | undefined = 1): void {
     this.addEffect({ name: "slowness", duration, amplifier: 254, showParticles: false });
     this.selfParticle("cz:bind", { ...this.source.location, y: this.source.location.y + 2.3 });
   }
 
   // Get other Entity methods
-  getEntityFromDistance(maxDistance: number = 6): EntityRaycastHit[] {
+
+  /**
+   * Get all entity from this entity view
+   * @param maxDistance number, default 6
+   * @returns EntityRaycastHit[]
+   */
+  getEntityFromDistance(maxDistance: number | undefined = 6): EntityRaycastHit[] {
     let excludeNames: string[] = [];
     if (this.source instanceof Player) excludeNames = [...Terra.guild.getTeammate(this.source)];
 
     return this.source.getEntitiesFromViewDirection({ maxDistance, excludeNames, excludeTypes: NOT_VALID_ENTITY });
   }
-  getFirstEntityFromDistance(maxDistance: number = 6): EntityRaycastHit | undefined {
+
+  /**
+   * Get one entity from this entity view
+   * @param maxDistance number, default 6
+   * @returns EntityRaycastHit | undefined
+   */
+  getFirstEntityFromDistance(maxDistance: number | undefined = 6): EntityRaycastHit | undefined {
     return this.getEntityFromDistance(maxDistance)[0];
   }
-  getEntityWithinRadius(radius: number = 6): mcEntity[] {
+
+  /**
+   * Get all entity surround this entity
+   *
+   * @param radius number, default 6
+   * @returns Minecraft Entity[]
+   */
+  getEntityWithinRadius(radius: number | undefined = 6): mcEntity[] {
     let excludeNames: string[] = [];
     if (this.source.typeId === "minecraft:player") excludeNames = [...Terra.guild.getTeammate(this.source)];
 
@@ -432,6 +657,13 @@ class Entity {
     });
   }
 
+  /**
+   * Get all entity inside of FOV of this entity
+   *
+   * @param maxDistance number, default 6
+   * @param fov number, default 60, the degree from this entity
+   * @returns Minecraft Entity[]
+   */
   getEntityFromDistanceCone(maxDistance: number = 6, fov: number = 60): mcEntity[] {
     const entities = this.getEntityWithinRadius(maxDistance);
 
@@ -460,12 +692,23 @@ class Entity {
 
       const angle = Math.acos(dot);
 
-      // console.warn(e.typeId, angle, halfFovRad, rotationY);
       return angle <= halfFovRad;
     });
   }
 
-  getChainedEntityFromDistance(radius: number, maxTargetCount: number = 1, excludeId: string[] = []): mcEntity[] {
+  /**
+   * Get some closer entity from this entity view distance
+   *
+   * @param radius number, default 3, radius for each jump
+   * @param maxTargetCount number, default 1
+   * @param excludeId string[], entity id, that will not be included
+   * @returns Minecraft Entity[]
+   */
+  getChainedEntityFromDistance(
+    radius: number | undefined = 3,
+    maxTargetCount: number | undefined = 1,
+    excludeId: string[] = []
+  ): mcEntity[] {
     const entity: mcEntity[] = [];
     let targetGet: number = 0;
 
@@ -497,6 +740,12 @@ class Entity {
     return entity;
   }
 
+  /**
+   * Get location of this entity view
+   *
+   * @param distance number, default 6
+   * @returns
+   */
   getLocationInFront(distance: number = 6): Vector3 {
     const entity = this.getEntityFromDistance(distance);
     if (entity.length > 0) return entity[0].entity.location;
@@ -522,12 +771,24 @@ class Entity {
   }
 
   // Refresh Methods
+
+  /**
+   * Refresh this entity
+   */
   refreshEntity(): void {
     this.remTag(["silent_target", "liberator_target", "silence", "lectaze_target", "fireing_zone", "catlye_ult"]);
   }
 
   // 3D Particle
-  spawnParticle(namespace: string, event: string, location: Vector3 = this.source.location): void {
+
+  /**
+   * Spawn entity particel on this entity location
+   *
+   * @param namespace string, name of particle
+   * @param event string, event of particle
+   * @param location Vector3, default this entity location
+   */
+  spawnParticle(namespace: string, event: string, location: Vector3 | undefined = this.source.location): void {
     const particle = this.source.dimension.spawnEntity(namespace, location);
 
     particle.triggerEvent(event);

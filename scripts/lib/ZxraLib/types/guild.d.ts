@@ -6,7 +6,7 @@ const GuildRoles = {
 
 type GuildRole = ObjectValues<typeof GuildRoles>;
 
-interface GuildData {
+type GuildData = {
   id: string;
   name: string;
   level: GuildLevel;
@@ -16,16 +16,16 @@ interface GuildData {
   members: GuildMember[];
   applier: GuildMember[];
   token: number;
-}
-interface GuildLevel {
+};
+type GuildLevel = {
   lvl: number;
   xp: number;
-}
-interface GuildMember {
+};
+type GuildMember = {
   id: string;
   name: string;
   role?: GuildRole;
-}
+};
 
 type GuildShopItem = {
   item: string;

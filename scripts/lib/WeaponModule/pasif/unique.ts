@@ -1,5 +1,5 @@
 import { EntityHealthComponent, Entity as mcEntity, MolangVariableMap, Player } from "@minecraft/server";
-import { Calc, Entity, Specialist, Terra, Weapon } from "../../ZxraLib/module";
+import { Calc, Specialist, Terra, Weapon } from "../../ZxraLib/module";
 import { Boltizer, Liberator, Reaper, weaponData } from "../module";
 
 // Liberator
@@ -12,7 +12,7 @@ Weapon.addHitPasif("liberator", (user: Player, _: unknown, { sp }: { sp: Special
   const healAmount = 1 + stack;
 
   Reaper.reap(sp, (entity: mcEntity, healFunction: ReaperHealFunction) => {
-    const ent = new Entity(entity);
+    const ent = Terra.getEntityCache(entity);
 
     ent.particles({
       particle: "cz:gray_slash",
@@ -38,7 +38,6 @@ Weapon.addKillPasif("liberator", (user: Player, _: unknown, { sp }: { sp: Specia
   let stack = sp.status.getStatus({ name: "soul_of_death" })[0]?.lvl ?? 0;
   if (stack >= maxStack) return;
 
-  stack++;
   sp.status.addStatus("soul_of_death", 1, { type: "stack", decay: "none", lvl: 1, stack: true });
 });
 
@@ -49,7 +48,7 @@ Weapon.addHitPasif("kyles", (user: Player, target: mcEntity, { sp }: { sp: Speci
 
   const rune = sp.rune.getRuneStat();
 
-  new Entity(target).addDamage((hp.defaultValue ?? 20) * hpPercentage, {
+  Terra.getEntityCache(target).addDamage((hp.defaultValue ?? 20) * hpPercentage, {
     cause: "entityAttack",
     damagingEntity: user,
     isSkill: false,
@@ -64,7 +63,7 @@ Weapon.addHitPasif("boltizer", (user: Player, target: mcEntity, { damage }: { da
 
   Boltizer.pasif2(
     user,
-    new Entity(target).getChainedEntityFromDistance(
+    Terra.getEntityCache(target).getChainedEntityFromDistance(
       3,
       weapon.pasifLvl[1]?.find((e) => e.name === "chain_length").value ?? 2,
       [user.id]

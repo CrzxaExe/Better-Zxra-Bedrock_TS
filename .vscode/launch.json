@@ -1,15 +1,34 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-      {
-        "type": "minecraft-js",
-        "request": "attach",
-        "name": "Debug with Minecraft",
-        "mode": "listen",
-        "preLaunchTask": "build",
-        "sourceMapRoot": "${workspaceFolder}/dist/debug/",
-        "generatedSourceRoot": "${workspaceFolder}/dist/scripts/",
-        "port": 19144
-      }
-    ]
-  }
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "minecraft-js",
+      "request": "attach",
+      "name": "Debug with Minecraft",
+      "mode": "listen",
+      "preLaunchTask": "build",
+      "sourceMapRoot": "${workspaceFolder}/dist/debug/",
+      "generatedSourceRoot": "${workspaceFolder}/dist/scripts/",
+      "port": 19144
+    },
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "cppdbg",
+      "request": "launch",
+      "args": [],
+      "stopAtEntry": false,
+      "externalConsole": true,
+      "cwd": "d:/pembelajaran",
+      "program": "d:/pembelajaran/build/Debug/outDebug",
+      "MIMode": "gdb",
+      "miDebuggerPath": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    }
+  ]
+}
