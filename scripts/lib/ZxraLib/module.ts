@@ -4,9 +4,31 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////
 */
 
-export const ZxraLib: { packVersion: string; version: string } = {
+export const ZxraLib: {
+  packVersion: string;
+  plugins: PluginsData[];
+} = {
   packVersion: "1.4.1",
-  version: "1.1.7ts",
+  plugins: [
+    {
+      name: "ZxraLib",
+      namespace: "cz",
+      endpoint: {
+        in: "req",
+        out: "res",
+      },
+      version: "1.1.7ts",
+    },
+    {
+      name: "WeaponModule",
+      namespace: "czwpn",
+      endpoint: {
+        in: "req",
+        out: "res",
+      },
+      version: "1.0.3",
+    },
+  ],
 };
 
 // Class export
@@ -22,6 +44,7 @@ export { Gacha } from "./class/Gacha";
 export { Guild } from "./class/Guild";
 export { Item } from "./class/Item";
 export { Leaderboard } from "./class/Leaderboard";
+export { Parser } from "./class/Parser";
 export { Quest } from "./class/Quest";
 export { BlockRegister, ItemRegister } from "./class/Registry";
 export { Rune } from "./class/Rune";
@@ -57,9 +80,11 @@ export { Yuri } from "./npc/models/Yuri";
 export type { CommandEnumTypeStrict } from "./types/command";
 export type { GuildRole, GuildRoles, GuildData, GuildLevel, GuildMember, GuildShopItem } from "./types/guild";
 export type {
+  AntiHealData,
   BossChallengeData,
   BossChallangeParticipant,
   CooldownData,
+  CommandCallback,
   CommandData,
   EffectCreate,
   EntityData,
@@ -85,6 +110,7 @@ export type {
   PasifKill,
   PityPlayer,
   PlayerFinder,
+  PluginsData,
   RuneAction,
   RedeemData,
   RedeemRewards,
@@ -137,3 +163,4 @@ import "./registry/blocks/all";
 import "./registry/items/tools";
 import "./registry/itemEvent/consume";
 import "./registry/itemEvent/use";
+import { PluginsData } from "./types/lib";

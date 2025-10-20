@@ -14,6 +14,7 @@ class Calc {
    *
    * @param level specialist level and number must be positive
    * @returns number
+   * @throws when level < 0
    */
   static specialistLevelUp(level: number = 0): number {
     if (level < 0) throw new Error("Level must be positive");

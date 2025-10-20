@@ -1,4 +1,4 @@
-import { ItemStack, Player } from "@minecraft/server";
+import { Player } from "@minecraft/server";
 import { SpecialItem, Terra, UserPanel } from "../../module";
 
 SpecialItem.addUse("stats", (source: Player) => {

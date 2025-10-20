@@ -8,8 +8,8 @@ class Chat {
   /**
    * Send private message to target with custom formatting
    *
-   * @param sender Player, player sender
-   * @param message string
+   * @param sender player sender
+   * @param message
    * @param targets Players[], array of player want to get the message
    */
   static privateMessage(sender: Player, message: string, targets: Player[]): void {
@@ -25,8 +25,8 @@ class Chat {
   /**
    * Send private message to only member of guild with custom formatting
    *
-   * @param sender Player
-   * @param message string
+   * @param sender
+   * @param message
    */
   static guildMessage(sender: Player, message: string): void {
     const guild = Terra.guild.getGuildByPlayer(sender);
@@ -53,8 +53,8 @@ class Chat {
   /**
    * Send global message with custom formatting
    *
-   * @param sender Player
-   * @param message string
+   * @param sender
+   * @param message
    */
   static globalMessage(sender: Player, message: string): void {
     if (message === "") return;

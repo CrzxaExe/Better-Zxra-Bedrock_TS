@@ -1,0 +1,109 @@
+{
+  "world": {
+    "redeem": [],
+    "setting": {
+      "customChat": true,
+      "customChatPrefix": "%guild%name > %msg",
+      "damageIndicator": true,
+      "deathLocation": true,
+      "debug": true,
+      "guildCreateCost": 2000,
+      "rules": {
+        "naturalregeneration": false,
+        "recipesunlock": false,
+        "showcoordinates": true,
+        "spawnradius": 1
+      },
+      "saveInterval": 24000,
+      "shopMultiplier": 1,
+      "staminaAction": 5,
+      "staminaCooldown": true,
+      "staminaExhaust": 3,
+      "staminaHurt": 4,
+      "staminaRecovery": 2,
+      "staminaRun": 2.5,
+      "starterItemMessage": "system.welcome.item",
+      "starterItems": [
+        {
+          "item": "cz:stats",
+          "amount": 1
+        }
+      ],
+      "staterItem": true,
+      "thirstRun": 0.03,
+      "uiLevelRequirement": true,
+      "useBzbRules": true,
+      "uuidLength": 12,
+      "xpMultiplier": 1,
+      "whatSeeDistance": 7
+    },
+    "guilds": [
+      {
+        "id": "178C82C3VR221",
+        "name": "§b§lZxras",
+        "level": {
+          "lvl": 10,
+          "xp": 0
+        },
+        "des": "",
+        "approval": false,
+        "maxMember": 5,
+        "members": [
+          {
+            "id": "-4294967295",
+            "name": "CrzxaExe3",
+            "role": "super_admin"
+          }
+        ],
+        "applier": [],
+        "token": 9101
+      }
+    ],
+    "leaderboards": {
+      "chat": [],
+      "deaths": [],
+      "kills": []
+    }
+  },
+  "specialist": [
+    {
+      "id": "-4294967295",
+      "level": {
+        "current": 8,
+        "xp": 112.23333333333318
+      },
+      "stamina": {
+        "current": 100,
+        "max": 100,
+        "additional": 0,
+        "rune": 0
+      },
+      "thirst": {
+        "current": 87.98999999999454,
+        "max": 100,
+        "temp": 0
+      },
+      "money": 420,
+      "voxn": 69,
+      "rep": -10,
+      "title": "",
+      "equippedRune": [],
+      "runes": [],
+      "titles": [],
+      "selectedWeapon": [],
+      "weapons": [],
+      "cd": [],
+      "components": []
+    }
+  ],
+  "story": {
+    "storyId": 0,
+    "progress": []
+  },
+  "pityPlayer": [],
+  "weaponComponent": [],
+  "bossChallenge": {
+    "participants": []
+  },
+  "waveChallenge": {}
+}

@@ -1,13 +1,6 @@
 {
   "namespace": "hud",
 
-  "hide_ele": {
-    "type": "image",
-    "texture": "textures/ui/eye",
-    "size": [26, 26],
-    "layer": 13
-  },
-
   "welcomer": {
     "type": "label",
     "$welcome": "cz.welcomer",
@@ -18,22 +11,6 @@
     "anchor_to": "top",
     "size": ["default", 40],
     "shadow": true
-  },
-
-  "hide_btn": {
-    "type": "panel",
-    "size": [30, 30],
-    "controls": [
-      { "img@hud.hide_ele": {} },
-      {
-        "bton@common_toggles.dark_text_toggle": {
-          "$toggle_name": "czhide_toggle",
-          "$button_text": " ",
-          "size": [30, 30],
-          "$toggle_view_binding_name": "cz_hide_toggle"
-        }
-      }
-    ]
   },
 
   "zxras": {
@@ -92,14 +69,6 @@
     "anchor_to": "top_right",
     "anchor_from": "top_right",
     "alpha": 0,
-    "bindings": [
-      {
-        "binding_type": "view",
-        "source_control_name": "cz_hide_toggle",
-        "source_property_name": "(not #toggle_state)",
-        "target_property_name": "#visible"
-      }
-    ],
     "controls": [
       {
         "panel": {
@@ -125,13 +94,22 @@
                     "data_control": {
                       "type": "panel",
                       "size": [0, 0],
+                      "property_bag": {
+                        "#preserved_text": ""
+                      },
                       "bindings": [
                         {
                           "binding_name": "#hud_title_text_string"
                         },
                         {
                           "binding_name": "#hud_title_text_string",
-                          "binding_name_override": "#ui_data"
+                          "binding_name_override": "#preserved_text",
+                          "binding_condition": "visibility_changed"
+                        },
+                        {
+                          "binding_type": "view",
+                          "source_property_name": "(not (#hud_title_text_string = #preserved_text) and not ((#hud_title_text_string - $key) = #hud_title_text_string))",
+                          "target_property_name": "#visible"
                         }
                       ]
                     }
@@ -141,7 +119,7 @@
                   {
                     "binding_type": "view",
                     "source_control_name": "data_control",
-                    "source_property_name": "(#ui_data - $key)",
+                    "source_property_name": "(#preserved_text - $key)",
                     "target_property_name": "#text"
                   }
                 ]
@@ -186,14 +164,6 @@
     "offset": [84, -50]
   },
 
-  "root_panel/chat_stack/paper_doll_padding_living_room": {
-    "size": [0, 0],
-    "visible": false
-  },
-  "root_panel/chat_stack/paper_doll_padding": {
-    "size": [0, 0],
-    "visible": false
-  },
   "root_panel/mob_effects_renderer": {
     "offset": ["0px", "40px"]
   },
@@ -207,8 +177,7 @@
           {
             "zxras@hud.zxras": {
               "anchor_from": "bottom_middle",
-              "anchor_to": "bottom_middle",
-              "offset": ["0px", "-1%"]
+              "anchor_to": "bottom_middle"
             }
           },
           {

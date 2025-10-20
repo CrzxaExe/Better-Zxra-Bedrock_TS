@@ -10,7 +10,7 @@ class Kyle {
     const lvl = data || weaponRaw.unique.kyles;
     const weapon = weaponData.unique.kyles;
 
-    return weapon.pasifLvl[0][lvl.pasifLvl[0]].find((e) => e.name === "zelxt_mode_multiplier").value;
+    return weapon.pasifLvl[0][lvl.pasifLvl[0]].find((e) => e.name === "zelxt_mode_multiplier")!.value;
   }
 
   static pasif2(user: Player): void {}
@@ -20,11 +20,11 @@ class Kyle {
       skill = weaponData.unique.kyles.skillLvl[0][data.skillLvl[0]],
       hp = user.getComponent("health");
 
-    if (!sp.cooldown.canSkill("kyle_skill1", skill.find((e) => e.name === "cooldown").value || 5)) return;
+    if (!sp.cooldown.canSkill("kyle_skill1", skill.find((e) => e.name === "cooldown")!.value || 5)) return;
     sp.playAnim("animation.weapon.kyles.skill1");
 
     sp.bind(1.75);
-    sp.minStamina(skill.find((e) => e.name === "stamina").value || 8);
+    sp.minStamina(skill.find((e) => e.name === "stamina")!.value || 8);
 
     system.runTimeout(() => {
       sp.knockback(velocity || vel || user.getVelocity(), 1, 0);
@@ -34,9 +34,9 @@ class Kyle {
       target.forEach((e) => {
         Terra.getEntityCache(e.entity).addDamage(
           Math.round(
-            data.atk * skill.find((e) => e.name === "atk_percentage").value +
+            data.atk * skill.find((e) => e.name === "atk_percentage")!.value +
               (hp?.effectiveMax || 20) *
-                skill.find((e) => e.name === "health_percentage").value *
+                skill.find((e) => e.name === "health_percentage")!.value *
                 slayerLostHPPercentation(user) *
                 (multiplier || 1)
           ),
@@ -44,6 +44,7 @@ class Kyle {
             cause: "entityAttack",
             damagingEntity: user,
             rune: sp.rune.getRuneStat(),
+            isSkill: true,
           }
         );
       });
@@ -67,11 +68,11 @@ class Kyle {
       skill = weaponData.unique.kyles.skillLvl[0][data.skillLvl[0]],
       hp = user.getComponent("health");
 
-    if (!sp.cooldown.canSkill("kyle_skill1", skill.find((e) => e.name === "zelxt_cooldown").value || 8)) return;
+    if (!sp.cooldown.canSkill("kyle_skill1", skill.find((e) => e.name === "zelxt_cooldown")!.value || 8)) return;
     sp.playAnim("animation.weapon.kyles.skill1.up");
 
     sp.bind(2.5);
-    sp.minStamina(skill.find((e) => e.name === "zelxt_stamina").value || 12);
+    sp.minStamina(skill.find((e) => e.name === "zelxt_stamina")!.value || 12);
 
     system.runTimeout(() => {
       sp.knockback(CreateObject.createVelocityPlayer(user), 1.3, 0);
@@ -84,9 +85,9 @@ class Kyle {
         first.forEach((e) => {
           if (!e.entity) return;
           Terra.getEntityCache(e.entity).addDamage(
-            data.atk * skill.find((e) => e.name === "zelxt_atk_percentage").value +
+            data.atk * skill.find((e) => e.name === "zelxt_atk_percentage")!.value +
               (hp?.effectiveMax || 20) *
-                skill.find((e) => e.name === "zelxt_health_percentage").value *
+                skill.find((e) => e.name === "zelxt_health_percentage")!.value *
                 slayerLostHPPercentation(user) *
                 pasif *
                 (multiplier || 1),
@@ -94,6 +95,7 @@ class Kyle {
               cause: "void",
               damagingEntity: user,
               rune: sp.rune.getRuneStat(),
+              isSkill: true,
             }
           );
         });
@@ -116,9 +118,9 @@ class Kyle {
             second.forEach((e) => {
               if (!e.entity) return;
               Terra.getEntityCache(e.entity).addDamage(
-                data.atk * skill.find((e) => e.name === "zelxt_atk_percentage").value +
+                data.atk * skill.find((e) => e.name === "zelxt_atk_percentage")!.value +
                   (hp?.effectiveMax || 20) *
-                    skill.find((e) => e.name === "zelxt_health_percentage").value *
+                    skill.find((e) => e.name === "zelxt_health_percentage")!.value *
                     slayerLostHPPercentation(user) *
                     pasif *
                     (multiplier || 1),
@@ -126,6 +128,7 @@ class Kyle {
                   cause: "void",
                   damagingEntity: user,
                   rune: sp.rune.getRuneStat(),
+                  isSkill: true,
                 }
               );
             });
@@ -149,11 +152,11 @@ class Kyle {
       skill = weaponData.unique.kyles.skillLvl[1]![data.skillLvl[1]!],
       hp = user.getComponent("health");
 
-    if (!sp.cooldown.canSkill("kyle_skill2", skill?.find((e) => e.name === "cooldown").value || 5)) return;
+    if (!sp.cooldown.canSkill("kyle_skill2", skill?.find((e) => e.name === "cooldown")!.value || 5)) return;
     sp.playAnim("animation.weapon.kyles.skill2");
 
     sp.bind(1.4);
-    sp.minStamina(skill?.find((e) => e.name === "stamina").value || 14);
+    sp.minStamina(skill?.find((e) => e.name === "stamina")!.value || 14);
 
     system.runTimeout(() => {
       sp.source.triggerEvent("cz:immune_300ms");
@@ -164,15 +167,16 @@ class Kyle {
 
         target.forEach((e: mcEntity) => {
           Terra.getEntityCache(e).addDamage(
-            data.atk * skill?.find((e) => e.name === "atk_percentage").value +
+            data.atk * skill?.find((e) => e.name === "atk_percentage")!.value +
               (hp?.effectiveMax || 20) *
-                skill?.find((e) => e.name === "zelxt_health_percentage").value *
+                skill?.find((e) => e.name === "zelxt_health_percentage")!.value *
                 slayerLostHPPercentation(user) *
                 (multiplier || 1),
             {
               cause: "entityAttack",
               damagingEntity: user,
               rune: sp.rune.getRuneStat(),
+              isSkill: true,
             }
           );
         });
@@ -198,11 +202,11 @@ class Kyle {
     const location = sp.getLocationInFront(7);
     location.y += 0.5;
 
-    if (!sp.cooldown.canSkill("kyle_skill2", skill?.find((e) => e.name === "zelxt_cooldown").value || 8)) return;
+    if (!sp.cooldown.canSkill("kyle_skill2", skill?.find((e) => e.name === "zelxt_cooldown")!.value || 8)) return;
     sp.playAnim("animation.weapon.kyles.skill2.up");
 
     sp.bind(1.3);
-    sp.minStamina(skill?.find((e) => e.name === "zelxt_stamina").value || 12);
+    sp.minStamina(skill?.find((e) => e.name === "zelxt_stamina")!.value || 12);
     sp.source.triggerEvent("cz:immune_300ms");
 
     sp.cooldown.setIsSkill(0.5);
@@ -215,9 +219,9 @@ class Kyle {
       target.forEach((e) => {
         if (!e) return;
         Terra.getEntityCache(e).addDamage(
-          data.atk * skill?.find((e) => e.name === "zelxt_atk_percentage").value +
+          data.atk * skill?.find((e) => e.name === "zelxt_atk_percentage")!.value +
             (hp?.effectiveMax || 20) *
-              skill?.find((e) => e.name === "zelxt_health_percentage").value *
+              skill?.find((e) => e.name === "zelxt_health_percentage")!.value *
               slayerLostHPPercentation(user) *
               pasif *
               (multiplier || 1),
@@ -225,6 +229,7 @@ class Kyle {
             cause: "void",
             damagingEntity: user,
             rune: sp.rune.getRuneStat(),
+            isSkill: true,
           }
         );
       });
@@ -238,11 +243,11 @@ class Kyle {
       skill = weaponData.unique.kyles.skillLvl[2]![data.skillLvl[2]!],
       hp = user.getComponent("health");
 
-    if (!sp.cooldown.canSkill("kyle_skill3", skill.find((e) => e.name === "cooldown").value || 8)) return;
+    if (!sp.cooldown.canSkill("kyle_skill3", skill.find((e) => e.name === "cooldown")!.value || 8)) return;
     sp.playAnim("animation.weapon.kyles.skill3");
 
     sp.bind(1.2);
-    sp.minStamina(skill.find((e) => e.name === "stamina").value || 12);
+    sp.minStamina(skill.find((e) => e.name === "stamina")!.value || 12);
 
     sp.knockback(CreateObject.createVelocityPlayer(user), 0, 0.2);
     sp.addEffect({ name: "slow_falling", duration: 0.6, amplifier: 1, showParticles: false });
@@ -259,13 +264,14 @@ class Kyle {
         Terra.getEntityCache(e).addDamage(
           data.atk +
             (hp?.effectiveMax || 20) *
-              skill.find((e) => e.name === "zelxt_health_percentage").value *
+              skill.find((e) => e.name === "zelxt_health_percentage")!.value *
               slayerLostHPPercentation(user) *
               (multiplier || 1),
           {
             cause: "entityAttack",
             damagingEntity: user,
             rune: sp.rune.getRuneStat(),
+            isSkill: true,
           }
         );
       });
@@ -290,11 +296,11 @@ class Kyle {
       hp = user.getComponent("health"),
       stack = sp.status.getStatus({ name: "zelxt_point" })[0]?.lvl || 0;
 
-    if (!sp.cooldown.canSkill("kyle_skill3", skill.find((e) => e.name === "zelxt_cooldown").value || 8)) return;
+    if (!sp.cooldown.canSkill("kyle_skill3", skill.find((e) => e.name === "zelxt_cooldown")!.value || 8)) return;
     sp.playAnim("animation.weapon.kyles.skill3.up");
 
     sp.bind(2.5);
-    sp.minStamina(skill.find((e) => e.name === "zelxt_stamina").value || 12);
+    sp.minStamina(skill.find((e) => e.name === "zelxt_stamina")!.value || 12);
 
     sp.knockback(CreateObject.createVelocityPlayer(user), 0, 1.2);
     sp.addEffect({ name: "slow_falling", duration: 1.2, amplifier: 1, showParticles: false });
@@ -313,7 +319,7 @@ class Kyle {
           Terra.getEntityCache(e).addDamage(
             data.atk +
               (hp?.effectiveMax || 20) *
-                skill.find((e) => e.name === "zelxt_health_percentage").value *
+                skill.find((e) => e.name === "zelxt_health_percentage")!.value *
                 slayerLostHPPercentation(user) *
                 pasif *
                 (1 + stack / 200) *
@@ -322,6 +328,7 @@ class Kyle {
               cause: "void",
               damagingEntity: user,
               rune: sp.rune.getRuneStat(),
+              isSkill: true,
             }
           );
         });
@@ -369,7 +376,7 @@ class Kyle {
         lvl: 1,
       });
 
-      sp.heal((hp?.effectiveMax || 20) * skill?.find((e) => e.name === "health_recover").value);
+      sp.heal((hp?.effectiveMax || 20) * skill?.find((e) => e.name === "health_recover")!.value);
 
       sp.addEffect([
         { name: "speed", amplifier: 1, duration: 10, showParticles: false },

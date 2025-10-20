@@ -22,6 +22,7 @@ import {
   RuneStats,
   Status,
   StatusData,
+  StatusTypes,
   Terra,
 } from "../module";
 
@@ -40,10 +41,11 @@ interface Entity {
 class Entity {
   constructor(entity: any) {
     if (!entity) throw new Error("Missing Entity");
+    entity = entity as mcEntity;
 
     this.source = entity;
     this.id = entity.id;
-    this.family = entity.getComponent("minecraft:type_family");
+    this.family = entity.getComponent("type_family");
     this.status = new Status(this);
   }
 
@@ -51,7 +53,7 @@ class Entity {
   /**
    * Get entity data
    *
-   * @param defaultValue Object
+   * @param defaultValue
    * @returns EntityData
    */
   getEnt(defaultValue: EntityData = { id: this.id, status: [] }): EntityData {
@@ -61,7 +63,7 @@ class Entity {
   /**
    * Set entity data
    *
-   * @param data EntityData;
+   * @param data
    */
   setEnt(data: EntityData): void {
     if (!data) throw new Error("Missing data");
@@ -90,7 +92,7 @@ class Entity {
 
   /**
    * Method to control active effect of entity status
-   * @param status StatusData
+   * @param status
    */
   controllerActiveStatusEffect(status: StatusData[] = this.status.getData()): void {
     status.forEach((e: StatusData) => {
@@ -108,7 +110,7 @@ class Entity {
   /**
    * Check if this entity is same type
    *
-   * @param type string, identifier
+   * @param type identifier
    * @returns boolean
    */
   is(type: string): boolean {
@@ -118,7 +120,7 @@ class Entity {
 
   /**
    * Check if target are teammate to this entity
-   * @param player Player, target
+   * @param player target
    * @returns boolean
    */
   isTeammate(player: Player): boolean {
@@ -140,7 +142,7 @@ class Entity {
   /**
    * Check if this entity has family tag
    *
-   * @param name string
+   * @param name
    * @returns boolean
    */
   hasFamily(name: string): boolean {
@@ -181,9 +183,9 @@ class Entity {
   /**
    * Apply damage to this entity with calculated
    *
-   * @param damage number, raw damage
-   * @param options Object, contain damage couse, source entity, rune stat, and is skill or not
-   * @param velocity Object, contain velocity, vertical knockback, horizontal knockback
+   * @param damage raw damage
+   * @param options contain damage couse, source entity, rune stat, and is skill or not
+   * @param velocity contain velocity, vertical knockback, horizontal knockback
    */
   addDamage(
     damage: number = 1,
@@ -193,62 +195,69 @@ class Entity {
       rune: defaultRuneStat,
       isSkill: false,
     },
-    velocity: { vel: Vector3; ver: number; hor: number } = { vel: this.source.getVelocity(), ver: 0, hor: 0 }
+    velocity: { vel: Vector3; ver: number; hor: number } = {
+      vel: this.source.getVelocity() ?? { x: 0, y: 0, z: 0 },
+      ver: 0,
+      hor: 0,
+    }
   ): void {
-    if (damage < 0) damage = 1;
-    let multiplier = 1 + (options.rune?.atk || 0) + (options.isSkill ? options.rune?.skill || 0 : 0);
+    try {
+      if (damage < 0) damage = 1;
+      let multiplier = 1 + (options.rune?.atk || 0) + (options.isSkill ? options.rune?.skill || 0 : 0);
 
-    // this user rune
-    let actorRune = defaultRuneStat;
-    if (this.source instanceof Player) {
-      actorRune = Terra.getSpecialistCache(this.source).rune.getRuneStat();
-    }
+      // this user rune
+      let actorRune = defaultRuneStat;
+      if (this.source instanceof Player) {
+        actorRune = Terra.getSpecialistCache(this.source).rune.getRuneStat();
+      }
 
-    // Dodge chance
-    if ((actorRune.skillDodge || 0) > 0 && options.isSkill) {
-      if (Math.floor(Math.random() * 100) > 100) return;
-    }
+      // Dodge chance
+      if ((actorRune.skillDodge || 0) > 0 && options.isSkill) {
+        if (Math.floor(Math.random() * 100) > 100) return;
+      }
 
-    damage += options.rune?.atkFlat || 0;
-    if (options.isSkill) damage += options.rune?.skillFlat || 0 - (actorRune.skillDamageReductionFlat || 0);
+      damage += options.rune?.atkFlat || 0;
+      if (options.isSkill) damage += options.rune?.skillFlat || 0 - (actorRune.skillDamageReductionFlat || 0);
 
-    const fragility =
-      {
-        entityAttack: "fragile",
-        fire: "fire_fragile",
-        lighting: "lighting_fragile",
-        magic: "art_fragile",
-      }[options.cause] || "";
+      const fragility =
+        {
+          entityAttack: "fragile",
+          fire: "fire_fragile",
+          lighting: "lighting_fragile",
+          magic: "art_fragile",
+        }[options.cause] || "";
 
-    if (fragility !== "") multiplier += this.status.decimalCalcStatus({ type: fragility }, 0, 0.01, true);
-    if (["fire", "lighting"].includes(options.cause))
-      multiplier += this.status.decimalCalcStatus({ type: "elemental_fragile" }, 0, 0.01, true);
+      if (fragility !== "")
+        multiplier += this.status.decimalCalcStatus({ type: fragility as StatusTypes }, 0, 0.01, true);
+      if (["fire", "lighting"].includes(options.cause))
+        multiplier += this.status.decimalCalcStatus({ type: "elemental_fragile" }, 0, 0.01, true);
 
-    if (options.isSkill) damage *= 1 - (actorRune.skillDamageReduction || 0);
+      if (options.isSkill) damage *= 1 - (actorRune.skillDamageReduction || 0);
 
-    damage *= multiplier;
+      damage *= multiplier;
 
-    // Crit chance
-    if ((options.rune?.critChance || 0) > 0) {
-      if (Math.floor(Math.random() * 100) > 100 * (1 - (options.rune?.critChance || 0)))
-        damage *= options.rune?.critDamage || 1;
-    }
+      // Crit chance
+      if ((options.rune?.critChance || 0) > 0) {
+        if (Math.floor(Math.random() * 100) > 100 * (1 - (options.rune?.critChance || 0)))
+          damage *= options.rune?.critDamage || 1;
+      }
 
-    this.source.applyDamage(Math.round(damage), {
-      cause: options.cause as EntityDamageCause,
-      damagingEntity: options.damagingEntity,
-    });
+      this.source.applyDamage(Math.round(damage), {
+        cause: options.cause as EntityDamageCause,
+        damagingEntity: options.damagingEntity,
+      });
 
-    if (!velocity) return;
-    this.knockback(velocity.vel, velocity.ver, velocity.hor);
+      if (!velocity) return;
+      this.knockback(velocity.vel, velocity.ver, velocity.hor);
+    } catch (error: Error | unknown) {}
   }
 
   /**
    * Consume entity health with calculation
    *
-   * @param percentage number, between 0-1
-   * @param hp EntityHealthComponent
-   * @param identifier string | undefined, weapon id
+   * @param percentage between 0-1
+   * @param hp
+   * @param identifier weapon id
    */
   consumeHp(
     percentage: number,
@@ -286,7 +295,7 @@ class Entity {
   /**
    * Set current hp this entity with new one
    *
-   * @param value number
+   * @param value
    */
   setCurrentHP(value: number): void {
     const hp: EntityHealthComponent | undefined = this.source.getComponent("health");
@@ -298,7 +307,7 @@ class Entity {
   /**
    * Add entity current hp with calculation
    *
-   * @param amount number
+   * @param amount
    */
   heal(amount: number): void {
     const hp: EntityHealthComponent | undefined = this.source.getComponent("health");
@@ -323,10 +332,10 @@ class Entity {
   /**
    * Add single effect to this entity
    *
-   * @param name string, effect name
-   * @param duration number
-   * @param amplifier number, default 0
-   * @param showParticles boolean, default true
+   * @param name effect name
+   * @param duration
+   * @param amplifier default 0
+   * @param showParticles default true
    */
   addEffectOne(name: string, duration: number = 1, amplifier: number = 0, showParticles: boolean = true): void {
     if (!name) throw new Error("Missing Name of Effect");
@@ -336,7 +345,7 @@ class Entity {
   /**
    * Add several effect to  this entity
    *
-   * @param effect EffectCreate[] | EffectCreate
+   * @param effect
    * @throws when effect are not object or array of EffectCreate
    */
   addEffect(effect: EffectCreate[] | EffectCreate): void {
@@ -356,7 +365,7 @@ class Entity {
   /**
    * Remove several effect for this entity
    *
-   * @param effect string[] | string, name of effect
+   * @param effect name of effect
    */
   removeEffect(effect: string[] | string): void {
     if (typeof effect === "string") {
@@ -371,7 +380,7 @@ class Entity {
   /**
    * Check if entity has effect name
    *
-   * @param effect string[] | string
+   * @param effect
    * @returns boolean[] | boolean
    */
   hasEffect(effect: string[] | string): boolean[] | boolean {
@@ -435,7 +444,7 @@ class Entity {
   /**
    * Run several command from this entity
    *
-   * @param cmd string[] | string, list of command
+   * @param cmd list of command
    * @throws when cmd is not string[] or string
    */
   runCommand(cmd: string[] | string): void {
@@ -452,7 +461,7 @@ class Entity {
   /**
    * Set on fire in this target for duration
    *
-   * @param duration number, default 1
+   * @param duration default 1
    */
   setOnFire(duration: number = 1): void {
     this.source.setOnFire(duration);
@@ -461,7 +470,7 @@ class Entity {
   /**
    * Add several tags to this entity
    *
-   * @param tags string[] | string
+   * @param tags
    * @throws wheb tags are not string[] or string
    */
   addTag(tags: string[] | string): void {
@@ -480,7 +489,7 @@ class Entity {
   /**
    * Get tag with matched finder for this entity
    *
-   * @param finder TagFinder
+   * @param finder - { tag: string }
    * @returns string[]
    */
   getTag(finder: { tag: string }): string[] {
@@ -493,8 +502,8 @@ class Entity {
   /**
    * Check if entity has tags
    *
-   * @param tags string[] | string
-   * @param combined boolean, default false, if true return will check this entity must have all tags
+   * @param tags
+   * @param combined default false, if true return will check this entity must have all tags
    * @returns boolean[] | boolean
    */
   hasTag(tags: string[] | string, combined: boolean | undefined = false): boolean[] | boolean {
@@ -509,7 +518,7 @@ class Entity {
   /**
    * Remove several tags from this entity
    *
-   * @param tags string[] | string
+   * @param tags
    * @throws when tags is not string[] or string
    */
   remTag(tags: string[] | string): void {
@@ -527,8 +536,8 @@ class Entity {
   /**
    * Playing animation to this entity
    *
-   * @param animation string, animation name
-   * @param blendOutTime number, default 0.35
+   * @param animation animation name
+   * @param blendOutTime default 0.35
    * @throws when animation is empty string
    */
   playAnim(animation: string, blendOutTime: number | undefined = 0.35): void {
@@ -541,9 +550,9 @@ class Entity {
   /**
    * Spawn particle to this entity
    *
-   * @param particle string, particle name
-   * @param location Vector3
-   * @param molang MolangVariableMap
+   * @param particle particle name
+   * @param location
+   * @param molang
    */
   selfParticle(
     particle: string,
@@ -557,7 +566,7 @@ class Entity {
   /**
    * Spawn several particle to this entity
    *
-   * @param particles Particle[] | Particle | string[] | string
+   * @param particles
    * @throws when particles is not array of object, array of string, object or string
    */
   particles(particles: Particle[] | Particle | string[] | string): void {
@@ -598,20 +607,22 @@ class Entity {
 
   /**
    * Apply knockback to this entity
-   * @param velocity Vector3
-   * @param horizontal number, default 0
-   * @param vertical number, default 0
+   * @param velocity
+   * @param horizontal default 0
+   * @param vertical default 0
    */
   knockback(velocity: Vector3, horizontal: number | undefined = 0, vertical: number | undefined = 0): void {
-    this.source.applyKnockback({ x: velocity.x * horizontal, z: velocity.z * horizontal }, vertical);
+    try {
+      this.source.applyKnockback({ x: velocity.x * horizontal, z: velocity.z * horizontal }, vertical);
+    } catch (err: Error | unknown) {}
   }
 
   /**
    * Set entity to unable to move for a sec
-   * @param duration number, default 1
+   * @param duration default 1
    */
   bind(duration: number | undefined = 1): void {
-    this.addEffect({ name: "slowness", duration, amplifier: 254, showParticles: false });
+    this.status.addStatus("bind", duration, { type: "bind", decay: "time", lvl: 1, stack: false });
     this.selfParticle("cz:bind", { ...this.source.location, y: this.source.location.y + 2.3 });
   }
 
@@ -619,7 +630,7 @@ class Entity {
 
   /**
    * Get all entity from this entity view
-   * @param maxDistance number, default 6
+   * @param maxDistance default 6
    * @returns EntityRaycastHit[]
    */
   getEntityFromDistance(maxDistance: number | undefined = 6): EntityRaycastHit[] {
@@ -631,7 +642,7 @@ class Entity {
 
   /**
    * Get one entity from this entity view
-   * @param maxDistance number, default 6
+   * @param maxDistance default 6
    * @returns EntityRaycastHit | undefined
    */
   getFirstEntityFromDistance(maxDistance: number | undefined = 6): EntityRaycastHit | undefined {
@@ -641,27 +652,29 @@ class Entity {
   /**
    * Get all entity surround this entity
    *
-   * @param radius number, default 6
+   * @param radius default 6
    * @returns Minecraft Entity[]
    */
-  getEntityWithinRadius(radius: number | undefined = 6): mcEntity[] {
+  getEntityWithinRadius(radius: number | undefined = 6, excludeId: string[] = []): mcEntity[] {
     let excludeNames: string[] = [];
     if (this.source.typeId === "minecraft:player") excludeNames = [...Terra.guild.getTeammate(this.source)];
 
-    return this.source.dimension.getEntities({
-      maxDistance: radius,
-      excludeNames,
-      minDistance: 0,
-      location: this.source.location,
-      excludeTypes: NOT_ALLOWED_ENTITY_TICK,
-    });
+    return this.source.dimension
+      .getEntities({
+        maxDistance: radius,
+        excludeNames,
+        minDistance: 0,
+        location: this.source.location,
+        excludeTypes: NOT_ALLOWED_ENTITY_TICK,
+      })
+      .filter((e: mcEntity) => !excludeId.includes(e.id));
   }
 
   /**
    * Get all entity inside of FOV of this entity
    *
-   * @param maxDistance number, default 6
-   * @param fov number, default 60, the degree from this entity
+   * @param maxDistance default 6
+   * @param fov default 60, the degree from this entity
    * @returns Minecraft Entity[]
    */
   getEntityFromDistanceCone(maxDistance: number = 6, fov: number = 60): mcEntity[] {
@@ -699,13 +712,13 @@ class Entity {
   /**
    * Get some closer entity from this entity view distance
    *
-   * @param radius number, default 3, radius for each jump
-   * @param maxTargetCount number, default 1
-   * @param excludeId string[], entity id, that will not be included
+   * @param radius default 3, radius for each jump
+   * @param maxTargetCount default 1
+   * @param excludeId entity id, that will not be included
    * @returns Minecraft Entity[]
    */
   getChainedEntityFromDistance(
-    radius: number | undefined = 3,
+    radius: number = 3,
     maxTargetCount: number | undefined = 1,
     excludeId: string[] = []
   ): mcEntity[] {
@@ -722,7 +735,7 @@ class Entity {
     const tempId: string[] = [tempEntity.id, ...excludeId];
 
     while (targetGet < maxTargetCount) {
-      const nearbyEntity: mcEntity[] = new Entity(tempEntity)
+      const nearbyEntity: mcEntity[] = Terra.getEntityCache(tempEntity)
         .getEntityWithinRadius(radius)
         .filter((e) => !tempId.includes(e.id))
         .sort(
@@ -743,7 +756,7 @@ class Entity {
   /**
    * Get location of this entity view
    *
-   * @param distance number, default 6
+   * @param distance default 6
    * @returns
    */
   getLocationInFront(distance: number = 6): Vector3 {
@@ -784,9 +797,9 @@ class Entity {
   /**
    * Spawn entity particel on this entity location
    *
-   * @param namespace string, name of particle
-   * @param event string, event of particle
-   * @param location Vector3, default this entity location
+   * @param namespace name of particle
+   * @param event event of particle
+   * @param location default this entity location
    */
   spawnParticle(namespace: string, event: string, location: Vector3 | undefined = this.source.location): void {
     const particle = this.source.dimension.spawnEntity(namespace, location);

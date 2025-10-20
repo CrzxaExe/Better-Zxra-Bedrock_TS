@@ -1,4 +1,5 @@
-import { Entity, NOT_ALLOWED_ENTITY_TICK, StatusData, StatusDecay, StatusFinder, StatusTypes } from "../module";
+import { InputPermissionCategory, Player } from "@minecraft/server";
+import { Entity, NOT_ALLOWED_ENTITY_TICK, StatusData, StatusDecay, StatusFinder, StatusTypes, Terra } from "../module";
 
 interface Status {
   entity: Entity;
@@ -56,13 +57,23 @@ class Status {
       decay = "time",
       stack = false,
       lvl = 1,
-    }: { type: StatusTypes | string; decay: StatusDecay | string; stack: boolean; lvl: number }
+    }: { type: StatusTypes | StatusTypes; decay: StatusDecay | string; stack: boolean; lvl: number }
   ): void {
     if (NOT_ALLOWED_ENTITY_TICK.includes(this.entity.source.name)) throw new Error("Entity not allowed");
 
     switch (type) {
       case "silence":
         this.entity.addTag("silence");
+        break;
+      case "anti_heal":
+        Terra.addEntityAntiHealStatus(this.entity.id);
+        break;
+      case "bind":
+        if (!(this.entity.source instanceof Player)) {
+          this.entity.addEffect({ name: "slowness", amplifier: 1, duration, showParticles: false });
+          break;
+        }
+        this.entity.source.inputPermissions.setPermissionCategory(InputPermissionCategory.Movement, false);
         break;
     }
     const data = this.getData(),
@@ -141,6 +152,16 @@ class Status {
         break;
       case "mudrock_shield":
         this.entity.source.triggerEvent("cz:shield_break");
+        break;
+      case "anti_heal":
+        Terra.removeEntityAntiHealStatus(this.entity.id);
+        break;
+      case "bind":
+        if (!(this.entity.source instanceof Player)) {
+          this.entity.removeEffect("slowness");
+          break;
+        }
+        this.entity.source.inputPermissions.setPermissionCategory(InputPermissionCategory.Movement, true);
         break;
     }
 

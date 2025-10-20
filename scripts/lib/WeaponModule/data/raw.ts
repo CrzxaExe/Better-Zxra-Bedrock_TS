@@ -7,6 +7,12 @@ export const unique: { [key: string]: SpecialistWeaponPlayer } = {
     pasifLvl: [0, 0],
     skillLvl: [0, 0, 0, 0],
   },
+  destiny: {
+    atk: 11,
+    weapon: "destiny",
+    pasifLvl: [0, 0],
+    skillLvl: [0, 0, 0, 0],
+  },
   kyles: {
     atk: 2,
     weapon: "kyles",
@@ -36,6 +42,13 @@ export const epic: { [key: string]: SpecialistWeaponPlayer } = {
   },
 };
 
-export const legend: { [key: string]: SpecialistWeaponPlayer } = {};
+export const legend: { [key: string]: SpecialistWeaponPlayer } = {
+  cervant: {
+    atk: 9,
+    weapon: "cervant",
+    pasifLvl: [0],
+    skillLvl: [0, 0],
+  },
+};
 
 export const rare: { [key: string]: SpecialistWeaponPlayer } = {};

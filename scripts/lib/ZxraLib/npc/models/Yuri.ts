@@ -1,6 +1,6 @@
 import { Entity as mcEntity, Player } from "@minecraft/server";
 import { ActionFormData } from "@minecraft/server-ui";
-import { CreateObject, Entity, EntityData, npcFile, Terra, YuriConst, YuriModels } from "../../module";
+import { CreateObject, Entity, EntityData, npcFile, YuriConst } from "../../module";
 
 interface Yuri {
   source: mcEntity;
@@ -19,7 +19,7 @@ class Yuri {
   getData(): EntityData {
     const data: EntityData = this.ent.getEnt();
 
-    return data.npc ? data : CreateObject.createNpcData(this.source, data);
+    return data.skins ? data : CreateObject.createNpcData(this.source, data);
   }
 
   ui(player: Player): void {

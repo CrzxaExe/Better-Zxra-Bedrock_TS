@@ -1,4 +1,4 @@
-import { Container, GameMode, Player, Vector3 } from "@minecraft/server";
+import { Container, GameMode, Player, Vector3, Entity as mcEntity } from "@minecraft/server";
 import {
   Entity,
   Terra,
@@ -97,11 +97,11 @@ class Specialist extends Entity {
 
     const cd: string[] = cols.map((e) => `${Formater.formatName(e.name)} ${e.duration.toFixed(2)}s`);
     const sts: string[] = this.status.getStatus().map((e) => {
-      const lbl =
+      const lbl: string =
         {
           stack: `${Formater.formatName(e.name)} > ${e.lvl.toFixed(0)}`,
           state: `${Formater.formatName(e.name)}`,
-        }[e.type] || `${Formater.formatName(e.name)} ${e.duration}s`;
+        }[e.type as string] || `${Formater.formatName(e.name)} ${e.duration.toFixed(2)}s`;
 
       return lbl;
     });

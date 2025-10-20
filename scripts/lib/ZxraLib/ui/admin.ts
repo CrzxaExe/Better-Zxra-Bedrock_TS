@@ -11,6 +11,7 @@ class AdminPanel {
       .button({ translate: "system.save" })
       .button({ translate: "system.worldData.export" })
       .button({ translate: "system.worldData.import" })
+      .button({ translate: "system.plugins" })
 
       .show(player)
       .then((e) => {
@@ -29,6 +30,9 @@ class AdminPanel {
             break;
           case 3:
             this.importData(player);
+            break;
+          case 4:
+            this.pluginsList(player);
             break;
         }
       });
@@ -169,6 +173,38 @@ class AdminPanel {
       .then((e) => {
         if (e.canceled) return;
       });
+  }
+
+  static pluginsList(player: Player): void {
+    const ui = new ActionFormData().title("cz:plugin_list").body({ translate: "cz.admin.plugin" });
+
+    Terra.plugins.forEach((e) => ui.button(`${e.name} ${e.version}`));
+
+    ui.show(player).then((e) => {
+      if (e.canceled) return;
+
+      const pl = Terra.plugins[(e.selection ?? 0) as number];
+
+      new ActionFormData()
+        .title(pl.name)
+        .body({
+          text: `Plugin Name: ${pl.name}
+Version ${pl.version}
+
+Namespace '${pl.namespace}'
+Endpoint:
+In  : ${pl.namespace}:${pl.endpoint.in}
+Out : ${pl.namespace}:${pl.endpoint.out}
+`,
+        })
+        .button({ translate: "system.back" })
+        .show(player)
+        .then((r) => {
+          if (r.canceled) return;
+
+          this.pluginsList(player);
+        });
+    });
   }
 }
 

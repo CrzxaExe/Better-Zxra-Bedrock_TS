@@ -1,6 +1,6 @@
 import { Player } from "@minecraft/server";
 import { SkillLib, Weapon } from "../ZxraLib/module";
-import { Kyle } from "../WeaponModule/module";
+import { Boltizer, Kyle, Liberator } from "../WeaponModule/module";
 
 Weapon.registerSkill("kyles", (user: Player, lib: SkillLib) => {
   if (
@@ -26,5 +26,19 @@ Weapon.registerSkill("kyles", (user: Player, lib: SkillLib) => {
     } else {
       Kyle.skill1(user, lib);
     }
+  }
+});
+
+Weapon.registerSkill("liberator", (user: Player, lib: SkillLib) => {
+  if (!user.isSneaking) {
+    Liberator.skill1(user, lib);
+  }
+});
+
+Weapon.registerSkill("boltizer", (user: Player, lib: SkillLib) => {
+  if (!user.isSneaking && user.isOnGround) {
+    Boltizer.skill1(user, lib);
+  } else if (!user.isOnGround) {
+    Boltizer.skill3(user, lib);
   }
 });

@@ -9,6 +9,7 @@ import {
   ItemComponentRegistry,
 } from "@minecraft/server";
 import {
+  AntiHealData,
   BlockRegister,
   BlockRegisterData,
   BossChallengeData,
@@ -25,8 +26,10 @@ import {
   ItemRegisterData,
   Leaderboard,
   LeaderboardData,
+  Parser,
   PityPlayer,
   PlayerFinder,
+  PluginsData,
   RedeemData,
   settings,
   Specialist,
@@ -75,11 +78,9 @@ class Terra {
    * @param namespace name of the property, default 'world'
    * @param data data that want to set
    *
-   * @throws when data cannot br set
+   * @throws when data cannot be set
    */
   static setProperty(namespace: string = "world", data: Object): void {
-    if (!data) throw new Error("Missing namespace or data");
-
     try {
       world.setDynamicProperty(namespace, JSON.stringify(data));
     } catch (error: { message: string } | any) {
@@ -88,7 +89,7 @@ class Terra {
   }
 
   /**
-   * Setup function
+   * Setup method
    *
    * Load setting, initialize inner class, grab player contents and registering SpecialItem
    */
@@ -96,7 +97,7 @@ class Terra {
     system.run(() => {
       this.world.guilds = this.getProperty("guild", []) as GuildData[];
       this.world.leaderboards = this.getProperty("leaderboard", CreateObject.createLeaderboard()) as LeaderboardData;
-      this.world.setting = this.getProperty("setting", { ...settings });
+      this.world.setting = this.getProperty("setting", Parser.clone(settings));
       this.world.redeem = this.getProperty("redeem", []) as RedeemData[];
       this.entities = this.getProperty("entities", []) as EntityData[];
       this.pityPlayer = this.getProperty("pity", []) as PityPlayer[];
@@ -432,8 +433,6 @@ class Terra {
    * @param newData player specialist data
    */
   static setSpecialist(newData: SpecialistData): void {
-    if (!newData) throw new Error("Missing data");
-
     const data = this.specialist,
       find = data.findIndex((e) => e.id === newData.id);
 
@@ -478,7 +477,6 @@ class Terra {
    * @param data
    */
   static addDataEntity(data: EntityData): void {
-    if (!data) throw new Error("Missing data");
     this.entities.push(data);
   }
 
@@ -758,7 +756,7 @@ Member  : ${e.members.length}/${e.maxMember}`;
   /**
    * Data of Boss Challange event
    */
-  static bossChallenge: BossChallengeData | undefined;
+  static bossChallenge: BossChallengeData;
 
   /**
    * Set boss challange data
@@ -773,7 +771,7 @@ Member  : ${e.members.length}/${e.maxMember}`;
    * Reset boss challange data
    */
   static resetBossChallenge(): void {
-    this.bossChallenge = undefined;
+    this.bossChallenge = { boss: undefined, participants: [] };
   }
 
   /**
@@ -803,6 +801,33 @@ Member  : ${e.members.length}/${e.maxMember}`;
 
   // Wave challange cache
   static waveChallenge = {};
+
+  static plugins: PluginsData[] = [];
+
+  static addPlugins(plugins: PluginsData[] | PluginsData): void {
+    if (Array.isArray(plugins)) {
+      this.plugins.push(...plugins);
+      return;
+    }
+
+    if (typeof plugins !== "object") return;
+    this.plugins.push(plugins);
+  }
+
+  static antiHealCaches: AntiHealData[] = [];
+
+  static getEntityAntiHealStatus(id: string): boolean {
+    return this.antiHealCaches.some((e) => e.id === id);
+  }
+
+  static addEntityAntiHealStatus(id: string): void {
+    this.antiHealCaches.push({ id, canHeal: false });
+  }
+  static removeEntityAntiHealStatus(id: string): void {
+    const find = this.antiHealCaches.findIndex((e) => e.id === id);
+    if (!find) return;
+    this.antiHealCaches.splice(find, 1);
+  }
 }
 
 export { Terra };

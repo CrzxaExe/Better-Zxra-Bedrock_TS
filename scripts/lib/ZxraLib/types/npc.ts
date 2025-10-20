@@ -17,8 +17,8 @@ interface YuriData {
   greet: string[];
 }
 type YuriModels = {
-  skins: [];
-  components: [];
+  skins?: [];
+  components?: [];
 };
 
-export { NPC, NpcData, NpcModels, YuriConst, YuriData, YuriModels };
+export { NPC, NpcConst, NpcData, NpcModels, YuriConst, YuriData, YuriModels };

@@ -1,4 +1,5 @@
-import { RuneStats } from "./lib";
+import { Vector3 } from "@minecraft/server";
+import { CooldownData, QuestPlayer, RuneStats, WeaponStat } from "./lib";
 
 // Specialist interface
 interface SpecialistData {

@@ -8,10 +8,10 @@ class Gacha {
   /**
    * Adding pity to user
    *
-   * @param player Player
-   * @param key string, key of banner
-   * @param amount number, default 0
-   * @param pityData PityPlayer, default get to Terra.pityPlayer
+   * @param player
+   * @param key key of banner
+   * @param amount default 0
+   * @param pityData default get to Terra.pityPlayer
    */
   static addPityUser(
     player: Player,
@@ -28,10 +28,10 @@ class Gacha {
   /**
    * Set pity of player
    *
-   * @param player Player
-   * @param key string, key of banner
-   * @param amount number, default 0
-   * @param pityData PityPlayer, default get to Terra.pityPlayer
+   * @param player
+   * @param key key of banner
+   * @param amount default 0
+   * @param pityData default get to Terra.pityPlayer
    */
   static setPityUser(
     player: Player,
@@ -61,7 +61,7 @@ class Gacha {
   /**
    * Get random weapon
    *
-   * @param player Player
+   * @param player
    * @returns { rarity: GachaRarity, weapon: string }
    */
   static weapon(player: Player): { rarity: GachaRarity; weapon: string } {
@@ -70,6 +70,7 @@ class Gacha {
     const { featured, limited, unique } = data.pity;
     const chance = Math.floor(Math.random() * 100) + unique;
 
+    // Limited not implemented yet
     const rarity: { [k: string]: number } = {
       unique: 92,
       epic: 75,

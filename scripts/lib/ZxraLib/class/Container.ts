@@ -5,11 +5,26 @@ interface PlayerContainers {
   player: Player;
 }
 
+/**
+ * Player container class, to handle player inventory easily
+ */
 class PlayerContainers {
+  /**
+   * Instance
+   * @param player
+   */
   constructor(player: Player) {
     this.player = player;
   }
 
+  /**
+   * Adding item to player inventory
+   *
+   * @param identifier item identifier
+   * @param amount must greater than zero, default 1
+   * @param param2 - { enchant? }
+   * @returns
+   */
   addItem(identifier: string, amount: number = 1, { enchant }: { enchant?: { id: string; level: number } } = {}): void {
     if (identifier === "") throw new Error("Missing identifier");
 
@@ -27,14 +42,22 @@ class PlayerContainers {
       this.player.dimension.spawnItem(newItem, this.player.location);
       return;
     }
+
     inventory.container.addItem(newItem);
   }
 
+  /**
+   * Count all item wtih same identifier
+   *
+   * @param identifier item identifier
+   * @returns item count
+   */
   countItem(identifier: string): number {
     let count = 0;
 
     if (identifier === "") return count;
     const inventory = this.player.getComponent("inventory");
+
     if (!inventory) return count;
     for (let i = 0; i < inventory.inventorySize; i++) {
       const slot = inventory.container.getSlot(i);
@@ -49,12 +72,25 @@ class PlayerContainers {
     return count;
   }
 
+  /**
+   * Check te player if has same item identifier with same or greater than count
+   *
+   * @param identifier item identifier
+   * @param count item count want to compare
+   * @returns boolean
+   */
   hasItem(identifier: string, count: number = 1): boolean {
     if (identifier === "") return false;
 
     return this.countItem(identifier) >= count;
   }
 
+  /**
+   * Get item with same identifier from player
+   *
+   * @param identifier item identifier
+   * @param count
+   */
   minItem(identifier: string, count: number = 1): void {
     if (identifier === "") return;
 
@@ -71,11 +107,24 @@ interface ItemInventory {
   amount: number;
 }
 
+/**
+ * Item container class, handle custom container
+ */
 class ItemContainer {
+  /**
+   * Instance
+   *
+   * @param item ItemStack from minecraft
+   */
   constructor(item: ItemStack) {
     this.item = item;
   }
 
+  /**
+   * Get array of list item on item container
+   *
+   * @returns ItemINventory[]
+   */
   getContainer(): ItemInventory[] {
     if (!this.item.hasTag("inventory")) return [];
     return this.item.getLore().map((e) => {
@@ -84,6 +133,12 @@ class ItemContainer {
       return { item, amount: parseInt(amount) };
     });
   }
+
+  /**
+   * Set item container with new data
+   *
+   * @param data
+   */
   setContainer(data: ItemInventory[]): void {
     system.run(() => {
       this.item.setLore(data.map((e) => `${e.amount} | ${e.item}`));
@@ -91,6 +146,12 @@ class ItemContainer {
   }
 
   // Essential methods
+
+  /**
+   * Adding item to item container
+   *
+   * @param items can be ItemInventory or ItemInventory[]
+   */
   addItem(items: ItemInventory | ItemInventory[]): void {
     const data = this.getContainer();
     if (Array.isArray(items)) {
@@ -121,6 +182,11 @@ class ItemContainer {
     this.setContainer(data);
   }
 
+  /**
+   * Remove or get item from item container
+   *
+   * @param items can be ItemInventory or ItemInventory[]
+   */
   removeItem(items: ItemInventory | ItemInventory[]): void {
     const data = this.getContainer();
     if (Array.isArray(items)) {

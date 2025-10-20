@@ -7,6 +7,7 @@ import {
   EntityData,
   LeaderboardData,
   npcFile,
+  Parser,
   PityPlayer,
   SpecialistData,
   Terra,
@@ -24,7 +25,7 @@ class CreateObject {
    * @returns EntityData
    */
   static createEntity(entity: Entity): EntityData {
-    const data = structuredClone(defaultEntity);
+    const data: EntityData = Parser.clone(defaultEntity) as EntityData;
     data.id = entity.id;
     return data;
   }
@@ -35,7 +36,7 @@ class CreateObject {
    * @returns Specialist data
    */
   static createSpecialist(player: Player): SpecialistData {
-    const data: SpecialistData = structuredClone(defaultSpecialist);
+    const data: SpecialistData = Parser.clone(defaultSpecialist) as SpecialistData;
     data.id = player.id;
     return data;
   }
@@ -62,7 +63,7 @@ class CreateObject {
    * @returns PityPlayer
    */
   static createPity(player: Player): PityPlayer {
-    const data = structuredClone(defaultPity);
+    const data: PityPlayer = Parser.clone(defaultPity) as PityPlayer;
     data.id = player.id;
     return data;
   }
@@ -127,7 +128,12 @@ class CreateObject {
   static createNpcData(entity: Entity, data: EntityData | undefined = Terra.getDataEntity(entity.id)): EntityData {
     const defaultModels = npcFile[entity.typeId.split(":")[1]] || undefined;
 
-    data.npc = defaultModels;
+    if (!data) {
+      data = CreateObject.createEntity(entity);
+    }
+
+    data.skins = defaultModels.models.skins;
+    data.components = defaultModels.models.components;
     return data;
   }
 }

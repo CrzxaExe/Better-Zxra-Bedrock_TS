@@ -1,6 +1,6 @@
 # Better Zxra Bedrock - TypeScript
 
-Minecraft Bedrock Addon, adding new mechanics for your journey. [Here]("https://github.com/CrzxaExe/Better-Zxra-Bedrock") is the old repo while we use JavaScript for the language, now we move to TypeScript for better dev experience
+Minecraft Bedrock Addon, adding new mechanics for your journey. [Here](https://github.com/CrzxaExe/Better-Zxra-Bedrock) is the old repo while we use JavaScript for the language, now we move to TypeScript for better dev experience
 
 ## Whats Different?
 
@@ -21,8 +21,8 @@ Changelogs:
 
 Progress Rewrite:
 
-- Content: 16%
-- System: 67.7%
+- Content: 16.2%
+- System: 67.9%
 - Ui: 36.8%
 
 Features:
@@ -53,5 +53,6 @@ Features:
 # Docs
 
 [Buff_Debuff](./docs/buff_debuff.md)<br/>
+[Runes_Lifes](./docs/rune_life.md)<br/>
 [Weapon](./docs/weapon.md)<br/>
 [Weaponary](./docs/weaponary.md)<br/>

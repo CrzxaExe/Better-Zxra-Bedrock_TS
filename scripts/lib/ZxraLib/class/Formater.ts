@@ -8,7 +8,7 @@ class Formater {
   /**
    * Format name with with capitalize first char every words
    *
-   * @param name string
+   * @param name
    * @returns string
    */
   static formatName(name: string): string {
@@ -21,7 +21,7 @@ class Formater {
   /**
    * Format the guild name
    *
-   * @param guild GuildData | undefined
+   * @param guild
    * @returns string
    */
   static formatGuild(guild: GuildData | undefined): string {
@@ -34,7 +34,7 @@ class Formater {
   /**
    * Format entity location to fancy text
    *
-   * @param location Vector3
+   * @param location
    * @returns string
    */
   static formatVector3(location: Vector3): string {
@@ -44,7 +44,7 @@ class Formater {
   /**
    * Format indentifier name to normal name
    *
-   * @param name string
+   * @param name
    * @returns string
    */
   static formatIdentifier(name: string): string {
@@ -54,8 +54,8 @@ class Formater {
   /**
    * Format text with rarity color
    *
-   * @param name string
-   * @param format GachaRarity
+   * @param name
+   * @param format
    * @returns string
    */
   static formatRarity(name: string, format: GachaRarity): string {

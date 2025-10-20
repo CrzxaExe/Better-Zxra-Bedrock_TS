@@ -16,10 +16,11 @@ interface Quest {
   in: QuestConst;
 }
 
+/**
+ * Quest player class, control player quest
+ */
 class Quest {
   constructor(player: Player) {
-    if (!player) throw new Error("Missing player");
-
     this.in = {
       player,
       sp: Terra.getSpecialistCache(player),
@@ -27,6 +28,12 @@ class Quest {
   }
 
   // Controller
+
+  /**
+   *  Quest controller method
+   *
+   * @param param { act: QuestType, target: Entity | Block, amount: number }
+   */
   controller({ act, target, amount = 1 }: QuestController): void {
     const data = this.getPlayerQuest();
 
@@ -37,6 +44,7 @@ class Quest {
       if (e.act !== act) return;
 
       const name: string = target.typeId.split(":")[1];
+
       if (e.target !== name) return;
       if (data.progress[i] + amount > e.amount) return;
       this.updatePlayerQuest(i);
@@ -71,10 +79,10 @@ class Quest {
     if (index < 0) throw new Error("Index must positive");
 
     const data = this.in.sp.getSp();
-    data.quest.progress[index] += amount;
+    data.quest!.progress[index] += amount;
     this.in.sp.setSp(data);
 
-    this.questReward(data.quest);
+    this.questReward(data.quest!);
   }
   setPlayerQuest(quest: QuestData): void {
     const data = this.in.sp.getSp();
@@ -170,7 +178,7 @@ class Quest {
     quest.task.forEach(({ act, amount, target }: QuestTask, i: number) => {
       const name = Formater.formatName(target);
 
-      result.push(`- ${name} ${playerQuest.progress[i]}/${quest.task[i]}`);
+      result.push(`- ${Formater.formatName(act)} ${name} ${playerQuest.progress[i]}/${amount}`);
     });
 
     return result.join("\n");

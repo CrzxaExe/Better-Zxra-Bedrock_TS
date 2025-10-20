@@ -1,15 +1,21 @@
 import {
   Block,
-  CommandResult,
   CustomCommand,
   CustomCommandOrigin,
   CustomCommandResult,
   Entity,
   MolangVariableMap,
+  Player,
   ScriptEventSource,
   Vector3,
 } from "@minecraft/server";
-import { Specialist, SpecialistData } from "../module";
+import { GuildData, NpcModels, Specialist, SpecialistData, StatusDecay, StatusTypes } from "../module";
+
+// Anti heal data
+type AntiHealData = {
+  id: string;
+  canHeal: boolean;
+};
 
 // Boss interface
 type BossChallengeData = {
@@ -28,9 +34,10 @@ type CooldownData = {
 };
 
 // Command interface
+type CommandCallback = (origin: CustomCommandOrigin) => CustomCommandResult;
 interface CommandData {
   config: CustomCommand;
-  callback: Function<CustomCommandResult>;
+  callback: CommandCallback;
 }
 
 // Effect interface
@@ -48,10 +55,7 @@ type EntityData = {
 } & NpcModels;
 
 // Item interface
-interface ItemSpecial {
-  item: string;
-  callback: Function;
-}
+type ItemSpecial = TempItemWithCallback<Function>;
 
 // Leaderboard interface
 interface LeaderboardData {
@@ -68,53 +72,55 @@ interface LbData {
 }
 
 // Modifier interface
-interface ModifierData {
-  name: string;
+type ModifierData = TempNameWithCallback<Function> & {
   type: string;
-  callback: Function;
-}
+};
 
 // Quest interface
 interface QuestConst {
   player: Player;
   sp: Specialist;
 }
-interface QuestController {
-  act: QuestType;
-  target: Entity | Block;
-  amount: number;
-}
-interface QuestData {
+type QuestData = {
   title: string;
   rep: number;
   task: QuestTask[];
   reward: QuestRewards[];
-}
-interface QuestFind {
-  id: number;
-  quest: QuestData;
-}
+};
 interface QuestRewards {
   type: string;
   amount: number;
 }
-interface QuestPlayer {
+type QuestPlayer = {
   id: number;
   progress: number[];
-}
-interface QuestTask {
-  act: string;
+};
+type QuestFind = Pick<QuestPlayer, "id"> & {
+  quest: QuestData;
+};
+type QuestTask = {
+  act: QuestType;
   target: string;
   amount: number;
-}
-type QuestType = "destroy" | "place" | "kill" | "get";
+};
+type QuestController = Omit<QuestTask, "target"> & {
+  target: Entity | Block;
+};
+
+const QuestTypes = {
+  Destroy: "destroy",
+  Kill: "kill",
+  Get: "get",
+  Place: "place",
+} as const;
+type QuestType = ObjectValues<typeof QuestTypes>;
 
 // Particle interface
-interface Particle {
+type Particle = {
   particle: string;
   location: Vector3 | undefined;
   molang: MolangVariableMap | undefined;
-}
+};
 
 // Pasif interface
 interface PasifData {
@@ -122,18 +128,9 @@ interface PasifData {
   hited: PasifHited[];
   kill: PasifKill[];
 }
-interface PasifHit {
-  name: string;
-  callback: Function;
-}
-interface PasifHited {
-  name: string;
-  callback: Function;
-}
-interface PasifKill {
-  name: string;
-  callback: Function;
-}
+type PasifHit = TempNameWithCallback<Function>;
+type PasifHited = PasifHit;
+type PasifKill = PasifHit;
 
 // Pity interface
 type PityPlayer = {
@@ -150,6 +147,17 @@ interface PlayerFinder {
   name?: string;
   id?: string;
 }
+
+// Plugin
+type PluginsData = {
+  name: string;
+  namespace: string;
+  endpoint: {
+    in: string;
+    out: string;
+  };
+  version: string;
+};
 
 // Redeem interface
 interface RedeemData {
@@ -266,7 +274,7 @@ interface StatusData {
   name: string;
   duration: number;
   lvl: number;
-  type: string;
+  type: StatusTypes;
   stack: boolean;
   decay: string;
 }
@@ -297,18 +305,14 @@ interface WeaponComponentData {
   value: WeaponComponentDataValue;
 }
 type WeaponComponentDataValue = any[] | Vector3 | number | string | boolean;
-interface WeaponSkill {
-  name: string;
-  callback: Function;
-}
+type WeaponSkill = TempNameWithCallback<Function>;
 interface WeaponStat {
   name: string;
   value: number;
 }
-interface WeaponAttribute {
-  id: string;
+type WeaponAttribute = Pick<WeaponComponent, "id"> & {
   type: WeaponAttributetype;
-}
+};
 type WeaponAttributetype = "handle";
 
 // World interface
@@ -330,9 +334,11 @@ type FullWorldData = {
 };
 
 export type {
+  AntiHealData,
   BossChallengeData,
   BossChallangeParticipant,
   CooldownData,
+  CommandCallback,
   CommandData,
   EffectCreate,
   EntityData,
@@ -358,6 +364,7 @@ export type {
   PasifKill,
   PityPlayer,
   PlayerFinder,
+  PluginsData,
   RedeemData,
   RedeemRewards,
   RuneAction,

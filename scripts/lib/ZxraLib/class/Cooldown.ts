@@ -27,7 +27,7 @@ class Cooldown {
   /**
    * Set current cooldown data of player
    *
-   * @param newData CooldownData[]
+   * @param newData
    */
   setData(newData: CooldownData[]): void {
     const data = this.sp.getSp();
@@ -40,8 +40,8 @@ class Cooldown {
   /**
    * Adding or increasing cooldown from player
    *
-   * @param name string, name of cooldown
-   * @param duration number, duration of cooldown, can negative
+   * @param name name of cooldown
+   * @param duration duration of cooldown, can negative
    * @throws when name is empty string
    */
   addCd(name: string, duration: number = 1): void {
@@ -62,7 +62,7 @@ class Cooldown {
    * Subtract cooldown duration from player
    *
    * @param name
-   * @param duration number, duration of cooldown to be subtract, only positive number
+   * @param duration duration of cooldown to be subtract, only positive number
    * @throws when name is empty string
    */
   minCd(name: string, duration: number = 1): void {
@@ -83,7 +83,7 @@ class Cooldown {
   /**
    * Remove cooldown from player
    *
-   * @param name string, name of cooldown
+   * @param name name of cooldown
    * @throws when name is empty string
    */
   remCd(name: string): void {
@@ -102,7 +102,7 @@ class Cooldown {
   /**
    * Get cooldown by name from player
    *
-   * @param name string, name of cooldown
+   * @param name name of cooldown
    * @returns CooldownData | undefined
    * @throws when name is empty string
    */
@@ -115,7 +115,7 @@ class Cooldown {
   /**
    * Check if player has cooldown with matching name
    *
-   * @param name string, name of cooldown
+   * @param name name of cooldown
    * @returns boolean
    * @throws when name is empty string
    */
@@ -127,8 +127,8 @@ class Cooldown {
   /**
    * Check if player can using skill, if true it has been set to add its cooldown
    *
-   * @param name string, name of cooldown
-   * @param duration number. duration of cooldown
+   * @param name name of cooldown
+   * @param duration  duration of cooldown
    * @returns boolean
    * @throws when namen is empty string
    */
@@ -146,7 +146,7 @@ class Cooldown {
   /**
    * Set if player has already use skill now
    *
-   * @param duration number, duration of on skill
+   * @param duration duration of on skill
    */
   setIsSkill(duration: number): void {
     if (duration < 0) duration = 1;

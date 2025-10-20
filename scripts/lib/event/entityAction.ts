@@ -63,7 +63,7 @@ world.afterEvents.entityDie.subscribe(
 
       itemPasif.callback(damagingEntity, deadEntity, {
         sp,
-        multiplier: sp.status.decimalCalcStatus({ type: "damage" }, 1, 0.01),
+        multiplier: sp.status.decimalCalcStatus({ type: "attack" }, 1, 0.01),
       });
     } catch (error: { message: string } | any) {
       console.warn("[System] Error on Event EntityDie: " + error.message);
@@ -93,7 +93,7 @@ world.afterEvents.entityHitEntity.subscribe(
       if (!itemPasif) return;
       itemPasif.callback(damagingEntity, hitEntity, {
         sp,
-        multiplier: sp.status.decimalCalcStatus({ type: "damage" }, 1, 0.01),
+        multiplier: sp.status.decimalCalcStatus({ type: "attack" }, 1, 0.01),
       });
     } catch (error: { message: string } | any) {
       if (Terra.world.setting?.debug) console.warn("[System] Error on Event EntityHitEntity: " + error.message);
@@ -135,7 +135,7 @@ world.afterEvents.entityHurt.subscribe(
       itemPasif.callback(hurtEntity, damagingEntity, {
         sp,
         damage,
-        multiplier: sp.status.decimalCalcStatus({ type: "damage" }, 1, 0.01),
+        multiplier: sp.status.decimalCalcStatus({ type: "attack" }, 1, 0.01),
       });
     } catch (error: { message: string } | any) {
       if (Terra.world.setting?.debug) console.warn("[System] Error on Event EntityHurt: " + error.message);
@@ -169,7 +169,12 @@ world.afterEvents.entityHitBlock.subscribe(({ hitBlock }: EntityHitBlockAfterEve
 
 world.afterEvents.entityHealthChanged.subscribe(
   ({ newValue, oldValue, entity }: EntityHealthChangedAfterEvent) => {
+    if (newValue === oldValue) return;
+
     if (!(entity instanceof Player)) return;
+    // if (Terra.getEntityAntiHealStatus(entity.id)) {
+    //   entity.getComponent("health")?.setCurrentValue(oldValue);
+    // }
 
     // console.warn(oldValue, newValue);
   },

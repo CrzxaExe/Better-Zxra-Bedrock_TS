@@ -20,7 +20,6 @@ export const unique: { [key: string]: SpecialistWeapon } = {
           { name: "cooldown", value: 5 },
           { name: "zelxt_stamina", value: 12 },
           { name: "zelxt_cooldown", value: 8 },
-
           { name: "atk_percentage", value: 4 },
           { name: "health_percentage", value: 0.4 },
           { name: "zelxt_atk_percentage", value: 4 },
@@ -33,7 +32,6 @@ export const unique: { [key: string]: SpecialistWeapon } = {
           { name: "cooldown", value: 5 },
           { name: "zelxt_stamina", value: 20 },
           { name: "zelxt_cooldown", value: 7 },
-
           { name: "atk_percentage", value: 2.5 },
           { name: "health_percentage", value: 0.6 },
           { name: "zelxt_atk_percentage", value: 3 },
@@ -46,7 +44,6 @@ export const unique: { [key: string]: SpecialistWeapon } = {
           { name: "cooldown", value: 11 },
           { name: "zelxt_stamina", value: 17 },
           { name: "zelxt_cooldown", value: 20 },
-
           { name: "health_percentage", value: 0.6 },
           { name: "zelxt_health_percentage", value: 0.95 },
           { name: "zelxt_health_recover", value: 0.1 },
@@ -72,8 +69,7 @@ export const unique: { [key: string]: SpecialistWeapon } = {
         [
           { name: "stamina", value: 16 },
           { name: "cooldown", value: 4.5 },
-          { name: "atk_percentage", value: 1.3 },
-
+          { name: "atk_percentage", value: 1.4 },
           { name: "special_stamina", value: 26 },
           { name: "special_cooldown", value: 6 },
           { name: "special_atk_percentage", value: 1.4 },
@@ -117,7 +113,25 @@ export const unique: { [key: string]: SpecialistWeapon } = {
         ],
       ],
     ],
-    skillLvl: [[], [], [], []],
+    skillLvl: [
+      [
+        [
+          { name: "stamina", value: 14 },
+          { name: "cooldown", value: 5 },
+          { name: "atk_percentage", value: 1.8 },
+        ],
+      ],
+      [],
+      [
+        [
+          { name: "stamina", value: 26 },
+          { name: "cooldown", value: 25 },
+          { name: "atk_percentage", value: 2.2 },
+          { name: "radius", value: 5 },
+        ],
+      ],
+      [],
+    ],
   },
   skyler: {
     weapon: "skyler",
@@ -200,6 +214,12 @@ export const unique: { [key: string]: SpecialistWeapon } = {
       [],
     ],
   },
+  destiny: {
+    weapon: "destiny",
+    atk: 11,
+    pasifLvl: [[[{ name: "silence_duration", value: 3 }]], [[{ name: "atk_increase", value: 1.5 }]]],
+    skillLvl: [[], [], [], []],
+  },
   destreza: {
     weapon: "destreza",
     atk: 9,
@@ -228,7 +248,15 @@ export const unique: { [key: string]: SpecialistWeapon } = {
       ],
       [],
       [],
-      [],
+      [
+        [
+          { name: "stamina", value: 18 },
+          { name: "cooldown", value: 10 },
+          { name: "duration", value: 5 },
+          { name: "regeneration_lvl", value: 2 },
+          { name: "resistance_lvl", value: 1 },
+        ],
+      ],
     ],
   },
   catlye: {
@@ -255,14 +283,27 @@ export const unique: { [key: string]: SpecialistWeapon } = {
           { name: "stamina", value: 24 },
           { name: "cooldown", value: 3 },
           { name: "atk_percentage", value: 1 },
-
           { name: "special_stamina", value: 30 },
           { name: "special_cooldown", value: 8 },
           { name: "special_atk_percentage", value: 1.5 },
         ],
       ],
-      [],
-      [],
+      [
+        [
+          { name: "stamina", value: 30 },
+          { name: "stamina_distance", value: 4 },
+          { name: "distance", value: 7 },
+          { name: "cooldown", value: 3 },
+          { name: "atk_percentage", value: 2.5 },
+        ],
+      ],
+      [
+        [
+          { name: "stamina", value: 40 },
+          { name: "cooldown", value: 20 },
+          { name: "atk_percentage", value: 1.0 },
+        ],
+      ],
     ],
   },
 };
@@ -295,7 +336,24 @@ export const epic: { [key: string]: SpecialistWeapon } = {
     weapon: "cenryter",
     atk: 11,
     pasifLvl: [[[{ name: "heal_multiplier", value: 3 }]]],
-    skillLvl: [[], [], []],
+    skillLvl: [
+      [
+        [
+          { name: "stamina", value: 16 },
+          { name: "cooldown", value: 5 },
+          { name: "atk_percentage", value: 1.5 },
+        ],
+      ],
+      [
+        [
+          { name: "stamina", value: 24 },
+          { name: "cooldown", value: 12 },
+          { name: "atk_buff", value: 0.05 },
+          { name: "buff_duration", value: 15 },
+        ],
+      ],
+      [],
+    ],
   },
 };
 
@@ -305,6 +363,36 @@ export const legend: { [key: string]: SpecialistWeapon } = {
     atk: 5,
     pasifLvl: [[[{ name: "atk_percentage", value: 2.0 }]]],
     skillLvl: [[], []],
+  },
+  cervant: {
+    weapon: "cervant",
+    atk: 9,
+    pasifLvl: [
+      [
+        [
+          { name: "atk_percentage", value: 1.0 },
+          { name: "max_stack", value: 5 },
+        ],
+      ],
+    ],
+    skillLvl: [
+      [
+        [
+          { name: "stamina", value: 20 },
+          { name: "cooldown", value: 3.5 },
+          { name: "normal_atk_percentage", value: 2.0 },
+          { name: "shockwave_atk_percentage", value: 1.0 },
+          { name: "sharped_atk_percentage", value: 1.9 },
+        ],
+      ],
+      [
+        [
+          { name: "stamina", value: 24 },
+          { name: "cooldown", value: 3 },
+          { name: "sharped_damage_multiplier", value: 2.5 },
+        ],
+      ],
+    ],
   },
 };
 

@@ -1,4 +1,4 @@
-import { ChatSendAfterEvent, ChatSendBeforeEvent, world } from "@minecraft/server";
+import { ChatSendBeforeEvent, world } from "@minecraft/server";
 import { Chat } from "../ZxraLib/module";
 
 world.beforeEvents.chatSend.subscribe((event: ChatSendBeforeEvent) => {

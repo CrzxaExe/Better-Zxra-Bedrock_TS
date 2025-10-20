@@ -1,4 +1,3 @@
-import { Block, Dimension, Player } from "@minecraft/server";
 import { BlockRegister, durabilityControl } from "../../module";
 
 BlockRegister.add("cz:chair", {

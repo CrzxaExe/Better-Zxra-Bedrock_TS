@@ -8,7 +8,9 @@ class Cenryter {
     weapon: SpecialistWeaponPlayer = Terra.getSpecialist(user.id)?.weapons.find((e) => e.weapon === "cenryter") ??
       weaponRaw.epic.cenryter
   ): number {
-    return weaponData.epic.cenryter.pasifLvl[0]![weapon.pasifLvl[0]]!.find((e) => e.name === "heal_multiplier") ?? 3;
+    return (
+      weaponData.epic.cenryter.pasifLvl[0]![weapon.pasifLvl[0]]!.find((e) => e.name === "heal_multiplier")!.value ?? 3
+    );
   }
 }
 

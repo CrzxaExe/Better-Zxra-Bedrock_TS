@@ -1,12 +1,12 @@
 import { Entity, ScriptEventCommandMessageAfterEvent, system } from "@minecraft/server";
-import { Script, ScriptParams } from "../ZxraLib/module";
+import { Parser, Script, ScriptParams } from "../ZxraLib/module";
 
 system.afterEvents.scriptEventReceive.subscribe(
   ({ id, message, sourceType, initiator, sourceBlock, sourceEntity }: ScriptEventCommandMessageAfterEvent) => {
     try {
       if (!id.startsWith("cz")) return;
 
-      const rawMsg = message.split(" "),
+      const rawMsg = (Parser.stringArray(message) ?? []) as string[],
         cmd = rawMsg[0],
         msg = rawMsg.slice(1);
 

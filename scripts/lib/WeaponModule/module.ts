@@ -21,4 +21,5 @@ export { slayerLostHPPercentation } from "./traits/slayer";
 
 import "./pasif/unique";
 import "./pasif/epic";
+import "./pasif/legend";
 import "./pasif/rare";

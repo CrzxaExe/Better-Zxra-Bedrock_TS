@@ -20,7 +20,7 @@ world.afterEvents.itemReleaseUse.subscribe(async ({ itemStack, source, useDurati
       useDuration: useDuration / 20,
       multiplier: sp.status.decimalCalcStatus(
         { type: "skill" },
-        sp.status.decimalCalcStatus({ type: "damage" }, 1, 0.01),
+        sp.status.decimalCalcStatus({ type: "attack" }, 1, 0.01),
         0.01
       ),
     });

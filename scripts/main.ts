@@ -1,5 +1,5 @@
 import { Dimension, Player, system, world } from "@minecraft/server";
-import { Entity, NOT_ALLOWED_ENTITY_TICK, Terra, ZxraLib } from "./lib/ZxraLib/module";
+import { NOT_ALLOWED_ENTITY_TICK, Terra, ZxraLib } from "./lib/ZxraLib/module";
 
 // Event imports
 import "./lib/event/chatSend";
@@ -17,8 +17,7 @@ import "./lib/ZxraLib/registry/commands/admin";
 // Info Version
 console.warn(`
 [System] Loading plugins:
-Better Zxra Bedrock v${ZxraLib.packVersion}
-ZxraLib v${ZxraLib.version}`);
+Better Zxra Bedrock v${ZxraLib.packVersion}`);
 
 Terra.setup();
 
@@ -53,11 +52,9 @@ function mainTick(): void {
 
       Terra.getActiveDimension().forEach((dimension: Dimension) => {
         dimension.getEntities({ excludeTypes: NOT_ALLOWED_ENTITY_TICK }).forEach((e) => {
-          new Entity(e).controllerStatus();
+          Terra.getEntityCache(e).controllerStatus();
         });
       });
-
-      // console.warn(JSON.stringify(Terra.specialist));
     }
 
     // Save Intervals

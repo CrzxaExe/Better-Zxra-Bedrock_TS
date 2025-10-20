@@ -1,4 +1,5 @@
 import {
+  InputPermissionCategory,
   PlayerJoinAfterEvent,
   PlayerLeaveAfterEvent,
   PlayerLeaveBeforeEvent,
@@ -12,7 +13,7 @@ world.afterEvents.playerJoin.subscribe((event: PlayerJoinAfterEvent) => {});
 
 // Player Spawn event
 world.afterEvents.playerSpawn.subscribe(({ initialSpawn, player }: PlayerSpawnAfterEvent) => {
-  player.triggerEvent("cz:zelxt_mode_off");
+  player.inputPermissions.setPermissionCategory(InputPermissionCategory.Movement, true);
 
   const sp = Terra.getSpecialistCache(player);
   if (initialSpawn) {

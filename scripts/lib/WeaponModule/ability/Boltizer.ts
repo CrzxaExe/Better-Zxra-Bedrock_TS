@@ -1,13 +1,57 @@
 import { Entity as mcEntity, MolangVariableMap, Player, system } from "@minecraft/server";
-import { Calc, SpecialistWeaponPlayer, Terra } from "../../ZxraLib/module";
+import { Calc, CreateObject, SkillLib, SpecialistWeaponPlayer, Terra } from "../../ZxraLib/module";
 import { weaponData, weaponRaw } from "../module";
 
 class Boltizer {
+  static pasif1(
+    user: Player,
+    target: mcEntity,
+    state: "skill" | "attack",
+    multiplier: number = 1,
+    weapon: SpecialistWeaponPlayer = Terra.getSpecialist(user.id)?.weapons.find((e) => e.weapon === "boltizer") ??
+      weaponRaw.unique.boltizer
+  ): void {
+    const pasif = weaponData.unique.boltizer.pasifLvl[0][weapon.pasifLvl[0]]?.find(
+      (e) => e.name === "lightning_damage"
+    );
+
+    switch (state) {
+      case "skill":
+        if (!target.hasTag("boltizer_attack")) {
+          target.addTag("boltizer_skill");
+          return;
+        }
+
+        target.dimension.spawnEntity("minecraft:lightning_bolt", target.location);
+        target.removeTag("boltizer_attack");
+        Terra.getEntityCache(target).addDamage(weapon.atk * (pasif?.value ?? 1.5) * multiplier);
+        break;
+
+      case "attack":
+        if (!target.hasTag("boltizer_skill")) {
+          target.addTag("boltizer_attack");
+          return;
+        }
+
+        target.dimension.spawnEntity("minecraft:lightning_bolt", target.location);
+        target.removeTag("boltizer_skill");
+        Terra.getEntityCache(target).addDamage(weapon.atk * (pasif?.value ?? 1.5) * multiplier, {
+          cause: "lightning",
+          damagingEntity: user,
+          rune: Terra.getSpecialistCache(user).rune.getRuneStat(),
+          isSkill: true,
+        });
+        break;
+    }
+  }
+
   static pasif2(
     user: Player,
     target: mcEntity[],
+    damage: number = 1,
     weapon: SpecialistWeaponPlayer = Terra.getSpecialist(user.id)?.weapons.find((e) => e.weapon === "boltizer") ??
-      weaponRaw.unique.boltizer
+      weaponRaw.unique.boltizer,
+    multiplier: number = 1
   ): void {
     let count: number = 0;
 
@@ -15,6 +59,7 @@ class Boltizer {
       const nextEntity: mcEntity | undefined = target[count + 1];
 
       const ent = Terra.getEntityCache(e);
+      this.pasif1(user, e, "attack", multiplier, weapon);
 
       if (nextEntity) {
         const molang = new MolangVariableMap();
@@ -40,7 +85,7 @@ class Boltizer {
           weapon.atk *
             (1 -
               count *
-                (weaponData.unique.boltizer.pasifLvl[1]![weapon.pasifLvl[0]]?.find((e) => e.name === "chain_penalty")
+                (weaponData.unique.boltizer.pasifLvl[1]![weapon.pasifLvl[0]]?.find((e) => e.name === "chain_penalty")!
                   .value ?? 0.3)),
           {
             cause: "lightning",
@@ -51,6 +96,63 @@ class Boltizer {
       }, 5);
       count++;
     });
+  }
+
+  static skill1(user: Player, { sp, multiplier }: SkillLib): void {
+    const data = sp.getSp().weapons.find((e) => e.weapon === "boltizer") || weaponRaw.unique.boltizer,
+      skill = weaponData.unique.boltizer.skillLvl[0][data.skillLvl[0]];
+
+    if (!sp.cooldown.canSkill("boltizer_skill1", skill.find((e) => e.name === "cooldown")!.value || 5)) return;
+    sp.playAnim("animation.weapon.boltizer.skill1");
+
+    sp.bind(1.67);
+    system.runTimeout(() => {
+      sp.knockback(CreateObject.createVelocityPlayer(user), 0.6);
+
+      let target = sp.getEntityFromDistance(5)[0];
+
+      if (!target) return;
+      let ent = Terra.getEntityCache(target.entity);
+
+      ent.addDamage(data.atk * (skill.find((r) => r.name === "atk_percentage")?.value || 1.8) * (multiplier || 1), {
+        cause: "lightning",
+        damagingEntity: user,
+        isSkill: true,
+      });
+      this.pasif1(user, target.entity, "skill", multiplier, data);
+    }, 5);
+  }
+
+  static skill3(user: Player, { sp }: SkillLib): void {
+    const data = sp.getSp().weapons.find((e) => e.weapon === "boltizer") || weaponRaw.unique.boltizer,
+      skill = weaponData.unique.boltizer.skillLvl[2]![data.skillLvl[2]!];
+
+    const target = sp.getEntityFromDistance(10)[0];
+    if (!target) {
+      user.onScreenDisplay.setActionBar({ translate: "skill.noTarget" });
+      return;
+    }
+    if (!sp.cooldown.canSkill("boltizer_skill3", skill.find((e) => e.name === "cooldown")!.value || 25)) return;
+
+    sp.playAnim("animation.weapon.boltizer.skill3");
+    let loc = { ...target.entity.location };
+
+    sp.bind(1.92);
+
+    system.runTimeout(() => {
+      for (let i = 0; i < 3; i++) {
+        system.runTimeout(() => {
+          user.dimension.spawnEntity("minecraft:lightning_bolt", loc);
+
+          if (!target.entity) return;
+          this.pasif2(
+            user,
+            Terra.getEntityCache(target.entity).getChainedEntityFromDistance(5, 3, [user.id]),
+            skill.find((e) => e.name === "atk_percentage")?.value ?? 2.2
+          );
+        }, i + 6 * i);
+      }
+    }, 23);
   }
 }
 

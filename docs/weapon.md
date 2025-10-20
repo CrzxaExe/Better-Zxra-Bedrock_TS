@@ -100,7 +100,7 @@ Skills:
 > [Foreground Shockwave], 18 Stamina | 8.5s CD | Sneak<br/>
 > Summon shockwave on user location. enemy inside area will get 200% Atk as Lightning damage and counted as attacked target
 >
-> [Self Conduction], 20 Stamina | 15s CD | Has %Electricity status<br/><br/>
+> [Self Conduction], 20 Stamina | 15s CD | Has %Electricity status<br/>
 > Summon Lightning strike to self, clear all debuff and gain protection effect for a sec. On duration, enemy that attacking user will get 50% Atk as Lightning damage
 >
 > [Thunder Strom], 26 Stamina | 25s CD | Jump<br/>
@@ -159,11 +159,11 @@ Skills:
 > [Ouch Again], 30 Stamina | 3s CD | No Sneak & 3x [Ouch]<br/>
 > Heal all target in range as 150% Atk
 >
-> [Heal on Allies], 20-50 Stamina | 8s CD | Sneak<br/>
+> [Heal on Allies], 30-50 Stamina | 8s CD | Sneak<br/>
 > Select one target to set location of area, heal all allies on that area for 250% Atk. Target must be entity(can be enemy or summon).
 >
 > [Great Healing Tome], 40 Stamina | 20s CD | Jump<br/>
-> Summon %Totem on user location. %Totem will heal all allies on range.
+> Summon %Totem on user location. %Totem will heal all allies on range by 100% Atk.
 
 Summons:
 
@@ -172,7 +172,7 @@ Summons:
 > HP 8<br/>
 > Def: 6 Physical, 10 Res
 
-Pasif: `This summon have low target priotity and will stay on field for 10s. Heal all allies in range as 100% Atk every sec.`
+Pasif: `This summon have low target priotity and will stay on field for 10s. Heal all allies in range as percentage of user Atk every sec.`
 
 ## Cenryter Concept
 
@@ -519,7 +519,7 @@ Pasif:
 Skils:
 
 > [Reap Through], 16 Stamina | 4.5s CD | No Sneak<br/>
-> Swipe all enemy on front of user with cone shape, deals 130% Atk as AOE damage to all enemy
+> Swipe all enemy on front of user with cone shape, deals 140% Atk as AOE damage to all enemy
 >
 > [Reaping Flow], 26 Stamina | 6s CD | No Sneak & %Liberator-Angel on field<br/>
 > Swipe all enemy on front of user with cone shape, deals 140% Atk + 20% Max HP as Void Damage. %Liberator-Angel trigger skill "Command: Reap Flow" and teleport to front of user location
@@ -571,13 +571,14 @@ Trait `[Spear]`
 
 Pasif:
 
-> [Burning Glare] Increase damage deals to burning enemy by 2.5 times
+> [Burning Glare] Increase damage deals to burning enemy by 2.5 times and change damage into Fire damage
 
 Skills:
 
 > []
 >
-> []
+> [Fire Ignitions], 26 Stamina | 15s CD | Jump<br/>
+> Striking ground to deals 280% Atk to all enemy within range
 
 ## Mudrock Concept
 
@@ -807,9 +808,10 @@ Skill:
 > [Insuption Ichor], 12 Stamina | 8s CD | No Sneak<br/>
 > Attack one target to deals 200% Atk as Art damage
 >
-> []
+> [Ichoring Gaze], 20 Stamina | 14s CD | Sneak<br/>
+> Attacking all target in a half of circle area. Deals 170% Atk as Art damage
 >
-> [Countless Times Ichor], 18 Stamina | 25c CD | Jump<br/>
+> [Countless Times Ichor], 24 Stamina | 25c CD | Jump<br/>
 > Jump to front to deals 350% Atk as Art damage to all enemy and push a bit the enemy
 
 ## Vitage Concept

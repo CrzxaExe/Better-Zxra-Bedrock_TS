@@ -7,6 +7,7 @@ import {
   Player,
   Entity as mcEntity,
   system,
+  world,
 } from "@minecraft/server";
 import { AdminPanel, Command, Entity, GuildPanel, StatusDecay, StatusTypes, Terra } from "../../module";
 
@@ -339,7 +340,12 @@ Command.add(
   ): CustomCommandResult => {
     try {
       system.run(() => {
-        new Entity(target).status.addStatus(name, duration, {
+        console.warn(JSON.stringify(target), name, duration, lvl, type, stack, decay);
+        const actualTarget =
+          world.getEntity(target?.id) || (world.getAllPlayers().find((e) => e.id === target.id) as mcEntity);
+        if (!actualTarget) return;
+
+        Terra.getEntityCache(actualTarget).status.addStatus(name, duration, {
           lvl,
           type: type as StatusTypes,
           stack,

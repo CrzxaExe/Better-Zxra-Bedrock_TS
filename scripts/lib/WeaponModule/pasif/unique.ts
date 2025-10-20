@@ -1,7 +1,38 @@
 import { EntityHealthComponent, Entity as mcEntity, MolangVariableMap, Player } from "@minecraft/server";
 import { Calc, Specialist, Terra, Weapon } from "../../ZxraLib/module";
-import { Boltizer, Liberator, Reaper, weaponData } from "../module";
+import { Boltizer, Liberator, Reaper, weaponData, weaponRaw } from "../module";
+import { Destiny } from "../ability/Destiny";
 
+// Boltizer
+Weapon.addHitPasif("boltizer", (user: Player, target: mcEntity, { damage }: { damage: number }) => {
+  const weapon =
+    Terra.getSpecialist(user.id)?.weapons.find((e) => e.weapon === "boltizer") ?? weaponRaw.unique.boltizer;
+
+  Boltizer.pasif2(
+    user,
+    Terra.getEntityCache(target).getChainedEntityFromDistance(
+      3,
+      weaponData.unique.boltizer.pasifLvl[1]![weapon.pasifLvl[1]!].find((e) => e.name === "chain_length")!.value ?? 2,
+      [user.id]
+    ),
+    1,
+    weapon,
+    Terra.getSpecialistCache(user).rune.getRuneStat().atk ?? 1
+  );
+});
+
+Weapon.addHitPasif("destiny", (user: Player, target: mcEntity, { sp }: { sp: Specialist }) => {
+  const weapon = Terra.getSpecialist(user.id)?.weapons.find((e) => e.weapon === "destiny") ?? weaponRaw.unique.destiny;
+  const ent = Terra.getEntityCache(target);
+
+  const mul = Destiny.pasif2(ent, sp, weapon);
+  ent.addDamage(weapon.atk * mul * Calc.distance(target.location, user.location), {
+    cause: "entityAttack",
+    damagingEntity: user,
+  });
+
+  Destiny.pasif1(ent, sp, weapon);
+});
 // Liberator
 Weapon.addHitPasif("liberator", (user: Player, _: unknown, { sp }: { sp: Specialist }) => {
   const stack = sp.status.getStatus({ name: "soul_of_death" })[0]?.lvl ?? 0;
@@ -31,9 +62,10 @@ Weapon.addHitPasif("liberator", (user: Player, _: unknown, { sp }: { sp: Special
   });
 });
 Weapon.addKillPasif("liberator", (user: Player, _: unknown, { sp }: { sp: Specialist }) => {
-  const data = sp.getSp().weapons.find((e) => e.weapon === "liberator") ?? weaponData.unique.liberator;
+  const data = sp.getSp().weapons.find((e) => e.weapon === "liberator") ?? weaponRaw.unique.liberator;
 
-  const maxStack = data.pasifLvl[0].find((e) => e.name === "max_stack")?.value ?? 3;
+  const maxStack =
+    weaponData.unique.liberator.pasifLvl[0][data.pasifLvl[0]].find((e) => e.name === "max_stack")?.value ?? 3;
 
   let stack = sp.status.getStatus({ name: "soul_of_death" })[0]?.lvl ?? 0;
   if (stack >= maxStack) return;
@@ -54,20 +86,4 @@ Weapon.addHitPasif("kyles", (user: Player, target: mcEntity, { sp }: { sp: Speci
     isSkill: false,
     rune,
   });
-});
-
-// Boltizer
-Weapon.addHitPasif("boltizer", (user: Player, target: mcEntity, { damage }: { damage: number }) => {
-  const weapon =
-    Terra.getSpecialist(user.id)?.weapons.find((e) => e.weapon === "boltizer") ?? weaponData.unique.boltizer;
-
-  Boltizer.pasif2(
-    user,
-    Terra.getEntityCache(target).getChainedEntityFromDistance(
-      3,
-      weapon.pasifLvl[1]?.find((e) => e.name === "chain_length").value ?? 2,
-      [user.id]
-    ),
-    weapon
-  );
 });
