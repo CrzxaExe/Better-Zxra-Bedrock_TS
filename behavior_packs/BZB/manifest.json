@@ -5,12 +5,12 @@
     "name": "§l§b[Project]§r Better Zxra Bedrock",
     "uuid": "0239a99e-5fec-45b8-a690-e5310d399508",
     "version": [1, 1, 2],
-    "min_engine_version": [1, 20, 40]
+    "min_engine_version": [1, 21, 114]
   },
   "dependencies": [
     {
       "module_name": "@minecraft/server",
-      "version": "2.3.0-beta"
+      "version": "2.4.0-beta"
     },
     {
       "module_name": "@minecraft/server-gametest",

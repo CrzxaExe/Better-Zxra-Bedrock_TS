@@ -107,17 +107,13 @@ class Specialist extends Entity {
     });
 
     this.source.onScreenDisplay.setTitle(
-      `cz:ui ${this.source.name}
-(${((level.xp / Calc.specialistLevelUp(level.current || 0)) * 100).toFixed(1)}) ${level.xp.toFixed(2)} XP ${
+      `cz:ui (${((level.xp / Calc.specialistLevelUp(level.current || 0)) * 100).toFixed(1)}) ${level.xp.toFixed(2)} XP ${
         level.current
-      } < [SP]
-
-§a$${money}§r§f | §b§l${voxn} Voxn§r§f
+      } < SP
  
 §eS ${((stamina.current / Math.floor(stamina.max + stamina.additional + stamina.rune)) * 100).toFixed(
         0
       )}%§r§f §1T ${Number((thirst.current / thirst.max) * 100).toFixed(0)}§r§f
-§5Rep ${rep}§r§f AP ${Terra.players.length}
 ${
   this.source.getBlockFromViewDirection({ maxDistance: Terra.world.setting?.whatSeeDistance || 7 })?.block?.type.id ||
   this.getEntityFromDistance(Terra.world.setting?.whatSeeDistance || 7)[0]?.entity.typeId ||
@@ -255,14 +251,14 @@ ${
     return this.getSp().money;
   }
   addMoney(amount: number = 1, data: SpecialistData = this.getSp()): void {
-    data.money = parseInt((data.money + amount).toFixed(2));
+    data.money = (data.money ?? 0) + amount;
     this.setSp(data);
   }
   minMoney(amount: number = 1, data: SpecialistData = this.getSp()): void {
     this.addMoney(-amount, data);
   }
   setMoney(value: number = 0, data: SpecialistData = this.getSp()): void {
-    data.money = parseInt(value.toFixed(2));
+    data.money = value;
     this.setSp(data);
   }
 

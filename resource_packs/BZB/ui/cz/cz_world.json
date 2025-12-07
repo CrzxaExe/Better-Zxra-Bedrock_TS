@@ -1,27 +1,24 @@
 {
   "namespace": "cz_world",
-  
-  // Header Button
+
   "header_bar": {
     "type": "stack_panel",
-    "controls": [
-    ]
+    "controls": []
   },
-  
-  // Content Layout
+
   "cz_common_content@play.common_content": {},
-  
+
   "cz_world_scroll@cz_common_content": {
     "controls": [
       {
         "worlds_stack_panel": {
           "type": "stack_panel",
-          "size": [ "100%", "100%" ],
+          "size": ["100%", "100%"],
           "controls": [
             {
               "scrolling_panel_sizer": {
                 "type": "panel",
-                "size": [ "100%", "fill" ],
+                "size": ["100%", "fill"],
                 "controls": [
                   {
                     "scrolling_panel@play.scrolling_offsets": {
@@ -36,7 +33,7 @@
               "scrolling_panel_legacy_storage_sizer": {
                 "type": "panel",
                 "ignored": "(not $legacy_worlds_share_storage)",
-                "size": [ "100%", "20%" ],
+                "size": ["100%", "20%"],
                 "controls": [
                   {
                     "scrolling_panel@play.scrolling_offsets": {
@@ -52,7 +49,7 @@
       }
     ]
   },
-  
+
   "cz_friends_scroll_content@cz_common_content": {
     "controls": [
       {
@@ -63,25 +60,25 @@
       }
     ]
   },
-  
+
   "cz_server_scroll_content@cz_common_content": {
-    "size": [ "100% - 4px", "100% - 4px" ],
+    "size": ["100% - 4px", "100% - 4px"],
     "controls": [
       {
         "severs_panel": {
           "type": "stack_panel",
           "orientation": "vertical",
-          "size": [ "100%", "100%" ],
+          "size": ["100%", "100%"],
           "controls": [
             {
               "offset_panel": {
                 "type": "panel",
-                "size": [ "100% - 4px", "100%cm" ],
+                "size": ["100% - 4px", "100%cm"],
                 "controls": [
                   {
                     "servers_sunsetting_warning@play.realm_warning_tip": {
-                      "size": [ "100% - 2px", "100%cm - 2px" ],
-                      "offset": [ 2, 2 ]
+                      "size": ["100% - 2px", "100%cm - 2px"],
+                      "offset": [2, 2]
                     }
                   }
                 ],
@@ -103,8 +100,8 @@
         "feature_server_message_panel": {
           "type": "stack_panel",
           "orientation": "vertical",
-          "size": [ "100% - 10px", "100%c" ],
-          "offset": [ 0, 2 ],
+          "size": ["100% - 10px", "100%c"],
+          "offset": [0, 2],
           "anchor_to": "top_middle",
           "anchor_from": "top_middle",
           "bindings": [
@@ -116,7 +113,7 @@
           "controls": [
             {
               "featured_servers_label@common.minecraftTenLabel": {
-                "size": [ "default", "default" ],
+                "size": ["default", "default"],
                 "text": "thirdPartyWorld.Featured",
                 "color": "$dark_button_default_text_color"
               }
@@ -124,17 +121,17 @@
             {
               "pad": {
                 "type": "panel",
-                "size": [ "100%", 2 ]
+                "size": ["100%", 2]
               }
             },
             {
               "feature_server_message_panel@play.dark_label_background": {
-                "size": [ "100%", "100%c" ],
+                "size": ["100%", "100%c"],
                 "controls": [
                   {
                     "label_panel_layout": {
                       "type": "panel",
-                      "size": [ "99%", "100%c + 8px" ],
+                      "size": ["99%", "100%c + 8px"],
                       "controls": [
                         {
                           "label": {
@@ -142,7 +139,7 @@
                             "$information_label_font|default": "default",
                             "font_type": "smooth",
                             "color": "$dark_button_default_text_color",
-                            "size": [ "100%", "default" ],
+                            "size": ["100%", "default"],
                             "layer": 1,
                             "shadow": false,
                             "text": "#feature_server_message_text",
@@ -167,8 +164,7 @@
       }
     ]
   },
-  
-  // Tab Panel
+
   "common_tab_content_panel": {
     "type": "panel",
     "controls": [
@@ -177,8 +173,8 @@
           "layer": 2,
           "anchor_from": "top_left",
           "anchor_to": "top_left",
-          "size": [ "100%-12px", "100%-12px" ],
-          "offset": [ 6, 6 ],
+          "size": ["100%-12px", "100%-12px"],
+          "offset": [6, 6],
           "ttsSectionContainer": true
         }
       }
@@ -192,7 +188,7 @@
       }
     ]
   },
-  
+
   "worlds_tab_content_panel@cz_world.common_tab_content_panel": {
     "$visible_bind_toggle_source_control": "world_navigation_tab_toggle",
     "$scroll_tab_content": "cz_world.cz_world_scroll"
@@ -207,7 +203,7 @@
     "$visible_bind_toggle_source_control": "server_navigation_tab_toggle",
     "$scroll_tab_content": "cz_world.cz_server_scroll_content"
   },
-  
+
   "top_tab@cz_common.cz_dark_button": {
     "$toggle_tts_enabled_binding_type": "global",
     "$radio_toggle_group": true,
@@ -220,7 +216,7 @@
     "$toggle_tts_toggle_off_text": "",
     "$toggle_tts_index_priority": 1002
   },
-  
+
   "world_navigation_tab@play.top_tab": {
     "$is_left_most_tab": true,
     "$tab_view_binding_name": "world_navigation_tab_toggle",
@@ -270,7 +266,7 @@
       {
         "x_image@common.light_close_button": {
           "layer": 1,
-          "offset": [ 0, -1 ],
+          "offset": [0, -1],
           "anchor_from": "center",
           "anchor_to": "center",
           "focus_identifier": "close_button",
@@ -287,75 +283,73 @@
       }
     ]
   },
-  
+
   "default_tab_navigation_panel_layout@play.common_tab_navigation_panel_layout": {
     "controls": [
       {
         "world_navigation_tab@cz_world.world_navigation_tab": {
-          "size": [ "32%", "12%" ],
-          "offset": [ "20%", 0 ]
+          "size": ["32%", "12%"],
+          "offset": ["20%", 0]
         }
       },
       {
         "friends_navigation_tab@cz_world.friends_navigation_tab": {
-          "size": [ "32%", "12%" ]
+          "size": ["32%", "12%"]
         }
       },
       {
         "server_navigation_tab@cz_world.server_navigation_tab": {
-          "size": [ "32%", "12%" ]
+          "size": ["32%", "12%"]
         }
       },
       {
         "close_navigation_tab@cz_world.close_navigation_tab": {
-          "size": [ "4%", "12%" ]
+          "size": ["4%", "12%"]
         }
       }
     ]
   },
-  
-  // Panels
+
   "panel_layout@play.common_tab_content_panel_type": {
-    "size": [ "95%", "87.8%" ],
+    "size": ["95%", "87.8%"],
     "controls": [
       { "cz_worlds_tab_content_panel@cz_world.worlds_tab_content_panel": {} },
       { "cz_friends_tab_content_panel@cz_world.friends_tab_content_panel": {} },
       { "cz_server_tab_content_panel@cz_world.server_tab_content_panel": {} }
     ]
   },
-  
-  // Content
+
   "cz_world_content_screen": {
     "type": "stack_panel",
-    "size": [ "97.2%", "100%" ],
+    "size": ["97.2%", "100%"],
     "controls": [
       {
         "cz_name_world_screen": {
-	      "type": "label",
-		  "text": "Play Screen",
-		  "shadow": true,
-		  "size": [ "100%", "3.7%" ],
-		  "text_alignment": "center",
-		  "anchor_from": "center_middle",
-          "anchor_to": "center_middle"
-		}
+          "type": "label",
+          "text": "Play Screen",
+          "shadow": true,
+          "size": ["100%", "3.7%"],
+          "text_alignment": "center",
+          "anchor_from": "center",
+          "anchor_to": "center"
+        }
       },
-      { "panel_layout@cz_world.panel_layout": {
-          "anchor_from": "bottom_center",
-          "anchor_to": "bottom_center"
+      {
+        "panel_layout@cz_world.panel_layout": {
+          "anchor_from": "bottom_middle",
+          "anchor_to": "bottom_middle"
         }
       },
       {
         "default_tab_navigation_panel_layout@cz_world.default_tab_navigation_panel_layout": {
-          "offset": [ 0, "-3.4%" ],
+          "offset": [0, "-3.4%"],
           "anchor_from": "bottom_middle",
           "anchor_to": "bottom_middle"
         }
       }
     ]
   },
-  
-  // Screen
+
   "cz_play_screen": {
     "type": "panel",
     "controls": [
@@ -365,9 +359,7 @@
           "texture": "textures/ui/Black.png",
           "alpha": 0.5,
           "fill": true,
-          "controls": [
-            { "cz_world_content_screen@cz_world.cz_world_content_screen" : {} }
-          ]
+          "controls": [{ "cz_world_content_screen@cz_world.cz_world_content_screen": {} }]
         }
       }
     ]

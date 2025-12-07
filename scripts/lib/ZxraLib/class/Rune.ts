@@ -1,28 +1,47 @@
-import { defaultRuneStat, RuneStats, Specialist, SpecialistData, SpecialistRune } from "../module";
+import { defaultRuneStat, runeList, RuneStats, Specialist, SpecialistData, SpecialistRune } from "../module";
 
 interface Rune {
   sp: Specialist;
 }
 
+/**
+ * Class to settings and grab rune setup
+ */
 class Rune {
   constructor(sp: Specialist) {
     if (!sp) throw new Error("Missing Entity");
-
     this.sp = sp;
   }
 
+  /**
+   * Get all rune of player
+   *
+   * @returns SpecialistRune[]
+   */
   getRune(): SpecialistRune[] {
     return this.sp.getSp().runes;
   }
+
+  /**
+   * Set player rune
+   *
+   * @param newData Array of specialist rune
+   * @param data specialist data
+   */
   setRune(newData: SpecialistRune[], data: SpecialistData = this.sp.getSp()): void {
     if (!newData) throw new Error("Missing new data");
-
     data.runes = newData;
     this.sp.setSp(data);
   }
+
+  /**
+   * Add new rune to player
+   *
+   * @param rune rune data
+   * @param data specialist data
+   */
   addRune(rune: SpecialistRune, data: SpecialistData = this.sp.getSp()): void {
     if (!rune) throw new Error("Missing rune");
-
     data.runes.push(rune);
     this.sp.setSp(data);
   }
@@ -63,7 +82,7 @@ class Rune {
     const data: RuneStats = { ...defaultRuneStat };
 
     this.getRune().forEach((e) => {
-      const stats = e.stats;
+      const stats = runeList[e.name as string][e.lvl];
 
       Object.keys(stats)
         .filter((a) => !["onKill", "onHit", "onAttacked"].includes(a))
@@ -85,7 +104,7 @@ class Rune {
     const fn: Function[] = [];
 
     data.forEach((e) => {
-      const stats = e.stats;
+      const stats = runeList[e.name][e.lvl];
 
       Object.keys(stats)
         .filter((a) => ["onKill", "onHit", "onAttacked"].includes(a))

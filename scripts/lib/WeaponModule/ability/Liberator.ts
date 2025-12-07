@@ -21,7 +21,7 @@ class Liberator {
 
     pasifData.stack = Terra.getSpecialistCache(user).status.getStatus({ name: "soul_of_death" })[0].lvl ?? 0;
     pasifData.max = pasif?.find((e) => e.name === "max_stack")?.value ?? 3;
-    pasifData.multiplier = pasif?.find((e) => e.name === "heal_multiplier")!.value;
+    pasifData.multiplier = pasif?.find((e) => e.name === "heal_multiplier")!.value ?? 1;
 
     return pasifData;
   }
@@ -44,7 +44,10 @@ class Liberator {
     const data = sp.getSp().weapons.find((e) => e.weapon === "liberator") || weaponRaw.unique.liberator,
       skill = weaponData.unique.liberator.skillLvl[0][data.skillLvl[0]];
 
+    const pasif = this.pasif1(user, data);
+
     if (!sp.cooldown.canSkill("liberator_skill1", skill.find((e) => e.name === "cooldown")!.value || 4.5)) return;
+    sp.minStamina(skill?.find((e) => e.name === "stamina")!.value || 16);
     sp.playAnim("animation.weapon.liberator.skill1");
 
     sp.bind(1.67);
@@ -58,6 +61,8 @@ class Liberator {
           rune: sp.rune.getRuneStat(),
           isSkill: true,
         });
+
+        sp.heal((pasif.stack + 1) * pasif.multiplier);
       });
 
       sp.knockback(CreateObject.createVelocityPlayer(user), 0.9);

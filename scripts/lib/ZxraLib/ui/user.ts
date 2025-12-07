@@ -22,11 +22,13 @@ import {
   Quest,
   RUNE_GACHA_PRICE,
   runeList,
+  ShopCategory,
   Specialist,
   Terra,
   WEAPON_GACHA_PRICE,
 } from "../module";
 import { weaponData, weaponRaw } from "../../WeaponModule/module";
+import { globalShop } from "../data/shop";
 
 class UserPanel {
   static home(player: Player): void {
@@ -88,50 +90,287 @@ class UserPanel {
   }
 
   static shop(player: Player): void {
-    new ActionFormData()
-      .title("cz:shop")
-      .body({ translate: "cz.shop.body" })
-      .button({ translate: "cz.blocks" }, "textures/blocks/bookshelf")
-      .button({ translate: "cz.crops" }, "textures/items/wheat")
-      .button({ translate: "cz.foods" }, "textures/items/mutton_cooked")
-      .button({ translate: "cz.materials" }, "textures/items/coal")
-      .button({ translate: "cz.minerals" }, "textures/items/diamond_ingot")
-      .button({ translate: "cz.redstone" }, "textures/items/redstone_dust")
-      .button({ translate: "cz.special" }, "textures/items/diamond_ascend")
+    const ui = new ActionFormData().title("cz:global_shop").body({ translate: "cz.shop.body" });
 
+    globalShop.forEach((e) => ui.button({ translate: e.displayName }, e.textures));
+
+    ui.show(player).then((e) => {
+      if (e.canceled || (e.selection || 0) > globalShop.length) return;
+      const category = globalShop[e.selection ?? 0];
+
+      const sub = new ActionFormData()
+        .title({ translate: category.displayName })
+        .body({ translate: category.name + ".body" });
+
+      category.items.forEach((r) =>
+        sub.button(
+          { rawtext: [{ text: r.amount + " x " }, { translate: r.name }, { text: " $" + r.price }] },
+          r.textures
+        )
+      );
+
+      sub.show(player).then((r) => {
+        if (r.canceled || (r.selection || 0) > category.items.length) return;
+
+        switch (category.items[r.selection ?? 0].currency) {
+          case "money":
+            this.buyWithMoney(player, category, r.selection ?? 0);
+            break;
+          case "voxn":
+            this.buyWithVoxn(player, category, r.selection ?? 0);
+            break;
+        }
+      });
+    });
+  }
+  static buyWithMoney(player: Player, category: ShopCategory, id: number): void {
+    const item = category.items[id];
+
+    new ModalFormData()
+      .title({ translate: "system.buy.item" })
+      .label({ translate: item.item })
+      .label({
+        rawtext: [
+          { translate: "system.buy.info" },
+          { text: "\n" },
+          { translate: "currency.money" },
+          { text: String(item.price) },
+          { text: "\n" },
+          { translate: "system.amount" },
+          { text: String(item.amount) },
+          { text: "\n" },
+        ],
+      })
+      .textField({ translate: "system.buy.amount" }, { translate: "type.number" })
+      .submitButton({ translate: "system.buy.submit" })
       .show(player)
       .then((e) => {
-        console.warn(e);
+        if (e.canceled) return;
+
+        const formValues = e.formValues ?? [];
+        let amount: number = 0;
+        if (typeof formValues[2] === "string") {
+          const parsed = parseInt(formValues[2]);
+          amount = isNaN(parsed) ? 0 : parsed;
+        } else if (typeof formValues[2] === "number") {
+          amount = formValues[2];
+        }
+
+        if (amount < 0) {
+          player.sendMessage({ translate: "system.invalid.buy" });
+          this.buyWithMoney(player, category, id);
+          return;
+        }
+
+        const sp = Terra.getSpecialistCache(player);
+
+        if (sp.getMoney() < item.price * amount) {
+          player.sendMessage({ translate: "system.buy.outMoney" });
+          return;
+        }
+
+        sp.minMoney(item.price * amount);
+        let total = amount * item.amount;
+
+        sp.inventory.addItem(item.item, total);
+      });
+  }
+  static buyWithVoxn(player: Player, category: ShopCategory, id: number): void {
+    const item = category.items[id];
+
+    new ModalFormData()
+      .title({ translate: "system.buy.item" })
+      .label({ translate: item.item })
+      .label({
+        rawtext: [
+          { translate: "system.buy.info" },
+          { text: "\n" },
+          { text: String(item.price) },
+          { translate: "currency.voxn" },
+          { text: "\n" },
+          { translate: "system.amount" },
+          { text: String(item.amount) },
+          { text: "\n" },
+        ],
+      })
+      .textField({ translate: "system.buy.amount" }, { translate: "type.number" })
+      .submitButton({ translate: "system.buy.submit" })
+      .show(player)
+      .then((e) => {
+        if (e.canceled) return;
+
+        const formValues = e.formValues ?? [];
+        let amount: number = 0;
+        if (typeof formValues[2] === "string") {
+          const parsed = parseInt(formValues[2]);
+          amount = isNaN(parsed) ? 0 : parsed;
+        } else if (typeof formValues[2] === "number") {
+          amount = formValues[2];
+        }
+
+        if (amount < 0) {
+          player.sendMessage({ translate: "system.invalid.buy" });
+          this.buyWithVoxn(player, category, id);
+          return;
+        }
+
+        const sp = Terra.getSpecialistCache(player);
+
+        if (sp.getVoxn() < item.price * amount) {
+          player.sendMessage({ translate: "system.buy.outVoxn" });
+          return;
+        }
+
+        sp.minVoxn(item.price * amount);
+        let total = amount * item.amount;
+
+        sp.inventory.addItem(item.item, total);
       });
   }
 
   static rune(player: Player): void {
+    const sp = Terra.getSpecialistCache(player);
+    const runeStat = sp.rune.getRuneStat();
+    const equipped = sp.getSp().equippedRune.fill("None", 3);
+
     new ActionFormData()
       .title("cz.rune")
-      .body({ translate: "system.rune" })
+      .body({
+        rawtext: [
+          { translate: "system.rune.equipped" },
+          { text: `: [${equipped}]\n\n` },
+          { translate: "system.rune" },
+          {
+            text: `\n
+Atk              : ${runeStat["atk"]}%% + ${runeStat["atkFlat"]} Damage
+Skill             : ${runeStat["skill"]}%% + ${runeStat["skillFlat"]} Damage
+Crit Chance   : ${runeStat["critChance"]}%%
+Crit Damage   : ${(runeStat["critDamage"] ?? 1.2) * 100}%%
+
+Healing Effectivity  : ${(runeStat["healingEffectivity"] ?? 1) * 100}%%
+Skill Damage Reduc  : ${runeStat["skillDamageReduction"]}%% + ${runeStat["skillDamageReduction"]} Damage
+Skill Dodge            : ${runeStat["skillDodge"]}%%
+
+Money Drop    : $${runeStat["moneyDrop"]}
+Stamina Reduc : ${runeStat["staminaReduction"]}
+\n`,
+          },
+          { translate: "cz.fragility" },
+          {
+            text: `\nFragile          : ${runeStat["fragile"]}%%
+Art Fragile     : ${runeStat["artFragile"]}%%
+Fire Fragile    : ${runeStat["fireFragile"]}%%
+`,
+          },
+        ],
+      })
+
+      .label({ translate: "system.rune.setting" })
       .button({ translate: "system.rune.equipped" })
       .button({ translate: "system.rune.list" })
       .show(player)
       .then((e) => {
-        console.warn(e);
+        if (e.canceled) return;
+
+        switch (e.selection) {
+          case 0:
+            this.runeEquipped(player, sp);
+            break;
+        }
       });
+  }
+  static runeEquipped(player: Player, sp: Specialist | undefined = Terra.getSpecialistCache(player)): void {
+    const equipped = sp.getSp().equippedRune;
+    new ActionFormData()
+      .title({ translate: "system.rune.equipped" })
+      .body({ translate: "system.rune.equipped.body" })
+      .button({ text: equipped[0] ?? "None" })
+      .button({ text: equipped[1] ?? "None" })
+      .button({ text: equipped[2] ?? "None" })
+      .button({ translate: "system.back" })
+      .show(player)
+      .then((e) => {});
+  }
+  static runeList(player: Player, sp: Specialist | undefined = Terra.getSpecialistCache(player)): void {
+    const runes = sp.getSp().runes;
+    const ui = new ActionFormData()
+      .title({ translate: "system.rune.equipped" })
+      .body({ translate: "system.rune.equipped.body" });
+
+    runes.forEach((e) => ui.button({ text: `${e.name} | ${e.lvl}` }));
+
+    ui.button({ translate: "system.back" })
+      .show(player)
+      .then((e) => {});
   }
 
   static leaderboard(player: Player): void {
     new ActionFormData()
       .title("cz.leaderboard")
       .body({ translate: "system.leaderboard.body" })
-      .button({ translate: "sort.chating" })
+      .button({ translate: "sort.chatting" })
       .button({ translate: "sort.deaths" })
-      .button({ translate: "sort.guild" })
       .button({ translate: "sort.kills" })
+      .button({ translate: "sort.guild" })
+      .button({ translate: "sort.specialist" })
       .button({ translate: "sort.money" })
       .button({ translate: "sort.rep" })
-      .button({ translate: "sort.specialist" })
       .button({ translate: "sort.voxn" })
       .show(player)
       .then((e) => {
-        console.warn(e);
+        if (e.canceled) return;
+        let data: { category: string; list: { player: Player; value: number; format: string; formator: string }[] } = {
+          category: "",
+          list: [],
+        };
+
+        switch (e.selection) {
+          case 0:
+            data.category = "sort.chatting.name";
+            data.list = Terra.leaderboard.getData().chat.map((e) => {
+              return {
+                value: e.value,
+                format: "%p x %v",
+                formator: "",
+                player: Terra.getPlayer({ id: e.id }) as Player,
+              };
+            });
+            break;
+          case 1:
+            data.category = "sort.deaths.name";
+            data.list = Terra.leaderboard.getData().deaths.map((e) => {
+              return {
+                value: e.value,
+                format: "%v %f x %p",
+                formator: "Deaths",
+                player: Terra.getPlayer({ id: e.id }) as Player,
+              };
+            });
+            break;
+          case 2:
+            data.category = "sort.kills.name";
+            data.list = Terra.leaderboard.getData().kills.map((e) => {
+              return {
+                value: e.value,
+                format: "%v %f x %p",
+                formator: "Kills",
+                player: Terra.getPlayer({ id: e.id }) as Player,
+              };
+            });
+            break;
+        }
+
+        const ui = new ActionFormData()
+          .title({ translate: data.category })
+          .body({ translate: data.category + ".body" });
+
+        data.list.forEach((r) =>
+          ui.button({
+            text: r.format.replace(/%f/g, r.formator).replace(/%v/g, String(r.value)).replace(/%p/g, r.player.name),
+          })
+        );
+
+        ui.show(player).then((r) => {});
       });
   }
 
@@ -1258,9 +1497,7 @@ class GachaPanel {
 
           const find = rune.getRune().find((e) => e.name === result);
 
-          find
-            ? player.runCommand(`give @s cz:diamond_ascend`)
-            : rune.addRune({ name: result, lvl: 1, stats: { ...(runeList as Record<string, any>)[result] } });
+          find ? player.runCommand(`give @s cz:diamond_ascend`) : rune.addRune({ name: result, lvl: 1 });
 
           player.sendMessage({ translate: "system.gacha.result.rune", with: [Formater.formatName(result)] });
         }

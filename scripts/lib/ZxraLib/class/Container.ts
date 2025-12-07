@@ -28,22 +28,28 @@ class PlayerContainers {
   addItem(identifier: string, amount: number = 1, { enchant }: { enchant?: { id: string; level: number } } = {}): void {
     if (identifier === "") throw new Error("Missing identifier");
 
-    const newItem = new ItemStack(identifier, amount);
-    if (enchant && enchant.id) {
-      const enchantable = newItem.getComponent("enchantable");
-      const enchantType = EnchantmentTypes.get(enchant.id);
-      if (!enchantType || !enchantable?.canAddEnchantment({ type: enchantType, level: enchant.level || 1 })) return;
+    let now = amount;
 
-      enchantable.addEnchantment({ type: enchantType, level: enchant.level || 1 });
+    while (now > 0) {
+      const stack = now > 64 ? 64 : now;
+      const newItem = new ItemStack(identifier, stack);
+      if (enchant && enchant.id) {
+        const enchantable = newItem.getComponent("enchantable");
+        const enchantType = EnchantmentTypes.get(enchant.id);
+        if (!enchantType || !enchantable?.canAddEnchantment({ type: enchantType, level: enchant.level || 1 })) return;
+
+        enchantable.addEnchantment({ type: enchantType, level: enchant.level || 1 });
+      }
+
+      const inventory = this.player.getComponent("inventory");
+      if (!inventory || inventory.container.emptySlotsCount < 1) {
+        this.player.dimension.spawnItem(newItem, this.player.location);
+        return;
+      }
+
+      inventory.container.addItem(newItem);
+      now -= stack;
     }
-
-    const inventory = this.player.getComponent("inventory");
-    if (!inventory || inventory.container.emptySlotsCount < 1) {
-      this.player.dimension.spawnItem(newItem, this.player.location);
-      return;
-    }
-
-    inventory.container.addItem(newItem);
   }
 
   /**
@@ -66,7 +72,7 @@ class PlayerContainers {
       const item = slot.getItem();
       if (item?.typeId !== identifier) continue;
 
-      count = +item.amount;
+      count += item.amount;
     }
 
     return count;

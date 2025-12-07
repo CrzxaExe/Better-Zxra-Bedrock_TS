@@ -125,7 +125,7 @@ export const unique: { [key: string]: SpecialistWeapon } = {
       [
         [
           { name: "stamina", value: 26 },
-          { name: "cooldown", value: 25 },
+          { name: "cooldown", value: 20 },
           { name: "atk_percentage", value: 2.2 },
           { name: "radius", value: 5 },
         ],
@@ -205,7 +205,7 @@ export const unique: { [key: string]: SpecialistWeapon } = {
       [
         [
           { name: "stamina", value: 24 },
-          { name: "cooldown", value: 21 },
+          { name: "cooldown", value: 20 },
           { name: "duration", value: 30 },
           { name: "atk_percentage", value: 3.0 },
           { name: "skill_buff", value: 0.6 },

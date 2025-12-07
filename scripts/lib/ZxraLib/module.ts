@@ -66,6 +66,7 @@ export { settings } from "./data/setting";
 export { guildShop } from "./data/shop";
 
 // Enums export
+export { Currency, CurrencyEnums } from "./enum/currency";
 export { BzbEntity } from "./enum/entity";
 export { StatusDecay, StatusDecayEnum, StatusTypes, StatusTypesEnum } from "./enum/status";
 export { WeaponTypes } from "./enum/weaponTypes";
@@ -120,6 +121,8 @@ export type {
   Setting,
   SettingRules,
   SettingStarterItem,
+  ShopItem,
+  ShopCategory,
   SkillLib,
   StatusData,
   StatusFinder,

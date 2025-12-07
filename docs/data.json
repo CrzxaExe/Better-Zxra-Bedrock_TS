@@ -8,12 +8,7 @@
       "deathLocation": true,
       "debug": true,
       "guildCreateCost": 2000,
-      "rules": {
-        "naturalregeneration": false,
-        "recipesunlock": false,
-        "showcoordinates": true,
-        "spawnradius": 1
-      },
+      "rules": { "naturalregeneration": false, "recipesunlock": false, "showcoordinates": true, "spawnradius": 1 },
       "saveInterval": 24000,
       "shopMultiplier": 1,
       "staminaAction": 5,
@@ -23,12 +18,7 @@
       "staminaRecovery": 2,
       "staminaRun": 2.5,
       "starterItemMessage": "system.welcome.item",
-      "starterItems": [
-        {
-          "item": "cz:stats",
-          "amount": 1
-        }
-      ],
+      "starterItems": [{ "item": "cz:stats", "amount": 1 }],
       "staterItem": true,
       "thirstRun": 0.03,
       "uiLevelRequirement": true,
@@ -40,52 +30,27 @@
     "guilds": [
       {
         "id": "178C82C3VR221",
-        "name": "§b§lZxras",
-        "level": {
-          "lvl": 10,
-          "xp": 0
-        },
+        "name": "§b§lZxra",
+        "level": { "lvl": 10, "xp": 0 },
         "des": "",
         "approval": false,
         "maxMember": 5,
-        "members": [
-          {
-            "id": "-4294967295",
-            "name": "CrzxaExe3",
-            "role": "super_admin"
-          }
-        ],
+        "members": [{ "id": "-4294967295", "name": "CrzxaExe3", "role": "super_admin" }],
         "applier": [],
-        "token": 9101
+        "token": 8685
       }
     ],
-    "leaderboards": {
-      "chat": [],
-      "deaths": [],
-      "kills": []
-    }
+    "leaderboards": { "chat": [], "deaths": [], "kills": [] }
   },
   "specialist": [
     {
       "id": "-4294967295",
-      "level": {
-        "current": 8,
-        "xp": 112.23333333333318
-      },
-      "stamina": {
-        "current": 100,
-        "max": 100,
-        "additional": 0,
-        "rune": 0
-      },
-      "thirst": {
-        "current": 87.98999999999454,
-        "max": 100,
-        "temp": 0
-      },
-      "money": 420,
-      "voxn": 69,
-      "rep": -10,
+      "level": { "current": 1, "xp": 31.800000000000004 },
+      "stamina": { "current": 100, "max": 100, "additional": 0, "rune": 0 },
+      "thirst": { "current": 96.84999999999867, "max": 100, "temp": 0 },
+      "money": 4242.5,
+      "voxn": 0,
+      "rep": 0,
       "title": "",
       "equippedRune": [],
       "runes": [],
@@ -96,14 +61,9 @@
       "components": []
     }
   ],
-  "story": {
-    "storyId": 0,
-    "progress": []
-  },
+  "story": { "storyId": 0, "progress": [] },
   "pityPlayer": [],
   "weaponComponent": [],
-  "bossChallenge": {
-    "participants": []
-  },
+  "bossChallenge": { "participants": [] },
   "waveChallenge": {}
 }

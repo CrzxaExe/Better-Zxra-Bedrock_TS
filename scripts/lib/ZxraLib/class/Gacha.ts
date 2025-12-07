@@ -21,7 +21,6 @@ class Gacha {
   ): void {
     if (amount <= 0) return;
     pityData.pity[key] += amount;
-
     Terra.setPityPlayer(player, pityData);
   }
 
@@ -41,7 +40,6 @@ class Gacha {
   ): void {
     if (value < 0) return;
     pityData.pity[key] = value;
-
     Terra.setPityPlayer(player, pityData);
   }
 
@@ -54,7 +52,6 @@ class Gacha {
    */
   static rune(): string {
     const available = Object.keys(runeList);
-
     return available[Math.floor(Math.random() * available.length)];
   }
 

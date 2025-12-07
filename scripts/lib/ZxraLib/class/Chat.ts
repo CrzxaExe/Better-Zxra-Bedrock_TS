@@ -15,7 +15,7 @@ class Chat {
   static privateMessage(sender: Player, message: string, targets: Player[]): void {
     if (message === "") return;
 
-    const format: string = "%name -> %msg";
+    const format: string = "#%name\n%msg";
 
     targets.forEach((player: Player) =>
       player.sendMessage({ text: format.replace("%msg", message).replace("%name", sender.name) })
@@ -31,7 +31,7 @@ class Chat {
   static guildMessage(sender: Player, message: string): void {
     const guild = Terra.guild.getGuildByPlayer(sender);
 
-    const format: string = "%guild%-> %name > %msg";
+    const format: string = "%guild%-> %name\n%msg";
 
     if (!guild) {
       sender.sendMessage({ translate: "system.notHave.guild" });
@@ -59,7 +59,7 @@ class Chat {
   static globalMessage(sender: Player, message: string): void {
     if (message === "") return;
 
-    const format: string = Terra.world.setting?.customChatPrefix || settings.customChatPrefix || "%name > %msg";
+    const format: string = Terra.world.setting?.customChatPrefix || settings.customChatPrefix || "%name\n%msg";
     const sp = Terra.getSpecialistCache(sender),
       data = sp.getSp();
 

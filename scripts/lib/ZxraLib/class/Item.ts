@@ -11,7 +11,6 @@ interface Item {
 class Item {
   constructor(item: ItemStack) {
     if (!item) throw new Error("Missing item");
-
     this.itemStack = item;
   }
 

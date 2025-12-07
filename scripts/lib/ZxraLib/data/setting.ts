@@ -11,7 +11,7 @@ export const settings: Setting = {
       %splvl    = specialist level
       %title    = specialist title
   */
-  customChatPrefix: "%guild%name > %msg",
+  customChatPrefix: "%guild%name\n%msg",
   // if true, every damage applier will summon float text of damage
   damageIndicator: true,
   // Player will get their death location

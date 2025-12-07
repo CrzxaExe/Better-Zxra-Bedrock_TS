@@ -67,10 +67,11 @@ class Leaderboard {
     const data = this.getData(),
       find = data[type].findIndex((e) => e.id === id);
 
-    if (find === -1) return;
-
+    if (find === -1) {
+      data[type].push({ id, name: (Terra.getPlayer({ id }) as Player).name, value: amount });
+      return;
+    }
     data[type][find].value += amount;
-
     this.setData(data);
   }
 

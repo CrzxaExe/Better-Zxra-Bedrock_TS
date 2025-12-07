@@ -2,7 +2,7 @@ import { StartupEvent, system, world, WorldLoadAfterEvent } from "@minecraft/ser
 import { commandEnums, Terra, ZxraLib } from "../ZxraLib/module";
 
 world.afterEvents.worldLoad.subscribe(({}: WorldLoadAfterEvent) => {
-  console.warn("\n[System] Loading players");
+  console.warn("[System] Loading players");
 
   Terra.setPlayer(world.getAllPlayers());
 });

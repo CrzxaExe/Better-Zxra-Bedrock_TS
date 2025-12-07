@@ -1,6 +1,6 @@
 import { EntityHealthComponent, Entity as mcEntity, MolangVariableMap, Player } from "@minecraft/server";
 import { Calc, Specialist, Terra, Weapon } from "../../ZxraLib/module";
-import { Boltizer, Liberator, Reaper, weaponData, weaponRaw } from "../module";
+import { Boltizer, Liberator, Reaper, slayerLostHPPercentation, weaponData, weaponRaw } from "../module";
 import { Destiny } from "../ability/Destiny";
 
 // Boltizer
@@ -21,6 +21,7 @@ Weapon.addHitPasif("boltizer", (user: Player, target: mcEntity, { damage }: { da
   );
 });
 
+// Destiny
 Weapon.addHitPasif("destiny", (user: Player, target: mcEntity, { sp }: { sp: Specialist }) => {
   const weapon = Terra.getSpecialist(user.id)?.weapons.find((e) => e.weapon === "destiny") ?? weaponRaw.unique.destiny;
   const ent = Terra.getEntityCache(target);
@@ -33,6 +34,7 @@ Weapon.addHitPasif("destiny", (user: Player, target: mcEntity, { sp }: { sp: Spe
 
   Destiny.pasif1(ent, sp, weapon);
 });
+
 // Liberator
 Weapon.addHitPasif("liberator", (user: Player, _: unknown, { sp }: { sp: Specialist }) => {
   const stack = sp.status.getStatus({ name: "soul_of_death" })[0]?.lvl ?? 0;
@@ -76,14 +78,24 @@ Weapon.addKillPasif("liberator", (user: Player, _: unknown, { sp }: { sp: Specia
 // Kyle
 Weapon.addHitPasif("kyles", (user: Player, target: mcEntity, { sp }: { sp: Specialist }) => {
   const hp = user.getComponent("health") as EntityHealthComponent;
-  const hpPercentage: number = Calc.hpLostPercentage(hp);
+  const hpPercentage: number = slayerLostHPPercentation(user);
 
   const rune = sp.rune.getRuneStat();
 
   Terra.getEntityCache(target).addDamage((hp.defaultValue ?? 20) * hpPercentage, {
-    cause: "entityAttack",
+    cause: "void",
     damagingEntity: user,
     isSkill: false,
     rune,
+  });
+});
+Weapon.addHitedPasif("kyles", (user: Player, _: unknown, { sp, damage }: { sp: Specialist; damage: number }) => {
+  const stack = sp.status.getStatus({ name: "zelxt_point" })[0]?.lvl ?? 0;
+
+  sp.status.addStatus("zelxt_point", 1, {
+    type: "stack",
+    decay: "none",
+    stack: true,
+    lvl: Math.abs(stack + damage > 200 ? 200 - stack : damage),
   });
 });

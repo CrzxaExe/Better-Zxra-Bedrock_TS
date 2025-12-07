@@ -9,7 +9,7 @@ import {
   ScriptEventSource,
   Vector3,
 } from "@minecraft/server";
-import { GuildData, NpcModels, Specialist, SpecialistData, StatusDecay, StatusTypes } from "../module";
+import { Currency, GuildData, NpcModels, Specialist, SpecialistData, StatusDecay, StatusTypes } from "../module";
 
 // Anti heal data
 type AntiHealData = {
@@ -173,6 +173,8 @@ interface RedeemRewards {
 
 // Rune Stats interface
 type RuneStats = {
+  components?: number[];
+
   atk?: number;
   atkFlat?: number;
 
@@ -202,6 +204,7 @@ interface RuneAction {
   onCrit?: Function;
   onDodge?: Function;
   onHit?: Function;
+  onHited?: Function;
   onKill?: Function;
 }
 
@@ -259,6 +262,22 @@ interface SettingStarterItem {
   item: string;
   amount: number;
 }
+
+// Shop
+type ShopItem = {
+  item: string;
+  name: string;
+  amount: number;
+  currency: Currency;
+  price: number;
+  textures: string;
+};
+type ShopCategory = {
+  name: string;
+  displayName: string;
+  items: ShopItem[];
+  textures: string;
+};
 
 // Skill interface
 interface SkillLib {
@@ -374,6 +393,8 @@ export type {
   Setting,
   SettingRules,
   SettingStarterItem,
+  ShopItem,
+  ShopCategory,
   SkillLib,
   StatusData,
   StatusFinder,

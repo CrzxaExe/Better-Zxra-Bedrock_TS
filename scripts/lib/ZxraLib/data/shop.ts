@@ -1,5 +1,37 @@
-import { GuildShopItem } from "../module";
+import { GuildShopItem, ShopCategory } from "../module";
 
+export const globalShop: ShopCategory[] = [
+  {
+    name: "blocks",
+    displayName: "category.blocks",
+    textures: "textures/blocks/bookshelf",
+    items: [
+      {
+        item: "bookshelf",
+        name: "tile.bookshelf.name",
+        amount: 1,
+        price: 32,
+        currency: "money",
+        textures: "textures/blocks/bookshelf",
+      },
+    ],
+  },
+  {
+    name: "minerals",
+    displayName: "category.minerals",
+    textures: "textures/items/iron_ingot",
+    items: [
+      {
+        item: "iron_ingot",
+        name: "item.iron_ingot.name",
+        amount: 3,
+        price: 1.5,
+        currency: "money",
+        textures: "textures/items/iron_ingot",
+      },
+    ],
+  },
+];
 export const guildShop: { [key: string]: GuildShopItem[] } = {
   special: [
     { item: "totem_of_undying", lvl: 0, amount: 2, token: 16, texture: "textures/items/totem" },

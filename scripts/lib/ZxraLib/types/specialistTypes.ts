@@ -23,7 +23,6 @@ interface SpecialistData {
 interface SpecialistRune {
   name: string;
   lvl: number;
-  stats: RuneStats;
 }
 interface SpecialistComponent {
   name: string;

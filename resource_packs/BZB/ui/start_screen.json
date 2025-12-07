@@ -3,58 +3,27 @@
 
   "start_cz": {
     "type": "panel",
+    "size": ["100%c", "100%c"],
     "controls": [
-      {
-        "black_screen": {
-          "type": "image",
-          "texture": "textures/ui/black.png",
-          "uv": "@cz_anim.start_screen_cz",
-          "fill": true,
-          "layer": 69
-        }
-      },
       {
         "zxras_logo": {
           "type": "image",
-          "texture": "textures/ui/zxra.png",
+          "offset": ["-34% - 5px", 0],
+          "texture": "textures/cz/creator.png",
           "layer": 70,
           "alpha": "@cz_anim.logo_cz",
-          "size": [120, 120]
+          "size": [80, 80]
         }
       },
       {
-        "zxra_creation": {
-          "type": "label",
-          "text": "cz.comp",
-          "size": ["default", "default"],
-          "offset": [0, 26],
-          "font_type": "smooth",
-          "font_scale_factor": 1.7,
-          "shadow": true,
+        "addon_name": {
+          "type": "image",
+          "offset": ["24% + 5px", 0],
+          "size": ["90px", "20px"],
           "alpha": "@cz_anim.logo_cz",
+          "texture": "textures/cz/logo_name.png",
           "layer": 70
         }
-      },
-      {
-        "version_cz": {
-          "type": "label",
-          "text": "cz.version",
-          "size": ["default", "default"],
-          "offset": [0, 40],
-          "shadow": true,
-          "alpha": "@cz_anim.logo_cz",
-          "layer": 70
-        }
-      }
-    ]
-  },
-
-  "start_screen_content": {
-    "modifications": [
-      {
-        "array_name": "controls",
-        "operation": "insert_front",
-        "value": [{ "start_cz@start.start_cz": {} }]
       }
     ]
   },

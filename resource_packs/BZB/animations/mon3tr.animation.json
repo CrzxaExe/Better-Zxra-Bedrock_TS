@@ -9,9 +9,6 @@
 					"rotation": [47.5, 0, 0],
 					"position": [0, 2, 3]
 				},
-				"head": {
-					"rotation": [12.5, 0, 0]
-				},
 				"tail": {
 					"rotation": {
 						"0.0": {
@@ -827,9 +824,6 @@
 					}
 				},
 				"tail4": {
-					"rotation": [0, 0, 0]
-				},
-				"mouth": {
 					"rotation": [0, 0, 0]
 				}
 			}

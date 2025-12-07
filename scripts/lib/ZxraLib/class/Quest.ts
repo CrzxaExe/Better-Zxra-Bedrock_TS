@@ -54,36 +54,77 @@ class Quest {
   }
 
   // Quest method
+  /**
+   * Get quest data information
+   *
+   * @param index index of the quest
+   * @returns data of the quest
+   */
   getQuest(index: number): QuestData | undefined {
     if (index < 0) return;
     return questIndex[index];
   }
+
+  /**
+   * Get quest index from quest data
+   *
+   * @param quest data of the quest
+   * @returns index of quest
+   */
   getQuestIndex(quest: QuestData): number {
     return questIndex.findIndex((e) => e.title === quest.title);
   }
+
+  /**
+   * Get quest id by name of the quest
+   *
+   * @param name name id of quest
+   * @returns QuestFind | undefined
+   */
   getQuestByTitle(name: string): QuestFind | undefined {
     const data = questIndex.findIndex((e) => e.title === name);
     if (!data) return;
     return { id: data, quest: questIndex[data] };
   }
 
+  /**
+   * Get player quest data
+   *
+   * @returns QuestPlayer
+   */
   getPlayerQuest(): QuestPlayer {
     return this.in.sp.getSp().quest || { id: -1, progress: [] };
   }
+
+  /**
+   * Clear player quest data
+   */
   clearPlayerQuest(): void {
     const data = this.in.sp.getSp();
     data.quest = undefined;
     this.in.sp.setSp(data);
   }
+
+  /**
+   * Update player quest data
+   *
+   * @param index progress index
+   * @param amount value of progress added
+   */
   updatePlayerQuest(index: number, amount: number = 1): void {
     if (index < 0) throw new Error("Index must positive");
 
     const data = this.in.sp.getSp();
     data.quest!.progress[index] += amount;
     this.in.sp.setSp(data);
-
     this.questReward(data.quest!);
   }
+
+  /**
+   * Set player quest
+   *
+   * @param quest quest data
+   */
   setPlayerQuest(quest: QuestData): void {
     const data = this.in.sp.getSp();
 
@@ -93,6 +134,10 @@ class Quest {
     };
     this.in.sp.setSp(data);
   }
+
+  /**
+   * Set a random quest to player
+   */
   setRandom(): void {
     const availableQuest = questIndex.filter((e) => e.rep <= this.in.sp.getRep());
 
@@ -106,12 +151,24 @@ class Quest {
     this.setPlayerQuest(quest);
   }
 
+  /**
+   * Check if quest are clear or not
+   *
+   * @param data player quest data
+   * @returns boolean, true if clear
+   */
   isQuestClear(data: QuestPlayer = this.getPlayerQuest()): boolean {
     if (data.id === -1) return false;
     const quest = this.getQuest(data.id);
 
     return quest ? data.progress.every((e, i) => e >= quest.task[i].amount) : false;
   }
+
+  /**
+   * Give player a quest reward
+   *
+   * @param data player quest data
+   */
   questReward(data: QuestPlayer): void {
     if (data.id === -1) return;
     if (!this.isQuestClear(data)) return;
@@ -142,7 +199,12 @@ class Quest {
     });
   }
 
-  // Get raw
+  /**
+   * Return list of string of quest reward
+   *
+   * @param quest quest data
+   * @returns string
+   */
   rawReward(quest: QuestData): string {
     const result: string[] = [];
 
@@ -172,6 +234,14 @@ class Quest {
 
     return result.join("\n");
   }
+
+  /**
+   * Return player progress data by string
+   *
+   * @param quest quest data
+   * @param playerQuest player quest data
+   * @returns string
+   */
   rawAct(quest: QuestData, playerQuest: QuestPlayer = this.getPlayerQuest()): string {
     const result: string[] = [];
 

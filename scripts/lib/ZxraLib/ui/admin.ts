@@ -1,5 +1,5 @@
 import { Player } from "@minecraft/server";
-import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
+import { ActionFormData, MessageFormData, ModalFormData } from "@minecraft/server-ui";
 import { Setting, settings, Terra } from "../module";
 
 class AdminPanel {
@@ -7,11 +7,33 @@ class AdminPanel {
     new ActionFormData()
       .title("cz:admin_panel")
       .body({ translate: "cz.admin_panel.body" })
+      .button({ translate: "settings.world" })
+      .button({ translate: "system.plugins" })
+
+      .show(player)
+      .then((e) => {
+        if (e.canceled) return;
+
+        switch (e.selection) {
+          case 0:
+            this.world(player);
+            break;
+          case 1:
+            this.pluginsList(player);
+            break;
+        }
+      });
+  }
+
+  static world(player: Player): void {
+    new ActionFormData()
+      .title("settings:world")
+      .body({ translate: "settings.world.body" })
       .button({ translate: "system.change.settings" })
       .button({ translate: "system.save" })
       .button({ translate: "system.worldData.export" })
       .button({ translate: "system.worldData.import" })
-      .button({ translate: "system.plugins" })
+      .button({ translate: "system.worldSettings.reset" })
 
       .show(player)
       .then((e) => {
@@ -23,7 +45,7 @@ class AdminPanel {
             break;
           case 1:
             Terra.save(true);
-            this.home(player);
+            this.world(player);
             break;
           case 2:
             this.exportData(player);
@@ -32,8 +54,9 @@ class AdminPanel {
             this.importData(player);
             break;
           case 4:
-            this.pluginsList(player);
+            this.resetSettings(player);
             break;
+          case 5:
         }
       });
   }
@@ -172,6 +195,26 @@ class AdminPanel {
       .show(player)
       .then((e) => {
         if (e.canceled) return;
+      });
+  }
+
+  static resetSettings(player: Player): void {
+    new MessageFormData()
+      .title({ translate: "system.reset.settings" })
+      .body({ translate: "system.reset.settings.form" })
+      .button1({ translate: "system.confirm" })
+      .button2({ translate: "system.cancel" })
+      .show(player)
+      .then((e) => {
+        if (e.canceled) return;
+
+        if (e.selection === 1) {
+          this.home(player);
+          return;
+        }
+
+        Terra.resetWorldSettingsData();
+        player.sendMessage({ translate: "system.reset.settings.complete" });
       });
   }
 

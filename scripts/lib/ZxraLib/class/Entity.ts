@@ -41,9 +41,8 @@ interface Entity {
 class Entity {
   constructor(entity: any) {
     if (!entity) throw new Error("Missing Entity");
-    entity = entity as mcEntity;
 
-    this.source = entity;
+    this.source = entity as mcEntity;
     this.id = entity.id;
     this.family = entity.getComponent("type_family");
     this.status = new Status(this);
@@ -57,7 +56,7 @@ class Entity {
    * @returns EntityData
    */
   getEnt(defaultValue: EntityData = { id: this.id, status: [] }): EntityData {
-    return Terra.getDataEntity(this.id) || defaultValue;
+    return Terra.getDataEntity(this.id) ?? defaultValue;
   }
 
   /**
@@ -86,7 +85,6 @@ class Entity {
     const status = this.status.getData();
 
     status.filter((e) => e.decay === "time").forEach((e) => this.status.minStatus(e.name, 0.25));
-
     this.controllerActiveStatusEffect(status);
   }
 
@@ -98,7 +96,7 @@ class Entity {
     status.forEach((e: StatusData) => {
       switch (e.type) {
         case "wet":
-          if (!this.isOnFire()) return;
+          if (!this.isOnFire()) break;
           this.source.extinguishFire();
           break;
       }
@@ -125,7 +123,6 @@ class Entity {
    */
   isTeammate(player: Player): boolean {
     if (!this.is("player")) return false;
-
     return Terra.guild.getGuildByPlayer(player)?.members.some((e) => e.id === (this.source.id as string)) ?? false;
   }
 
@@ -212,12 +209,12 @@ class Entity {
       }
 
       // Dodge chance
-      if ((actorRune.skillDodge || 0) > 0 && options.isSkill) {
+      if ((actorRune.skillDodge ?? 0) > 0 && options.isSkill) {
         if (Math.floor(Math.random() * 100) > 100) return;
       }
 
-      damage += options.rune?.atkFlat || 0;
-      if (options.isSkill) damage += options.rune?.skillFlat || 0 - (actorRune.skillDamageReductionFlat || 0);
+      damage += options.rune?.atkFlat ?? 0;
+      if (options.isSkill) damage += options.rune?.skillFlat ?? 0 - (actorRune.skillDamageReductionFlat ?? 0);
 
       const fragility =
         {
@@ -232,14 +229,14 @@ class Entity {
       if (["fire", "lighting"].includes(options.cause))
         multiplier += this.status.decimalCalcStatus({ type: "elemental_fragile" }, 0, 0.01, true);
 
-      if (options.isSkill) damage *= 1 - (actorRune.skillDamageReduction || 0);
+      if (options.isSkill) damage *= 1 - (actorRune.skillDamageReduction ?? 0);
 
       damage *= multiplier;
 
       // Crit chance
-      if ((options.rune?.critChance || 0) > 0) {
-        if (Math.floor(Math.random() * 100) > 100 * (1 - (options.rune?.critChance || 0)))
-          damage *= options.rune?.critDamage || 1;
+      if ((options.rune?.critChance ?? 0) > 0) {
+        if (Math.floor(Math.random() * 100) > 100 * (1 - (options.rune?.critChance ?? 0)))
+          damage *= options.rune?.critDamage ?? 1;
       }
 
       this.source.applyDamage(Math.round(damage), {
@@ -278,7 +275,7 @@ class Entity {
 
     switch (identifier) {
       case "kyle":
-        const stack = sp.status.getStatus({ name: "zelxt_point" })[0]?.lvl || 0;
+        const stack = sp.status.getStatus({ name: "zelxt_point" })[0]?.lvl ?? 0;
 
         if (stack >= 200) return;
 
@@ -300,7 +297,6 @@ class Entity {
   setCurrentHP(value: number): void {
     const hp: EntityHealthComponent | undefined = this.source.getComponent("health");
     if (!hp) return;
-
     hp.setCurrentValue(value);
   }
 
@@ -338,7 +334,7 @@ class Entity {
    * @param showParticles default true
    */
   addEffectOne(name: string, duration: number = 1, amplifier: number = 0, showParticles: boolean = true): void {
-    if (!name) throw new Error("Missing Name of Effect");
+    if (name === "") throw new Error("Missing Name of Effect");
     this.source.addEffect(EffectTypes.get(name) || name, duration * 20, { amplifier, showParticles });
   }
 
@@ -454,7 +450,6 @@ class Entity {
     }
 
     if (!Array.isArray(cmd)) throw new Error("Invalid parameter: cmd must be Array<string> or string");
-
     cmd.forEach((e) => this.source.runCommand(e));
   }
 
@@ -481,7 +476,6 @@ class Entity {
       }
 
       if (!Array.isArray(tags)) throw new Error("Invalid parameter: tags must be string[] or string");
-
       tags.forEach((tag: string) => this.source.addTag(tag));
     });
   }
@@ -494,7 +488,6 @@ class Entity {
    */
   getTag(finder: { tag: string }): string[] {
     const tags = this.source.getTags();
-
     if (!finder) return tags;
     return tags.filter((e: string) => finder.tag === e);
   }
@@ -511,7 +504,6 @@ class Entity {
 
     if (!Array.isArray(tags)) return false;
     const res = tags.map((e) => this.source.hasTag(e));
-
     return combined ? res.every((e) => e === true) : res;
   }
 
@@ -636,7 +628,6 @@ class Entity {
   getEntityFromDistance(maxDistance: number | undefined = 6): EntityRaycastHit[] {
     let excludeNames: string[] = [];
     if (this.source instanceof Player) excludeNames = [...Terra.guild.getTeammate(this.source)];
-
     return this.source.getEntitiesFromViewDirection({ maxDistance, excludeNames, excludeTypes: NOT_VALID_ENTITY });
   }
 
@@ -757,7 +748,7 @@ class Entity {
    * Get location of this entity view
    *
    * @param distance default 6
-   * @returns
+   * @returns Vector3, location of view
    */
   getLocationInFront(distance: number = 6): Vector3 {
     const entity = this.getEntityFromDistance(distance);
@@ -803,7 +794,6 @@ class Entity {
    */
   spawnParticle(namespace: string, event: string, location: Vector3 | undefined = this.source.location): void {
     const particle = this.source.dimension.spawnEntity(namespace, location);
-
     particle.triggerEvent(event);
   }
 }

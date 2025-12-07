@@ -30,7 +30,7 @@ world.afterEvents.entityDie.subscribe(
           deadEntity.triggerEvent("cz:zelxt_revive");
         }
 
-        Terra.leaderboard.addLb("deaths", deadEntity.id);
+        Terra.leaderboard.addLb("deaths", deadEntity.id, 1);
       }
 
       if (!(damagingEntity instanceof Player)) return;

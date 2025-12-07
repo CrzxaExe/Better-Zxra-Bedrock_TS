@@ -21,9 +21,9 @@ Changelogs:
 
 Progress Rewrite:
 
-- Content: 16.2%
-- System: 67.9%
-- Ui: 36.8%
+- Content: 16.4%
+- System: 68.7%
+- Ui: 37.2%
 
 Features:
 

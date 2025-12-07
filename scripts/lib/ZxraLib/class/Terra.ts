@@ -129,11 +129,27 @@ class Terra {
   }
 
   /**
+   * Reset world settings to default
+   */
+  static resetWorldSettingsData(): void {
+    this.world.setting = Parser.clone(settings);
+    this.world.redeem = [] as RedeemData[];
+  }
+
+  /**
    * Import addon data from external JSON
    *
    * @param data data want to load (JSON)
    */
-  static importDataFromJSON(data: FullWorldData): void {}
+  static importDataFromJSON(data: FullWorldData): void {
+    this.world.guilds = data.world.guilds as GuildData[];
+    this.world.leaderboards = data.world.leaderboards as LeaderboardData;
+    this.world.setting = data.world.setting;
+    this.world.redeem = data.world.redeem as RedeemData[];
+    this.entities = [] as EntityData[];
+    this.pityPlayer = data.pityPlayer as PityPlayer[];
+    this.specialist = data.specialist as SpecialistData[];
+  }
 
   /**
    *  Export addon data from internal App
@@ -266,15 +282,12 @@ class Terra {
    */
   static getActiveDimension(): Dimension[] {
     const players = world.getPlayers();
-    const dimension: Dimension[] = players.reduce((all: Dimension[], cur: Player) => {
+    return players.reduce((all: Dimension[], cur: Player) => {
       if (!all.some((e) => e.id === cur.dimension.id)) {
         all.push(cur.dimension as Dimension);
-        return all;
       }
       return all;
     }, []);
-
-    return dimension;
   }
 
   // Player data cache
@@ -309,8 +322,7 @@ class Terra {
   static getWorldPlayerById(id: string): Player | undefined {
     if (id === "") throw new Error("Invalid id");
 
-    const players = world.getAllPlayers();
-    return players.find((e) => e.id === id);
+    return world.getAllPlayers().find((e) => e.id === id);
   }
 
   // Player Methods
@@ -654,9 +666,7 @@ Member  : ${e.members.length}/${e.maxMember}`;
   static getPlayerWeaponComponent(id: string): WeaponComponent {
     if (id === "") throw new Error("Invalid id");
 
-    const data = this.weaponComponent.find((e) => e.id === id);
-
-    return data || CreateObject.createWeaponComponent(id);
+    return this.weaponComponent.find((e) => e.id === id) ?? CreateObject.createWeaponComponent(id);
   }
 
   /**

@@ -108,7 +108,6 @@ class Cooldown {
    */
   getCdByName(name: string): CooldownData | undefined {
     if (name === "") throw new Error("Invalid name");
-
     return this.getData().find((e) => e.name === name);
   }
 

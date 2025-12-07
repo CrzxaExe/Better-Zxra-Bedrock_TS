@@ -25,6 +25,12 @@ export const unique: { [key: string]: SpecialistWeaponPlayer } = {
     pasifLvl: [0, 0],
     skillLvl: [0, 0, 0, 0],
   },
+  mudrock: {
+    atk: 12,
+    weapon: "mudrock",
+    pasifLvl: [0, 0],
+    skillLvl: [0, 0, 0, 0],
+  },
 };
 
 export const epic: { [key: string]: SpecialistWeaponPlayer } = {

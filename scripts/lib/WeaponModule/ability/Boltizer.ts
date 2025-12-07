@@ -51,7 +51,8 @@ class Boltizer {
     damage: number = 1,
     weapon: SpecialistWeaponPlayer = Terra.getSpecialist(user.id)?.weapons.find((e) => e.weapon === "boltizer") ??
       weaponRaw.unique.boltizer,
-    multiplier: number = 1
+    multiplier: number = 1,
+    state: "skill" | "attack" = "attack"
   ): void {
     let count: number = 0;
 
@@ -59,7 +60,7 @@ class Boltizer {
       const nextEntity: mcEntity | undefined = target[count + 1];
 
       const ent = Terra.getEntityCache(e);
-      this.pasif1(user, e, "attack", multiplier, weapon);
+      this.pasif1(user, e, state, multiplier, weapon);
 
       if (nextEntity) {
         const molang = new MolangVariableMap();
@@ -123,7 +124,7 @@ class Boltizer {
     }, 5);
   }
 
-  static skill3(user: Player, { sp }: SkillLib): void {
+  static skill3(user: Player, { sp, multiplier }: SkillLib): void {
     const data = sp.getSp().weapons.find((e) => e.weapon === "boltizer") || weaponRaw.unique.boltizer,
       skill = weaponData.unique.boltizer.skillLvl[2]![data.skillLvl[2]!];
 
@@ -132,7 +133,7 @@ class Boltizer {
       user.onScreenDisplay.setActionBar({ translate: "skill.noTarget" });
       return;
     }
-    if (!sp.cooldown.canSkill("boltizer_skill3", skill.find((e) => e.name === "cooldown")!.value || 25)) return;
+    if (!sp.cooldown.canSkill("boltizer_skill3", skill.find((e) => e.name === "cooldown")!.value || 20)) return;
 
     sp.playAnim("animation.weapon.boltizer.skill3");
     let loc = { ...target.entity.location };
@@ -148,7 +149,10 @@ class Boltizer {
           this.pasif2(
             user,
             Terra.getEntityCache(target.entity).getChainedEntityFromDistance(5, 3, [user.id]),
-            skill.find((e) => e.name === "atk_percentage")?.value ?? 2.2
+            skill.find((e) => e.name === "atk_percentage")?.value ?? 2.2,
+            data,
+            multiplier,
+            "skill"
           );
         }, i + 6 * i);
       }

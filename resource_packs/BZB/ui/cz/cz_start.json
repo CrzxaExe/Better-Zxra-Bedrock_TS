@@ -159,8 +159,8 @@
                             "type": "panel",
                             "size": ["100%", "100%"],
                             "offset": [7, -2],
-                            "anchor_from": "left",
-                            "anchor_to": "left",
+                            "anchor_from": "left_middle",
+                            "anchor_to": "left_middle",
                             "controls": [
                               {
                                 "paper_doll_name_tag": {
@@ -396,8 +396,7 @@
     "anchor_to": "bottom_middle",
     "size": ["48%", "48% - 24px"],
     "offset": [0, "8%"],
-    "gesture_tracking_button": "button.turn_doll",
-    "tts_ignore_count": 1,
+    "tts_ignore_count": true,
     "button_mappings": [
       {
         "from_button_id": "button.menu_select",
@@ -510,7 +509,32 @@
       }
     ],
     "controls": [
-      { "start_cz@start.start_cz": {} },
+      {
+        "splash_screen": {
+          "type": "panel",
+          "size": ["100%", "100%"],
+          "anchor_from": "center",
+          "anchor_to": "center",
+          "controls": [
+            {
+              "scrn": {
+                "type": "image",
+                "texture": "textures/ui/black.png",
+                "size": ["100%", "100%"],
+                "fill": true,
+                "uv": "@cz_anim.start_screen_cz",
+                "layer": 69
+              }
+            },
+            {
+              "start_screen@start.start_cz": {
+                "anchor_from": "center",
+                "anchor_to": "center"
+              }
+            }
+          ]
+        }
+      },
       {
         "safe_zone": {
           "type": "panel",
@@ -521,8 +545,8 @@
             {
               "title": {
                 "type": "image",
-                "texture": "textures/ui/title",
-                "size": ["22%", 25],
+                "texture": "textures/cz/logo_name.png",
+                "size": ["16%", 20],
                 "offset": [0, 10],
                 "bindings": [
                   {

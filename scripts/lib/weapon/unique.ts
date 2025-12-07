@@ -1,7 +1,18 @@
 import { Player } from "@minecraft/server";
 import { SkillLib, Weapon } from "../ZxraLib/module";
 import { Boltizer, Kyle, Liberator } from "../WeaponModule/module";
+import { Mudrock } from "../WeaponModule/ability/Mudrock";
 
+// BOltizer
+Weapon.registerSkill("boltizer", (user: Player, lib: SkillLib) => {
+  if (!user.isSneaking && user.isOnGround) {
+    Boltizer.skill1(user, lib);
+  } else if (!user.isOnGround) {
+    Boltizer.skill3(user, lib);
+  }
+});
+
+// Kyles
 Weapon.registerSkill("kyles", (user: Player, lib: SkillLib) => {
   if (
     (lib.sp?.status.getStatus({ name: "zelxt_point" })[0]?.lvl || 0) >= 100 &&
@@ -29,16 +40,18 @@ Weapon.registerSkill("kyles", (user: Player, lib: SkillLib) => {
   }
 });
 
+// Liberator
 Weapon.registerSkill("liberator", (user: Player, lib: SkillLib) => {
   if (!user.isSneaking) {
     Liberator.skill1(user, lib);
   }
 });
 
-Weapon.registerSkill("boltizer", (user: Player, lib: SkillLib) => {
-  if (!user.isSneaking && user.isOnGround) {
-    Boltizer.skill1(user, lib);
-  } else if (!user.isOnGround) {
-    Boltizer.skill3(user, lib);
+// Mudrock
+Weapon.registerSkill("mudrock", (user: Player, lib: SkillLib) => {
+  if (!user.isSneaking) {
+    Mudrock.skill1(user, lib);
+  } else if (user.isSneaking && user.getEffect("resistance")) {
+    Mudrock.skill3(user, lib);
   }
 });

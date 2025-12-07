@@ -1,8 +1,6 @@
 {
   "namespace": "cz_anim",
-  
-  // Waduh Ngapain bang buka ini?
-  // Start Screen
+
   "start_screen_cz": {
     "anim_type": "wait",
     "duration": 1.7,
@@ -73,13 +71,13 @@
     "from": 0,
     "to": 1
   },
-  
+
   "dev_panel_anim": {
     "anim_type": "offset",
     "easing": "in_out_quad",
     "duration": 0,
-    "from": [ 0, 0 ],
-    "to": [ -200, 0 ],
+    "from": [0, 0],
+    "to": [-200, 0],
     "next": "@cz_anim.dev_1"
   },
   "dev_1": {
@@ -91,16 +89,16 @@
     "anim_type": "offset",
     "easing": "in_out_quad",
     "duration": 0.9,
-    "from": [ -200, 0 ],
-    "to": [ 19, -8 ]
+    "from": [-200, 0],
+    "to": [19, -8]
   },
-  
+
   "side_panel_anim": {
     "anim_type": "offset",
     "easing": "in_out_quad",
     "duration": 0,
-    "from": [ 0, 0 ],
-    "to": [ 200, 0 ],
+    "from": [0, 0],
+    "to": [200, 0],
     "next": "@cz_anim.side_1"
   },
   "side_1": {
@@ -112,16 +110,16 @@
     "anim_type": "offset",
     "easing": "in_quad",
     "duration": 1.2,
-    "from": [ 200, 0 ],
-    "to": [ 0, 0 ]
+    "from": [200, 0],
+    "to": [0, 0]
   },
-  
+
   "toasting": {
     "anim_type": "offset",
     "easing": "in_out_quad",
     "duration": 0,
-    "from": [ 0, 0 ],
-    "to": [ 0, 100 ],
+    "from": [0, 0],
+    "to": [0, 100],
     "next": "@cz_anim.toast1"
   },
   "toast1": {
@@ -134,24 +132,24 @@
     "anim_type": "offset",
     "easing": "in_out_quad",
     "duration": 1.5,
-    "from": [ 0, 100 ],
-    "to": [ 0, -10 ],
+    "from": [0, 100],
+    "to": [0, -10],
     "next": "@cz_anim.toast3"
   },
   "toast3": {
     "anim_type": "offset",
     "easing": "in_out_quad",
     "duration": 1,
-    "from": [ 0, -10 ],
-    "to": [ 0, 0 ]
+    "from": [0, -10],
+    "to": [0, 0]
   },
-  
+
   "new_menu": {
     "anim_type": "offset",
     "easing": "in_out_quad",
     "duration": 0,
-    "from": [ 0, 0 ],
-    "to": [ -200, 0 ],
+    "from": [0, 0],
+    "to": [-200, 0],
     "next": "@cz_anim.mns1"
   },
   "mns1": {
@@ -164,20 +162,18 @@
     "anim_type": "offset",
     "easing": "in_out_quad",
     "duration": 1.5,
-    "from": [ -200, 0 ],
-    "to": [ 10, 0 ],
+    "from": [-200, 0],
+    "to": [10, 0],
     "next": "@cz_anim.mns3"
   },
   "mns3": {
     "anim_type": "offset",
     "easing": "in_out_quad",
     "duration": 1,
-    "from": [ 10, 0 ],
-    "to": [ 0, 0 ]
+    "from": [10, 0],
+    "to": [0, 0]
   },
-  
-  
-  // Hud Screen
+
   "join": {
     "anim_type": "wait",
     "duration": 3.2,
@@ -195,8 +191,8 @@
     "anim_type": "offset",
     "easing": "in_out_quad",
     "duration": 0.5,
-    "from": [ -220, 0 ],
-    "to": [ 0, 0 ],
+    "from": [-220, 0],
+    "to": [0, 0],
     "next": "@cz_anim.chat1"
   },
   "chat1": {
@@ -208,11 +204,11 @@
     "anim_type": "offset",
     "easing": "in_out_quad",
     "duration": 0.7,
-    "to": [ -420, 0 ],
-    "from": [ 0, 0 ],
+    "to": [-420, 0],
+    "from": [0, 0],
     "destroy_at_end": "chat_grid_item"
   },
-  
+
   "cz_chat_alpha": {
     "anim_type": "alpha",
     "easing": "in_out_quad",
